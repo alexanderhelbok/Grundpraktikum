@@ -115,7 +115,7 @@
 \clearpairofpagestyles
 \setkomafont{pageheadfoot}{\normalfont}
 \ihead{\@name}
-\chead{\textbf{\Large Blatt \@hwnumber}}
+\chead{\textbf{\Large Versuch \@hwnumber}}
 \ohead{\@course \\ \today}
 \cfoot{\pagemark}
 \headheight 35pt

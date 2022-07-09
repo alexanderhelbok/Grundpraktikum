@@ -1,0 +1,9 @@
+**/build
+**/figures
+*.synctex.gz
+*.log
+.directory
+.stfolder
+organizer.sh
+
+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

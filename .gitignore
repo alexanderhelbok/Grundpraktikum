@@ -5,5 +5,7 @@
 .directory
 .stfolder
 organizer.sh
+**/.idea
+**/venv
 
 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

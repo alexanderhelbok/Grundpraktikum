@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from statistics import fmean, stdev
 
 # add path to data and data file names
 path = "/home/taco/Documents/Grundpraktikum/data/"

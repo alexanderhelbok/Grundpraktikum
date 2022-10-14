@@ -16,11 +16,11 @@
 \RequirePackage{enumitem, multicol, tcolorbox, array}
 \tcbuselibrary{breakable,skins,fitting}
 \RequirePackage[headsepline]{scrlayer-scrpage}
-\RequirePackage{graphicx, wrapfig2, multirow}
+\RequirePackage{graphicx, wrapfig2, multirow, multicol, booktabs}
 \RequirePackage{listings} %env ignores LATEX commands, keeping all the line breaks (for printing code)
 \RequirePackage{hyperref}
 \RequirePackage{bookmark}
-\usepackage[font=scriptsize]{caption}
+\usepackage[font=footnotesize]{caption}
 \RequirePackage{custom}
 \RequirePackage{tikz, pgfplots}
 \usetikzlibrary{arrows.meta,positioning, calc, shapes, math, decorations.pathreplacing, decorations.markings}
@@ -105,13 +105,13 @@
 \definecolor{Background}{HTML}{FFFFF2}
 
 % define tcolorbox env 
-\newtcolorbox{mybox}[1]{breakable,pad at break*=1mm, colback=Background,colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}}
+\newtcolorbox{mybox}[1]{breakable,pad at break*=1mm, colback=Background,colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, parbox=false}
 
-\newtcolorbox{myfigure}[2]{colback=Background, colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, capture=fitbox, height=#2cm, parbox=false}
+\newtcolorbox{myfigure}[2]{breakable, colback=Background, colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, capture=fitbox, height=#2cm, parbox=false}
 
 \setlength{\parindent}{16pt}
 \setlength{\parskip}{0.05in}
-\renewcommand{\arraystretch}{1.5}		% change spacing in tabular
+\renewcommand{\arraystretch}{1.2}		% change spacing in tabular
 
 % define customizeable variables
 \newcommand*{\name}[1]{\def\@name{#1}}

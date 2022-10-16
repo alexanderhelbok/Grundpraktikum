@@ -1,9 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+num_files = 2
+files = []
 # add path to data and data file names
 path = "/home/taco/Documents/Grundpraktikum/data/"
-files = ["Versuch 1 - 1.csv", "Versuch 1 - 2.csv"]
+for i in range(1, num_files+1):
+    files.append("Versuch1_" + str(i) + ".csv")
 
 # load data
 data = np.loadtxt(path + files[0], delimiter=",", skiprows=1)
@@ -19,7 +22,7 @@ ax3.plot(data[2:550, 0], data[2:550, 3], color="blue")
 ax3.set_ylabel(r"$a$ in m/s$^2$")
 ax3.set_xlabel(r"$t$ in s")
 plt.subplots_adjust(hspace=0.5)
-plt.xlim(2, 5.5)
+plt.xlim(1.5, 5.5)
 plt.show()
 
 

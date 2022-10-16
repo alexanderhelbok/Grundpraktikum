@@ -13,10 +13,10 @@
 \RequirePackage{mtpro2}
 \pdfmapfile{=mtpro2.map}
 \RequirePackage{mathtools, amsthm, amsfonts, siunitx, physics, chemformula, empheq}
-\RequirePackage{enumitem, multicol, tcolorbox, array}
+\RequirePackage{enumitem, multicol, tcolorbox, array, multirow, booktabs}
 \tcbuselibrary{breakable,skins,fitting}
 \RequirePackage[headsepline]{scrlayer-scrpage}
-\RequirePackage{graphicx, wrapfig2, multirow, multicol, booktabs}
+\RequirePackage{graphicx, wrapfig2}
 \RequirePackage{listings} %env ignores LATEX commands, keeping all the line breaks (for printing code)
 \RequirePackage{hyperref}
 \RequirePackage{bookmark}

@@ -7,3 +7,4 @@
 organizer.sh
 **/.idea
 **/venv
+**/__pycache__

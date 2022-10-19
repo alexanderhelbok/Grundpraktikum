@@ -60,16 +60,18 @@ data = np.loadtxt(path + files[0], delimiter=",", skiprows=1)
 # scatter plot postition, velocity, acceleration with labels in latex
 # x-axis is time from 1.5 to 5.5 seconds
 # scatter size is 0.2
-fig, axs = plt.subplots(3, 1, sharex="col", gridspec_kw={'hspace': 0.1})
-axs[0].scatter(data[150:550, 0], data[150:550, 1], s=0.2, color="red")
-axs[0].set_ylabel(r"$x$ in m")
-axs[1].scatter(data[150:550, 0], data[150:550, 2], s=0.2, color="green")
-axs[1].set_ylabel(r"$v$ in m/s")
-axs[2].scatter(data[150:550, 0], data[150:550, 3], s=0.2, color="blue")
-axs[2].set_ylabel(r"$a$ in m/s$^2$")
-axs[2].set_xlabel(r"$t$ in s")
-plt.xlim(1.5, 5.5)
-plt.show()
+# fig, axs = plt.subplots(3, 1, sharex="col", gridspec_kw={'hspace': 0.1})
+# axs[0].scatter(data[150:550, 0], data[150:550, 1], s=0.2, color="red")
+# axs[0].set_ylabel(r"$x$ in m")
+# axs[1].scatter(data[150:550, 0], data[150:550, 2], s=0.2, color="green")
+# axs[1].set_ylabel(r"$v$ in m/s")
+# axs[2].scatter(data[150:550, 0], data[150:550, 3], s=0.2, color="blue")
+# axs[2].set_ylabel(r"$a$ in m/s$^2$")
+# axs[2].set_xlabel(r"$t$ in s")
+# plt.xlim(1.5, 5.5)
+# plt.show()
 
 # save plot in /Graphics as transparent eps
-fig.savefig("/home/taco/Documents/Grundpraktikum/Graphics/Versuch1.eps", format="eps", transparent=True)
+# fig.savefig("/home/taco/Documents/Grundpraktikum/Graphics/Versuch1.eps", format="eps", transparent=True)
+
+chi_contour([[10, 1], [20, 3]])

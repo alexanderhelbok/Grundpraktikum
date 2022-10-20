@@ -8,9 +8,9 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage{fontspec}
 \RequirePackage[ngerman]{babel}
-\RequirePackage{xifthen}
+\RequirePackage{xifthen, xstring}
 \RequirePackage[dvipsnames]{xcolor}
-\RequirePackage{mtpro2}
+\RequirePackage{mtpro2, pifont}
 \pdfmapfile{=mtpro2.map}
 \RequirePackage{mathtools, amsthm, amsfonts, siunitx, physics, chemformula, empheq}
 \RequirePackage{enumitem, multicol, tcolorbox, array, multirow, booktabs}
@@ -54,6 +54,14 @@
 \newcommand*{\dl}[1]{\underline{\underline{#1}}}	%dl = double underline
 \newcommand\supfrac[3][]{\mkern-2mu#1\frac{#2}{#3}\rule[-6pt]{0pt}{0pt}}
 
+\newcommand{\cmark}{%
+	\begin{minipage}{3mm}
+			\color{ForestGreen}{\ding{51}}
+		\end{minipage}}%
+\newcommand{\xmark}{%
+	\begin{minipage}{3mm}
+		\color{red}\ding{55}
+	\end{minipage}}%
 \newcolumntype{L}{>{$}c<{$}} % math-mode version of "l" column type
 
 % expo function \expo[sign][nominator/denumerator][normal] (all optional)
@@ -115,7 +123,11 @@
 
 % define customizeable variables
 \newcommand*{\name}[1]{\def\@name{#1}}
-\newcommand*{\hwnumber}[1]{\def\@hwnumber{#1}}
+\newcommand*{\hwnumber}[1]{%
+	\IfInteger{#1}%
+	{\def\@hwnumber{Versuch #1}}%
+	{\def\@hwnumber{#1}}%
+}
 \newcommand*{\course}[1]{\def\@course{#1}}
 
 
@@ -123,7 +135,7 @@
 \clearpairofpagestyles
 \setkomafont{pageheadfoot}{\normalfont}
 \ihead{\@name}
-\chead{\textbf{\Large Versuch \@hwnumber}}
+\chead{\textbf{\Large \@hwnumber}}
 \ohead{\@course \\ \today}
 \cfoot{\pagemark}
 \headheight 35pt

@@ -1,0 +1,101 @@
+% !TeX spellcheck = de_DE
+\documentclass{alex_gp}
+
+\name{Alexander Helbok}
+\course{Grundpraktikum}
+\hwnumber{Fehlerrechnung}
+
+
+\begin{document}
+\renewcommand{\labelenumi}{\alph{enumi})}
+
+
+\begin{mybox}{Richtiges Runden}
+	\centering \( x = 1.2736 \unit{m};\qquad \alpha_x = 0.25034 \unit{m} \)
+	\tcblower
+	\begin{enumerate}
+		\item \( \left(1.274 \pm 0.250 \right) \unit{m} \qquad \xmark \)  Nur eine signifikante Stelle im Fehler
+	\tcbline
+		\item \( \left(1.3 \pm 0.3 \right) \qquad \xmark \)  Keine Einheiten!
+	\tcbline
+		\item \( 1273 \pm 250 \unit{mm} \qquad \xmark \)  Nur eine signifikante Stelle im Fehler
+	\tcbline
+		\item \( 1.3(3) \unit{m} \qquad \cmark \)
+	\tcbline
+		\item \( 1.3(25) \unit{m} \qquad \xmark \)  Nur eine signifikante Stelle im Fehler
+	\tcbline
+		\item \(  (1.3 \pm 0.25034) \unit{m} \qquad \xmark \)  Nur eine signifikante Stelle im Fehler
+	\end{enumerate}
+\end{mybox}
+
+\begin{mybox}{Fehlerfortpflanzung}
+	\centering \( x = (17.4 \pm 0.3) \unit{V};\quad y = (9.3 \pm 0.7) \unit{V} \)
+	\tcblower
+	\begin{enumerate}
+		\item \( z = x - y = 8.1(8) \unit{V} \)
+	\tcbline
+		\item \( z = 12x + 3y = 237(4) \unit{V} \)
+	\tcbline
+		\item \( z = 5xy = 8.1(6) \cdot 10^{2} \unit{V^2} \)
+	\tcbline
+		\item \( z = \tfrac{y^3}{x^2} = 2.7(6) \unit{V} \)
+	\tcbline
+		\item \( z = x^2 + 3y^2 = 5.6(4) \cdot 10^{2} \unit{V^2}\)
+	\tcbline
+		\item \( z = \arcsin(\tfrac{y}{x}) = 0.56(5) \)
+	\tcbline
+		\item \( z = \sqrt{3xy} = 22.0(9) \unit{V} \)
+	\tcbline
+		\item \( z = \ln(\tfrac{y}{x}) = -0.63(8) \)
+	\tcbline
+		\item \( z = \tfrac{x}{y^2} + \tfrac{y}{x^2} = 0.23(3) \unit{1/V} \)
+	\tcbline
+		\item \( z = 2\sqrt{\tfrac{y}{x}} = 1.46(6) \)
+	\end{enumerate}
+\end{mybox}
+
+\begin{mybox}{Beispiel: Bestimmung der Fallbeschleunigung \( g \)}
+	\centering \( x_1 = 5.000(1) \unit{m};\quad x_2 = 17.000(1) \unit{m};\quad t_x = 77283.5(1) \unit{\micro\s} \)
+	\tcblower
+	\begin{enumerate}
+		\item \( v = \tfrac{x_2 - x_1}{t_x} = 155.27(2) \unit{\v} \)
+	\tcbline
+		\item \(  \)
+%		\begin{flalign*}
+	%		
+%		\end{flalign*}
+	\tcbline
+		\item \(  \)
+%		\begin{flalign*}
+		%			
+%		\end{flalign*}
+	\end{enumerate}
+\end{mybox}
+
+\begin{mybox}{Plotten von Daten mit linearem Fit}
+	\centering \(  \)
+	\tcblower
+	\begin{enumerate}
+		\item \(  \)
+		\tcbline
+		\item \(  \)
+		\tcbline
+		\item \(  \)
+		\tcbline
+		\item \(  \)
+		\tcbline
+		\item \(  \)
+		\tcbline
+		\item \(  \)
+		\tcbline
+		\item \(  \)
+		\tcbline
+		\item \(  \)
+		\tcbline
+		\item \(  \)
+		\tcbline
+		\item \(  \)
+	\end{enumerate}
+\end{mybox}
+
+\end{document}

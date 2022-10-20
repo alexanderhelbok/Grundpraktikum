@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from scipy.stats import chi2
 import matplotlib.colors as colors
+import uncertainties as unc
+import uncertainties.unumpy as unp
+import seaborn as sns
 
 
 def parabola(x, a, b, c):

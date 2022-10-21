@@ -26,22 +26,22 @@ data = np.loadtxt(path + files[0], delimiter=",", skiprows=1)
 # # scatter plot postition, velocity, acceleration from 150 t0 550 with labels with scatter size 0.2
 # # plot fit as line in a different color and add legend
 # # add axis labels and title
-# fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex="col")
-# ax1.scatter(data[150:550, 0], data[150:550, 1], s=0.2, label="Messwerte")
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex="col")
+ax1.scatter(data[150:550, 0], data[150:550, 1], s=0.2, label="Messwerte")
 # ax1.plot(data[start:stop, 0], parabola(data[start:stop, 0], *popt), color="red", label="Fit")
-# ax1.set_ylabel("Position / m")
-# ax1.set_title("Position, Geschwindigkeit und Beschleunigung")
-# ax1.legend()
-# ax2.scatter(data[150:550, 0], data[150:550, 2], s=0.2, label="Messwerte")
+ax1.set_ylabel("Position / m")
+ax1.set_title("Position, Geschwindigkeit und Beschleunigung")
+ax1.legend()
+ax2.scatter(data[150:550, 0], data[150:550, 2], s=0.2, label="Messwerte")
 # ax2.plot(data[start:stop, 0], line(data[start:stop, 0], *popt2), color="red", label="Fit")
-# ax2.set_ylabel("Geschwindigkeit / m/s")
-# ax2.legend()
-# ax3.scatter(data[150:550, 0], data[150:550, 3], s=0.2, label="Messwerte")
+ax2.set_ylabel("Geschwindigkeit / m/s")
+ax2.legend()
+ax3.scatter(data[150:550, 0], data[150:550, 3], s=0.2, label="Messwerte")
 # ax3.plot(data[start:stop, 0], line(data[start:stop, 0], *popt3), color="red", label="Fit")
-# ax3.set_xlabel("Zeit / s")
-# ax3.set_ylabel("Beschleunigung / m/s^2")
-# ax3.legend()
-# plt.show()
+ax3.set_xlabel("Zeit / s")
+ax3.set_ylabel("Beschleunigung / m/s^2")
+ax3.legend()
+plt.show()
 #
 # # print fit parameters
 # print(f"Fitparameter der Parabel: a={popt[0]:.3f} m/s^2, b={popt[1]:.3f} m/s, c={popt[2]:.3f} m")
@@ -60,6 +60,6 @@ data = np.loadtxt(path + files[0], delimiter=",", skiprows=1)
 # scatte
 
 # save plot in /Graphics as transparent eps
-# fig.savefig("/home/taco/Documents/Grundpraktikum/Graphics/Versuch1.eps", format="eps", transparent=True)
+# fig.savefig("Graphics/Versuch1.eps", format="eps", transparent=True)
 
-chi_contour([[10, 1], [20, 3]])
+# chi_contour([[10, 1], [20, 3]])

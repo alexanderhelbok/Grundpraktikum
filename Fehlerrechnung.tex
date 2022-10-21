@@ -55,47 +55,81 @@
 \end{mybox}
 
 \begin{mybox}{Beispiel: Bestimmung der Fallbeschleunigung \( g \)}
-	\centering \( x_1 = 5.000(1) \unit{m};\quad x_2 = 17.000(1) \unit{m};\quad t_x = 77283.5(1) \unit{\micro\s} \)
+	\begin{align*}
+		&x_1 = 5.000(1) \unit{m};\quad &x_2 &= 17.000(1) \unit{m};\quad &t_x &= 77283.5(1) \unit{\micro\s} &&\\
+		&z_1 = 0 \unit{m};\quad &z_2 &= 20.000(1) \unit{m};\quad &t_z &= 129335.3(1) \unit{\micro\s} &&
+	\end{align*} 
 	\tcblower
 	\begin{enumerate}
 		\item \( v = \tfrac{x_2 - x_1}{t_x} = 155.27(2) \unit{\v} \)
 	\tcbline
-		\item \(  \)
-%		\begin{flalign*}
-	%		
-%		\end{flalign*}
+		\item \( x(t) = x_0 + v_0t + \tfrac{1}{2}a_0t^2 \)
+		\begin{flalign*}
+			x(t_z) - x(0) &= (z_2 - z_1) + vt_z + \tfrac{1}{2}gt_z^2 &&\\[2ex]
+			g &= 2\tfrac{(z_2 - z_1) - vt_z}{t_z^2} = -9.8(3) \unit{\a} &&
+		\end{flalign*}
 	\tcbline
-		\item \(  \)
-%		\begin{flalign*}
-		%			
-%		\end{flalign*}
+		\item Das Experiment misst die Erdbeschleunigung \( g \) zwar etwas ungenau, das Ergebnis verträgt sich aber gut mit dem Literaturwert. Um die Unsicherheit in \( g \) zu vermindern, müsste man in genauere Distanzmessungen, da die Unsicherheiten in \( x_1, x_2 \) über \( 99 \% \) des Gesamtfehlers in \( v \) und \( \approx 85 \% \) in \( g \) ausmachen. Die Zeit hingegen trägt bei beiden Ergebnissen weniger als \( 1 \) Prozent bei und ist daher verhältnismäßig sehr genau.
 	\end{enumerate}
 \end{mybox}
 
 \begin{mybox}{Plotten von Daten mit linearem Fit}
-	\centering \(  \)
+	\centering \[ \chi^2 = \sum_{i}^{N} \tfrac{\left(y_i - y(x_i)\right)^2}{\sigma_i^2} = \sum_{i}^{N} \tfrac{\left(y_i - ax_i - b \right)^2}{\sigma_i^2} \]
 	\tcblower
 	\begin{enumerate}
+		\item 
+		\begin{flalign*}
+			\pdv{\chi^2}{a} &= \sum_{i}^{N} x_i \tfrac{\left(y_i - ax_i - b \right)^2}{\sigma_i^2} = 0 &&\\
+			\pdv{\chi^2}{b} &= \sum_{i}^{N} \tfrac{\left(y_i - ax_i - b \right)^2}{\sigma_i^2} = 0 &&
+		\end{flalign*}
+		\begin{flalign}
+			\label{eqn:a}
+			a = \frac{N\sum_{i}x_iy_i - \sum_{i}x_i \sum_{i}y_i}{N\sum_{i}x_i^2 - \left(\sum_{i}x_i\right)^2};\quad 
+			b = \frac{\sum_{i}x_i^2 \sum_{i}y_i - \sum_{i}x_i \sum_{i}x_iy_i}{N\sum_{i}x_i^2 - \left(\sum_{i}x_i\right)^2} &&
+		\end{flalign}
+	\tcbline
+		\item 
+		\begin{flalign*}
+			a &\approx 0.034 &&\\
+			b &\approx 0.086 &&
+		\end{flalign*}
+	\tcbline
 		\item \(  \)
-		\tcbline
-		\item \(  \)
-		\tcbline
-		\item \(  \)
-		\tcbline
-		\item \(  \)
-		\tcbline
-		\item \(  \)
-		\tcbline
-		\item \(  \)
-		\tcbline
-		\item \(  \)
-		\tcbline
-		\item \(  \)
-		\tcbline
-		\item \(  \)
-		\tcbline
-		\item \(  \)
+		\begin{figure}[H]
+%			\vspace{-0.5cm}		
+			\includegraphics[width=\textwidth]{Fehlerrechnung_1.eps}
+			\caption{Die Spannung an verschiedenen Orten gemessen. Die Fehlerbalken stellen einen \( 1 \sigma \) Standardfehler dar. Zudem wurde eine Gerade angepasst.}
+		\end{figure}
+		Die von SciPy berechnete Fitparameter stimmen den manuell berechneten überein, was andeutet, dass das Fitprogramm die gleiche Formel verwendet.
+	\tcbline
+		\item
+		\begin{flalign*}
+			\alpha_a &=  &&\\
+			\alpha_b &=  &&
+		\end{flalign*}
+	\tcbline
+		\item
+		\begin{flalign*}
+			\alpha_a &= 0.0011 &&\\
+			\alpha_b &= 0.034 &&
+		\end{flalign*}
+		Die Fehler stimmen wieder überein, was die Hypothese unterstützt, dass das Fitprogramm von Gleichungen \ref{eqn:a} gebrauch macht.
+	\tcbline
+		\item Man könnte die Fitparameter \( a, b \) für \( x = \bar{x} - \alpha_x, x = \bar{x} \) und \( x = \bar{x} + \alpha_x \) mit Gleichungen \ref{eqn:a} berechnen und so Werte für \( \bar{a}, \bar{b}, \alpha_a, \alpha_b \) ermitteln. \par
+		Alternativ könnte man bootstrapping verwenden, also aus dem Datensatz viele synthetische Datensätze (ohne Fehler) durch „ziehen mit zurücklegen“ zu generieren und auf diese die bekannten Formeln anwenden. Unter Annahme einer Normalverteilung kann man dann Mittelwert und Standardabweichung für die Fitparameter berechnen.
 	\end{enumerate}
 \end{mybox}
 
+\begin{mybox}{Korrelierte Variablen}
+	\centering \( y = ax + b;\quad a = 3.77;\quad b = 1.58;\quad \sigma = 
+	\begin{pmatrix}
+		0.033 & 0.019 \\
+		0.019 & 0.009
+	\end{pmatrix} \)
+	\tcblower
+	\begin{flalign*}
+		y &= 0 \qquad \Rightarrow\qquad x = -\tfrac{b}{a} &&
+	\end{flalign*}
+\end{mybox}
+	
 \end{document}

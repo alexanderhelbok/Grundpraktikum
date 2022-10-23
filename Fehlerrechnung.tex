@@ -82,11 +82,11 @@
 			\pdv{\chi^2}{a} &= \sum_{i}^{N} x_i \tfrac{\left(y_i - ax_i - b \right)^2}{\sigma_i^2} = 0 &&\\
 			\pdv{\chi^2}{b} &= \sum_{i}^{N} \tfrac{\left(y_i - ax_i - b \right)^2}{\sigma_i^2} = 0 &&
 		\end{flalign*}
-		\begin{flalign}
+		\begin{empheq}[box=\fbox]{align}
 			\label{eqn:a}
 			a = \frac{N\sum_{i}x_iy_i - \sum_{i}x_i \sum_{i}y_i}{N\sum_{i}x_i^2 - \left(\sum_{i}x_i\right)^2};\quad 
 			b = \frac{\sum_{i}x_i^2 \sum_{i}y_i - \sum_{i}x_i \sum_{i}x_iy_i}{N\sum_{i}x_i^2 - \left(\sum_{i}x_i\right)^2} &&
-		\end{flalign}
+		\end{empheq}
 	\tcbline
 		\item 
 		\begin{flalign*}
@@ -96,16 +96,21 @@
 	\tcbline
 		\item \(  \)
 		\begin{figure}[H]
-%			\vspace{-0.5cm}		
+			\vspace{-1cm}		
 			\includegraphics[width=\textwidth]{Fehlerrechnung_1.eps}
 			\caption{Die Spannung an verschiedenen Orten gemessen. Die Fehlerbalken stellen einen \( 1 \sigma \) Standardfehler dar. Zudem wurde eine Gerade angepasst.}
 		\end{figure}
 		Die von SciPy berechnete Fitparameter stimmen den manuell berechneten überein, was andeutet, dass das Fitprogramm die gleiche Formel verwendet.
 	\tcbline
-		\item
+		\item \( \delta a := a - \bar{a};\quad \delta b := b - \bar{b} \)
 		\begin{flalign*}
-			\alpha_a &=  &&\\
-			\alpha_b &=  &&
+			\Delta\chi^2 &= \sum_{i}^{N} \tfrac{\left(y_i - ax_i - b \right)^2}{\sigma_i^2} - \sum_{i}^{N} \tfrac{\left(y_i - \bar{a}x_i - \bar{b} \right)^2}{\sigma_i^2} = \frac{\delta a^2}{\alpha_a^2} + \frac{\delta b^2}{\alpha_b^2} = 1 &&\\
+			\delta a &= 0.00049 ;\quad \delta b = 0.015 &&
+		\end{flalign*}
+			Fixiere \( a/b \) auf \( \bar{a}/\bar{b} \Rightarrow \delta a/\delta b = 0\) \\
+		\begin{flalign*}
+			\alpha_a &= \delta a \approx 0.00049  &&\\
+			\alpha_b &= \delta b \approx 0.015 &&
 		\end{flalign*}
 	\tcbline
 		\item
@@ -113,7 +118,7 @@
 			\alpha_a &= 0.0011 &&\\
 			\alpha_b &= 0.034 &&
 		\end{flalign*}
-		Die Fehler stimmen wieder überein, was die Hypothese unterstützt, dass das Fitprogramm von Gleichungen \ref{eqn:a} gebrauch macht.
+		Die Fehler stimmen nicht überein (circa um den Faktor 2 zu klein). Das lässt sich dadurch erklären, dass der Ansatz über das \( \Delta\chi^2 \) und der Fehlerellipse so nur dann gilt, wenn die Parameter unkorreliert sind. Das sind sie aber nicht (\( r \approx -0.89 \)). Das Fitprogramm erkennt die Korrelation und berechnet die Fehler dementsprechend korrekt.
 	\tcbline
 		\item Man könnte die Fitparameter \( a, b \) für \( x = \bar{x} - \alpha_x, x = \bar{x} \) und \( x = \bar{x} + \alpha_x \) mit Gleichungen \ref{eqn:a} berechnen und so Werte für \( \bar{a}, \bar{b}, \alpha_a, \alpha_b \) ermitteln. \par
 		Alternativ könnte man bootstrapping verwenden, also aus dem Datensatz viele synthetische Datensätze (ohne Fehler) durch „ziehen mit zurücklegen“ zu generieren und auf diese die bekannten Formeln anwenden. Unter Annahme einer Normalverteilung kann man dann Mittelwert und Standardabweichung für die Fitparameter berechnen.
@@ -121,15 +126,21 @@
 \end{mybox}
 
 \begin{mybox}{Korrelierte Variablen}
-	\centering \( y = ax + b;\quad a = 3.77;\quad b = 1.58;\quad \sigma = 
+	\centering \( y = ax + b;\quad \bar{a} = 3.77;\quad \bar{b} = 1.58;\quad \sigma = 
 	\begin{pmatrix}
 		0.033 & 0.019 \\
 		0.019 & 0.009
 	\end{pmatrix} \)
 	\tcblower
 	\begin{flalign*}
-		y &= 0 \qquad \Rightarrow\qquad x = -\tfrac{b}{a} &&
+		y &= ax + b = 0 &&\\
+		\bar{x} &= -\tfrac{\bar{b}}{\bar{a}} &&\\
+		\alpha_x &= \sqrt{\big( \tfrac{\alpha_b}{a} \big)^2 + \big( \tfrac{\alpha_a b}{a^2} \big)^2 + 2r\big( \tfrac{\alpha_b}{a} \big)\big( \tfrac{\alpha_a b}{a^2} \big)} &&\\[2ex]
+		x &= -0.41(5) &&
 	\end{flalign*}
 \end{mybox}
-	
+
+%\( \sqrt{\left( \frac{-dx}{x^2\sqrt{1-\frac{y^2}{x^2}}} \right)^2+\left( \frac{dy}{x\sqrt{1-\frac{y^2}{x^2}}} \right)^2} \)
+%\[ \sqrt{\left( \frac{-dx}{x^2\sqrt{1-\frac{y^2}{x^2}}} \right)^2+\left( \frac{dy}{x\sqrt{1-\frac{y^2}{x^2}}} \right)^2} \]
+	  
 \end{document}

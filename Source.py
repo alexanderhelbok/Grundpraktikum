@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import (MultipleLocator, FormatStrFormatter, AutoMinorLocator)
 from scipy.optimize import curve_fit
+from scipy.optimize import fsolve
 from scipy.stats import chi2
 import matplotlib.colors as colors
 import uncertainties as unc
@@ -27,6 +28,8 @@ def chisq(obs, exp, error, dof=0):
         return np.sum((obs - exp) ** 2 / (error ** 2))
     else:
         return np.sum((obs - exp) ** 2 / (error ** 2)) / dof
+
+
 
 
 def chi_contour(points, contour=[0.667, 0.95, 0.998]):

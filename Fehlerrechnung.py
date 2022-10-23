@@ -50,7 +50,7 @@ ax.set_xlim(0, 52)
 ax.set_ylim(0, 2)
 ax.tick_params(axis='x', which='minor', bottom=False)
 plt.savefig("Graphics/Fehlerrechnung_1.eps", format="eps", transparent=True)
-plt.show()
+# plt.show()
 
 # calculate reduced chi^2 and show contour
 # chi2 = chisq(data["V [V]"], line(data["x [cm]"], *popt), data["Verr [V]"], dof=8)
@@ -63,8 +63,34 @@ yi = data.loc[:, "V [V]"]
 a = (10*np.sum(xi*yi) - np.sum(xi)*np.sum(yi))/(10*np.sum(xi**2) - np.sum(xi)**2)
 b = (np.sum(xi**2)*np.sum(yi) - np.sum(xi)*np.sum(xi*yi))/(10*np.sum(xi**2) - np.sum(xi)**2)
 print(a, b)
+
+
+def func(da):
+    return chisq(yi, line(xi, da, b), data["Verr [V]"]) - chisq(yi, line(xi, a, b), data["Verr [V]"]) - 1
+
+def bisecc(start, end, precision):
+    mid = (start + end) / 2
+    while (end - start) > precision:
+        mid = (start + end) / 2
+        if func(mid) < 0:
+            end = mid
+        else:
+            start = mid
+    return mid
+
+
 # calculate uncertainties of a, b
-# sigma_a = np.sqrt((10*np.sum(xi) - 10*np.sum(xi))/(10*np.sum(xi**2) - np.sum(xi)**2))
-# sigma_b = np.sqrt((np.sum(xi**2))/(10*np.sum(xi**2) - np.sum(xi)**2))
-# print(sigma_a, sigma_b)
+# fix b and calculate delta chi^2 = 1 for a
+delta_a = a - bisecc(a - 0.1, a + 0.1, 0.0001)
+delta_b = b - bisecc(b - 0.1, b + 0.1, 0.0001)
+print(delta_a, delta_b)
+
+# ======== 5 ==========
+a, b = 3.77, 1.58
+aerr, berr = np.sqrt(0.033), np.sqrt(0.009)
+r = 0.019/np.sqrt(aerr**2 * berr**2)
+x = -b/a
+xerr = np.sqrt((berr/a)**2 + (aerr*b/a**2)**2 + 2*r*(berr/a)*(aerr*b/a**2))
+
+print(x, xerr)
 

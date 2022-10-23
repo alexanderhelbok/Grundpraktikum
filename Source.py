@@ -30,30 +30,32 @@ def chisq(obs, exp, error, dof=0):
         return np.sum((obs - exp) ** 2 / (error ** 2)) / dof
 
 
+def bisec(start, end, func, precision=0.001):
+    mid = (start + end) / 2
+    while (end - start) > precision:
+        mid = (start + end) / 2
+        if func(var=mid) < 0:
+            end = mid
+        else:
+            start = mid
+    return mid
 
 
-def chi_contour(points, contour=[0.667, 0.95, 0.998]):
+def chi_contour(points, contour=None):
+    if contour is None:
+        contour = [0.667, 0.95, 0.998]
+
     colors_list = ["green", "orange", "red"]
 
     def func(x, k, prob):
         return chi2.sf(x, k) - prob
 
-    def bisec(start, end, dof, p):
-        mid = (start + end) / 2
-        while (end - start) > 0.001:
-            mid = (start + end) / 2
-            if func(mid, dof, p) < 0:
-                end = mid
-            else:
-                start = mid
-        return mid
-
     dummy = plt.gca()
     for j in range(len(contour)):
         temp1, temp2, temp3 = [], [], []
         for i in np.linspace(0.3, 50, 250):
-            temp1.append(bisec(0, i + 1, i, contour[j]) / i)
-            temp2.append(bisec(i + 1, 10 * i + 1, i, 1 - contour[j]) / i)
+            temp1.append(bisec(0, i + 1, lambda var: func(var, i, contour[j])) / i)
+            temp2.append(bisec(i + 1, 10 * i + 1, lambda var: func(var, i, 1 - contour[j])) / i)
             temp3.append(i)
         y1, y2, xi = np.array(temp1), np.array(temp2), np.array(temp3)
         dummy.plot(xi, y1, label=f'{contour[j] * 100}%', color=colors_list[j])

@@ -50,7 +50,7 @@ ax.set_xlim(0, 52)
 ax.set_ylim(0, 2)
 ax.tick_params(axis='x', which='minor', bottom=False)
 plt.savefig("Graphics/Fehlerrechnung_1.eps", format="eps", transparent=True)
-# plt.show()
+plt.show()
 
 # calculate reduced chi^2 and show contour
 # chi2 = chisq(data["V [V]"], line(data["x [cm]"], *popt), data["Verr [V]"], dof=8)
@@ -91,6 +91,5 @@ aerr, berr = np.sqrt(0.033), np.sqrt(0.009)
 r = 0.019/np.sqrt(aerr**2 * berr**2)
 x = -b/a
 xerr = np.sqrt((berr/a)**2 + (aerr*b/a**2)**2 + 2*r*(berr/a)*(aerr*b/a**2))
-
+print(r)
 print(x, xerr)
-

@@ -13,17 +13,6 @@ xi = data.loc[:, "x [cm]"]
 yi = data.loc[:, "V [V]"]
 
 
-def bisec(start, end, precision, func):
-    mid = (start + end) / 2
-    while (end - start) > precision:
-        mid = (start + end) / 2
-        if func(bisec=mid) < 0:
-            end = mid
-        else:
-            start = mid
-    return mid
-
-
 def dchi2(da, db, level):
     return chisq(yi, line(xi, da, db), data["Verr [V]"]) - chisq(yi, line(xi, popt[0], popt[1]), data["Verr [V]"]) - level
 

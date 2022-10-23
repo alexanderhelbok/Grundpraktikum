@@ -69,7 +69,7 @@
 			g &= 2\tfrac{(z_2 - z_1) - vt_z}{t_z^2} = -9.8(3) \unit{\a} &&
 		\end{flalign*}
 	\tcbline
-		\item Das Experiment misst die Erdbeschleunigung \( g \) zwar etwas ungenau, das Ergebnis verträgt sich aber gut mit dem Literaturwert. Um die Unsicherheit in \( g \) zu vermindern, müsste man in genauere Distanzmessungen, da die Unsicherheiten in \( x_1, x_2 \) über \( 99 \% \) des Gesamtfehlers in \( v \) und \( \approx 85 \% \) in \( g \) ausmachen. Die Zeit hingegen trägt bei beiden Ergebnissen weniger als \( 1 \) Prozent bei und ist daher verhältnismäßig sehr genau.
+		\item Das Experiment misst die Erdbeschleunigung \( g \) zwar etwas ungenau, das Ergebnis verträgt sich aber gut mit dem Literaturwert. Um die Unsicherheit in \( g \) zu vermindern, müsste man in genauere Distanzmessungen investieren, da die Unsicherheiten in \( x_1 \) und \( x_2 \) über \( 99 \% \) des Gesamtfehlers in \( v \) und ungefähr \( 85 \% \) in \( g \) ausmachen. Die Zeit hingegen trägt bei beiden Ergebnissen weniger als \( 1 \) Prozent bei und ist daher verhältnismäßig sehr genau.
 	\end{enumerate}
 \end{mybox}
 
@@ -121,7 +121,7 @@
 		Die Fehler stimmen nicht überein (circa um den Faktor 2 zu klein). Das lässt sich dadurch erklären, dass der Ansatz über das \( \Delta\chi^2 \) und der Fehlerellipse so nur dann gilt, wenn die Parameter unkorreliert sind. Das sind sie aber nicht (\( r \approx -0.89 \)). Das Fitprogramm erkennt die Korrelation und berechnet die Fehler dementsprechend korrekt.
 	\tcbline
 		\item Man könnte die Fitparameter \( a, b \) für \( x = \bar{x} - \alpha_x, x = \bar{x} \) und \( x = \bar{x} + \alpha_x \) mit Gleichungen \ref{eqn:a} berechnen und so Werte für \( \bar{a}, \bar{b}, \alpha_a, \alpha_b \) ermitteln. \par
-		Alternativ könnte man bootstrapping verwenden, also aus dem Datensatz viele synthetische Datensätze (ohne Fehler) durch „ziehen mit zurücklegen“ zu generieren und auf diese die bekannten Formeln anwenden. Unter Annahme einer Normalverteilung kann man dann Mittelwert und Standardabweichung für die Fitparameter berechnen.
+		Alternativ könnte man bootstrapping verwenden, also aus dem Datensatz viele synthetische Datensätze (ohne Fehler) durch „ziehen mit zurücklegen“ generieren (wobei jeder gezogene Wert zufällig im Intervall \( \pm \sigma_x \) und \( \pm \sigma_y \) variiert wird) und auf diese die bekannten Formeln anwenden. Unter Annahme einer Normalverteilung kann man dann Mittelwert und Standardabweichung für die Fitparameter berechnen.
 	\end{enumerate}
 \end{mybox}
 
@@ -130,17 +130,14 @@
 	\begin{pmatrix}
 		0.033 & 0.019 \\
 		0.019 & 0.009
-	\end{pmatrix} \)
+	\end{pmatrix};\quad r = \frac{\sigma_{\text{ab}}}{\sqrt{\sigma_{\text{aa}}\sigma_{\text{bb}}}} = 1.1 \)
 	\tcblower
 	\begin{flalign*}
 		y &= ax + b = 0 &&\\
 		\bar{x} &= -\tfrac{\bar{b}}{\bar{a}} &&\\
-		\alpha_x &= \sqrt{\big( \tfrac{\alpha_b}{a} \big)^2 + \big( \tfrac{\alpha_a b}{a^2} \big)^2 + 2r\big( \tfrac{\alpha_b}{a} \big)\big( \tfrac{\alpha_a b}{a^2} \big)} &&\\[2ex]
+		\sigma_x &= \sqrt{\big( \tfrac{\sigma_b}{a} \big)^2 + \big( \tfrac{\sigma_a b}{a^2} \big)^2 + 2r\big( \tfrac{\sigma_b}{a} \big)\big( \tfrac{\sigma_a b}{a^2} \big)} &&\\[2ex]
 		x &= -0.41(5) &&
 	\end{flalign*}
 \end{mybox}
-
-%\( \sqrt{\left( \frac{-dx}{x^2\sqrt{1-\frac{y^2}{x^2}}} \right)^2+\left( \frac{dy}{x\sqrt{1-\frac{y^2}{x^2}}} \right)^2} \)
-%\[ \sqrt{\left( \frac{-dx}{x^2\sqrt{1-\frac{y^2}{x^2}}} \right)^2+\left( \frac{dy}{x\sqrt{1-\frac{y^2}{x^2}}} \right)^2} \]
 	  
 \end{document}

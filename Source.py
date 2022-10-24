@@ -90,8 +90,8 @@ def contributions(var, rel=True, precision=2):
 plt.rcParams['xtick.direction'] = 'in'
 plt.rcParams['ytick.direction'] = 'in'
 # enable minor ticks
-plt.rcParams['xtick.minor.visible'] = True
-plt.rcParams['ytick.minor.visible'] = True
+# plt.rcParams['xtick.minor.visible'] = True
+# plt.rcParams['ytick.minor.visible'] = True
 # enable ticks on top and right
 plt.rcParams['xtick.top'] = True
 plt.rcParams['ytick.right'] = True

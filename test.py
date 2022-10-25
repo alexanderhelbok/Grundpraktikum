@@ -1,5 +1,3 @@
-import numpy as np
-
 from Source import *
 
 # create pandas dataframe with x and V column
@@ -42,17 +40,18 @@ def stop(num):
 
 # create heatmap
 grid = pd.DataFrame(data=np.zeros((resolution, resolution)))
-grid.index = np.round(np.linspace(start(0), stop(0), resolution), 3)
-grid.columns = np.round(np.linspace(start(1), stop(1), resolution), 3)
+grid.columns = np.trunc(np.linspace(start(0), stop(0), resolution)*1000)/1000
+grid.index = np.trunc(np.linspace(stop(1), start(1), resolution)*1000)/1000
+
 
 # create x and y axis
 arr1 = np.linspace(start(0), stop(0), resolution)
-arr2 = np.linspace(start(1), stop(1), resolution)
+arr2 = np.linspace(stop(1), start(1), resolution)
 
 # fill heat map with dchi2 values
 for i in range(len(arr2)):
     for j in range(len(arr1)):
-        grid.iloc[j, i] = dchi2(arr1[j], arr2[i], 0)
+        grid.iloc[i, j] = dchi2(arr1[j], arr2[i], 0)
 
 print(grid)
 
@@ -64,24 +63,26 @@ for i in range(len(arr1)):
         aindex.append(len(arr1) - i)
         break
 for i in range(len(arr2)):
-    if arr2[i] - popt[1] + np.sqrt(pcov[1, 1]) > 0:
+    if arr2[-i-1] - popt[1] + np.sqrt(pcov[1, 1]) > 0:
         bindex.append(i)
         bindex.append(len(arr2) - i)
         break
-
+        
 # save heat map to csv file
 grid.to_csv("heat.csv")
 # plot heat map
 colormap = sns.color_palette("rocket", 6)
 ax = sns.heatmap(grid, vmin=0, vmax=6, cmap=colormap, cbar_kws={"label": "$\Delta \chi^2$ contour"},
                  xticklabels=int(len(arr1)/10), yticklabels=int(len(arr2)/10))
-ax.hlines(aindex, color="k", xmin=0, xmax=int(len(arr1)/15), label=r"$a \pm \alpha_a$", linestyles="dashed", linewidths=1.5)
-ax.vlines(bindex, color="k", ymin=50, ymax=50 - int(len(arr2)/15), label=r"$b \pm \alpha_b$", linestyles="dashed", linewidths=1.5)
+ax.vlines(aindex, color="k", ymin=50, ymax=50 - int(len(arr1)/15), label=r"$a \pm \alpha_a$", linestyles="dashed", linewidths=1.5)
+ax.hlines(bindex, color="k", xmin=0, xmax=int(len(arr2)/15), label=r"$b \pm \alpha_b$", linestyles="dashed", linewidths=1.5)
 plt.xticks(rotation=45, ha="right")
-ax.set_xlabel("$b$")
-ax.set_ylabel("$a$")
-if r < 0:
-    ax.legend(loc="lower right")
+ax.set_xlabel("$a$")
+ax.set_ylabel("$b$")
+# move legend more to the middle
+
+if r > 0:
+    ax.legend(loc="lower right", borderaxespad=1)
 else:
-    ax.legend(loc="upper right")
+    ax.legend(loc="upper right", borderaxespad=1)
 plt.show()

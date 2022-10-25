@@ -38,7 +38,7 @@ popt, pcov = curve_fit(line, data["x [cm]"], data["V [V]"], sigma=data["Verr [V]
 perr = np.sqrt(np.diag(pcov))
 
 print(f"Fit parameters: a = {popt[0]:.6f} +- {perr[0]:.6f}, b = {popt[1]:.6f} +- {perr[1]:.6f}")
-
+print(pcov)
 # plot data and fit
 ax = plt.gca()
 ax.errorbar(data["x [cm]"], data["V [V]"], yerr=data["Verr [V]"], fmt='.k', capsize=3, label="Messwerte")

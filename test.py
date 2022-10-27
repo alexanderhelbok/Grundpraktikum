@@ -18,11 +18,12 @@ popt, pcov = curve_fit(line, xi, yi, sigma=err, absolute_sigma=True)
 
 
 def dchi2(da, db, std):       # delta chi^2 for given standard deviation
-    return chisq(yi, line(xi, da, db), data["Verr [V]"]) - chisq(yi, line(xi, popt[0], popt[1]), data["Verr [V]"]) - std
+    return chisq(yi, line(xi, da, db), err) - chisq(yi, line(xi, popt[0], popt[1]), err) - std
 
 
 print(f"fit = {popt}")
-print(popt[1] - bisec(popt[1] - 0.1, popt[1] + 0.1, lambda var: dchi2(popt[0], var, 1)))
+siga, sigb = popt[0] - bisec(popt[0] - np.sqrt(pcov[0, 0]), popt[0] + np.sqrt(pcov[0, 0]), lambda var: dchi2(var, popt[1], 1)), popt[1] - bisec(popt[1] - np.sqrt(pcov[1, 1]), popt[1] + np.sqrt(pcov[1, 1]), lambda var: dchi2(popt[0], var, 1))
+print(siga, sigb)
 # calc corr coeff
 r = pcov[0, 1]/np.sqrt(pcov[0, 0]*pcov[1, 1])
 print(f"r = {r:.6f}")
@@ -63,28 +64,39 @@ b = [popt[1] - np.sqrt(pcov[1, 1]), popt[1], popt[1] + np.sqrt(pcov[1, 1])]
 
 # save heat map to csv file
 # grid.to_csv("heat.csv")
+incolor = "gray"
+outcolor = "black"
 # plot heat map
 colormap = sns.color_palette("rocket", 6)
 ax = plt.gca()
 plt.contourf(arra, arrb, grid, levels=[0, 1, 2, 3, 4, 5], colors=colormap)
-plt.colorbar(label="$\Delta \chi^2$ contour")
+plt.colorbar(label=r"$\Delta \chi^2$ contour")
 plt.xticks(rotation=45, ha="right")
-ax.set_xlabel("$a$")
-ax.set_ylabel("$b$")
+ax.set_xlabel(r"$a\,$ [V/cm]")
+ax.set_ylabel(r"$b\,$ [V]")
 
-ax.vlines([a[0], a[2]], ymin=arrb[0], ymax=arrb[0] + darrb/15, color="k", linestyles="dashed", linewidths=1.5, label=r"$\alpha_{a,b}$")
-ax.hlines([b[0], b[2]], xmin=arra[0], xmax=arra[0] + darra/15, color="k", linestyles="dashed", linewidths=1.5)
+ax.vlines([a[0], a[2]], ymin=arrb[0], ymax=arrb[0] + darrb/15, color=outcolor, linestyles="dashed", linewidths=1.5, label=r"$\alpha_{a,b}$")
+ax.hlines([b[0], b[2]], xmin=arra[0], xmax=arra[0] + darra/15, color=outcolor, linestyles="dashed", linewidths=1.5)
 ax.vlines(a[1], ymin=arrb[0], ymax=arrb[0] + darrb/15, color="k", linewidths=1.5, label=r"$\bar{a}, \bar{b}$")
-ax.hlines(b[1], xmin=arra[0], xmax=arra[0] + darra/15, color="k", linewidths=1.5)
-ax.vlines(a[1], ymin=b[1] - darrb/25, ymax=b[1] + darrb/25, color="k", linewidths=1.5)
-ax.hlines(b[1], xmin=a[1] - darra/25, xmax=a[1] + darra/25, color="k", linewidths=1.5)
-ax.vlines(a[0], ymin=(b[2]) - darrb/15, ymax=(b[2]) + darrb/25, color="k", linestyle="dashed", linewidths=1.5)
-ax.vlines(a[2], ymin=(b[0]) - darrb/25, ymax=(b[0]) + darrb/15, color="k", linestyle="dashed", linewidths=1.5)
-ax.hlines(b[0], xmin=(a[2]) - darra/15, xmax=(a[2]) + darra/25, color="k", linestyle="dashed", linewidths=1.5)
-ax.hlines(b[2], xmin=(a[0]) - darra/25, xmax=(a[0]) + darra/15, color="k", linestyle="dashed", linewidths=1.5)
+ax.hlines(b[1], xmin=arra[0], xmax=arra[0] + darra/15, color=outcolor, linewidths=1.5)
+ax.vlines(a[1], ymin=b[1] - darrb/25, ymax=b[1] + darrb/25, color=outcolor, linewidths=1.5)
+ax.hlines(b[1], xmin=a[1] - darra/25, xmax=a[1] + darra/25, color=outcolor, linewidths=1.5)
+
+ax.vlines([a[1]-siga, a[1]+siga], ymin=arrb[0], ymax=arrb[0] + darrb/15, color=outcolor, linestyles="dotted", linewidths=1.5, label=r"$\alpha_{a,b}$")
+ax.hlines([b[1]-sigb, b[1]+sigb], xmin=arra[0], xmax=arra[0] + darra/15, color=outcolor, linestyles="dotted", linewidths=1.5)
+ax.vlines(a[1]+siga, ymin=b[1]-darrb/15, ymax=b[1] + darrb/15, color=incolor, linestyles="dotted", linewidths=1.5)
+ax.vlines(a[1]-siga, ymin=b[1]-darrb/15, ymax=b[1] + darrb/15, color=incolor, linestyles="dotted", linewidths=1.5)
+ax.hlines(b[1]+sigb, xmin=a[1]-darra/15, xmax=a[1] + darra/15, color=incolor, linestyles="dotted", linewidths=1.5)
+ax.hlines(b[1]-sigb, xmin=a[1]-darra/15, xmax=a[1] + darra/15, color=incolor, linestyles="dotted", linewidths=1.5)
+
+ax.vlines(a[0], ymin=(b[2]) - darrb/15, ymax=(b[2]) + darrb/25, color=incolor, linestyle="dashed", linewidths=1.5)
+ax.vlines(a[2], ymin=(b[0]) - darrb/25, ymax=(b[0]) + darrb/15, color=incolor, linestyle="dashed", linewidths=1.5)
+ax.hlines(b[0], xmin=(a[2]) - darra/15, xmax=(a[2]) + darra/25, color=incolor, linestyle="dashed", linewidths=1.5)
+ax.hlines(b[2], xmin=(a[0]) - darra/25, xmax=(a[0]) + darra/15, color=incolor, linestyle="dashed", linewidths=1.5)
 # move legend more to the middle
 if r > 0:
     ax.legend(loc="lower right", borderaxespad=1)
 else:
     ax.legend(loc="upper right", borderaxespad=1)
+plt.savefig("Graphics/heat.eps", format="eps", transparent=True, bbox_inches="tight")
 plt.show()

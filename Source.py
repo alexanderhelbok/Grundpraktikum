@@ -1,12 +1,11 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from labellines import labelLine, labelLines
+# from labellines import labelLine, labelLines
 from matplotlib.ticker import (MultipleLocator, FormatStrFormatter, AutoMinorLocator)
 from scipy.optimize import curve_fit
 from scipy.optimize import fsolve
 from scipy.stats import chi2
-import matplotlib.colors as colors
 import uncertainties as unc
 import uncertainties.unumpy as unp
 import seaborn as sns
@@ -24,7 +23,7 @@ def exponential(x, a, b, c):
     return a*np.exp(b*x) + c
 
 
-def chisq(obs, exp, error, dof=0):
+def chisq(obs, exp, error=1, dof=0):
     if dof == 0:
         return np.sum((obs - exp) ** 2 / (error ** 2))
     else:
@@ -91,13 +90,15 @@ def contributions(var, rel=True, precision=2):
 plt.rcParams['xtick.direction'] = 'in'
 plt.rcParams['ytick.direction'] = 'in'
 # enable minor ticks
-# plt.rcParams['xtick.minor.visible'] = True
-# plt.rcParams['ytick.minor.visible'] = True
+plt.rcParams['xtick.minor.visible'] = True
+plt.rcParams['ytick.minor.visible'] = True
 # enable ticks on top and right
 plt.rcParams['xtick.top'] = True
 plt.rcParams['ytick.right'] = True
 # increase tick length
-plt.rcParams['xtick.major.size'] = 5
-plt.rcParams['xtick.minor.size'] = 2.5
-plt.rcParams['ytick.major.size'] = 5
-plt.rcParams['ytick.minor.size'] = 2.5
+plt.rcParams['xtick.major.size'] = 7
+plt.rcParams['xtick.minor.size'] = 3.5
+plt.rcParams['ytick.major.size'] = 7
+plt.rcParams['ytick.minor.size'] = 3.5
+# increase border width
+plt.rcParams['axes.linewidth'] = 1.25

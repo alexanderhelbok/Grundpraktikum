@@ -23,6 +23,10 @@ def exponential(x, a, b, c):
     return a*np.exp(b*x) + c
 
 
+def sine(x, a, b, c, d):
+    return a*np.sin(b*x + c) + d
+
+
 def chisq(obs, exp, error=1, dof=0):
     if dof == 0:
         return np.sum((obs - exp) ** 2 / (error ** 2))

@@ -19,23 +19,42 @@ print("\n")
 # ======== 2 ========
 # %%
 # load force data from csv
-data = pd.read_csv("Versuch2.csv", sep=";", decimal=",")
-# write data to pandas dataframe
+data = np.loadtxt("data/Versuch2_1.csv", delimiter=",", skiprows=1)
+# write data to pandas dataframe and skip first row
+df = pd.DataFrame(data, columns=["t", "F"])
+# create datafram with every 10th row
+df2 = df.iloc[::20, :]
+
+# fit sine wave
+sta = 20
+time = 150
+popt, pcov = curve_fit(sine, df2["t"][sta:time], df2["F"][sta:time])
+
+
+# plot first 10 seconds of data
+plt.scatter(df2["t"], df2["F"], s=1, label="data")
+# plot sine wave    
+plt.plot(df2["t"], sine(df2["t"], *popt), "r-", label="Fit")
+plt.xlabel("t [s]")
+plt.ylabel("F [N]")
+plt.xlim(0, 22)
+plt.legend()
+plt.show()
 
 
 # calculate g from Pendulum
-L = unc.ufloat()
-T = unc.ufloat()
+L = unc.ufloat(0.61, 0.001, "L")
+T = unc.ufloat(2*np.pi/popt[1], np.sqrt(pcov[1, 1]), "T")
 g1 = 4*(np.pi**2)*L/(T**2)
 
 # calculate g from first order pendulum
-theta = unc.ufloat()
-g2 = 2*(np.pi**2)*L/(theta**2)*(1 + theta**2/16)
-print("g1: ", g1, "g2: ", g2)
+# theta = unc.ufloat()
+# g2 = 2*(np.pi**2)*L/(theta**2)*(1 + theta**2/16)
+print("g1: ", g1)
 
 # calculate error contribution of g1 and g2
 contributions(g1)
-contributions(g2)
+# contributions(g2)
 print("\n")
 # ======== 3 ========
 # %%
@@ -49,28 +68,33 @@ for i in range(len(Wcoins)):
 # print total weight and error
 print(f"Total weight: {Wtotal:.1uS}")
 
-# %%
-# load data from csv and skip first row
-data = np.loadtxt("data/Versuch2_1.csv", delimiter=",", skiprows=1)
-# write data to pandas dataframe and skip first row
-df = pd.DataFrame(data, columns=["x", "y"])
-# create datafram with every 10th row
-df2 = df.iloc[::20, :]
-# fit sine wave
-def sine(x, a, b, c, d):
-    return a * np.sin(b * x + c) + d
+# load force data from csv
+data = np.loadtxt("data/Versuch2_2.csv", delimiter=",", skiprows=1)
+# write data to pandas dataframe
+df = pd.DataFrame(data, columns=["t", "F"])
 
+# calculate mean std and std error of mean for data
+mean = unp.nominal_values(df["F"]).mean()
+std = unp.std_devs(df["F"]).mean()
+sem = std / np.sqrt(len(df["F"]))
 
-sta = 20
-time = 150
-popt, pcov = curve_fit(sine, df2["x"][sta:time], df2["y"][sta:time])
+# set g to gravity in innsbruck
+g = 9.806
+# calculate force
+F = -Wtotal * g/1000
 
+# compare force with mean of force data
+print(f"Force: {F:.1uS} Force data: {mean} difference: {F - mean:.1uS}")
 
-# plot first 10 seconds of data
-plt.plot(df2["x"], df2["y"], "b-", label="data")
-# plot sine wave
-plt.plot(df2["x"], sine(df2["x"], *popt), "r-", label="Fit")
-plt.xlabel("x")
-plt.ylabel("y")
+# plot every 20 data point as scatter and small point size
+plt.scatter(df["t"][::20], df["F"][::20], s=1, label="data")
+# plot mean value
+plt.plot(df["t"], np.ones(len(df["t"]))*mean, "g-", label="mean")
+plt.xlabel("t")
+plt.ylabel("F")
 plt.legend()
 plt.show()
+
+# %%
+# load data from csv and skip first row
+

@@ -13,14 +13,14 @@
 \RequirePackage{mtpro2, pifont}
 \pdfmapfile{=mtpro2.map}
 \RequirePackage{mathtools, amsthm, amsfonts, siunitx, physics, chemformula, empheq}
-\RequirePackage{enumitem, multicol, tcolorbox, array, multirow, booktabs}
+\RequirePackage{enumitem, multicol, tcolorbox, array, multirow, booktabs, vwcol}
 \tcbuselibrary{breakable,skins,fitting}
 \RequirePackage[headsepline]{scrlayer-scrpage}
 \RequirePackage{graphicx, wrapfig, float}
 \RequirePackage{listings} %env ignores LATEX commands, keeping all the line breaks (for printing code)
 \RequirePackage{hyperref}
 \RequirePackage{bookmark}
-%\usepackage[font=footnotesize]{caption} 
+\usepackage[font=footnotesize, bf, format=plain]{caption} 
 \RequirePackage{custom}
 \RequirePackage{tikz, pgfplots}
 \usetikzlibrary{arrows.meta,positioning, calc, shapes, math, decorations.pathreplacing, decorations.markings}
@@ -128,7 +128,7 @@
 }
 
 % define tcolorbox env 
-\newtcolorbox{mybox}[1]{breakable,pad at break*=1mm, colback=Background,colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, parbox=false, middle=\@middle mm}
+\newtcolorbox{mybox}[1]{breakable,pad at break*=1mm, colback=Background,colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, parbox=false, middle=\@middle mm, before upper=\renewcommand\thempfootnote{\arabic{mpfootnote}}}
 
 \newtcolorbox{myfigure}[2]{breakable, colback=Background, colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, capture=fitbox, height=#2cm, parbox=false}
 
@@ -136,7 +136,7 @@
 \setlength{\parskip}{0.05in}
 \renewcommand{\arraystretch}{1.2}		% change spacing in tabular
 
-
+\renewcommand{\thefootnote}{\arabic{footnote}}
 % create header
 \clearpairofpagestyles
 \setkomafont{pageheadfoot}{\normalfont}

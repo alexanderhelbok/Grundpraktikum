@@ -29,7 +29,7 @@
 			0.665(1) & 1.000(2) \\
 			\bottomrule
 		\end{tabular}
-		\captionof{table}{Gemessene zurückgelegte Strecke \( s \) und die dazugehörige Proportionalitätskostante \( a \)}
+		\captionof{table}{Gemessene zurückgelegte Strecke \( s \) und die dazugehörige Proportionalitätskonstante \( a \)}
 		\label{table:1}
 	\end{minipage}
 \end{mybox}
@@ -44,7 +44,9 @@
 		T_0 = 2\pi\sqrt{\tfrac{L}{g}}
 	\end{equation}
 	beschrieben, wobei \( g \) die Gravitationsbeschleunigung auf der Erde darstellt. Um die Periodendauer mithilfe der Daten des Kraftsensors zu bestimmen wurde eine Sinuskurve der Form \( A * \sin(\omega x + \varphi) + k \) an die Messpunkte angepasst. Der Fitprozess verlief in drei Schritten.\par 
+	
 	Da die Daten sehr verrauscht waren mussten sie zuerst geglättet werden. Danach wurde ein Sinus in der allgemeinen Form mit vier freien Parametern an die Daten von \( t = 4 \unit{s} \) bis \( t = 5 \unit{s} \) angepasst. Im dritten Schritt wurde wieder ein Sinus mit zwei freien Variablen (\( \omega, \varphi \)) an den Zeitraum von zwei bis sieben Sekunden gefittet, wobei \( A \) und \( k \) auf den im zweiten Schritt ermittelten Werten festgehalten wurden. \par 
+	
 	Das Ergebnis ist in Abbildung \ref{fig:sine} dargestellt und liefert eine Periode von
 	\begin{equation}\label{eqn:period}
 		T_0 = 2 \frac{2\pi}{\omega} = 1.4955(3) \unit{s}
@@ -61,7 +63,9 @@
 	\begin{equation}\label{eqn:g0}
 		g = 4\pi^2 \frac{L}{T_0^2} = 9.50(5) \unit{\a}
 	\end{equation}
-	Gleichung \ref{eqn:T0} macht Gebrauch der Kleinwinkelnäherung, Terme aus der Taylorentwicklung der genäherten Winkelfunktionen einbauen und erhält dann
+	Dieser Wert weicht fast \( 10\sigma \) vom Literaturwert und ist daher nicht mit ihm vereinbar, was aber nicht heißt, dass hier neue Physik geschieht und eine Entdeckung gefeiert werden kann. Der Kraftsensor wurde noch nicht Kalibriert also könnte es sein, dass das Messgerät systematisch zu niedrig misst. Des Weiteren wurden weder Luftwiderstand noch Reibung berücksichtigt und die Kleinwinkelnäherung wurde getroffen, was aber dieses Resultat nicht alleine beschreiben können. \par
+	
+	Gleichung \ref{eqn:T0} macht Gebrauch der Kleinwinkelnäherung und weicht daher von der exakten Lösung ab. Will man der analytischen Lösung näher kommen kann man Terme aus der Taylorentwicklung der genäherten Winkelfunktionen einbauen und erhält dann
 	\begin{equation}\label{eqn:T2}
 		T_2 = \left(1 + \tfrac{\theta_0^2}{16}\right) T_0 = 2\pi\left(1 + \tfrac{\theta_0^2}{16}\right)\sqrt{\tfrac{L}{g}}
 	\end{equation}
@@ -73,24 +77,33 @@
 	\begin{equation}\label{eqn:g1}
 		g = 4\pi^2 \frac{L}{T_0^2}\frac{1}{\left(1 + \tfrac{\theta_0^2}{16}\right)} = 9.45(5) \unit{\a}
 	\end{equation}
+	Dieser Wert liegt noch innerhalb des \( 1\sigma \) Fehlers von \ref{eqn:g0} und könnte daher auch gut durch reine statistische Schwankungen zustande kommen. Die Verwendung eines genaueren Ausdrucks verbessert das Messergebnis nicht drastisch. \par
+	
+	Wenn man die einzelnen Beiträge im Fehler von \( g \) betrachtet bemerkt man, dass die aus dem Fit bestimmten Periode nur \( \approx 0.5 \unit{\percent} \) zum Gesamtfehler beiträgt, während die Bestimmung der Fadenlänge und des Schwerpunkts jeweils über \( 49 \unit{\percent} \) ausmachen. 
 \end{mybox}
 
 \begin{mybox}{Kalibrierung des Kraftsensors}
-	\begin{vwcol}[widths={0.6,0.4}, sep=.8cm, justify=flush,rule=0pt, indent=1em] 
+	\begin{vwcol}[widths={0.6,0.4}, sep=.8cm, justify=flush,rule=0pt, indent=1em, lines=21] 
 		Um die Präzision und Richtigkeit des Kraftsensors zu eruieren wurde eine Probemasse in Form von Münzen an den Sensor gehängt und den gemessen Wert mit dem Berechneten verglichen. Anzahl und Masse der verwendeten Münzen bitte Tabelle \ref{table:2} entnehmen.\par
+		
 		Es wurden für \( 10 \unit{s} \) Daten vom  Kraftsensor aufgezeichnet und davon der ungewichtete Mittelwert berechnet. Die gemessene Kraft 
-		\begin{equation}
+		\begin{equation}\label{eqn:Fgem}
 			F_{\text{gem}} = -0.394 \unit{N}
 		\end{equation}
-		wird mit drei signifikanten Stellen angegeben, um die des berechneten Werts zu matchen. Die Angabe der Kraft erfolgt hier ohne Fehler, weil der Standardfehler so gering ist (da in den \( 10 \unit{s} \) fast 30.000 Datenpunkte gesammelt wurden).
+		wird mit drei signifikanten Stellen angegeben, um mit denen des berechneten Werts übereinzustimmen.
+		Die Angabe der Kraft erfolgt hier ohne Fehler, weil der Standardfehler so gering ist (da in den \( 10 \unit{s} \) fast 30.000 Datenpunkte gesammelt wurden).
 		\newpage
-		\begin{minipage}{0.35\textwidth}
+		\begin{minipage}[t][1cm][t]{0.35\textwidth}
 			\begin{tabular}{@{} rrr @{}}\toprule
 				Wert & Anzahl & Masse [g] \\ \midrule
 				1 Cent & 2 & 2.30(2) \\
 				2 Cent & 7 & 3.06(3) \\
 				5 Cent & 3 & 3.92(4) \\
 				10 Cent & 1 & 4.10(4) \\
+				20 Cent & 0 & 5.74(6) \\
+				50 Cent & 0 & 7.80(8) \\
+				1 Euro & 0 & 7.50(8) \\
+				2 Euro & 0 & 8.50(9) \\
 				\midrule
 				\( \sum \) & 13 & 41.9(3) \\
 				\bottomrule
@@ -99,7 +112,30 @@
 			\label{table:2}
 		\end{minipage}
 	\end{vwcol}
+	\vspace{-2cm}\noindent
+	Verwendet man nun die Erdbeschleunigung aus \ref{eqn:g0} und berechnet damit die Kraft erhält man
+	\begin{equation}\label{eqn:Ferr}
+		F_{\text{calc}} = -mg = -0.398(3) \unit{N}
+	\end{equation}
+	was zu einer Proportionalitätskonstante von 
+	\begin{equation}\label{eqn:a1}
+		a = \frac{F_{\text{gem}}}{F_{\text{calc}}} = 0.991(8)
+	\end{equation}
+	führt. Dieses Resultat kann man weiter Verbessern, indem man den für \( g \) dem Wert aus \ref{eqn:g1} einsetzt. Dies liefert
+	\begin{equation}\label{eqn:a2}
+		F_{\text{calc}} = -0.396(3) \unit{N} \quad \text{und} \quad  a = 0.995(8)
+	\end{equation}
+	Die Abweichung vom Optimalwert 1 kann durch reine statistische Schwankungen erklärt werden. Setzt man für \( g \) aber 9.806 \footnote{https://www.ptb.de/cms/fileadmin/internet/fachabteilungen/abteilung\_1/1.1\_masse/1.15/gravzonen.pdf} ein  erhält man \( a = 0.960(6) \). Der Kraftsensor weicht also systematisch vom Literaturwert ab, was auch die zu niedrigen Werte für \( g \) aus \ref{eqn:g0} und \ref{eqn:g1} erklärt. Korrigiert nachträglich \ref{eqn:g1} erhält man \( g = 9.85(8) \unit{\a} \) was sich gut mit den Literaturwert vereinbaren lässt. \par
 	
+	Führt man nun in Zukunft Messungen mit dem Kraftsensor durch, sollte man unter Verwendung des berechneten Proportionalitätsfaktor die Daten berichtigen und das auch im Text erwähnen. Eine möglichst genaue Konstante ist hier von Vorteil und um den Fehler in \( a \) klein zu halten muss man die verwendete Probemasse sehr genau kennen. In unserem Beispiel könnte man den Fehler reduzieren indem man möglichst viele kleine/leichte Münzen nimmt. Das erkennt man daran, dass der Standardfehler und der relative Fehler gegeben sind durch
+	\begin{equation}\label{eqn:alpha}
+		\alpha = \frac{\sigma}{\sqrt{N}} = \frac{0.01\mu}{\sqrt{N}}
+	\end{equation}
+	und
+	\begin{equation}\label{eqn:relalpha}
+		\alpha_{\text{rel}} = \frac{\alpha}{\mu} = \frac{0.01}{\sqrt{N}} = \frac{1}{100\sqrt{N}}
+	\end{equation}
+	Will man den Fehler reduzieren, muss man die Anzahl \( N \) erhöhen, was in unserem Fall bedeutet, eine Gesamtmasse von zb. \( 100 \unit{g} \) aus vielen Leichten (am besten 43 1 Cent Münzen) anstatt wenigen Schweren zusammenzustellen.
 \end{mybox}
 
 

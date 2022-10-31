@@ -6,15 +6,16 @@
 \hwnumber{2}
 \spacing{}
 
-\setlength{\columnsep}{1cm}
+\setlength\columnsep{-5cm}
 \begin{document}
 \renewcommand{\labelenumi}{\alph{enumi})}
 
 \begin{mybox}{Kalibrierung des Rades}
-	Das Messgerät wurde von Tischkante bis zur Wand geschoben und hat währenddessen die Distanz aufgezeichnet. Die zurückgelegte Strecke setzt sich aus dem Abstand zwischen Wand und Tischkante minus der Länge des IOLabs \footnote{https://www.macmillanlearning.com/college/us/digital/iolab/technical-specs} zusammen und wurde auf \( d = 0.665(1) \unit{m} \) gemessen. Die Länge des Tisches wurde an der Kante gemessen, wo man unter Annahme eines rechtwinkeligen Tisches das Lineal äußerst gerade halten kann. Deshalb wurde diese Fehlerquelle nicht miteinbezogen, da sie vernachlässigbar klein ist im Vergleich zum Ablesefehler.\par 
-
-	\begin{vwcol}[widths={0.4, 0.4}, sep=.8cm, justify=flush,rule=0pt, indent=1em, lines=20] 
-		\begin{minipage}{0.3\textwidth}
+	Das Messgerät wurde von der Tischkante bis zur Wand geschoben und hat währenddessen die Distanz aufgezeichnet. Die zurückgelegte Strecke setzt sich aus dem Abstand zwischen Wand und Tischkante minus der Länge des IOLabs \footnotemark[1] zusammen und wurde auf \\ \( d = 0.665(1) \unit{m} \) gemessen. Die Länge des Tisches wurde an der Kante gemessen, wo man unter Annahme eines rechtwinkeligen Tisches das Lineal äußerst gerade halten kann. Deshalb wurde diese Fehlerquelle nicht miteinbezogen, da sie vernachlässigbar klein ist im Vergleich zum Ablesefehler.\\
+	
+	\begin{vwcol}[widths={0.3, 0.7}, sep=.8cm, justify=flush,rule=0pt, indent=1em, lines=20] 
+		\begin{minipage}[t][0cm][t]{0.3\textwidth}
+			\hspace{0.5cm}
 			\begin{tabular}{@{} rr @{}}\toprule
 				s [m] & a \\ \midrule
 				0.661(1) & 0.994(2) \\
@@ -31,10 +32,33 @@
 			\end{tabular}
 			\captionof{table}{Gemessene zurückgelegte Strecke \( s \) und die dazugehörige Proportionalitätskonstante \( a \)}
 			\label{table:1}
-		\end{minipage}
+		\end{minipage}%
 		\newpage
-		Der Fehler der Distanzmessung des IOLabs wird bei \( 1 \unit{mm} \) angenommen
+		\begin{minipage}[t][0cm][t]{0.64\textwidth}
+			Der Fehler der Distanzmessung des IOLabs wird bei \( 1 \unit{mm} \) angenommen. Geht man von einem linearen Zusammenhang zwischen der gemessenen Größe und dem berechneten Wert \( f_{\text{gem}} = a f_{\text{calc}} \) erhält man für diese Proportionalitätskonstante 
+			\begin{equation}\label{eqn:a0}
+					a = \frac{s}{d}
+			\end{equation}
+			Dies wurde für alle Distanzmessungen (Siehe Tabelle \ref{table:1} gemacht. Aus den 10 Messungen lässt sich der (ungewichtete) Mittelwert \( \bar{a} = 0.99624 \) und die Standardabweichung \( \sigma_a = 0.00212 \) bilden. Der Fehler des Mittelwerts lässt sich wie folgt berechnen
+			\begin{equation}\label{eqn:alp}
+					\alpha = \frac{\sigma}{\sqrt{N}}
+			\end{equation}
+			also gilt in unserem Beispiel
+			\begin{equation}\label{eqn:afin}
+					\bar{a} = 0.9962(7)
+			\end{equation}
+		\end{minipage}
 	\end{vwcol}
+	\vspace{-0.5cm}
+	Die Standardabweichung \( \sigma_a \) und die Propagierten Fehler für \( a \) in Tabelle \ref{table:1} stimmen auf für Dezimalstellen überein, die Standardabweichung bietet sich also gut als Abschätzung für den Fehler an, sollte dieser nicht bekannt sein. Sind die Messpunkt nicht Gaußverteilt könnte dieser Ansatz aber nicht mehr stimmen. \par 
+	
+	Der Proportionalitätsfaktor \( \bar{a} \) liegt über \( 5 \sigma \) von 1 entfernt, also kann man nicht mehr von einem „gut kalibrierten“ Sensor sprechen. \par 
+	
+	Die Richtigkeit des Sensors spiegelt sich in der Abweichung von \( \bar{a} \) vom Optimalwert 1 wieder. Ist \( \bar{a} \) kleiner als 1, wie in unserem Fall, misst der Sensor konstant zu wenig. Dies muss man in Datenanalyse beachten und berichtigen, indem man alle Messpunkte um den Faktor \( \bar{a} \) skaliert. Wichtig hierbei ist, dass das systematische Abweichungen sind und der hier entstehende Fehler nicht mit dem statistischen zusammengeworfen werden darf, sondern separat diskutiert werden soll. \par
+	
+	Die Standardabweichung eines Datensatzes ist ein direktes Maß für die Streuung der Punkte und kann daher herangezogen werden, um über die Präzision eines Sensors zu urteilen. Ist die Standardabweichung gering, so streuen die Daten gering um den Mittelwert, was wiederum für unseren Sensor bedeutet, dass er sehr präzise misst und statistische Schwankungen klein sind. Um die Präzision einer Messung zu verbessern helfen mehr Daten, da jeder Datenpunkt Informationen beinhaltet und daher die Messung/den Fehler der Messung verbessert.
+	
+	\footnotetext[1]{https://www.macmillanlearning.com/college/us/digital/iolab/technical-specs}
 \end{mybox}
 
 \begin{mybox}{Bemessung von \( g \)}
@@ -128,7 +152,7 @@
 	\begin{equation}\label{eqn:a2}
 		F_{\text{calc}} = -0.396(3) \unit{N} \quad \text{und} \quad  a = 0.995(8)
 	\end{equation}
-	Die Abweichung vom Optimalwert 1 kann durch reine statistische Schwankungen erklärt werden. Setzt man für \( g \) aber 9.806 \footnote{https://www.ptb.de/cms/fileadmin/internet/fachabteilungen/abteilung\_1/1.1\_masse/1.15/gravzonen.pdf} ein  erhält man \( a = 0.960(6) \). Der Kraftsensor weicht also systematisch vom Literaturwert ab, was auch die zu niedrigen Werte für \( g \) aus \ref{eqn:g0} und \ref{eqn:g1} erklärt. Korrigiert nachträglich \ref{eqn:g1} erhält man \( g = 9.85(8) \unit{\a} \) was sich gut mit den Literaturwert vereinbaren lässt. \par
+	Die Abweichung vom Optimalwert 1 kann durch reine statistische Schwankungen erklärt werden. Setzt man für \( g \) aber 9.806 \footnote{https://www.ptb.de/cms/fileadmin/internet/fachabteilungen/abteilung\_1/1.1\_masse/1.15/gravzonen.pdf} ein  erhält man \( a = 0.960(6) \). Der Kraftsensor weicht also systematisch vom Literaturwert ab, was auch die zu niedrigen Werte für \( g \) aus \ref{eqn:g0} und \ref{eqn:g1} erklärt. Korrigiert man nachträglich \ref{eqn:g1} erhält man \( g = 9.85(8) \unit{\a} \) was sich gut mit den Literaturwert vereinbaren lässt. \par
 	
 	Führt man nun in Zukunft Messungen mit dem Kraftsensor durch, sollte man unter Verwendung des berechneten Proportionalitätsfaktor die Daten berichtigen und das auch im Text erwähnen. Eine möglichst genaue Konstante ist hier von Vorteil und um den Fehler in \( a \) klein zu halten muss man die verwendete Probemasse sehr genau kennen. In unserem Beispiel könnte man den Fehler reduzieren indem man möglichst viele kleine/leichte Münzen nimmt. Das erkennt man daran, dass der Standardfehler und der relative Fehler gegeben sind durch
 	\begin{equation}\label{eqn:alpha}
@@ -138,7 +162,7 @@
 	\begin{equation}\label{eqn:relalpha}
 		\alpha_{\text{rel}} = \frac{\alpha}{\mu} = \frac{0.01}{\sqrt{N}} = \frac{1}{100\sqrt{N}}
 	\end{equation}
-	Will man den Fehler reduzieren, muss man die Anzahl \( N \) erhöhen, was in unserem Fall bedeutet, eine Gesamtmasse von zb. \( 100 \unit{g} \) aus vielen Leichten (am besten 43 1 Cent Münzen) anstatt wenigen Schweren zusammenzustellen.
+	Will man den Fehler reduzieren, muss man die Anzahl \( N \) erhöhen, was in unserem Fall bedeutet, eine Gesamtmasse von zb. \( 100 \unit{g} \) aus vielen Leichten (am Besten 43 Stück 1 Cent Münzen) anstatt wenigen Schweren zusammenzustellen.
 \end{mybox}
 
 

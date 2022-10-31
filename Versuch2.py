@@ -14,14 +14,33 @@ for i in range(len(measurements)):
 mean = unp.nominal_values(a).mean()
 std = unp.std_devs(a).mean()
 sem = std / np.sqrt(len(a))
+aopt = unc.ufloat(mean, sem)
 print(f"mean: {mean:.5f}, std: {std:.5f}, sem: {sem:.5f}")
+print(f"optimal a: {aopt:.1uS}")
 print("\n")
+
+# %%
+# plot measurements as errorbar
+ax = plt.gca()
+ax.errorbar(np.linspace(0, 9, 10), unp.nominal_values(a), yerr=unp.std_devs(a), fmt='.k', capsize=3, label="Messwerte")
+# draw mean as horizontal line
+ax.axhline(mean, color="red", label=r"$\bar{a}$")
+# dra +- sem as dashed line
+ax.axhline(mean+sem, color="orange", linestyle="--", label=r"$\alpha_a$")
+ax.axhline(mean-sem, color="orange", linestyle="--")
+ax.set_xlabel("Messung")
+ax.set_ylabel("a")
+ax.legend(borderaxespad=1, loc="best")
+plt.show()
+
 # ======== 2 ========
 # %%
 # load force data from csv
 data = np.loadtxt("data/Versuch2_3.csv", delimiter=",", skiprows=1)
 # write data to pandas dataframe and skip first row
 df = pd.DataFrame(data, columns=["t", "F"])
+# divide force by 0.960 to correct for scale error
+df["F"] = df["F"]/0.960
 # fit sine wave
 sta = 10199
 time = 33800
@@ -50,13 +69,15 @@ plt.xlim(1, 10)
 plt.legend(borderaxespad=1, loc="lower right")
 plt.show()
 # save as transparent eps
-plt.savefig("Graphics/Versuch2_1.eps", format="eps", transparent=True)
+# plt.savefig("Graphics/Versuch2_1.eps", format="eps", transparent=True)
 
 # %%
 # load data from 2.4
 data = np.loadtxt("data/Versuch2_4.csv", delimiter=",", skiprows=1)
 # write data to pandas dataframe and skip first row
 df = pd.DataFrame(data, columns=["t", "F"])
+# divide force by 0.960 to correct for scale error
+# df["F"] = df["F"]/0.960
 # calculate mean std and std error of mean
 mean = df["F"].mean()
 std = df["F"].std()
@@ -77,15 +98,15 @@ print(f"L:{L:.1uS}")
 g1 = 4*(np.pi**2)*L/(T**2)
 
 # calculate g from first order pendulum
-theta = unp.arccos(F1/F0)
-print(f"theta: {theta*180/np.pi:.1uS}")
-g2 = g1/(1 + theta**2/16)
+# theta = unp.arccos(F1/F0)
+# print(f"theta: {theta*180/np.pi:.1uS}")
+# g2 = g1/(1 + theta**2/16)
 print(f"g1: {g1:.1uS}")
-print(f"g2: {g2:.1uS}")
+# print(f"g2: {g2:.1uS}")
 
 # calculate error contribution of g1 and g2
 contributions(g1)
-contributions(g2)
+# contributions(g2)
 print("\n")
 # ======== 3 ========
 # %%
@@ -135,3 +156,4 @@ plt.ylabel("F [N]")
 plt.xlim(0, 12)
 plt.legend()
 plt.show()
+

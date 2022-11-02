@@ -50,19 +50,19 @@
 		\end{minipage}
 	\end{vwcol}
 	\vspace{-0.5cm}
-	Die Standardabweichung \( \sigma_a \) und die Propagierten Fehler für \( a \) in Tabelle \ref{table:1} stimmen auf für Dezimalstellen überein, die Standardabweichung bietet sich also gut als Abschätzung für den Fehler an, sollte dieser nicht bekannt sein. Sind die Messpunkt nicht Gaußverteilt könnte dieser Ansatz aber nicht mehr stimmen. \par 
+	Die Standardabweichung \( \sigma_a \) und die Propagierten Fehler für \( a \) in Tabelle \ref{table:1} stimmen auf vier Dezimalstellen überein, die Standardabweichung bietet sich also gut als Abschätzung für den Fehler an, sollte dieser nicht bekannt sein. Sind die Messpunkte nicht Gaußverteilt könnte dieser Ansatz aber nicht mehr stimmen. \par 
 	
 	Der Proportionalitätsfaktor \( \bar{a} \) liegt über \( 5 \sigma \) von 1 entfernt, also kann man nicht mehr von einem „gut kalibrierten“ Sensor sprechen. \par 
 	
-	Die Richtigkeit des Sensors spiegelt sich in der Abweichung von \( \bar{a} \) vom Optimalwert 1 wieder. Ist \( \bar{a} \) kleiner als 1, wie in unserem Fall, misst der Sensor konstant zu wenig. Dies muss man in Datenanalyse beachten und berichtigen, indem man alle Messpunkte um den Faktor \( \bar{a} \) skaliert. Wichtig hierbei ist, dass das systematische Abweichungen sind und der hier entstehende Fehler nicht mit dem statistischen zusammengeworfen werden darf, sondern separat diskutiert werden soll. \par
+	Die Richtigkeit des Sensors spiegelt sich in der Abweichung von \( \bar{a} \) vom Optimalwert 1 wieder. Ist \( \bar{a} \) kleiner als 1, wie in unserem Fall, misst der Sensor konstant zu wenig. Dies muss man in der Datenanalyse beachten und berichtigen, indem man alle Messpunkte um den Faktor \( \bar{a} \) skaliert. Wichtig hierbei ist, dass das systematische Abweichungen sind und der hier entstehende Fehler nicht mit dem Statistischen zusammengeworfen werden darf, sondern separat diskutiert werden soll. \par
 	
-	Die Standardabweichung eines Datensatzes ist ein direktes Maß für die Streuung der Punkte und kann daher herangezogen werden, um über die Präzision eines Sensors zu urteilen. Ist die Standardabweichung gering, so streuen die Daten gering um den Mittelwert, was wiederum für unseren Sensor bedeutet, dass er sehr präzise misst und statistische Schwankungen klein sind. Um die Präzision einer Messung zu verbessern helfen mehr Daten, da jeder Datenpunkt Informationen beinhaltet und daher die Messung/den Fehler der Messung verbessert.
+	Die Standardabweichung eines Datensatzes ist ein direktes Maß für die Streuung der Punkte und kann daher herangezogen werden, um über die Präzision eines Sensors zu urteilen. Ist die Standardabweichung gering, so streuen die Daten wenig um den Mittelwert, was wiederum für unseren Sensor bedeutet, dass er sehr präzise misst und statistische Schwankungen klein sind. Um die Präzision einer Messung zu verbessern helfen mehr Daten, da jeder Datenpunkt Informationen beinhaltet und daher die Messung/den Fehler der Messung verbessert.
 	
 	\footnotetext[1]{https://www.macmillanlearning.com/college/us/digital/iolab/technical-specs}
 \end{mybox}
 
 \begin{mybox}{Bemessung von \( g \)}
-	Um die Erdbeschleunigung \( g \) zu messen, wurde ein Pendel mit einem Kraftsensor ausgestattet. Die Länge \( L \) des Pendels setzt sich aus der Fadenlänge, an welchem das IOLab befestigt ist, und der Distanz zwischen Aufhängepunkt am Messgerät zu dessen Massezentrum zusammen, welchen mit einem \( 4\times 4 \unit{mm} \) Kasten markiert ist. Letztere Distanz wurde mit einer elektronischen Schublehre von der Kante bis zum Mittelpunkt der Box gemessen; die prominente Unsicherheit kommt hier aus der wagen Kennzeichnung der Schwerpunkts und wurde auf \( 2 \unit{mm} \) geschätzt. Der Fehler der Fadenlänge beträgt auch \( 2 \unit{mm} \). Hierbei wurde der Ablesefehler, die Krümmung des Maßbandes und die Lokalisierung der Drehachse berücksichtigt. Die Gesamtlänge beträgt 
+	Um die Erdbeschleunigung \( g \) zu messen, wurde ein Pendel mit einem Kraftsensor ausgestattet. Die Länge \( L \) des Pendels besteht aus der Fadenlänge, an welchem das IOLab befestigt ist, und der Distanz von Aufhängepunkt am Messgerät bis zu dessen Massezentrum. Der Schwerpunkt des IOLabs ist mit einem \( 4\times 4 \unit{mm} \) Kasten markiert. Letztere Distanz wurde mit einer elektronischen Schublehre von der Kante bis zum Mittelpunkt der Box gemessen; die prominente Unsicherheit kommt hier aus der wagen Kennzeichnung des Schwerpunkts und wurde auf \( 2 \unit{mm} \) geschätzt. Der Fehler der Fadenlänge beträgt auch \( 2 \unit{mm} \). Hierbei wurde der Ablesefehler, die Krümmung des Maßbandes und die Lokalisierung der Drehachse berücksichtigt. Die Gesamtlänge beträgt 
 	\begin{equation}
 		L = 0.538(3) \unit{m}
 	\end{equation}
@@ -78,7 +78,7 @@
 	\begin{equation}\label{eqn:period}
 		T_0 = 2 \frac{2\pi}{\omega} = 1.4955(3) \unit{s}
 	\end{equation}
-	Hier darf man den Faktor 2 nicht vergessen, der daher kommt, dass die Kraft auf den Sensor des Pendels bezüglich der Senkrechten symmetrisch ist und in einer Periode zwei Maxima (maximale Auslenkung) und zwei Minima (Ruhelage) durchlaufen werden.
+	Hier darf man den Faktor 2 nicht vergessen, der daher stammt, dass die Kraft auf den Sensor des Pendels bezüglich der Senkrechten symmetrisch ist und in einer Periode zwei Maxima (Ruhelage) und zwei Minima (maximale Auslenkung) durchlaufen werden.
 	\begin{figure}[H]
 		\vspace{-0.5cm}		
 		\centering
@@ -154,7 +154,7 @@
 	\end{equation}
 	Die Abweichung vom Optimalwert 1 kann durch reine statistische Schwankungen erklärt werden. Setzt man für \( g \) aber 9.806 \footnote{https://www.ptb.de/cms/fileadmin/internet/fachabteilungen/abteilung\_1/1.1\_masse/1.15/gravzonen.pdf} ein  erhält man \( a = 0.960(6) \). Der Kraftsensor weicht also systematisch vom Literaturwert ab, was auch die zu niedrigen Werte für \( g \) aus \ref{eqn:g0} und \ref{eqn:g1} erklärt. Korrigiert man nachträglich \ref{eqn:g1} erhält man \( g = 9.85(8) \unit{\a} \) was sich gut mit den Literaturwert vereinbaren lässt. \par
 	
-	Führt man nun in Zukunft Messungen mit dem Kraftsensor durch, sollte man unter Verwendung des berechneten Proportionalitätsfaktor die Daten berichtigen und das auch im Text erwähnen. Eine möglichst genaue Konstante ist hier von Vorteil und um den Fehler in \( a \) klein zu halten muss man die verwendete Probemasse sehr genau kennen. In unserem Beispiel könnte man den Fehler reduzieren indem man möglichst viele kleine/leichte Münzen nimmt. Das erkennt man daran, dass der Standardfehler und der relative Fehler gegeben sind durch
+	Führt man nun in Zukunft Messungen mit dem Kraftsensor durch, sollte man unter Verwendung des berechneten Proportionalitätsfaktor die Daten berichtigen und das auch im Text erwähnen. Eine möglichst genaue Konstante ist hier von Vorteil und um den Fehler in \( a \) klein zu halten, muss man die verwendete Probemasse sehr genau kennen. In unserem Beispiel könnte man den Fehler reduzieren, indem man möglichst viele kleine/leichte Münzen nimmt. Das erkennt man daran, dass der Standardfehler und der relative Fehler gegeben sind durch
 	\begin{equation}\label{eqn:alpha}
 		\alpha = \frac{\sigma}{\sqrt{N}} = \frac{0.01\mu}{\sqrt{N}}
 	\end{equation}

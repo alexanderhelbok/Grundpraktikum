@@ -65,7 +65,7 @@ plt.scatter(df["t"][::10], df["F"][::10], s=1, label="Data")
 plt.plot(df["t"], sine2(df["t"], *popt2), color="red", label="Sine Fit")
 plt.xlabel("t [s]")
 plt.ylabel("F [N]")
-plt.xlim(1, 10)
+# plt.xlim(1, 10)
 plt.legend(borderaxespad=1, loc="lower right")
 plt.show()
 # save as transparent eps

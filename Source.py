@@ -11,6 +11,10 @@ import uncertainties.unumpy as unp
 import seaborn as sns
 
 
+def const(x, a):
+    return a
+
+
 def parabola(x, a, b, c):
     return a*x**2 + b*x + c
 

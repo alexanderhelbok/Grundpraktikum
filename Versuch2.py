@@ -71,6 +71,9 @@ plt.show()
 # save as transparent eps
 # plt.savefig("Graphics/Versuch2_1.eps", format="eps", transparent=True)
 
+# calc chi2
+chi2 = chisq(sine2(df["t"][sta:time], *popt2), df["F"][sta:time])
+print(f"chi2 = {chi2:.2f}")
 # %%
 # load data from 2.4
 data = np.loadtxt("data/Versuch2_4.csv", delimiter=",", skiprows=1)

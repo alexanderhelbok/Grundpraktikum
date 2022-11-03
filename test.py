@@ -100,3 +100,50 @@ else:
     ax.legend(loc="upper right", borderaxespad=1)
 plt.savefig("Graphics/heat.eps", format="eps", transparent=True, bbox_inches="tight")
 plt.show()
+
+# %%
+def sine_fit(x, y, err=None, p0=None, verbose=False):
+    if err is None:
+        err = np.ones(len(x))
+    if p0 is None:
+        p0 = [1000, 1100]
+    start, end = p0[0], p0[1]
+    popt, pcov = curve_fit(sine, x[start:end], y[start:end], sigma=err[start:end], absolute_sigma=True)
+    chi = chisq(sine(x[start:end], *popt), y[start:end], dof=len(x[start:end]) - 4)
+    # increase start and end by 100 as long as chi is smaller than 1
+    while chi < 0.5:
+        end += 25
+        popt, pcov = curve_fit(sine, x[start:end], y[start:end], sigma=err[start:end], absolute_sigma=True)
+        chi = chisq(sine(x[start:end], *popt), y[start:end], dof=len(x[start:end]) - 4)
+    end -= 50
+    while chi < 0.5:
+        start -= 25
+        popt, pcov = curve_fit(sine, x[start:end], y[start:end], sigma=err[start:end], absolute_sigma=True)
+        chi = chisq(sine(x[start:end], *popt), y[start:end], dof=len(x[start:end]) - 4)
+    start += 50
+
+
+    def sine2(t, f, phase):
+        return popt[0] * np.sin(f * t + phase) + popt[3]
+
+    start2, end2 = start, end
+    print(f"start: {start}, end: {end}")
+    popt2, pcov2 = curve_fit(sine2, x[start2:end2], y[start2:end2], sigma=err[start2:end2], absolute_sigma=True,
+                             p0=[popt[1], popt[2]])
+    chi2 = chisq(sine2(x[start2:end2], *popt2), y[start2:end2], dof=len(x[start2:end2]) - 2)
+    while chi2 < 1:
+        start2 -= 50
+        popt2, pcov2 = curve_fit(sine2, x[start2:end2], y[start2:end2], sigma=err[start2:end2], absolute_sigma=True,
+                                 p0=[popt[1], popt[2]])
+        chi2 = chisq(sine2(x[start2:end2], *popt2), y[start2:end2], dof=len(x[start2:end2]) - 2)
+    start2 += 50
+    while chi2 < 1:
+        end2 += 50
+        popt2, pcov2 = curve_fit(sine2, x[start2:end2], y[start2:end2], sigma=err[start2:end2], absolute_sigma=True,
+                                 p0=[popt[1], popt[2]])
+        chi2 = chisq(sine2(x[start2:end2], *popt2), y[start2:end2], dof=len(x[start2:end2]) - 2)
+    end2 -= 50
+
+    if verbose:
+        return popt, pcov, popt2, pcov2
+    return np.array([popt[0], popt2[0], popt2[1], popt[3]]), np.array([pcov[0, 0], pcov2[0, 0], pcov2[1, 1], pcov[3, 3]])

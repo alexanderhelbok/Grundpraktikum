@@ -19,6 +19,10 @@ def parabola(x, a, b, c):
     return a*x**2 + b*x + c
 
 
+def affineline(x, a):
+    return a*x
+
+
 def line(x, a, b):
     return a*x + b
 
@@ -83,6 +87,39 @@ def chi_contour(points, contour=None):
     dummy.set_ylim(0, ymax)
     dummy.legend()
     plt.show()
+
+
+def sine_fit(x, y, err=None, min=0, p0=None, verbose=False):
+    if err is None:
+        err = np.ones(len(x))
+    if p0 is None:
+        p0 = [1000, 1100]
+    start, end = p0[0], p0[1]
+    popt, pcov = curve_fit(sine, x[start:end], y[start:end], sigma=err[start:end], absolute_sigma=True, p0=[1, 5, 1, 1])
+    chi = chisq(sine(x[start:end], *popt), y[start:end], dof=len(x[start:end]) - 4)
+    if verbose:
+        print(f"start: {start}, end: {end}, chi: {chi}")
+    # increase start and end by 100 as long as chi is smaller than 1
+    while chi < 1:
+        end += len(x)//30
+        if start > min:
+            start -= 100
+        try:
+            popt, pcov = curve_fit(sine, x[start:end], y[start:end], sigma=err[start:end], absolute_sigma=True, p0=[popt[0], popt[1], popt[2], popt[3]])
+        except RuntimeError:
+            print("RuntimeError")
+            break
+        if end > 4*len(x)/5:
+            if verbose:
+                print("end too large")
+            break
+        chi = chisq(sine(x[start:end], *popt), y[start:end], dof=len(x[start:end]) - 4)
+        if verbose:
+            print(f"start: {start}, end: {end}, chi: {chi}")
+    end -= len(x)//30
+    start += 100
+    popt, pcov = curve_fit(sine, x[start:end], y[start:end], sigma=err[start:end], absolute_sigma=True, p0=[popt[0], popt[1], popt[2], popt[3]])
+    return popt, pcov
 
 
 def contributions(var, rel=True, precision=2):

@@ -3,6 +3,7 @@
 \ProvidesClass{alex_bericht}[2022/10/12 Alexander Report Class]
 \LoadClass[12pt,a4paper]{scrreprt}
 \RequirePackage{fullpage, lastpage}
+\RequirePackage[doublespacing]{setspace} 
 \RequirePackage[top=2cm, bottom=4.5cm, left=2.25cm, right=2.25cm]{geometry}
 %\RequirePackage[utf8]{inputenc} % uncomment if xelatex is not used
 \RequirePackage[T1]{fontenc}
@@ -42,6 +43,9 @@
 		};%
 	}
 }
+
+\RedeclareSectionCommand[beforeskip = 0pt,afterindent=false, afterskip=0pt]{chapter}
+\renewcommand*{\chapterpagestyle}{headings}
 
 %\tikzexternalize[prefix=figures/]
 
@@ -99,28 +103,25 @@
 \let\oldunit\unit
 \renewcommand{\unit}[1]{\hspace{4pt}\oldunit{#1}}
 
-\hypersetup{%
-	colorlinks=true,
-	linkcolor=blue,
-	linkbordercolor={0 0 1}
-}
+%\hypersetup{%
+%	colorlinks=true,
+%	linkcolor=blue,
+%	linkbordercolor={0 0 1}
+%}
 
-\setlength{\parindent}{0.0in}
-\setlength{\parskip}{0.05in}
+%\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.5in}
 
 % define customizeable variables
-\newcommand*{\name}[1]{\def\@name{#1}}
-\newcommand*{\hwnumber}[1]{\def\@hwnumber{#1}}
-\newcommand*{\course}[1]{\def\@course{#1}}
+%\newcommand*{\name}[1]{\def\@name{#1}}
 
 
 % create header
 \clearpairofpagestyles
 \setkomafont{pageheadfoot}{\normalfont}
-\ihead{\@name}
-\chead{\textbf{\Large Blatt \@hwnumber}}
-\ohead{\@course \\ \today}
-\cfoot{\pagemark}
+%\ihead{\@name}
+\chead{}
+\ohead{\pagemark}
 \headheight 35pt
 \headsep 2.5em
 \footheight 45pt

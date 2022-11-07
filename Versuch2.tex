@@ -50,11 +50,11 @@
 		\end{minipage}
 	\end{vwcol}
 	\vspace{-0.5cm}
-	Die Standardabweichung \( \sigma_a \) und die Propagierten Fehler für \( a \) in Tabelle \ref{table:1} stimmen auf vier Dezimalstellen überein, die Standardabweichung bietet sich also gut als Abschätzung für den Fehler an, sollte dieser nicht bekannt sein. Sind die Messpunkte nicht Gaußverteilt könnte dieser Ansatz aber nicht mehr stimmen. \par 
+	Die Standardabweichung \( \sigma_a \) und die Propagierten Fehler für \( a \) in Tabelle \ref{table:1} stimmen auf vier Dezimalstellen überein, die Standardabweichung bietet sich also gut als Abschätzung für den Fehler an, sollte dieser nicht bekannt sein. Sind die Messpunkte nicht Gaußverteilt könnte dieser Ansatz aber nicht mehr stimmen. 
 	
-	Der Proportionalitätsfaktor \( \bar{a} \) liegt über \( 5 \sigma \) von 1 entfernt, also kann man nicht mehr von einem „gut kalibrierten“ Sensor sprechen. \par 
+	Der Proportionalitätsfaktor \( \bar{a} \) liegt über \( 5 \sigma \) von 1 entfernt, also kann man nicht mehr von einem „gut kalibrierten“ Sensor sprechen. 
 	
-	Die Richtigkeit des Sensors spiegelt sich in der Abweichung von \( \bar{a} \) vom Optimalwert 1 wieder. Ist \( \bar{a} \) kleiner als 1, wie in unserem Fall, misst der Sensor konstant zu wenig. Dies muss man in der Datenanalyse beachten und berichtigen, indem man alle Messpunkte um den Faktor \( \bar{a} \) skaliert. Wichtig hierbei ist, dass das systematische Abweichungen sind und der hier entstehende Fehler nicht mit dem Statistischen zusammengeworfen werden darf, sondern separat diskutiert werden soll. \par
+	Die Richtigkeit des Sensors spiegelt sich in der Abweichung von \( \bar{a} \) vom Optimalwert 1 wieder. Ist \( \bar{a} \) kleiner als 1, wie in unserem Fall, misst der Sensor konstant zu wenig. Dies muss man in der Datenanalyse beachten und berichtigen, indem man alle Messpunkte um den Faktor \( \bar{a} \) skaliert. Wichtig hierbei ist, dass das systematische Abweichungen sind und der hier entstehende Fehler nicht mit dem Statistischen zusammengeworfen werden darf, sondern separat diskutiert werden soll. 
 	
 	Die Standardabweichung eines Datensatzes ist ein direktes Maß für die Streuung der Punkte und kann daher herangezogen werden, um über die Präzision eines Sensors zu urteilen. Ist die Standardabweichung gering, so streuen die Daten wenig um den Mittelwert, was wiederum für unseren Sensor bedeutet, dass er sehr präzise misst und statistische Schwankungen klein sind. Um die Präzision einer Messung zu verbessern helfen mehr Daten, da jeder Datenpunkt Informationen beinhaltet und daher die Messung/den Fehler der Messung verbessert.
 	
@@ -70,9 +70,9 @@
 	\begin{equation}\label{eqn:T0}
 		T_0 = 2\pi\sqrt{\tfrac{L}{g}}
 	\end{equation}
-	beschrieben, wobei \( g \) die Gravitationsbeschleunigung auf der Erde darstellt. Um die Periodendauer mithilfe der Daten des Kraftsensors zu bestimmen wurde eine Sinuskurve der Form \( A * \sin(\omega x + \varphi) + k \) an die Messpunkte angepasst. Der Fitprozess verlief in drei Schritten.\par 
+	beschrieben, wobei \( g \) die Gravitationsbeschleunigung auf der Erde darstellt. Um die Periodendauer mithilfe der Daten des Kraftsensors zu bestimmen wurde eine Sinuskurve der Form \( A * \sin(\omega x + \varphi) + k \) an die Messpunkte angepasst. Der Fitprozess verlief in drei Schritten.
 	
-	Da die Daten sehr verrauscht waren mussten sie zuerst geglättet werden. Danach wurde ein Sinus in der allgemeinen Form mit vier freien Parametern an die Daten von \( t = 4 \unit{s} \) bis \( t = 5 \unit{s} \) angepasst. Im dritten Schritt wurde wieder ein Sinus mit zwei freien Variablen (\( \omega, \varphi \)) an den Zeitraum von zwei bis sieben Sekunden gefittet, wobei \( A \) und \( k \) auf den im zweiten Schritt ermittelten Werten festgehalten wurden. \par 
+	Da die Daten sehr verrauscht waren mussten sie zuerst geglättet werden. Danach wurde ein Sinus in der allgemeinen Form mit vier freien Parametern an die Daten von \( t = 4 \unit{s} \) bis \( t = 5 \unit{s} \) angepasst. Im dritten Schritt wurde wieder ein Sinus mit zwei freien Variablen (\( \omega, \varphi \)) an den Zeitraum von zwei bis sieben Sekunden gefittet, wobei \( A \) und \( k \) auf den im zweiten Schritt ermittelten Werten festgehalten wurden. 
 	
 	Das Ergebnis ist in Abbildung \ref{fig:sine} dargestellt und liefert eine Periode von
 	\begin{equation}\label{eqn:period}
@@ -90,7 +90,7 @@
 	\begin{equation}\label{eqn:g0}
 		g = 4\pi^2 \frac{L}{T_0^2} = 9.50(5) \unit{\a}
 	\end{equation}
-	Dieser Wert weicht fast \( 10\sigma \) vom Literaturwert und ist daher nicht mit ihm vereinbar, was aber nicht heißt, dass hier neue Physik geschieht und eine Entdeckung gefeiert werden kann. Der Kraftsensor wurde noch nicht Kalibriert also könnte es sein, dass das Messgerät systematisch zu niedrig misst. Des Weiteren wurden weder Luftwiderstand noch Reibung berücksichtigt und die Kleinwinkelnäherung wurde getroffen, was aber dieses Resultat nicht alleine beschreiben können. \par
+	Dieser Wert weicht fast \( 10\sigma \) vom Literaturwert und ist daher nicht mit ihm vereinbar, was aber nicht heißt, dass hier neue Physik geschieht und eine Entdeckung gefeiert werden kann. Der Kraftsensor wurde noch nicht Kalibriert also könnte es sein, dass das Messgerät systematisch zu niedrig misst. Des Weiteren wurden weder Luftwiderstand noch Reibung berücksichtigt und die Kleinwinkelnäherung wurde getroffen, was aber dieses Resultat nicht alleine beschreiben können. 
 	
 	Gleichung \ref{eqn:T0} macht Gebrauch der Kleinwinkelnäherung und weicht daher von der exakten Lösung ab. Will man der analytischen Lösung näher kommen kann man Terme aus der Taylorentwicklung der genäherten Winkelfunktionen einbauen und erhält dann
 	\begin{equation}\label{eqn:T2}
@@ -104,14 +104,14 @@
 	\begin{equation}\label{eqn:g1}
 		g = 4\pi^2 \frac{L}{T_0^2}\frac{1}{\left(1 + \tfrac{\theta_0^2}{16}\right)} = 9.45(5) \unit{\a}
 	\end{equation}
-	Dieser Wert liegt noch innerhalb des \( 1\sigma \) Fehlers von \ref{eqn:g0} und könnte daher auch gut durch reine statistische Schwankungen zustande kommen. Die Verwendung eines genaueren Ausdrucks verbessert das Messergebnis nicht drastisch. \par
+	Dieser Wert liegt noch innerhalb des \( 1\sigma \) Fehlers von \ref{eqn:g0} und könnte daher auch gut durch reine statistische Schwankungen zustande kommen. Die Verwendung eines genaueren Ausdrucks verbessert das Messergebnis nicht drastisch. 
 	
 	Wenn man die einzelnen Beiträge im Fehler von \( g \) betrachtet bemerkt man, dass die aus dem Fit bestimmten Periode nur \( \approx 0.5 \unit{\percent} \) zum Gesamtfehler beiträgt, während die Bestimmung der Fadenlänge und des Schwerpunkts jeweils über \( 49 \unit{\percent} \) ausmachen. 
 \end{mybox}
 
 \begin{mybox}{Kalibrierung des Kraftsensors}
 	\begin{vwcol}[widths={0.6,0.4}, sep=.8cm, justify=flush,rule=0pt, indent=1em, lines=21] 
-		Um die Präzision und Richtigkeit des Kraftsensors zu eruieren wurde eine Probemasse in Form von Münzen an den Sensor gehängt und den gemessen Wert mit dem Berechneten verglichen. Anzahl und Masse der verwendeten Münzen bitte Tabelle \ref{table:2} entnehmen.\par
+		Um die Präzision und Richtigkeit des Kraftsensors zu eruieren wurde eine Probemasse in Form von Münzen an den Sensor gehängt und den gemessen Wert mit dem Berechneten verglichen. Anzahl und Masse der verwendeten Münzen bitte Tabelle \ref{table:2} entnehmen.
 		
 		Es wurden für \( 10 \unit{s} \) Daten vom  Kraftsensor aufgezeichnet und davon der ungewichtete Mittelwert berechnet. Die gemessene Kraft 
 		\begin{equation}\label{eqn:Fgem}

@@ -1,62 +1,14 @@
 %Dokumentklasse
 \documentclass{alex_bericht}
-%\usepackage[onehalfspacing]{setspace}
-% ============= Packages =============
 
-% Dokumentinformationen
-
-
-
-% Standard Packagesa
-%\usepackage{fancyhdry}
-\graphicspath{{img/}}
-\usepackage{lmodern}
-\usepackage{color}
-
-% zusätzliche Schriftzeichen der American Mathematical Society
-
-
-%nicht einrücken nach Absatz
-%\setlength{\parindent}{0pt}
-
-
-% ============= Kopf- und Fußzeile =============
-%\pagestyle{fancy}
-%
-%\lhead{}
-%\chead{}
-%\rhead{\slshape \leftmark}
-%%%
-%\lfoot{}
-%\cfoot{\thepage}
-%\rfoot{}
-%%
-%\renewcommand{\headrulewidth}{0.4pt}
-%\renewcommand{\footrulewidth}{0pt}
-
-% ============= Package Einstellungen & Sonstiges ============= 
-%Besondere Trennungen
-\hyphenation{De-zi-mal-tren-nung}
-
-
-% ============= Dokumentbeginn =============
 
 \begin{document}
 %Seiten ohne Kopf- und Fußzeile sowie Seitenzahl
-\pagestyle{empty}
 \pagenumbering{Roman}
-
+\thispagestyle{empty}
 \include{01_titel}
 
-\clearpairofpagestyles
-\pagestyle{headings}
 \include{02_Kurzfassung}
-
-% Beendet eine Seite und erzwingt auf den nachfolgenden Seiten die Ausgabe aller Gleitobjekte (z.B. Abbildungen), die bislang definiert, aber noch nicht ausgegeben wurden. Dieser Befehl fügt, falls nötig, eine leere Seite ein, sodaß die nächste Seite nach den Gleitobjekten eine ungerade Seitennummer hat. 
-\cleardoubleoddpage
-
-% pagestyle für gesamtes Dokument aktivieren
-%\pagestyle{fancy}
 
 %Inhaltsverzeichnis
 \tableofcontents
@@ -66,7 +18,7 @@
 
 %Verzeichnis aller Tabellen
 \listoftables
-\cleardoubleoddpage
+%\cleardoubleoddpage
 
 \pagenumbering{arabic}
 \include{03_Einleitung}

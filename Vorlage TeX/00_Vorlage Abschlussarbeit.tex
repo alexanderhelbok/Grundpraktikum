@@ -1,51 +1,38 @@
 %Dokumentklasse
-\documentclass[a4paper,12pt]{scrreprt}
-\usepackage[left= 2.5cm,right = 2cm, bottom = 4 cm]{geometry}
+\documentclass{alex_bericht}
 %\usepackage[onehalfspacing]{setspace}
 % ============= Packages =============
 
 % Dokumentinformationen
-\usepackage[
-	pdftitle={Titel der Abschlussarbeit},
-	pdfsubject={},
-	pdfauthor={Euer Name},
-	pdfkeywords={},	
-	%Links nicht einrahmen
-	hidelinks
-]{hyperref}
 
 
-% Standard Packages
-\usepackage[utf8]{inputenc}
-\usepackage[ngerman]{babel}
-\usepackage[T1]{fontenc}
-\usepackage{graphicx, subfig}
+
+% Standard Packagesa
+%\usepackage{fancyhdry}
 \graphicspath{{img/}}
-\usepackage{fancyhdr}
 \usepackage{lmodern}
 \usepackage{color}
 
 % zusätzliche Schriftzeichen der American Mathematical Society
-\usepackage{amsfonts}
-\usepackage{amsmath}
+
 
 %nicht einrücken nach Absatz
 %\setlength{\parindent}{0pt}
 
 
 % ============= Kopf- und Fußzeile =============
-\pagestyle{fancy}
+%\pagestyle{fancy}
 %
-\lhead{}
-\chead{}
-\rhead{\slshape \leftmark}
+%\lhead{}
+%\chead{}
+%\rhead{\slshape \leftmark}
+%%%
+%\lfoot{}
+%\cfoot{\thepage}
+%\rfoot{}
 %%
-\lfoot{}
-\cfoot{\thepage}
-\rfoot{}
-%%
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0pt}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0pt}
 
 % ============= Package Einstellungen & Sonstiges ============= 
 %Besondere Trennungen
@@ -57,18 +44,19 @@
 \begin{document}
 %Seiten ohne Kopf- und Fußzeile sowie Seitenzahl
 \pagestyle{empty}
+\pagenumbering{Roman}
 
 \include{01_titel}
 
-\include{02_danksagungen}
-
-\include{03_zusammenfassung}
+\clearpairofpagestyles
+\pagestyle{headings}
+\include{02_Kurzfassung}
 
 % Beendet eine Seite und erzwingt auf den nachfolgenden Seiten die Ausgabe aller Gleitobjekte (z.B. Abbildungen), die bislang definiert, aber noch nicht ausgegeben wurden. Dieser Befehl fügt, falls nötig, eine leere Seite ein, sodaß die nächste Seite nach den Gleitobjekten eine ungerade Seitennummer hat. 
 \cleardoubleoddpage
 
 % pagestyle für gesamtes Dokument aktivieren
-\pagestyle{fancy}
+%\pagestyle{fancy}
 
 %Inhaltsverzeichnis
 \tableofcontents
@@ -78,18 +66,18 @@
 
 %Verzeichnis aller Tabellen
 \listoftables
+\cleardoubleoddpage
 
-\include{/nest/04_einleitung}
+\pagenumbering{arabic}
+\include{03_Einleitung}
 
-\include{05_grundlagen}
+\include{04_Theorie}
 
-\include{06_standdertechnik}
+\include{05_Aufbau}
 
-\include{07_methoden}
+\include{06_Ergebnisse}
 
-\include{08_ergebnisse}
-
-\include{09_diskussion}
+\include{07_Diskussion}
 
 %Literaturverzeichnis
 \bibliographystyle{unsrtdin}

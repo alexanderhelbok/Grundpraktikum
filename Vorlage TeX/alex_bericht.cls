@@ -1,6 +1,6 @@
 \author{Alexander Helbok}
 \date{\today}
-\ProvidesClass{alex_gp}[2022/10/12 Alexander Report Class]
+\ProvidesClass{alex_bericht}[2022/10/12 Alexander Report Class]
 \LoadClass[12pt,a4paper]{scrreprt}
 \RequirePackage{fullpage, lastpage}
 \RequirePackage[top=2cm, bottom=4.5cm, left=2.25cm, right=2.25cm]{geometry}
@@ -10,7 +10,7 @@
 \RequirePackage[ngerman]{babel}
 \RequirePackage{xifthen}
 \RequirePackage[dvipsnames]{xcolor}
-\RequirePackage{mtpro2}
+\RequirePackage{mtpro2, lipsum}
 \pdfmapfile{=mtpro2.map}
 \RequirePackage{mathtools, amsthm, amsfonts, siunitx, physics, chemformula, empheq}
 \RequirePackage{enumitem, multicol, tcolorbox, array}
@@ -18,14 +18,14 @@
 \RequirePackage[headsepline]{scrlayer-scrpage}
 \RequirePackage{graphicx}
 \RequirePackage{listings} %env ignores LATEX commands, keeping all the line breaks (for printing code)
-\usepackage[
-			pdftitle={Titel der Abschlussarbeit},
-			pdfsubject={},
-			pdfauthor={Euer Name},
-			pdfkeywords={},	
-			%Links nicht einrahmen
-			hidelinks
-			]{hyperref}
+\RequirePackage[
+	pdftitle={Titel der Abschlussarbeit},
+	pdfsubject={},
+	pdfauthor={Euer Name},
+	pdfkeywords={},	
+	%Links nicht einrahmen
+	hidelinks
+]{hyperref}
 \RequirePackage{bookmark}
 \RequirePackage{custom}
 \RequirePackage{tikz, pgfplots}

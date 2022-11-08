@@ -8,7 +8,7 @@
 %\RequirePackage[utf8]{inputenc} % uncomment if xelatex is not used
 \RequirePackage[T1]{fontenc}
 \RequirePackage{fontspec}
-\RequirePackage[backend=biber]{biblatex}
+\RequirePackage[backend=biber, style=phys]{biblatex}
 \RequirePackage[ngerman]{babel}
 \RequirePackage{xifthen}
 \RequirePackage[dvipsnames]{xcolor}
@@ -51,6 +51,7 @@
 %\tikzexternalize[prefix=figures/]
 
 \graphicspath{ {./Graphics/} }
+\addbibresource{Literatur.bib}
 
 \setmainfont{Times New Roman}
 

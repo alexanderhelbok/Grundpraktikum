@@ -47,7 +47,7 @@ for i in range(3):
         ax3.legend(loc="lower right", borderaxespad=1,  markerscale=4)
         plt.xlim(0, 12)
         # fig.savefig("Graphics/Versuch3_1.eps", format="eps", transparent=True)
-        # plt.show()
+        plt.show()
 
     # print(f"a: {a:.1uS} F: {F:.1uS}")
     print(f"m{i+1}: {m[i]:.1uS}")

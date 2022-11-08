@@ -8,6 +8,7 @@
 %\RequirePackage[utf8]{inputenc} % uncomment if xelatex is not used
 \RequirePackage[T1]{fontenc}
 \RequirePackage{fontspec}
+\RequirePackage[backend=biber]{biblatex}
 \RequirePackage[ngerman]{babel}
 \RequirePackage{xifthen}
 \RequirePackage[dvipsnames]{xcolor}

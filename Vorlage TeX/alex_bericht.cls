@@ -21,9 +21,9 @@
 \RequirePackage{graphicx}
 \RequirePackage{listings} %env ignores LATEX commands, keeping all the line breaks (for printing code)
 \RequirePackage[
-	pdftitle={Titel der Abschlussarbeit},
+	pdftitle={Bericht 1},
 	pdfsubject={},
-	pdfauthor={Euer Name},
+	pdfauthor={Alexander Helbok},
 	pdfkeywords={},	
 	%Links nicht einrahmen
 	hidelinks

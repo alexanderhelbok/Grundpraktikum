@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 # from labellines import labelLine, labelLines
 from matplotlib.ticker import (MultipleLocator, FormatStrFormatter, AutoMinorLocator)
+from matplotlib.figure import figaspect
 from scipy.optimize import curve_fit
 from scipy.optimize import fsolve
 from scipy.stats import chi2
@@ -147,3 +148,4 @@ plt.rcParams['ytick.major.size'] = 7
 plt.rcParams['ytick.minor.size'] = 3.5
 # increase border width
 plt.rcParams['axes.linewidth'] = 1.25
+

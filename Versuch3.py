@@ -60,7 +60,7 @@ for i in range(3):
         plt.show()
 
     # print(f"a: {a:.1uS} F: {F:.1uS}")
-    print(f"m{i+1}: {m[i]:.2uS}")
+    print(f"m{i+1}: {m[i]:.1uS}")
 print("\n")
 # %%
 w = unp.uarray([0, 0, 0], [0, 0, 0])
@@ -106,30 +106,6 @@ for i in range(3):
     print(f"w{i+1}: {w[i]:.1uS}")
 
 # %%
-plt.rcParams.update(plt.rcParamsDefault)
-print(plt.rcdefaults())
-# %%
-temp = df[11720:12000]
-
-x = np.array([11814, 11823, 11834, 11850, 11861, 11876, 11887, 11893, 11895, 11921])
-
-popt, pcov = curve_fit(sine, temp["t"][x], temp["a"][x], sigma=temp["aerr"][x], absolute_sigma=True)
-# fit parabola
-popt2, pcov2 = curve_fit(parabola, temp["t"][x], temp["a"][x], sigma=temp["aerr"][x], absolute_sigma=True)
-
-plt.scatter(temp["t"], temp["a"], label="Data", s=0.5, color="black")
-plt.plot(temp["t"], parabola(temp["t"], *popt2), label="Fit", color="orange", linewidth=0.75)
-plt.plot(df["t"], sine(df["t"], *fit), label="Fit", color="red", linewidth=0.75)
-# plt.plot(temp["t"], sine(temp["t"], *popt), label="Fit", color="red", linewidth=0.75)
-plt.xlabel("t [s]")
-plt.ylabel("a [m/s$^2$]")
-plt.legend(borderaxespad=1, loc="upper left", markerscale=4)
-# plt.xlim(11800, 11900)
-plt.show()
-
-# print(x)
-
-# %%
 # plot m2 and w
 # m[0] = unc.ufloat(0.240, 0.0001)
 w[0] = unc.ufloat(8.8759, 0.0005)
@@ -147,16 +123,29 @@ kcalc = ktemp**2
 print(f"ktemp = {ktemp:.1uS}: kcalc = {kcalc:.1uS}")
 
 # fig = plt.figure(figsize=(4, 3))
-plt.errorbar(unp.nominal_values(m2), unp.nominal_values(w), yerr=unp.std_devs(w), xerr=unp.std_devs(m2), fmt=".k", capsize=3, label="Messwerte")
-# fig.plot(unp.nominal_values(m2), line(unp.nominal_values(m2), *popt), label="Fit", color="red")
-plt.plot(np.linspace(1.5, 2.3, 10), affineline(np.linspace(1.5, 2.3, 10), *popt2), label=r"Fit / $f(x) = 4.005(4)$  (kg$^{\frac{1}{2}}$/s)", color="red")
-plt.gcf().set_size_inches(6, 3)
-plt.xlabel(r"$\sqrt{1/m}$ (kg$^{-\frac{1}{2}}$)")
-plt.ylabel(r"$\omega$ (s$^{-1}$)")
+# plt.errorbar(unp.nominal_values(m2), unp.nominal_values(w), yerr=unp.std_devs(w), xerr=unp.std_devs(m2), fmt=".k", capsize=3, label="Data")
+# # fig.plot(unp.nominal_values(m2), line(unp.nominal_values(m2), *popt), label="Fit", color="red")
+# plt.plot(np.linspace(1.5, 2.3, 10), affineline(np.linspace(1.5, 2.3, 10), *popt2), label=r"Fit / $f(x) = 4.005(4)$  (kg$^{\frac{1}{2}}$/s)", color="red")
+# plt.gcf().set_size_inches(6, 3)
+# plt.xlabel(r"$\sqrt{1/m}$ (kg$^{-\frac{1}{2}}$)")
+# plt.ylabel(r"$\omega$ (s$^{-1}$)")
+# plt.legend(loc="best", borderaxespad=1)
+# plt.xlim(1.52, 2.25)
+# plt.tight_layout()
+# # plt.savefig("Graphics/Versuch3_3.eps", format="eps", transparent=True)
+# plt.show()
+
+plt.errorbar([1, 2, 3], unp.nominal_values(k), yerr=unp.std_devs(k), fmt=".k", capsize=3, label="Data")
+plt.hlines(kcalc.n, 1, 3, label=r"Fit / $f(x) = 4.005(4)$  (kg$^{\frac{1}{2}}$/s) * x", color="red")
+# plot uncertainty band
+plt.fill_between([1, 3], kcalc.n - kcalc.s, kcalc.n + kcalc.s, color="red", alpha=0.2)
+plt.ylabel(r"$k$ [N/m]")
+plt.xlabel(r"Anzahl")
 plt.legend(loc="best", borderaxespad=1)
-plt.xlim(1.52, 2.25)
+plt.xticks([1, 2, 3])
+plt.tick_params(axis='x', which='minor', bottom=False, top=False)
 plt.tight_layout()
-# plt.savefig("Graphics/Versuch3_3.eps", format="eps", transparent=True)
+# plt.savefig("Graphics/Versuch3_4.eps", format="eps", transparent=True)
 plt.show()
 
 # calc chi2
@@ -168,6 +157,7 @@ print(f"chi1 = {chi1:.2f} chi2 = {chi2:.2f}")
 # ========= 2 =========
 mass = m[2]
 kparallel = unp.uarray([0, 0, 0], [0, 0, 0])
+ktemp2 = unp.uarray([0, 0, 0], [0, 0, 0])
 kparallel[0] = k[2]
 print(f"k = {kparallel[0]:.1uS}")
 for i in range(1, 3):
@@ -183,10 +173,11 @@ for i in range(1, 3):
     fit, fitcov = sine_fit(df["t"], df["a"], p0=[2000, 2200], min=1600)
 
     w = unc.ufloat(fit[1], np.sqrt(fitcov[1][1]))
+    T = 2 * np.pi / w
     kparallel[i] = w**2*mass
-    print(f"k = {kparallel[i]:.1uS}")
+    print(f"w = {w:.1uS}: T = {T:.1uS}: k = {kparallel[i]:.1uS}")
     # if i == 2:
-    #     plt.scatter(df["t"], df["a"], label="Messwerte", s=1)
+    #     plt.scatter(df["t"], df["a"], label="Data", s=1)
     #     plt.plot(df["t"], sine(df["t"], *fit), label="Fit", color="red")
     #     plt.xlabel("Zeit [s]")
     #     plt.ylabel("Winkel [rad]")
@@ -194,23 +185,35 @@ for i in range(1, 3):
     #     # plt.savefig("build/pendulum.pdf")
     #     plt.show()
 
+for i in range(3):
+    ktemp2[i] = kparallel[i] / (i+1)
+
 # fit line to k
 popt, pcov = curve_fit(affineline, [1, 2, 3], unp.nominal_values(kparallel), sigma=unp.std_devs(kparallel), absolute_sigma=True)
 print(f"k = {unc.ufloat(popt[0], np.sqrt(pcov[0][0])):.1uS}")
 
-plt.errorbar([1, 2, 3], unp.nominal_values(kparallel), yerr=unp.std_devs(kparallel), fmt=".k", label="Messwerte")
-plt.plot([1, 2, 3], affineline(np.linspace(1, 3, 3), *popt), label="Fit", color="red")
-plt.ylabel(r"$k$ [N/m]")
-plt.xlabel(r"Anzahl")
-plt.legend(loc="best", borderaxespad=1)
-plt.xticks([1, 2, 3])
-plt.tick_params(axis='x', which='minor', bottom=False, top=False)
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 4), sharex=True)
+ax1.errorbar([1, 2, 3], unp.nominal_values(kparallel), yerr=unp.std_devs(kparallel), fmt=".k", capsize=3, label="Data")
+ax1.plot(np.linspace(0.9, 3.1, 3), affineline(np.linspace(0.9, 3.1, 3), *popt), label="Fit", color="red")
+ax1.set_ylabel(r"$k$ [N/m]")
+ax1.text(2.2, 28, r"$f(x) = 15.82(5)$  (N/m) * x", color="red")
+ax1.legend(loc="best", borderaxespad=1)
+ax1.set_xticks([1, 2, 3])
+ax1.set_xlim(0.9, 3.1)
+ax1.tick_params(axis='x', which='minor', bottom=False, top=False)
+ax2.errorbar([1, 2, 3], unp.nominal_values(ktemp2), yerr=unp.std_devs(ktemp2), fmt=".k", capsize=3, label="Data")
+ax2.hlines(popt[0], 0, 4, label=r"Fit", color="red")
+ax2.text(2.2, 15.6, r"$f(x) = 15.82(5)$  (N/m)", color="red")
+ax2.fill_between([0, 4], popt[0] - np.sqrt(pcov[0][0]), popt[0] + np.sqrt(pcov[0][0]), color="#F5B7B1", alpha=0.2)
+ax2.set_ylabel(r"$k/N$ [N/m]")
+ax2.set_xlabel(r"Anzahl N")
+ax2.legend(loc="best", borderaxespad=1)
+ax2.tick_params(axis='x', which='minor', bottom=False, top=False)
+plt.tight_layout()
+plt.savefig("Graphics/Versuch3_4.eps", format="eps", transparent=True)
 plt.show()
 
+
 # %%
-a1 = unc.ufloat(8, 1)
-a2 = k[2]
-# calculate weighted mean
-a = (a1 + a2) / 2
-print(f"a = {a:.1uS}")
+print(f"k/2 = {kparallel[1]/2:.1uS}")
 

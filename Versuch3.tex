@@ -41,7 +41,7 @@
 		\label{fig:sine}
 	\end{figure}
 	
-	Es wurden 3 Versuche mit unterschiedlichen Massen und gleicher Feder durchgeführt. Dafür wurde mit Klebeband zunächst ein und dann zwei Steine ans Messgerät geklebt und wieder an die gleiche Feder gehängt. In Tabelle \ref{table:1} sind Masse, Wurzel der Kehrwerts der Masse, Periode und Winkelfrequenz der verschiedenen Versuche mit dazugehörigen Fehlern aufgelistet. \par
+		Es wurden 3 Versuche mit unterschiedlichen Massen und gleicher Feder durchgeführt. Dafür wurde mit Klebeband zunächst ein und dann zwei Steine ans Messgerät geklebt und wieder an die gleiche Feder gehängt. In Tabelle \ref{table:1} sind Masse, Wurzel der Kehrwerts der Masse, Periode und Winkelfrequenz der verschiedenen Versuche mit dazugehörigen Fehlern aufgelistet. \par
 	\begin{center}
 		\captionof{table}{Gemessene Masse, Schwingungsdauer, Winkelfrequenz und Federkonstante der drei Versuche}
 	%	\begin{tabular}{@{}r c r c r c r @{}}\toprule
@@ -64,9 +64,9 @@
 			&   {\makecell[t]{Versuch 2}}
 			&   {\makecell[t]{Versuch 3}}\\
 			\midrule
-			\( m \) (kg) & 0.2030(11) & 0.3549(2) & 0.4146(2) \\
+			\( m \) (kg) & 0.2030(11) & 0.355(2) & 0.415(2) \\
 			\( \sqrt{1/m}\; (\sqrt{1/\unit{kg}}) \) & 2.219(6) & 1.679(5) & 1.553(4) \\
-			T (s) & 0.70789(4) & 0.93366(7) & 1.0083(10) \\
+			T (s) & 0.70789(4) & 0.93366(7) & 1.00829(10) \\
 			$\omega$ (1/s) & 8.8759(4) & 6.7297(5) & 6.2316(6) \\
 			\( k \) (N/m) & 15.99(9) & 16.074(99) & 16.10(8) \\
 			\bottomrule
@@ -87,20 +87,59 @@
 	\end{figure}
 	Aus der angepassten Gerade erhält man durch quadrieren \( k = 16.04(3) \unit{N/m} \). Dieser Wert lässt sich gut mit den mittels Gleichung \ref{eqn:k} berechneten Werte für die drei Massen (Siehe Tabelle \ref{table:1}) vereinbaren und bestätigt das Modell des harmonischen Oszillators bzw. den linearen Zusammenhang zwischen dem Quadrat der Winkelfrequenz $\omega$ und dem Kehrwert der Masse \( m \). 
 
-	Eine Federkonstante von \( k_1 = 8(1) \unit{N/m} \), welche ein anderer Kursteilnehmer gemessen hat, ist nicht mit den hier präsentierten Ergebnissen vereinbar. Di beiden Werte liegen mehrere Standardabweichungen voneinander entfernt und können daher nicht durch statistische Schwankungen erklärt werden. Eine mögliche Erklärung für diese Situation ist, dass die Annahme, das alle Federn im Labor gleich sind, falsch ist, da zb. durch Überdehnung einer Feder dessen Federkonstante permanent reduziert wird. Der andere Kursteilnehmer könnte eine solche Feder für seinen Versuch verwendet haben.
+	Eine Federkonstante von \( k_1 = 8(1) \unit{N/m} \), welche ein anderer Kursteilnehmer gemessen hat, ist nicht mit den hier präsentierten Ergebnissen vereinbar. Di beiden Werte liegen mehrere Standardabweichungen voneinander entfernt und können daher nicht durch statistische Schwankungen erklärt werden. Eine mögliche Erklärung für diese Situation ist, dass die Annahme, das alle Federn im Labor gleich sind, falsch ist, da zum Beispiel durch Überdehnung einer Feder dessen Federkonstante permanent reduziert wird. Der andere Kursteilnehmer könnte eine solche Feder für seinen Versuch verwendet haben.
 \end{mybox}
 
 \begin{mybox}{Entwicklung eines Modells für parallele Federn}
+	Die Folgenden Experimente versuchen die Frage zu beantworten, wie sich das Pendel verhält, wenn man mehrere Federn kombiniert und wie sich das auf die Federkonstante des Oszillators auswirkt. Dafür wurde zunächst eine zweite Feder ins Steckbrett aus Karton gesteckt, sodass jetzt das Messgerät über zwei Federn an der Sessellehne aufgehängt ist. Die Masse wurde bei der Schwersten aus dem vorherigen Versuch festgehalten (\( m = 0.4146(2) \unit{kg} \)).
+	
+	Die Kreisfrequenz wurde analog wie im vorherigen Versuch über eine Sinuskurve ermittelt. Die gemessenen Werte für \( \omega, T \) und \( k \) sind in Tabelle \ref{table:2} eingetragen.
+	
+	\begin{center}
+		\captionof{table}{Gemessene Schwingungsdauer, Winkelfrequenz und Federkonstante bei verschiedener Anzahl an Federn}
+		\begin{tabular}{@{\extracolsep{5mm}} 
+				r
+				S[table-format=2.5(1)]
+				S[table-format=2.5(1)]
+				S[table-format=2.5(1)]
+			}
+			\toprule
+			\makecell[t]{}
+			&   {\makecell[t]{1 Feder}}
+			&   {\makecell[t]{2 Federn}}
+			&   {\makecell[t]{3 Federn}}\\
+			\midrule
+			T (s) & 1.00829(10) & 0.71903(4) & 0.59264(3) \\
+			$\omega$ (1/s) & 6.2316(6) & 8.7384(5) & 10.6021(5) \\
+			\( k \) (N/m) & 16.10(8) & 31.7(2) & 46.6(2) \\
+			\bottomrule
+		\end{tabular}
+		\label{table:2}
+	\end{center}
+	
+	Der ermittelte Wert für die Federkonstante für zwei Parallele Federn ist im Rahmen der Unsicherheit doppelt so groß wie der einer einzelnen Feder. Man könnte daher die Vermutung aufstellen, dass die kombinierte Federkonstante linear mit der Anzahl der Federn skaliert und man folgenden Zusammenhang erhält:
+	\begin{equation}\label{eqn:paral}
+		k_{\text{ges}} = Nk
+	\end{equation}
+	wobei \( N \) die Anzahl der verwendeten Federn ist. 
+	
+	Um diese Hypothese zu testen, wurde eine weitere Feder dazugehängt und das bereits beschriebene Prozedere durchlaufen, um die Frequenz der Schwingung zu ermitteln. 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{Versuch3_4.eps}
+		\caption{Winkelfrequenz für drei unterschiedliche Massen. In rot wurde eine lineare Funktion durch den Ursprung angepasst. Die Fehlerbalken stellen den 1$\sigma$ Fehler dar; die Unsicherheit in \( \omega \) ist so gering, dass sie kaum sichtbar ist.}
+		\label{fig:k2}
+	\end{figure}
 	
 	
-	
-	\begin{tabular}{@{}r | r @{}}\toprule
-		N & \( \omega [\text{s}^{-1}]\) \\ \midrule
-		1 & 16.115() \\
-		2 & 31.664() \\
-		3 & 46.614() \\
-		\bottomrule
-	\end{tabular}
+%	\begin{tabular}{@{}r | r @{}}\toprule
+%		N & \( \omega [\text{s}^{-1}]\) \\ \midrule
+%		1 & 16.115() \\
+%		2 & 31.664() \\
+%		3 & 46.614() \\
+%		\bottomrule
+%	\end{tabular}
 \end{mybox}
 
 \end{document}

@@ -98,7 +98,7 @@ for i in range(3):
         ax2.legend(borderaxespad=0.7, loc="center left", markerscale=4)
         ax2.set_xlim(35.5, 41.5)
         fig.tight_layout()
-        plt.savefig("Graphics/Versuch3_2.eps", format="eps", transparent=True)
+        # plt.savefig("Graphics/Versuch3_2.eps", format="eps", transparent=True)
         plt.show()
 
 for i in range(3):
@@ -148,11 +148,6 @@ plt.tight_layout()
 # plt.savefig("Graphics/Versuch3_4.eps", format="eps", transparent=True)
 plt.show()
 
-# calc chi2
-chi1 = chisq(line(unp.nominal_values(m2), *popt), unp.nominal_values(w), error=unp.std_devs(w), dof=len(m2)-2)
-chi2 = chisq(affineline(unp.nominal_values(m2), *popt2), unp.nominal_values(w), error=unp.std_devs(w), dof=len(m2)-1)
-print(f"chi1 = {chi1:.2f} chi2 = {chi2:.2f}")
-
 # %%
 # ========= 2 =========
 mass = m[2]
@@ -187,6 +182,7 @@ for i in range(1, 3):
 
 for i in range(3):
     ktemp2[i] = kparallel[i] / (i+1)
+    print(f"ktemp{i+1} = {ktemp2[i]:.1uS}")
 
 # fit line to k
 popt, pcov = curve_fit(affineline, [1, 2, 3], unp.nominal_values(kparallel), sigma=unp.std_devs(kparallel), absolute_sigma=True)
@@ -204,11 +200,12 @@ ax1.tick_params(axis='x', which='minor', bottom=False, top=False)
 ax2.errorbar([1, 2, 3], unp.nominal_values(ktemp2), yerr=unp.std_devs(ktemp2), fmt=".k", capsize=3, label="Data")
 ax2.hlines(popt[0], 0, 4, label=r"Fit", color="red")
 ax2.text(2.2, 15.6, r"$f(x) = 15.82(5)$  (N/m)", color="red")
-ax2.fill_between([0, 4], popt[0] - np.sqrt(pcov[0][0]), popt[0] + np.sqrt(pcov[0][0]), color="#F5B7B1", alpha=0.2)
+ax2.fill_between([0, 4], popt[0] - np.sqrt(pcov[0][0]), popt[0] + np.sqrt(pcov[0][0]), color="#F5B7B1", alpha=0.2, label=r"$1\sigma$-Band")
 ax2.set_ylabel(r"$k/N$ [N/m]")
-ax2.set_xlabel(r"Anzahl N")
-ax2.legend(loc="best", borderaxespad=1)
+ax2.set_xlabel(r"Anzahl $N$")
+ax2.legend(loc="best")
 ax2.tick_params(axis='x', which='minor', bottom=False, top=False)
+plt.ylim(15.4, 16.4)
 plt.tight_layout()
 plt.savefig("Graphics/Versuch3_4.eps", format="eps", transparent=True)
 plt.show()

@@ -5,7 +5,6 @@
 \course{Grundpraktikum}
 \hwnumber{3}
 \spacing{}
-\usepackage{makecell}
 
 \begin{document}
 \renewcommand{\labelenumi}{\alph{enumi})}
@@ -15,13 +14,13 @@
 	Bei diesem Versuch, wurde mit Federn experimentiert, um den Zusammenhang zwischen Masse und Schwingungsdauer zu ermitteln. Dafür wurden verschiedene Massen an eine Feder gehängt und in Schwingung gebracht. Während der Schwingung haben Sensoren die Beschleunigung und die Kraft auf die Feder gemessen und aufgezeichnet. 
 	
 	Der Versuchsaufbau sah wie folgt aus: 
-	An eine Sessellehne war ein Haken befestigt, auf welches ein Stück Karton gesteckt wurde. Der Karton dient hier als Steckbrett für Federn, damit mehrere Federn für spätere Versuche parallel geschalten werden können. In den Karton stecken wir zunächst eine einzelne Feder, an welches andere Ende, wieder über ein Stück Karton, das IOLab am Kraftsensor aufgehängt wurde. 
+	An einer Sessellehne war ein Haken befestigt, auf welches ein Stück Karton gesteckt wurde. Der Karton dient hier als Steckbrett für Federn, damit mehrere Federn für spätere Versuche parallel geschalten werden können. In den Karton stecken wir zunächst eine einzelne Feder, an welches andere Ende, wieder über ein Stück Karton, das IOLab am Kraftsensor aufgehängt wurde. 
 	
 	Um die Masse des Pendelkörpers zu bestimmen, wurde das IOLab an einer Schnur aus der Ruhelage hochgezogen. Dabei wurde die Beschleunigung und die Kraft in vertikaler Richtung gemessen und nach Newtons zweitem Axiom gilt dann für die Masse
 	\begin{equation}\label{eqn:newt}
 		m = \tfrac{F}{a} 
 	\end{equation}
-	Für die gemessene Beschleunigung \( a \) wird ein Fehler von \( 0.001 \unit{\a} \) angenommen, da das die Genauigkeit ist, mit der die Beschleunigung im Programm angegeben wird. Der Kraft \( F \) wird ein Fehler von \( 0.0025 \unit{N} \) zugesprochen, weil der Sensor ein Auflösungsvermögen von \( 0.005 \unit{N} \) hat. In Abbildung \ref{fig:mass} ist die Bestimmung einer Masse (Dritten und Schwersten) dargestellt.
+	Um die Beschleunigung \( a \) und die Kraft \( F \) zu ermitteln, wurde ein ungewichteter Mittelwert von \( t = 3 \unit{s} \) bis \( t = 12 \unit{s} \) durchgeführt. Der Fehler des Mittelwerts wurde auf die Standardabweichung der Daten gesetzt, da dann (per Definition) Zwei Drittel der Daten innerhalb des \( 1\sigma \) Intervalls liegen. In \autoref{fig:mass} sind die Daten für die Bestimmung einer Masse (Dritten und Schwersten) dargestellt.
 	\begin{figure}[H]
 		\vspace{-1cm}		
 		\centering
@@ -30,9 +29,9 @@
 		\label{fig:mass}
 	\end{figure}
 	
-	Hängt man das IOLab an eine Feder und lenkt diese aus, fängt das System an zu Pendeln. Diese Schwingungen lassen sich mittels Beschleunigungs- und/oder Kraftsensors aufzeichnen und aus ihnen kann man charakteristische Eigenschaften der Oszillation, wie die Schwingungsdauer \( T \) oder die Kreisfrequenz \( \omega \), bestimmen. Dafür wurde eine Sinuskurve der Form \( f(x) = A\sin(\omega x + \phi) + d \) mit einem Fitprogramm an die Messpunkte angepasst, wobei die an SciPy übergebenen Daten nur „schöne“ Schwingungen enthalten.
+	Hängt man das IOLab an eine Feder und lenkt diese aus, fängt das System an zu Pendeln. Diese Schwingungen lassen sich mittels Beschleunigungs- und/oder Kraftsensor aufzeichnen und aus ihnen kann man charakteristische Eigenschaften der Oszillation, wie die Schwingungsdauer \( T \) oder die Kreisfrequenz \( \omega \), bestimmen. Dafür wurde eine Sinuskurve der Form \( f(x) = A\sin(\omega x + \phi) + d \) mit einem Fitprogramm an die Messpunkte angepasst, wobei die an SciPy übergebenen Daten nur „schöne“ Schwingungen enthalten.
 	
-	Für die Analyse der Schwingungsdaten wurde der Beschleunigungssensor verwendet, da dieser ein höheres Auflösungsvermögen als der Kraftsensor hat. In Abbildung \ref{fig:sine} sieht man die ersten und letzten sechs Sekunden der Messung und eine an die Beschleunigungsdaten angepasste Sinuskurve. Die Amplituden stimmen nicht ganz überein, da die Maxima und Minima aufgrund von Reibung und Luftwiderstand mit der Zeit abnehmen und dies im Sinusfit nicht berücksichtigt wird. Die Amplitude der angepassten Kurve kann man sich als den Mittelwert aller Maxima vorstellen und ist daher zu Beginn der Messung etwas zu Niedrig und gegen Ende zu Groß. Dies spiegelt sich aber nur in der Unsicherheit der Amplitude \( A \) des Fits wieder und nicht in der des Parameters \( \omega \).
+	Für die Analyse der Schwingungsdaten wurde der Beschleunigungssensor verwendet, da dieser ein höheres Auflösungsvermögen als der Kraftsensor hat. In \autoref{fig:sine} sieht man die ersten und letzten sechs Sekunden der Messung und eine an die Beschleunigungsdaten angepasste Sinuskurve. Die Amplituden stimmen nicht ganz überein, da die Maxima und Minima aufgrund von Reibung und Luftwiderstand mit der Zeit abnehmen und dies im Sinusfit nicht berücksichtigt wird. Die Amplitude der angepassten Kurve kann man sich als den Mittelwert aller Maxima vorstellen und ist daher zu Beginn der Messung etwas zu Niedrig und gegen Ende zu Groß. Dies spiegelt sich aber nur in der Unsicherheit der Amplitude \( A \) des Fits wieder und nicht in der des Parameters \( \omega \).
 	
 	\begin{figure}[H]
 		\centering
@@ -41,17 +40,9 @@
 		\label{fig:sine}
 	\end{figure}
 	
-		Es wurden 3 Versuche mit unterschiedlichen Massen und gleicher Feder durchgeführt. Dafür wurde mit Klebeband zunächst ein und dann zwei Steine ans Messgerät geklebt und wieder an die gleiche Feder gehängt. In Tabelle \ref{table:1} sind Masse, Wurzel der Kehrwerts der Masse, Periode und Winkelfrequenz der verschiedenen Versuche mit dazugehörigen Fehlern aufgelistet. \par
+		Es wurden 3 Versuche mit unterschiedlichen Massen und gleicher Feder durchgeführt. Dafür wurde mit Klebeband zunächst ein und dann zwei Steine ans Messgerät geklebt und wieder an die gleiche Feder gehängt. In \autoref{table:1} sind Masse, Wurzel des Kehrwerts der Masse, Periode und Winkelfrequenz der verschiedenen Versuche mit dazugehörigen Fehlern aufgelistet. \par
 	\begin{center}
 		\captionof{table}{Gemessene Masse, Schwingungsdauer, Winkelfrequenz und Federkonstante der drei Versuche}
-	%	\begin{tabular}{@{}r c r c r c r @{}}\toprule
-	%		&& Versuch1 && Versuch 2 && Versuch 3 \\ \midrule
-	%		\( m \) [kg] && 0.2030(11) && 0.3549(2) && 0.4146(2) \\
-	%		\( \sqrt{1/m}\; [\text{kg}^{-\tfrac{1}{2}}] \) && 2.220() && 1.677() && 1.553() \\
-	%		T [s] && 0.75465(4) && 0.93366(7) && 1.0083(1) \\
-	%		$\omega$ [s\( ^{-\tfrac{1}{2}} \)] && 8.8759(4) && 6.7297(5) && 6.2316(6) \\
-	%		\bottomrule
-	%	\end{tabular}
 		\begin{tabular}{@{\extracolsep{5mm}} 
 				r
 				S[table-format=1.5(1)]
@@ -78,22 +69,22 @@
 	\begin{equation}\label{eqn:k}
 		k = \omega^2 m \quad \Leftrightarrow\quad \omega = \sqrt{k}\sqrt{1/m}
 	\end{equation}
-	\( \sqrt{k} \) ist also die Proportionalitätskonstante zwischen \( \omega \) und \( m \). Dies wird in Abbildung \ref{fig:sqrt} anhand der in Tabelle \ref{table:1} angegebenen Werten illustriert. Zusätzlich zu den drei Datenpunkten wurde eine Gerade, wie sie das Modell vorhersagt, angepasst, wodurch man für die Steigung der linearen Funktion \( \sqrt{k} = 4.005(4) \unit{\sqrt{kg / s^2}} \) erhält.
+	\( \sqrt{k} \) ist also die Proportionalitätskonstante zwischen \( \omega \) und \( m \). Dies wird in \autoref{fig:sqrt} anhand der in \autoref{table:1} angegebenen Werten illustriert. Zusätzlich zu den drei Datenpunkten wurde eine Gerade, wie sie das Modell vorhersagt, angepasst, wodurch man für die Steigung der linearen Funktion \( \sqrt{k} = 4.005(4) \unit{\sqrt{kg / s^2}} \) erhält.
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=\textwidth]{Versuch3_3.eps}
 		\caption{Winkelfrequenz für drei unterschiedliche Massen. In rot wurde eine lineare Funktion durch den Ursprung angepasst. Die Fehlerbalken stellen den 1$\sigma$ Fehler dar; die Unsicherheit in \( \omega \) ist so gering, dass sie kaum sichtbar ist.}
 		\label{fig:sqrt}
 	\end{figure}
-	Aus der angepassten Gerade erhält man durch quadrieren \( k = 16.04(3) \unit{N/m} \). Dieser Wert lässt sich gut mit den mittels Gleichung \ref{eqn:k} berechneten Werte für die drei Massen (Siehe Tabelle \ref{table:1}) vereinbaren und bestätigt das Modell des harmonischen Oszillators bzw. den linearen Zusammenhang zwischen dem Quadrat der Winkelfrequenz $\omega$ und dem Kehrwert der Masse \( m \). 
+	Aus der angepassten Gerade erhält man durch quadrieren \( k = 16.04(3) \unit{N/m} \). Dieser Wert lässt sich gut mit den mittels \autoref{eqn:k} berechneten Werte für die drei Massen (Siehe \autoref{table:1}) vereinbaren und bestätigt das Modell des harmonischen Oszillators bzw. den linearen Zusammenhang zwischen dem Quadrat der Winkelfrequenz $\omega$ und dem Kehrwert der Masse \( m \). 
 
-	Eine Federkonstante von \( k_1 = 8(1) \unit{N/m} \), welche ein anderer Kursteilnehmer gemessen hat, ist nicht mit den hier präsentierten Ergebnissen vereinbar. Di beiden Werte liegen mehrere Standardabweichungen voneinander entfernt und können daher nicht durch statistische Schwankungen erklärt werden. Eine mögliche Erklärung für diese Situation ist, dass die Annahme, das alle Federn im Labor gleich sind, falsch ist, da zum Beispiel durch Überdehnung einer Feder dessen Federkonstante permanent reduziert wird. Der andere Kursteilnehmer könnte eine solche Feder für seinen Versuch verwendet haben.
+	Eine Federkonstante von \( k_1 = 8(1) \unit{N/m} \), welche ein anderer Kursteilnehmer gemessen hat, ist nicht mit den hier präsentierten Ergebnissen vereinbar. Die beiden Werte liegen mehrere Standardabweichungen voneinander entfernt und können daher nicht durch statistische Schwankungen erklärt werden. Eine mögliche Erklärung für diese Situation ist, dass die Annahme, das alle Federn im Labor gleich sind, falsch ist, da zum Beispiel durch Überdehnung einer Feder dessen Federkonstante permanent reduziert wird. Der andere Kursteilnehmer könnte eine solche Feder für seinen Versuch verwendet haben.
 \end{mybox}
 
 \begin{mybox}{Entwicklung eines Modells für parallele Federn}
 	Die Folgenden Experimente versuchen die Frage zu beantworten, wie sich das Pendel verhält, wenn man mehrere Federn kombiniert und wie sich das auf die Federkonstante des Oszillators auswirkt. Dafür wurde zunächst eine zweite Feder ins Steckbrett aus Karton gesteckt, sodass jetzt das Messgerät über zwei Federn an der Sessellehne aufgehängt ist. Die Masse wurde bei der Schwersten aus dem vorherigen Versuch festgehalten (\( m = 0.4146(2) \unit{kg} \)).
 	
-	Die Kreisfrequenz wurde analog wie im vorherigen Versuch über eine Sinuskurve ermittelt. Die gemessenen Werte für \( \omega, T \) und \( k \) sind in Tabelle \ref{table:2} eingetragen.
+	Die Kreisfrequenz wurde analog wie im vorherigen Versuch über eine Sinuskurve ermittelt. Die gemessenen Werte für \( \omega, T \) und \( k \) sind in \autoref{table:2} eingetragen.
 	
 	\begin{center}
 		\captionof{table}{Gemessene Schwingungsdauer, Winkelfrequenz, Federkonstante und normierte Federkonstante bei verschiedener Anzahl an Federn}
@@ -112,7 +103,7 @@
 			T (s) & 1.00829(10) & 0.71903(4) & 0.59264(3) \\
 			$\omega$ (1/s) & 6.2316(6) & 8.7384(5) & 10.6021(5) \\
 			\( k \) (N/m) & 16.10(8) & 31.7(2) & 46.6(2) \\
-			\( k/N \) (N/m) & 16.10(8) & 15.83(8) & 15.54(8) \\
+			\( k/n \) (N/m) & 16.10(8) & 15.83(8) & 15.54(8) \\
 			\bottomrule
 		\end{tabular}
 		\label{table:2}
@@ -120,27 +111,30 @@
 	
 	Der ermittelte Wert für die Federkonstante für zwei Parallele Federn ist im Rahmen der Unsicherheit doppelt so groß wie der einer einzelnen Feder. Beziehungsweise teilt man die errechnete Konstante durch die Anzahl der Federn erhält man einen ähnlichen Wert wie mit nur einer Feder. Man könnte daher die Vermutung aufstellen, dass die kombinierte Federkonstante linear mit der Anzahl der Federn skaliert und man folgenden Zusammenhang erhält:
 	\begin{equation}\label{eqn:paral}
-		k_{\text{ges}} = Nk
+		k_{\text{ges}} = nk
 	\end{equation}
-	wobei \( N \) die Anzahl der verwendeten Federn ist. 
+	wobei \( n \) die Anzahl der verwendeten Federn ist. 
 	
-	Um diese Hypothese zu testen, wurde eine weitere Feder dazugehängt und das bereits beschriebene Prozedere durchlaufen, um die Frequenz der Schwingung zu ermitteln. In Abbildung \ref{fig:k2} wurde im oberen Plot die gesamte Federkonstante
+	Um diese Hypothese zu testen, wurde eine weitere Feder dazugehängt und das bereits beschriebene Prozedere durchlaufen, um die Frequenz der Schwingung zu ermitteln. Die Werte sind in  \autoref{table:2} zu finden. In \autoref{fig:k2} wurde im oberen Plot die gemessene Gesamtfederkonstante auf die Anzahl der Federn \( n \) aufgetragen. Wenn man in \autoref{eqn:paral} \( k = 16.10(8)  \unit{N/m} \) einsetzt, erhält man eine Gerade, die in rot dargestellt wurde. Für zwei Federn scheint das Modell (die Gerade) noch halbwegs zu passen (Abweichung von 2.5 $\sigma$), für \( N = 3 \) weicht der gemessene Datenpunkt jedoch signifikant ab. 
+	
+	Diese Abweichung wird in der unteren Graphik deutlicher. Hier wurde die Federkonstante durch \( n \) geteilt, sodass unser Modell eine konstante vorhersagen würde. 
 	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=\textwidth]{Versuch3_4.eps}
-		\caption{Winkelfrequenz für drei unterschiedliche Massen. In rot wurde eine lineare Funktion durch den Ursprung angepasst. Die Fehlerbalken stellen den 1$\sigma$ Fehler dar; die Unsicherheit in \( \omega \) ist so gering, dass sie kaum sichtbar ist.}
+		\caption{Im oberen Plot sind die Federkonstanten auf die Anzahl der Federn aufgetragen. Eine Gerade in rot stellt das vom Modell vorgesehene Verhalten dar. In der unteren Graphik wurden die Federkonstanten durch die Anzahl der Federn geteilt und wieder auf die Anzahl \( n \) aufgetragen. In rot wieder die vom Modell mit einem \( 1\sigma \)-Konfidenzband. Beide Graphiken teilen sich die Abszisse.}
 		\label{fig:k2}
 	\end{figure}
 	
+	Unser Modell stimmt nicht mit unseren Daten für mehrere Federn überein. Das liegt, an der nicht ausgesprochenen Annahme, das alle verwendeten Federn ident sind und insbesondere die gleiche Federkonstante haben. 
 	
-%	\begin{tabular}{@{}r | r @{}}\toprule
-%		N & \( \omega [\text{s}^{-1}]\) \\ \midrule
-%		1 & 16.115() \\
-%		2 & 31.664() \\
-%		3 & 46.614() \\
-%		\bottomrule
-%	\end{tabular}
+	\begin{equation}\label{eqn:paral2}
+		k_{\text{ges}} = \sum_{i} k_i
+	\end{equation}
+
+	Im Spezialfall, dass alle Feder gleich sind und daher \( k_i = k \), vereinfacht sich \autoref{eqn:paral2} zu \autoref{eqn:paral}. Leider kann der Validität von \autoref{eqn:paral2} nicht weiter nachgegangen werden, da die Federkonstante für Zwei der Drei Federn nicht bestimmt wurde.
+	Um das Modell für parallele Federn zu überprüfen, bedarf es an weiteren Versuchen mit mehr und vor allem unterschiedlichen Federn.
+
 \end{mybox}
 
 \end{document}

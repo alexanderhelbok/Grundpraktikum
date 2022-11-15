@@ -19,7 +19,7 @@
 \RequirePackage{graphicx, wrapfig, float}
 \RequirePackage{listings} %env ignores LATEX commands, keeping all the line breaks (for printing code)
 \RequirePackage{hyperref}
-\RequirePackage{bookmark}
+\RequirePackage{bookmark, makecell}
 \usepackage[font=footnotesize, bf, format=plain]{caption} 
 \RequirePackage{custom}
 \RequirePackage{tikz, pgfplots}
@@ -102,8 +102,8 @@
 \renewcommand{\unit}[1]{\hspace{4pt}\oldunit{#1}}
 
 \hypersetup{%
-	colorlinks=true,
-	linkcolor=blue,
+	colorlinks=true, 
+	linkcolor=black,
 	linkbordercolor={0 0 1}
 }
 
@@ -131,6 +131,14 @@
 \newtcolorbox{mybox}[1]{breakable,pad at break*=1mm, colback=Background,colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, parbox=false, middle=\@middle mm, before upper=\renewcommand\thempfootnote{\arabic{mpfootnote}}}
 
 \newtcolorbox{myfigure}[2]{breakable, colback=Background, colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, capture=fitbox, height=#2cm, parbox=false}
+
+
+% place eqn number in brackets for autoref
+\makeatletter
+\def\tagform@#1{\maketag@@@{\ignorespaces#1\unskip\@@italiccorr}}
+\let\orgtheequation\theequation
+\def\theequation{(\orgtheequation)}
+\makeatother
 
 \setlength{\parindent}{16pt}
 \setlength{\parskip}{0.05in}

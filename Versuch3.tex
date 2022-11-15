@@ -126,13 +126,13 @@
 		\label{fig:k2}
 	\end{figure}
 	
-	Unser Modell stimmt nicht mit unseren Daten für mehrere Federn überein. Das liegt, an der nicht ausgesprochenen Annahme, das alle verwendeten Federn ident sind und insbesondere die gleiche Federkonstante haben. 
+	Das Modell stimmt nicht mit unseren Daten für mehrere Federn überein. Das liegt, an der nicht ausgesprochenen Annahme, das alle verwendeten Federn ident sind und insbesondere die gleiche Federkonstante haben. Stimmt diese Annahme nicht, muss man an \autoref{eqn:paral} kleine Korrekturen vornehmen und findet, dass
 	
 	\begin{equation}\label{eqn:paral2}
 		k_{\text{ges}} = \sum_{i} k_i
 	\end{equation}
 
-	Im Spezialfall, dass alle Feder gleich sind und daher \( k_i = k \), vereinfacht sich \autoref{eqn:paral2} zu \autoref{eqn:paral}. Leider kann der Validität von \autoref{eqn:paral2} nicht weiter nachgegangen werden, da die Federkonstante für Zwei der Drei Federn nicht bestimmt wurde.
+	wobei \( k_i \) die verschiedenen Federkonstanten der Federn darstellt. Also war \autoref{eqn:paral} ein Spezialfall, wo alle Feder gleich sind und daher \( k_i = k \). Leider kann der Validität von \autoref{eqn:paral2} nicht weiter nachgegangen werden, da die Federkonstante für Zwei der Drei Federn nicht bestimmt wurde.
 	Um das Modell für parallele Federn zu überprüfen, bedarf es an weiteren Versuchen mit mehr und vor allem unterschiedlichen Federn.
 
 \end{mybox}

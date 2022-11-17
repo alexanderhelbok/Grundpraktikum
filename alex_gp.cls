@@ -113,22 +113,22 @@
 \definecolor{Background}{HTML}{FFFFF2}
 
 % define customizeable variables
-\newcommand*{\name}[1]{\def\@name{#1}}
-%\newcommand*{\hwnumber}[1]{\def\@hwnumber{#1}}
+\newcommand*{\name}[1]{\newcommand*\Name{#1}}
+%\newcommand*{\hwnumber}[1]{\newcommand*\Hwnumber{#1}}
 \newcommand*{\hwnumber}[1]{%
 	\IfInteger{#1}%
-	{\def\@hwnumber{Versuch #1}}%
-	{\def\@hwnumber{#1}}%
+	{\newcommand*\Hwnumber{Versuch #1}}%
+	{\newcommand*\Hwnumber{#1}}%
 }
-\newcommand*{\course}[1]{\def\@course{#1}}
+\newcommand*{\course}[1]{\newcommand*\Course{#1}}
 \newcommand*{\spacing}[1]{%
 	\IfDecimal{#1}%
-	{\def\@middle{#1}}%
-	{\def\@middle{2}}%
+	{\newcommand*\Middle{#1}}%
+	{\newcommand*\Middle{2}}%
 }
 
 % define tcolorbox env 
-\newtcolorbox{mybox}[1]{breakable,pad at break*=1mm, colback=Background,colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, parbox=false, middle=\@middle mm, before upper=\renewcommand\thempfootnote{\arabic{mpfootnote}}}
+\newtcolorbox{mybox}[1]{breakable,pad at break*=1mm, colback=Background,colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, parbox=false, middle=\Middle mm, before upper=\renewcommand\thempfootnote{\arabic{mpfootnote}}}
 
 \newtcolorbox{myfigure}[2]{breakable, colback=Background, colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, capture=fitbox, height=#2cm, parbox=false}
 
@@ -148,9 +148,9 @@
 % create header
 \clearpairofpagestyles
 \setkomafont{pageheadfoot}{\normalfont}
-\ihead{\@name}
-\chead{\textbf{\Large \@hwnumber}}
-\ohead{\@course \\ \today}
+\ihead{\Name}
+\chead{\textbf{\Large \Hwnumber}}
+\ohead{\Course \\ \today}
 \cfoot{\pagemark}
 \headheight 15pt
 \headsep 1em

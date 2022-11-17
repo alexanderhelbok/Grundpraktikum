@@ -132,6 +132,30 @@ def contributions(var, rel=True, precision=2):
             print("{}: {}".format(name.tag, round(error, precision)))
 
 
+# test
+def integrate(x, fx):
+    return np.sum(fx)/len(x)*(x[-1]-x[0])
+
+
+def F(w, x, y):
+    return 1/(np.sqrt(2*np.pi))*integrate(x, y*np.exp(-1j*w*x))
+
+
+def FFreqBand(x, y, wmin, wmax, wsample):
+    w = np.linspace(wmin, wmax, wsample)
+    ffb = np.zeros(wsample)
+    for i in range(wsample):
+        ffb[i] = F(w[i], x, y)
+    return w, ffb
+
+
+def plot_ft(w, x, y, samples=1000):
+    w, ffb = FFreqBand(x, y, -w, w, samples)
+    plt.plot(w, np.absolute(ffb.imag))
+    plt.plot(w, np.absolute(ffb.real))
+    plt.grid()
+    plt.show()
+
 # define plot parameters
 plt.rcParams['xtick.direction'] = 'in'
 plt.rcParams['ytick.direction'] = 'in'

@@ -96,8 +96,6 @@
 % redefine cmd to add spacing in math mode
 \let\oldtfrac\tfrac
 \renewcommand{\tfrac}[2]{\hspace{1pt}\oldtfrac{#1}{#2}\hspace{1pt}}
-\let\oldsi\si
-\renewcommand{\si}[1]{\hspace{4pt}\oldsi{#1}}
 \let\oldunit\unit
 \renewcommand{\unit}[1]{\hspace{4pt}\oldunit{#1}}
 

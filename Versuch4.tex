@@ -7,11 +7,40 @@
 \spacing{}
 
 \begin{document}
-\renewcommand{\labelenumi}{\alph{enumi})}
 
 
-\begin{mybox}{Eine Feder mit drei Massen}
+\begin{mybox}{Laufzeitmessung}
+	Ziel dieses Versuches ist es, die Schallgeschwindigkeit in der Luft mittels einer Laufzeitmessung zu bestimmen. Dazu wurde eine Lichtquelle (Taschenlampe) und das Messgerät auf einem Tisch positioniert und in einem Abstand von \( 3 \unit{m} \) vom IOLab wurde eine Markierung am Tisch vorgenommen. An diese Markierung wurde mit einem Brett der Lichtstrahl unterbrochen und gleichzeitig am Tisch ein lautes Geräusch erzeugt. Beide Signale kommen am IOLab an, wobei der Schlag vom Brett zeitlich leicht verzögert ankommt, da die Geschwindigkeit des Schalls wesentlich kleiner als die des Lichts ist. Aus dieser Zeitdifferenz lässt sich die Schallgeschwindigkeit berechnen. 
+	
+	Für die Distanz wurde ein Fehler von \( 1 \unit{cm} \) angenommen, um für den Ablesefehler, die Genauigkeit beim herunterschlagen der Brettes und die Positionierung des Sensors im IOLab zu kompensieren. Die Daten wurden bei einer Abfragerate von \( 2400 \unit{Hz} \) aufgezeichnet, weshalb die Unsicherheit in der Zeit auf \( 1/2*2400 \unit{1/Hz} = 0.21 \unit{µs} \) geschätzt wurde.
+\end{mybox}
 
+\begin{mybox}{Resonanzmessung}
+	Dafür wurde ein Kartonrohr der Länge \( L = 81.60(10) \unit{cm} \) und einem Durchmessen \( d = 0.40(10) \unit{cm} \) hergenommen. Ein Ende wurde mit dem IOLab abgedichtet und das Andere wurde offen gelassen und über Kopfhörer Töne reingespielt. 
+\end{mybox}
+
+\begin{mybox}{Berechnung der Schallgeschwindigkeit}
+	Die Schallgeschwindigkeit lässt sich für ideale Gase mittels dem adiabatischen Kompressionsmodul berechnen 
+	\begin{equation}\label{eqn:cad}
+		c_{\text{ad}} = \sqrt{\gamma RT/M}
+	\end{equation}
+	wobei \( \gamma \approx 1.4 \) der Adiabatenindex, \( R = 8.3143 \unit{J/K/mol} \) die allgemeine Gaskonstante, \( T \) die Temperatur und \( M \approx 0.028973 \unit{kg/mol} \) die molare Masse des Gases beschreiben.
+	Die Temperatur wurde mittel eines Thermometers auf \( 297(1) \unit{K} \) gemessen. 
+	Setzt man nun Werte in \autoref{eqn:cad} ein, erhält man 
+	\begin{equation}\label{eqn:cad2}
+		c_{\text{ad}} = 345.45(6) \unit{\v}
+	\end{equation}
+	
+	
+	
+	Der Adiabatenindex \( \gamma \), auch Wärmekapazitätsverhältnis genannt, wird durch das Verhältnis zwischen der Wärmekapazität eines Gases bei konstantem Druck zur Wärmekapazität bei konstantem Volumen beschrieben. 
+	Für Luft gilt \( \gamma \approx 1.4 \) unter der Voraussetzung, dass der Luftdruck ungefähr bei \( 1 \unit{atm} \) und die Temperatur um \( 300 \unit{K} \) liegt.
+	
+	Aus \( 	\rho c \zeta_0 \omega = p_0 \) und \( \omega = 2\pi f \) folgt für \( \zeta_0 \) und \( v_0 \)
+	\begin{align}\label{key}
+		\zeta_0 &= \frac{p_0}{2\pi f\rho c} = 3.8394(6) \times 10^{-5} \unit{m} \\
+		v_0 &= \zeta_0\omega = \frac{p_0}{2\rho c} = 0.24123(4) \unit{\v} 
+	\end{align}
 \end{mybox}
 
 \end{document}

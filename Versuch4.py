@@ -1,63 +1,101 @@
 from Source import *
-import mpl_interactions.ipyplot as iplt
-from mpl_interactions import interactive_plot
-from scipy.signal import find_peaks
 # %%
 # load data
-data = np.loadtxt("/home/taco/Documents/Grundpraktikum/data/Versuch4_3.csv", delimiter=",", skiprows=1)
-# create dataframe
-df = pd.DataFrame(data, columns=["t", "I_sound", "I_light"])
+# df = pd.DataFrame(data, columns=["t", "I_sound", "I_light"])
+df = pd.read_csv("/home/taco/Documents/Grundpraktikum/data/Versuch4_3.csv")
+# rename columns
+df.columns = ["t", "I_sound", "I_light"]
 
+rate = get_polling_rate(df)
 # add errors
 df["I_light_err"] = 0.001
 df["I_sound_err"] = 0.001
 
-d = unc.ufloat(3, 0.001, "d")
+d = unc.ufloat(3, 0.01, "d")
 
-# go thtough light data and check for values below 0.4
+# go through light data and check for values below 0.4
 top, bottom = False, True
-cut = np.empty(0)
-for i in range(len(df["I_light"])):
+cut = np.empty(0, dtype=int)
+cut2 = cut
+for i in range(rate//2, len(df["I_light"])):
     if df["I_light"][i] < 0.4:
-        # remeber next value with value above 0.4
+        # remember next value with value above 0.4
         if top:
             cut = np.append(cut, i)
             top = False
         bottom = True
     if bottom and df["I_light"][i] > 0.4:
         # set value to 0.4
-        cut = np.append(cut, i)
+        cut = np.append(cut, i+50)
         bottom = False
         top = True
 
-cut = cut[1:]
 
 top, bottom = True, False
-cut2 = np.empty(0)
-for i in range(len(df["I_light"])):
-    if df["I_light"][i] < 0.12:
-        # remeber next value with value above 0.4
+for i in range(rate//2, len(df["I_light"])):
+    if df["I_light"][i] < 0.125:
+        # remember next value with value above 0.4
         if top:
             cut2 = np.append(cut2, i)
             top = False
         bottom = True
-    if bottom and df["I_light"][i] > 0.12:
+    if bottom and df["I_light"][i] > 0.125:
         # set value to 0.4
         cut2 = np.append(cut2, i)
         bottom = False
         top = True
 
-cut2 = np.append(cut2, [27080, 28250])
-print(cut2)
 
-fig, (ax1, ax2) = plt.subplots(2, 1, sharex="col")
+# filter lines that are too close together
+for i in range(len(cut2)-1):
+    if cut2[i+1] - cut2[i] < 50:
+        cut2[i] = 0
+cut2 = cut2[cut2 != 0]
+
+fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
+
+v = unp.uarray(np.zeros(len(cut)//2), np.zeros(len(cut)//2))
+
+# split data at every second cut
+for i in range(2, len(cut), 2):
+    tempdf = df[cut[i-2]:cut[i-1]]
+    # fit const to light from cut to cut+1
+    soundmean, soundstd = tempdf["I_sound"].mean(), tempdf["I_sound"].std()
+    # plot mean and std
+    # if i == 2:
+    ax1.hlines(soundmean, tempdf["t"].iloc[0], tempdf["t"].iloc[-1], color="red")
+    ax1.hlines(soundmean+3*soundstd, tempdf["t"].iloc[0], tempdf["t"].iloc[-1], color="red", linestyle="dashed")
+    ax1.hlines(soundmean-3*soundstd, tempdf["t"].iloc[0], tempdf["t"].iloc[-1], color="red", linestyle="dashed")
+    # get first point between cut-1 and cut that has 5 sigma above/below mean
+    delay = unc.ufloat(0, 0, "delay")
+    for j in range(cut2[i-2], cut[i]):
+        if np.abs(df["I_sound"][j] - soundmean) > 3*soundstd:
+            ax1.scatter(df["t"][j], df["I_sound"][j], color="red", s=20)
+            delay = unc.ufloat(df["t"][j], 1/(2*rate), "delay")  # error is at least polling rate
+            break
+    floormean, floorstd = df["I_light"][cut2[i-2] + 10:cut2[i-1] - 10].mean(), df["I_light"][cut2[i-2] + 10:cut2[i-1] - 10].std()
+    ax2.hlines(floormean, df["t"][cut2[i-2]], df["t"][cut2[i-1]], color="red")
+    ax2.hlines(floormean+1*floorstd, df["t"][cut2[i-2]], df["t"][cut2[i-1]], color="red", linestyle="dashed")
+    ax2.hlines(floormean-1*floorstd, df["t"][cut2[i-2]], df["t"][cut2[i-1]], color="red", linestyle="dashed")
+    # get first point between cut2-2 and cut2-1 that has less than 3 sigma deviation from floormean
+    floor = unc.ufloat(0, 0)
+    for j in range(cut2[i-2], cut2[i-1]):
+        if np.abs(df["I_light"][j] - floormean) < 3*floorstd:
+            ax2.scatter(df["t"][j], df["I_light"][j], color="red", s=20)
+            floor = unc.ufloat(df["t"][j], 1/(2*rate), "floor")   # error is at least polling rate (2400 Hz)
+            break
+    deltat = delay - floor
+    v[i//2-1] = d/deltat
+    print(f"v : {v[i//2-1]:S}")
+
+
 ax1.scatter(df["t"], df["I_sound"], s=0.2, label="Messwerte")
+# ax1.plot(df["t"], df["I_sound"], label="Messwerte")
 ax1.set_ylabel("Intensität / a.u.")
-ax1.set_xlabel("Zeit / s")
 ax2.scatter(df["t"], df["I_light"], s=0.2, label="Messwerte")
 # vlines at cut
-for i in range(len(cut)):
-    ax2.axvline(df["t"][int(cut[i])], color="red", linestyle="dashed")
+ax2.axvline(df["t"][int(cut[i])], color="red", linestyle="dashed")
+for i in range(len(cut2)):
     ax2.axvline(df["t"][int(cut2[i])], color="orange", linestyle="dashed")
     ax1.axvline(df["t"][int(cut[i])], color="red", linestyle="dashed")
     ax1.axvline(df["t"][int(cut2[i])], color="orange", linestyle="dashed")
@@ -69,89 +107,139 @@ ax2.set_xlabel("Zeit / s")
 plt.show()
 
 # %%
-# mean between cut of soundI
-# downv = cut2-cut (only positive to get downward motion)
-
-# %%
-# find peaks of light intensity
-peaks, _ = find_peaks(df["I_light"], distance=100)
-# separate min and max values into two arrays
-min, max = np.empty()
-m = df["I_light"][peaks].mean()
-for i in peaks:
-    if df["I_light"][i] < m:
-        # print(f"min: {df['I_light'][i]}")
-        # append to min array
-        min = np.append(min, i)
-    else:
-        print(f"max: {df['I_light'][i]}")
-        # append to max array
-        max = np.append(max, i)
-
-# remove first entry of max and min arrays
-max = max[1:]
-min = min[1:]
-minpeaks, _ = find_peaks(df["I_light"][min], distance=7)
-
-# print(max)
-# plot sound and light in subplots
-# plot peaks as big red dots
-fig, (ax1, ax2) = plt.subplots(2, 1, sharex="col")
-ax1.scatter(df["t"], df["I_sound"], s=0.2, label="Messwerte")
-ax1.set_ylabel("Intensität / a.u.")
-ax1.set_xlabel("Zeit / s")
-ax2.scatter(df["t"], df["I_light"], s=0.2, label="Messwerte")
-ax2.scatter(df["t"][min[minpeaks]], df["I_light"][min[minpeaks]], s=10, c="r", label="Peaks")
-ax2.set_ylabel("Intensität / a.u.")
-ax2.set_xlabel("Zeit / s")
-# ax2.set_xlim(0, 50)
-# ax2.set_ylim(0, 0.1)
-# plt.show()
-
+# print(unp.nominal_values(v))
+vmean, vcov = curve_fit(const, np.arange(len(v)), unp.nominal_values(v), sigma=unp.std_devs(v), absolute_sigma=True)
+vstd = np.sqrt(np.diag(vcov))
+# plot v as errorbar
+plt.errorbar(np.arange(len(v)), unp.nominal_values(v), yerr=unp.std_devs(v), fmt=".k", capsize=3, label="Data")
+plt.hlines(vmean, -0.2, len(v), color="red", label="Fit")
+plt.fill_between(np.arange(-1, len(v)+1), vmean+vstd, vmean-vstd, color="red", alpha=0.3, label=r"$1\sigma$-Band")
+plt.xlabel("Messung")
+plt.ylabel("Geschwindigkeit (m/s)")
+plt.xlim(-0.2, 6.2)
+plt.tight_layout()
+plt.legend(borderaxespad=1)
+plt.show()
 
 # %%
 # load data
-data = np.loadtxt("/home/taco/Documents/Grundpraktikum/data/Versuch4_2.csv", delimiter=",", skiprows=1)
-# create dataframe
-df = pd.DataFrame(data, columns=["t", "I_sound"])
+df = pd.read_csv("data/Versuch4_2.csv")
+# rename columns#
+df.columns = ["t", "I_sound"]
+rate = get_polling_rate(df)
 
-df["I_light_err"] = 0.001
-df["I_sound_err"] = 0.001
-rate = 4800
-# 28.8, 29.65
-L = unc.ufloat(0.817 + 0.6*0.426, 0.001, "L")
-# L = unc.ufloat(0.422 + 0.6*0.31, 0.001, "L")
+# go through 50 data points at a time and write min and max to new dataframe
+df2 = pd.DataFrame(columns=["t", "I_sound_min", "I_sound_max"])
+for i in range(0, len(df), 750):
+    try:
+        df2 = df2.append({"t": (df["t"][i] + df["t"][i+750])/2, "I_sound_min": df["I_sound"][i:i+750].min(), "I_sound_max": df["I_sound"][i:i+750].max()}, ignore_index=True)
+    except:
+        pass
+# %%
+# fing peaks
+peaks1, _ = find_peaks(df["I_sound"], height=4.05, distance=5500)
+peaks2, _ = find_peaks(df2["I_sound_max"], height=0.1)
 
+
+def minimum(x):
+    if x/rate < 19.5:
+        return 4.22
+    elif x/rate < 41:
+        return 4.05
+    elif x/rate < 48:
+        return 4.7
+    else:
+        return 0.0285714*x/rate + 3.07143
+
+
+# remove peaks that are bigger than minimum
+for i in range(len(peaks1)):
+    if df["I_sound"][peaks1[i]] < minimum(peaks1[i]):
+        peaks1[i] = 0
+peaks1[-1] = 0
+peaks1 = peaks1[peaks1 != 0]
+
+# print(peaks)
 # plot data
-# plt.scatter(df["t"], df["I_sound"], s=0.2)
-# plt.xlabel("Zeit / s")
-# plt.ylabel("Intensität / a.u.")
-# plt.title("Intensität des Schalls")
-# plt.show()
-# print(df["t"][12*rate:int(12.2*rate)])
+# plot peaks as scatter
+plt.scatter(df["t"][peaks1], df["I_sound"][peaks1], s=70, color="red")
+plt.scatter(df2["t"][peaks2], df2["I_sound_max"][peaks2], s=20, color="green")
+plt.scatter(df["t"], df["I_sound"], s=0.2, label="min")
+plt.plot(df2["t"], df2["I_sound_min"], color="orange")
+plt.plot(df2["t"], df2["I_sound_max"], color="magenta")
+plt.xlabel("Zeit / s")
+plt.ylabel("Intensität / a.u.")
+plt.title("Intensität des Schalls")
+plt.show()
+# %%
+cdict = {'red':   ((0.0,  0.22, 0.0),
+                   (0.5,  1.0, 1.0),
+                   (1.0,  0.89, 1.0)),
 
-# compute fft
-# for i in [12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8, 12.9, 13]:
-#     fft = np.fft.fft(df["I_sound"][12*rate:int(i*rate)])
-#     freq = np.fft.fftfreq(len(fft), 1/rate)
-#     plt.plot(freq, np.abs(fft), label=f"{i}s")
+         'green': ((0.0,  0.49, 0.0),
+                   (0.5,  1.0, 1.0),
+                   (1.0,  0.12, 1.0)),
 
-fft = np.fft.fft(df["I_sound"][int(12.8*rate):int((12.8+0.1)*rate)])
-# print(fft.shape)
-# print(np.abs(fft).shape)
-freq = np.fft.fftfreq(len(df["t"][int(12.8*rate):int((12.8 + 0.1)*rate)]), d=1/rate)
-# d = np.abs(fft)
-# print(freq.shape)
-# fft1 = np.fft.fft(df["I_sound"][int(15.5*rate):int((15.5 + 0.1)*rate)])
-# freq1 = np.fft.fftfreq(len(df["t"][int(15.5*rate):int((15.5 + 0.1)*rate)]), d=1/rate)
-# print(freq1)
-# fft2 = np.fft.fft(df["I_sound"][12*rate:int(12.5*rate)])
-# freq2 = np.fft.fftfreq(len(df["t"][12*rate:int(12.5*rate)]), d=1/rate)
-# # print(freq2==freq1)
-plt.plot(freq, np.abs(fft), label="fft1")
-# plt.plot(freq1, np.abs(fft1), label="fft2")
+         'blue':  ((0.0,  0.72, 0.0),
+                   (0.5,  0.0, 0.0),
+                   (1.0,  0.11, 1.0))}
+
+cmap = colors.LinearSegmentedColormap('custom', cdict)
+
+fig, (ax1, ax2) = plt.subplots(2, 1)
+ax1.scatter(df["t"][peaks1], df["I_sound"][peaks1], s=70, color="red")
+ax1.scatter(df2["t"][peaks2], df2["I_sound_max"][peaks2], s=20, color="green")
+ax1.scatter(df["t"], df["I_sound"], s=0.2, label="min")
+ax1.plot(df2["t"], df2["I_sound_min"], color="orange")
+ax1.plot(df2["t"], df2["I_sound_max"], color="magenta")
+
+freqarr = np.empty(len(peaks1))
+v = unp.uarray(np.zeros(len(peaks1)), np.zeros(len(peaks1)))
+L = unc.ufloat(0.816, 0.001, "L") + unc.ufloat(0.004, 0.001, "L2")
+# calculate frequency for peaks1
+for i in range(len(peaks1)):
+    loc = peaks1[i]
+    # compute fft, sample rate is 2400 Hz
+    yf = ifft(df["I_sound"][loc-144:loc+144].to_numpy())
+    # get frequencie of max value
+    yf[0] = 0
+    freq = fftfreq(len(yf), 1/rate)[np.argmax(np.abs(yf))]
+    # write frequency to array
+    if i == 0:
+        freqarr[i] = freq
+    # handle frequency roll over
+    if freq < freqarr[i-1]+75 and i != 0:
+        # print(freq, freqarr[i-1]//2200)
+        freqarr[i] = 4800 + (-1)**(freqarr[i-1]//2300) * freq
+    else:
+        freqarr[i] = freq
+    if i != 0:
+        v[i] = 2*L*(freqarr[i] - freqarr[i-1])
+
+    print(f"f: {freqarr[i]:.2f} Hz, v: {v[i]:.1uS} m/s")
+    # remove peak at 0 Hz
+    xf = fftfreq(len(yf), 1/rate)
+    # plot fft, only positive frequencies on x axis
+    ax2.plot(xf, np.abs(yf), c=cmap(i/len(peaks1)))
+    ax1.axvline(df["t"][loc], linestyle="--", color=cmap(i/len(peaks1)))
+
+ax2.set_xlabel("Frequenz / Hz")
+ax2.set_ylabel("Amplitude / a.u.")
+# ax2.title("FFT der Intensität des Schalls")
+ax2.set_xlim(0, 2500)
+plt.show()
+
+# plot fft
+# plt.plot(xf, 2.0/N * np.abs(yf[0:N//2]))
+plt.grid()
 plt.legend()
-# plt.plot(freq2, np.abs(fft2))
+plt.xlabel("Frequenz / Hz")
+plt.ylabel("Amplitude / a.u.")
+plt.title("FFT des Schalls")
+plt.show()
+
+# %%
+
 # create interavtive plot with slider for fft interval
 # def x(t):
 #     t = int(t)
@@ -187,13 +275,33 @@ plt.show()
 # plot_ft(50000, df["t"][12.8*rate:int(12.9*rate)].to_numpy(), df["I_sound"][12.8*rate:int(12.9*rate)].to_numpy(), samples=5000)
 # %%
 def here(t):
-    return t
+    return 4800*t/len(df) - 2400
 
 
-# fig, (ax1, ax2) = plt.subplots(2, 1)
+# go through 50 data points at a time and write min and max to new dataframe
+df2 = pd.DataFrame(columns=["t", "I_sound_min", "I_sound_max"])
+for i in range(0, len(df), 750):
+    try:
+        df2 = df2.append({"t": (df["t"][i] + df["t"][i+750])/2, "I_sound_min": df["I_sound"][i:i+750].min(), "I_sound_max": df["I_sound"][i:i+750].max()}, ignore_index=True)
+    except:
+        pass
+
+
+def there(x, t):
+    time = int(len(df2)*t/len(df))
+    return -30 + 10*df2["I_sound_max"][time]
+
+
+fig, (ax1, ax2) = plt.subplots(2, 1)
 # ax1.scatter(df["t"], df["I_sound"], s=0.2)
-# iplt.scatter(here, 3, t=np.arange(1, 250000, 5000, dtype=float), color="red")
-iplt.plot(x, y, t=np.arange(1, 250000, 10000, dtype=float), label="f1")
+ax1.plot(df2["t"], df2["I_sound_min"])
+ax1.plot(df2["t"], df2["I_sound_max"])
+controls = iplt.scatter(here, there, t=np.arange(1, len(df), 10, dtype=float), color="red")
+iplt.plot(x, y, controls=controls, ylim=(0, 35))
+ax2.plot(np.linspace(-2400, 2400, len(df2)), df2["I_sound_max"]*10-30)
+# set xtick distance to 500
+ax2.xaxis.set_major_locator(MultipleLocator(500))
+# plt.legend()
 # plt.show()
 # %%
 x = np.linspace(1, 100, 100000)
@@ -207,18 +315,20 @@ plot_ft(4000, df2["x"].to_numpy(), df2["y"].to_numpy())
 plt.show()
 
 # %%
-x = np.linspace(0, np.pi, 100)
-tau = np.linspace(0.5, 10, 100)
+Mair = 28.97e-3
+R = 8.3143
+gamma = 1.4
+T = unc.ufloat(297, 0.1)    # 24°C
+c = unp.sqrt(gamma * R * T / Mair)
+print(f"v: {c:.1uS}")
+# %%
+p0 = 100  # Pa
+f = 1000  # Hz
+rho = 1.2  # kg/m^3
+pmean = 10**5  # Pa
+T = 20  # °C
 
-def f1(x, tau, beta):
-    return np.sin(x * tau) * x * beta
-def f2(x, tau, beta):
-    return np.sin(x * beta) * x * tau
+zeta0 = p0 / (2 * np.pi * f * rho * c)
+v0 = zeta0 * 2 * np.pi * f
+print(f"zeta0: {zeta0:.1uLS}, v0: {v0:.1uS}")
 
-
-fig, (ax1, ax2) = plt.subplots(2, 1)
-ax1.scatter(df["t"], df["I_sound"], s=0.2)
-controls = iplt.plot(x, f1, tau=tau, beta=(1, 10, 100), label="f1")
-iplt.plot(x, f2, controls=controls, label="f2")
-_ = plt.legend()
-plt.show()

@@ -1,15 +1,19 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib import colors
 # from labellines import labelLine, labelLines
 from matplotlib.ticker import (MultipleLocator, FormatStrFormatter, AutoMinorLocator)
 from matplotlib.figure import figaspect
 from scipy.optimize import curve_fit
 from scipy.optimize import fsolve
+from scipy.signal import find_peaks
+from scipy.fft import fft, fftfreq, rfft, ifft
 from scipy.stats import chi2
 import uncertainties as unc
 import uncertainties.unumpy as unp
 import seaborn as sns
+import mpl_interactions.ipyplot as iplt
 
 
 def const(x, a):
@@ -155,6 +159,14 @@ def plot_ft(w, x, y, samples=1000):
     plt.plot(w, np.absolute(ffb.real))
     plt.grid()
     plt.show()
+
+
+def get_polling_rate(df):
+    # get time difference between two rows
+    t = df["t"][1] - df["t"][0]
+    # calculate polling rate and round
+    return round(1/t)
+
 
 # define plot parameters
 plt.rcParams['xtick.direction'] = 'in'

@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 from Source import *
 # %%
 # load data
@@ -53,7 +55,7 @@ for i in range(len(cut2)-1):
 cut2 = cut2[cut2 != 0]
 
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
-
+# print(ax2.shape)
 v = unp.uarray(np.zeros(len(cut)//2), np.zeros(len(cut)//2))
 
 # split data at every second cut
@@ -87,24 +89,51 @@ for i in range(2, len(cut), 2):
     deltat = delay - floor
     v[i//2-1] = d/deltat
     print(f"v : {v[i//2-1]:S}")
+    if i == 10:
+        mem = np.array([soundmean, soundstd, floormean, floorstd, delay.n, floor.n, deltat])
 
+# print(mem)
 
 ax1.scatter(df["t"], df["I_sound"], s=0.2, label="Messwerte")
 # ax1.plot(df["t"], df["I_sound"], label="Messwerte")
-ax1.set_ylabel("Intensität / a.u.")
+ax1.set_ylabel("Intensity sound (a.u.)")
 ax2.scatter(df["t"], df["I_light"], s=0.2, label="Messwerte")
 # vlines at cut
-ax2.axvline(df["t"][int(cut[i])], color="red", linestyle="dashed")
+
 for i in range(len(cut2)):
+    ax2.axvline(df["t"][int(cut[i])], color="red", linestyle="dashed")
     ax2.axvline(df["t"][int(cut2[i])], color="orange", linestyle="dashed")
     ax1.axvline(df["t"][int(cut[i])], color="red", linestyle="dashed")
     ax1.axvline(df["t"][int(cut2[i])], color="orange", linestyle="dashed")
 
-ax2.set_ylabel("Intensität / a.u.")
-ax2.set_xlabel("Zeit / s")
-# ax2.set_xlim(0, 50)
+ax2.set_ylabel("Intensity light (a.u.)")
+ax2.set_xlabel("time (s)")
+ax2.set_xlim(0, df["t"].iloc[-1])
 # ax2.set_ylim(0, 0.1)
+plt.tight_layout()
+# plt.savefig("Graphs/plot.eps", format="eps", transparent=True)
 plt.show()
+# %%
+fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
+ax1.scatter(df["t"], df["I_sound"], s=0.2, label="Data")
+ax1.hlines(mem[0], 7, 9, color="red", label="Mean")
+ax1.fill_between([7, 9], [mem[0]+3*mem[1], mem[0]+3*mem[1]], [mem[0]-3*mem[1], mem[0]-3*mem[1]], color="red", alpha=0.2, label="3$\sigma$-Band")
+ax1.scatter(mem[4], df["I_sound"][int(mem[4]*rate)], color="red", s=20, label="First point")
+ax1.set_ylabel("Intensity sound (a.u.)")
+ax2.scatter(df["t"], df["I_light"], s=0.2, label="Messwerte")
+ax2.hlines(mem[2], 7, 9, color="red", label="Mean")
+ax2.fill_between([7, 9], [mem[2]+1*mem[3], mem[2]+1*mem[3]], [mem[2]-1*mem[3], mem[2]-1*mem[3]], color="red", alpha=0.2, label="3$\sigma$-Band")
+ax2.scatter(mem[5], df["I_light"][int(mem[5]*rate)], color="red", s=20, label="First point")
+ax2.set_ylabel("Intensity light (a.u.)")
+ax2.set_xlabel("time (s)")
+ax2.set_xlim(7.7, 7.9)
+# ax2.set_ylim(0, 0.1)
+ax1.legend(borderpad=1)
+ax2.legend(borderpad=1)
+plt.tight_layout()
+# plt.savefig("Graphs/plot.eps", format="eps", transparent=True)
+plt.show()
+
 
 # %%
 # print(unp.nominal_values(v))
@@ -195,7 +224,8 @@ ax1.plot(df2["t"], df2["I_sound_max"], color="magenta")
 
 freqarr = np.empty(len(peaks1))
 v = unp.uarray(np.zeros(len(peaks1)), np.zeros(len(peaks1)))
-L = unc.ufloat(0.816, 0.001, "L") + unc.ufloat(0.004, 0.001, "L2")
+L = unc.ufloat(0.816, 0.001, "L") + 0.6*unc.ufloat(0.004, 0.001, "L2")
+print(f"{L:.2uS}")
 # calculate frequency for peaks1
 for i in range(len(peaks1)):
     loc = peaks1[i]
@@ -330,5 +360,6 @@ T = 20  # °C
 
 zeta0 = p0 / (2 * np.pi * f * rho * c)
 v0 = zeta0 * 2 * np.pi * f
-print(f"zeta0: {zeta0:.1uLS}, v0: {v0:.1uS}")
+rho0 = p0 * Mair / (R * T)
+print(f"zeta0: {zeta0:.1uLS}, v0: {v0:.1uS}, rho0: {rho0}")
 

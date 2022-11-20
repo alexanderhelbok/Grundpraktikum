@@ -16,7 +16,16 @@
 \end{mybox}
 
 \begin{mybox}{Resonanzmessung}
-	Dafür wurde ein Kartonrohr der Länge \( L = 81.60(10) \unit{cm} \) und einem Durchmessen \( d = 0.40(10) \unit{cm} \) hergenommen. Ein Ende wurde mit dem IOLab abgedichtet und das Andere wurde offen gelassen und über Kopfhörer Töne reingespielt. 
+	Dafür wurde ein Kartonrohr der Länge \( L = 81.60(10) \unit{cm} \) und einem Durchmessen \( d = 0.40(10) \unit{cm} \) hergenommen. Ein Ende wurde mit dem IOLab abgedichtet und das Andere wurde offen gelassen und über Kopfhörer Töne reingespielt. Da das Rohr an einem Ende offen, muss man Korrekturen an der Länge vornehmen, sodass für die effektive Länge gilt \( L_{\text{eff}} = L + 0.6d = 81.84(12) \unit{cm} \).
+	
+	Die von den Lautsprechern erzeugten Schallwellen werden am geschlossenen Ende des Rohres reflektiert und interferieren mit den gegenläufigen Schwingungen. Bei bestimmten Frequenzen interferieren die Wellen maximal konstruktiv und kommt es zu stehenden Wellen. Aus der Schwingungsgleichung für Druckwellen kann man sich die Frequenzen ausrechnen, bei welchen stehende Wellen entstehen und man erhält
+	\begin{equation}\label{key}
+		f_n = (2n+1)\frac{c}{4L_{\text{eff}}}
+	\end{equation}
+    beziehungsweise für aufeinanderfolgende Frequenzen
+    \begin{equation}\label{key}
+    	f_{\text{n+1}} - f_{\text{n}} = \frac{c}{2L_{\text{eff}}}
+    \end{equation}
 \end{mybox}
 
 \begin{mybox}{Berechnung der Schallgeschwindigkeit}
@@ -37,10 +46,14 @@
 	Für Luft gilt \( \gamma \approx 1.4 \) unter der Voraussetzung, dass der Luftdruck ungefähr bei \( 1 \unit{atm} \) und die Temperatur um \( 300 \unit{K} \) liegt.
 	
 	Aus \( 	\rho c \zeta_0 \omega = p_0 \) und \( \omega = 2\pi f \) folgt für \( \zeta_0 \) und \( v_0 \)
-	\begin{align}\label{key}
-		\zeta_0 &= \frac{p_0}{2\pi f\rho c} = 3.8394(6) \times 10^{-5} \unit{m} \\
-		v_0 &= \zeta_0\omega = \frac{p_0}{2\rho c} = 0.24123(4) \unit{\v} 
+	\begin{align}\label{eqn:zeta}
+		\zeta_0 &= \frac{p_0}{2\pi f\rho c} = 3.8394(6) \cdot 10^{-5} \unit{m} \\
+		v_0 &= \zeta_0\omega = \frac{p_0}{2\rho c} = 0.24123(4) \unit{\v}
 	\end{align}
+	Substituiert man in der Zustandsgleichung für ideale Gase \( V = m/\rho \) erhält man für die Dichte
+	\begin{equation}\label{eqn:density}
+		\rho_0 = \frac{p_0M}{RT} = 0.01742 \unit{kg/m^3}
+	\end{equation}
 \end{mybox}
 
 \end{document}

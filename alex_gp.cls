@@ -98,6 +98,11 @@
 \renewcommand{\tfrac}[2]{\hspace{1pt}\oldtfrac{#1}{#2}\hspace{1pt}}
 \let\oldunit\unit
 \renewcommand{\unit}[1]{\hspace{4pt}\oldunit{#1}}
+%\RenewDocumentCommand{\unit}{o m}{%
+%	\IfNoValueTF{#1}
+%	{\hspace{4pt}\text{#1}}
+%	{\hspace{4pt}\oldunit{#2}}
+%}
 
 \hypersetup{%
 	colorlinks=true, 

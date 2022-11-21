@@ -10,9 +10,34 @@
 
 
 \begin{mybox}{Laufzeitmessung}
-	Ziel dieses Versuches ist es, die Schallgeschwindigkeit in der Luft mittels einer Laufzeitmessung zu bestimmen. Dazu wurde eine Lichtquelle (Taschenlampe) und das Messgerät auf einem Tisch positioniert und in einem Abstand von \( 3 \unit{m} \) vom IOLab wurde eine Markierung am Tisch vorgenommen. An diese Markierung wurde mit einem Brett der Lichtstrahl unterbrochen und gleichzeitig am Tisch ein lautes Geräusch erzeugt. Beide Signale kommen am IOLab an, wobei der Schlag vom Brett zeitlich leicht verzögert ankommt, da die Geschwindigkeit des Schalls wesentlich kleiner als die des Lichts ist. Aus dieser Zeitdifferenz lässt sich die Schallgeschwindigkeit berechnen. 
+	Ziel dieses Versuches ist es, die Schallgeschwindigkeit in der Luft mittels einer Laufzeitmessung zu bestimmen. Dazu wurde eine Lichtquelle (Taschenlampe) und das Messgerät auf einem Tisch positioniert und in einem Abstand von \( d = 3 \unit{m} \) vom IOLab wurde eine Markierung am Tisch vorgenommen. An diese Markierung wurde mit einem Brett der Lichtstrahl unterbrochen und gleichzeitig am Tisch ein lautes Geräusch erzeugt. Beide Signale kommen am IOLab an, wobei der Schlag vom Brett zeitlich leicht verzögert ankommt, da die Geschwindigkeit des Schalls wesentlich kleiner als die des Lichts ist. Aus dieser Zeitdifferenz lässt sich die Schallgeschwindigkeit berechnen. 
 	
-	Für die Distanz wurde ein Fehler von \( 1 \unit{cm} \) angenommen, um für den Ablesefehler, die Genauigkeit beim herunterschlagen der Brettes und die Positionierung des Sensors im IOLab zu kompensieren. Die Daten wurden bei einer Abfragerate von \( 2400 \unit{Hz} \) aufgezeichnet, weshalb die Unsicherheit in der Zeit auf \( 1/2*2400 \unit{1/Hz} = 0.21 \unit{µs} \) geschätzt wurde.
+	Für die Distanz wurde ein Fehler von \( 1 \unit{cm} \) angenommen, um für den Ablesefehler, die Genauigkeit beim herunterschlagen der Brettes und die Positionierung des Sensors im IOLab zu kompensieren. Die Daten wurden bei einer Abfragerate von \( 2400 \unit{Hz} \) aufgezeichnet, weshalb die Unsicherheit in der Zeit auf \( 1/(2\cdot2400) \unit{1/Hz} = 0.21 \unit{µs} \) geschätzt wurde.
+	
+	\begin{figure}[H]	
+		\centering
+		\includegraphics[width=\textwidth]{Versuch4_1.eps}
+		\caption{Von oben nach unten sind Intensität des Schalls und des Lichts auf die Zeit aufgetragen. Die Daten werden ohne Fehlerbalken dargestellt, da diese zu klein wären. In Rot wurde der Mittelwert mit \( 3\sigma \)-Band aufgetragen und in blau ist die Zeitdifferenz zwischen den ersten beiden roten Punkten zu sehen.}
+		\label{fig:laufzeit}
+	\end{figure}
+
+	Die Analyse der Daten ging wie folgt: es wurde zuerst der Mittelwert des Audiosignals vor dem Schlagereignis und der Mittelwert der Lichtintensität nach dem Schlagereignis berechnet. Das Audiosignal wird als registriert angenommen, wenn der erste Wert über \( 3\sigma \) vom Mittelwert abweicht, da die Wahrscheinlichkeit, dass dies durch Zufall eintrifft bei klein genug ist \( 0.3 \% \). Analog gilt das Lichtsignal als Unterbrochen sobald der erste Datenpunkt der Lichtmessung mehr also \( 3\sigma \) vom Mittelwert abweicht. 
+	
+	Die Zeitdifferenz \( \Delta t \) zwischen dem unterbrechen des Lichtstrahls und dem Ankommen der Schallwelle beim Messgerät berechnet sich aus 
+	
+	Damit berechnet sich die Schallgeschwindigkeit wie folgt
+	\begin{equation}\label{eqn:v1}
+		v = \frac{d}{\Delta t}
+	\end{equation}
+	
+	In \autoref{fig:vmean} wurden die berechneten Geschwindigkeiten als normalisierte Gaußkurven auf die Geschwindigkeit aufgetragen. Hierbei sind 
+	Die mittlere Gaußkurve ist dreimal 
+	\begin{figure}[H]	
+		\centering
+		\includegraphics[width=\textwidth]{Versuch4_2.eps}
+		\caption{Die gemessenen Geschwindigkeiten wurden als normalisierte Gaußkurven in schwarz auf die Geschwindigkeiten aufgetragen. In Rot der gewichtete Mittelwert, der sich als Überlagerung (und anschließende Normalisierung) der schwarzen Kurven ergibt. Das \( 1\sigma \) Intervall des Mittelwerts wurde farblich hinterlegt.}
+		\label{fig:vmean}
+	\end{figure}
 \end{mybox}
 
 \begin{mybox}{Resonanzmessung}
@@ -33,7 +58,7 @@
 	\begin{equation}\label{eqn:cad}
 		c_{\text{ad}} = \sqrt{\gamma RT/M}
 	\end{equation}
-	wobei \( \gamma \approx 1.4 \) der Adiabatenindex, \( R = 8.3143 \unit{J/K/mol} \) die allgemeine Gaskonstante, \( T \) die Temperatur und \( M \approx 0.028973 \unit{kg/mol} \) die molare Masse des Gases beschreiben.
+	wobei \( \gamma \approx 1.4 \) der Adiabatenindex, \( R = 8.3143 \unit{J K^{-1} mol^{-1}} \) die allgemeine Gaskonstante, \( T \) die Temperatur und \( M \approx 0.028973 \unit{kg/mol} \) die molare Masse des Gases beschreiben.
 	Die Temperatur wurde mittel eines Thermometers auf \( 297(1) \unit{K} \) gemessen. 
 	Setzt man nun Werte in \autoref{eqn:cad} ein, erhält man 
 	\begin{equation}\label{eqn:cad2}

@@ -137,28 +137,17 @@ def contributions(var, rel=True, precision=2):
 
 
 # test
-def integrate(x, fx):
-    return np.sum(fx)/len(x)*(x[-1]-x[0])
-
-
-def F(w, x, y):
-    return 1/(np.sqrt(2*np.pi))*integrate(x, y*np.exp(-1j*w*x))
-
-
-def FFreqBand(x, y, wmin, wmax, wsample):
-    w = np.linspace(wmin, wmax, wsample)
-    ffb = np.zeros(wsample)
-    for i in range(wsample):
-        ffb[i] = F(w[i], x, y)
-    return w, ffb
-
-
-def plot_ft(w, x, y, samples=1000):
-    w, ffb = FFreqBand(x, y, -w, w, samples)
-    plt.plot(w, np.absolute(ffb.imag))
-    plt.plot(w, np.absolute(ffb.real))
-    plt.grid()
-    plt.show()
+def autokorrelation(t, y):
+    mean = np.mean(y)
+    y = y-mean
+    print(len(t), t)
+    w = np.linspace(0,  (t[len(t)-1]-t[0]),  len(t))
+    Psi = np.zeros(len(t))
+    divi = np.sum(y*y)
+    for j in range(len(t)):
+        for n in range(len(t)-j):
+            Psi[j] += y[n]*y[n+j]
+    return w, Psi/divi
 
 
 def get_polling_rate(df):

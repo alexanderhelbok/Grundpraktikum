@@ -10,9 +10,9 @@
 
 
 \begin{mybox}{Laufzeitmessung}
-	Ziel dieses Versuches ist es, die Schallgeschwindigkeit in der Luft mittels einer Laufzeitmessung zu bestimmen. Dazu wurde eine Lichtquelle (Taschenlampe) und das Messgerät auf einem Tisch positioniert und in einem Abstand von \( d = 3 \unit{m} \) vom IOLab wurde eine Markierung am Tisch vorgenommen. An diese Markierung wurde mit einem Brett der Lichtstrahl unterbrochen und gleichzeitig am Tisch ein lautes Geräusch erzeugt. Beide Signale kommen am IOLab an, wobei der Schlag vom Brett zeitlich leicht verzögert ankommt, da die Geschwindigkeit des Schalls wesentlich kleiner als die des Lichts ist. Aus dieser Zeitdifferenz lässt sich die Schallgeschwindigkeit berechnen. 
+	Ziel dieses Versuches ist es, die Schallgeschwindigkeit in der Luft mittels einer Laufzeitmessung zu bestimmen. Dazu wurde eine Lichtquelle (Taschenlampe) und das Messgerät auf einem Tisch positioniert und in einem Abstand von \( d = 3 \unit{m} \) vom IOLab wurde eine Markierung am Tisch vorgenommen. An dieser Markierung wurde mit einem Brett der Lichtstrahl unterbrochen und gleichzeitig am Tisch ein lautes Geräusch erzeugt. Beide Signale kommen am IOLab an, wobei der Schlag vom Brett zeitlich leicht verzögert ankommt, da die Geschwindigkeit des Schalls wesentlich kleiner als die des Lichts ist. Aus dieser Zeitdifferenz lässt sich die Schallgeschwindigkeit berechnen. 
 	
-	Für die Distanz wurde ein Fehler von \( 1 \unit{cm} \) angenommen, um für den Ablesefehler, die Genauigkeit beim herunterschlagen der Brettes und die Positionierung des Sensors im IOLab zu kompensieren. Die Daten wurden bei einer Abfragerate von \( 2400 \unit{Hz} \) aufgezeichnet, weshalb die Unsicherheit in der Zeit auf \( 1/(2\cdot2400) \unit{1/Hz} = 0.21 \unit{µs} \) geschätzt wurde.
+	Für die Distanz wurde ein Fehler von \( 1 \unit{cm} \) angenommen, um für den Ablesefehler, die Genauigkeit beim Herunterschlagen der Brettes und die Positionierung des Sensors im IOLab zu kompensieren. Die Daten wurden bei einer Abfragerate von \( 2400 \unit{Hz} \) aufgezeichnet, weshalb die Unsicherheit in der Zeit auf \( 1/(2\cdot2400) \unit{1/Hz} = 0.21 \unit{µs} \) geschätzt wurde.
 	
 	\begin{figure}[H]	
 		\centering
@@ -21,39 +21,45 @@
 		\label{fig:laufzeit}
 	\end{figure}
 
-	Die Analyse der Daten ging wie folgt: es wurde zuerst der Mittelwert des Audiosignals vor dem Schlagereignis und der Mittelwert der Lichtintensität nach dem Schlagereignis berechnet. Das Audiosignal wird als registriert angenommen, wenn der erste Wert über \( 3\sigma \) vom Mittelwert abweicht, da die Wahrscheinlichkeit, dass dies durch Zufall eintrifft bei klein genug ist \( 0.3 \% \). Analog gilt das Lichtsignal als Unterbrochen sobald der erste Datenpunkt der Lichtmessung mehr also \( 3\sigma \) vom Mittelwert abweicht. 
+	Die Analyse der Daten ging wie folgt: es wurde zuerst der Mittelwert des Audiosignals vor dem Schlagereignis und der Mittelwert der Lichtintensität nach dem Schlagereignis berechnet. Das Audiosignal wird als registriert angenommen, wenn der erste Wert mehr als \( 3\sigma \) vom Mittelwert abweicht, da die Wahrscheinlichkeit, dass dies durch Zufall eintrifft klein genug ist (\( 0.3 \% \)). Analog gilt das Lichtsignal als Unterbrochen sobald der erste Datenpunkt der Lichtmessung mehr also \( 3\sigma \) vom Mittelwert abweicht. 
 	
-	Die Zeitdifferenz \( \Delta t \) zwischen dem unterbrechen des Lichtstrahls und dem Ankommen der Schallwelle beim Messgerät berechnet sich aus 
+	Dieser Prozess ist in \autoref{fig:laufzeit} dargestellt, wo die Mittelwerte „in Ruhe“ als horizontale Linien aufgetragen sind. Der erste Datenpunkt, der mehr als \( 3\sigma \) abweicht, und somit außerhalb der roten Konfidenzbandes liegt, wurde rot markiert. Durch die beiden roten Punkte gehen vertikale blaue Linien, aus welchen sich \( \Delta t \) durch Subtraktion berechnet.
 	
-	Damit berechnet sich die Schallgeschwindigkeit wie folgt
+%	Die zeitliche Verzögerung die dadurch entsteht, dass das Audiosignal erst erzeugt wird, nachdem das Lichtsignal unterbrochen wurde, 
+
+	Die Zeitdifferenz \( \Delta t \) zwischen dem unterbrechen des Lichtstrahls und dem Ankommen der Schallwelle beim Messgerät kann nun herangezogen werden, um die Schallgeschwindigkeit wie folgt zu berechnen
 	\begin{equation}\label{eqn:v1}
 		v = \frac{d}{\Delta t}
 	\end{equation}
-	
-	In \autoref{fig:vmean} wurden die berechneten Geschwindigkeiten als normalisierte Gaußkurven auf die Geschwindigkeit aufgetragen. Hierbei sind 
-	Die mittlere Gaußkurve ist dreimal 
+
+	Die Messung wurde Fünf man wiederholt und in \autoref{fig:vmean} wurden die berechneten Geschwindigkeiten als normalisierte Gaußkurven auf die Geschwindigkeit aufgetragen. Es sind nur 3 Gaußkurven zu sehen, da aus drei Messungen die gleiche Geschwindigkeit berechnet wurde und diese daher als kombinierte (und höhere) Normalverteilungskurve dargestellt werden. In Rot ist die Überlagerung der Messungen als bester Schätzwert der Schallgeschwindigkeit dargestellt, wobei dessen Fehler gerade dem 1$\sigma$ Konfidenzintervall der Gaußkurve ist und farblich hervorgehoben wurde,
 	\begin{figure}[H]	
 		\centering
 		\includegraphics[width=\textwidth]{Versuch4_2.eps}
 		\caption{Die gemessenen Geschwindigkeiten wurden als normalisierte Gaußkurven in schwarz auf die Geschwindigkeiten aufgetragen. In Rot der gewichtete Mittelwert, der sich als Überlagerung (und anschließende Normalisierung) der schwarzen Kurven ergibt. Das \( 1\sigma \) Intervall des Mittelwerts wurde farblich hinterlegt.}
 		\label{fig:vmean}
 	\end{figure}
+
+	Die Laufzeitmessung liefert für die Schallgeschwindigkeit in Luft einen Wert von \( v = 328(5) \unit{\v} \). Dieser Wert liegt etwas unter dem vorhergesagten Wert (Siehe Seite \pageref{eqn:cad}), weicht aber nicht signifikant davon. 
+	
+	Um den statistischen Fehler der Messung zu reduzieren müsste man mit mehr Auflösung messen, also mehr Datenpunkte pro Zeitintervall aufnehmen, da der statistische Fehler in \( v \) zu über \( 99 \% \) daher stammt. Der Versuchsaufbau war nicht optimal, wodurch sich systematische Fehler eingeschlichen haben. Es entsteht eine zeitliche Verzögerung dadurch, dass das Audiosignal erst erzeugt wird, nachdem das Lichtsignal unterbrochen ist
 \end{mybox}
 
 \begin{mybox}{Resonanzmessung}
-	Dafür wurde ein Kartonrohr der Länge \( L = 81.60(10) \unit{cm} \) und einem Durchmessen \( d = 0.40(10) \unit{cm} \) hergenommen. Ein Ende wurde mit dem IOLab abgedichtet und das Andere wurde offen gelassen und über Kopfhörer Töne reingespielt. Da das Rohr an einem Ende offen, muss man Korrekturen an der Länge vornehmen, sodass für die effektive Länge gilt \( L_{\text{eff}} = L + 0.6d = 81.84(12) \unit{cm} \).
+	Dieser Versuch macht sich das Resonanzverhalten von Schallwellen zunutze, um einen Wert für dessen Geschwindigkeit zu erhalten.
+	Dafür wurde ein Kartonrohr der Länge \newline\( L = 81.60(10) \unit{cm} \) und einem Durchmessen \( d = 0.40(10) \unit{cm} \) hergenommen. Ein Ende wurde mit dem IOLab abgedichtet und das Andere wurde offen gelassen und über Kopfhörer Töne reingespielt. Da das Rohr an einem Ende offen, muss man Korrekturen an der Länge vornehmen, sodass für die effektive Länge gilt \( L_{\text{eff}} = L + 0.6d = 81.84(12) \unit{cm} \).
 	
-	Die von den Lautsprechern erzeugten Schallwellen werden am geschlossenen Ende des Rohres reflektiert und interferieren mit den gegenläufigen Schwingungen. Bei bestimmten Frequenzen interferieren die Wellen maximal konstruktiv und kommt es zu stehenden Wellen. Aus der Schwingungsgleichung für Druckwellen kann man sich die Frequenzen ausrechnen, bei welchen stehende Wellen entstehen und man erhält
+	Die von den Lautsprechern erzeugten Schallwellen werden am geschlossenen Ende des Rohres reflektiert und interferieren mit den gegenläufigen Schwingungen. Bei bestimmten Frequenzen interferieren die Wellen maximal konstruktiv und es kommt zu stehenden Wellen. Aus der Schwingungsgleichung für Druckwellen kann man sich die Frequenzen ausrechnen, bei welchen stehende Wellen entstehen und man erhält
 	\begin{equation}\label{key}
-		f_n = (2n+1)\frac{c}{4L_{\text{eff}}}
+		f_n = (2n+1)\frac{v}{4L_{\text{eff}}}
 	\end{equation}
     beziehungsweise für aufeinanderfolgende Frequenzen
     \begin{equation}\label{eqn:fn}
-    	f_{\text{n+1}} - f_{\text{n}} = \frac{c}{2L_{\text{eff}}}
+    	f_{\text{n+1}} - f_{\text{n}} = \frac{v}{2L_{\text{eff}}}
     \end{equation}
-	Hier haben wir eine Beziehung zwischen den Resonanzfrequenzen, der Länge des Rohren und der Schallgeschwindigkeit. Formen wir nun \autoref{eqn:fn} auf \( c \) um, erhält man
+	Hier haben wir eine Beziehung zwischen den Resonanzfrequenzen, der Länge des Rohren und der Schallgeschwindigkeit. Formen wir nun \autoref{eqn:fn} auf \( v \) um, erhält man
 	\begin{equation}\label{eqn:cfn}
-		c = \left(f_{\text{n+1}} - f_{\text{n}}\right) 2L_{\text{eff}}
+		v = \left(f_{\text{n+1}} - f_{\text{n}}\right) 2L_{\text{eff}}
 	\end{equation}
 
 	Die Resonanzmaxima und die dazugehörigen Frequenzen wurden wie folgt aus den Daten extrahiert: um das oszillierende Audiosignal wurde eine einhüllende Funktion gelegt, aus welcher die lokalen Maxima bestimmt wurden. An den Extremstellen wurden Fouriertransformationen durchgeführt. Die Fehler der Maxima wurden über die Breite der Resonanzmaxima abgeschätzt, werden aber nach der Transformation so gering (im Vergleich zum Fehler der Rohrlänge), dass sie Vernachlässigbar sind. In \autoref{fig:fft}

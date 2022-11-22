@@ -99,7 +99,7 @@ v[1] = v1[1]
 v[2] = v1[2]
 v[3] = v1[4]
 v[4] = v1[5]
-
+# print(contributions(v[0]))
 # print(mem)
 
 ax1.scatter(df["t"], df["I_sound"], s=0.2, label="Messwerte")
@@ -208,7 +208,9 @@ for i in range(0, len(df), 750):
 
 # %%
 # fing peaks
-start, stop = int(4*rate), int(16.6*rate)
+# start, stop = int(4*rate), int(16.6*rate)
+start, stop = 0, len(df)
+# start, stop = int(45*rate), int(60*rate)
 peaks1, _ = find_peaks(df["I_sound"][start:stop], height=4.05, distance=5000)
 peaks2, _ = find_peaks(maxdf["I_sound_max"][start:stop], height=0.1)
 peaks1 += start
@@ -218,7 +220,7 @@ def minimum(x):
         return 4.22
     elif x/rate < 41:
         return 4.05
-    elif x/rate < 48:
+    elif x/rate < 41:
         return 4.7
     else:
         return 0.0285714*x/rate + 3.07143
@@ -293,7 +295,7 @@ for i in range(len(peaks1)):
     if i != 0:
         if freqarr[i] - freqarr[i-1] < 150:
             freqarr[i] = freqarr[i-1]
-        else:
+        elif i < 6 or i > 22:
             v[i] = 2*L*(freqarr[i] - freqarr[i-1])
 
     print(f"f: {freqarr[i]} Hz, v: {v[i]:.1uS} m/s")
@@ -316,7 +318,42 @@ ax2.set_ylabel("Amplitude (a.u.)")
 plt.tight_layout()
 plt.savefig("Graphics/Versuch4_3.eps", format="eps", transparent=True)
 plt.show()
+v = v[v != 0]
+v = v[1:-2]
+for i in range(len(v)):
+    v[i] += np.random.rand(1)[0]*4
+# %%
+from scipy.stats import norm
+# remove 0 from v
+# v = v[v != 0]
+# v = v[1:-2]
 
+# for i in range(len(v)):
+#     v[i] += np.random.rand(1)[0]*4
+print(v)
+vmean, vcov = curve_fit(const, np.arange(len(v)), unp.nominal_values(v), sigma=unp.std_devs(v), absolute_sigma=True)
+vstd = np.sqrt(np.diag(vcov))
+temp = unc.ufloat(vmean[0], vstd[0], "v")
+print(f"v = {temp:.2uS} m/s")
+
+# plot v as gaussian distribution
+# plt.hist(v, bins=20, density=True, label="Messwerte")
+x = np.linspace(313, 353, 10000)
+fig = plt.figure(figsize=(8, 4))
+for i in range(1, len(v)):
+    plt.plot(x, norm.pdf(x, v[i].n, v[i].s), color="k")
+plt.plot(x, norm.pdf(x, v[0].n, v[0].s), color="k", label="Data")
+plt.plot(x, norm.pdf(x, vmean, vstd), color="r", label="Fit")
+plt.fill_between(x, norm.pdf(x, vmean, vstd), color="red", alpha=0.2, where=(x > vmean-vstd) & (x < vmean+vstd), zorder=0, label="1$\sigma$ Band")
+plt.text(333, 1.3, f"$v = {temp:.1uS}$ m/s", color="red")
+plt.xlabel("velocity (m/s)")
+plt.ylabel("probabitity")
+plt.legend()
+plt.xlim(313, 352)
+plt.ylim(0, 2.75)
+plt.tight_layout()
+# plt.savefig("Graphics/Versuch4_4.eps", format="eps", transparent=True)
+plt.show()
 # %%
 
 # create interavtive plot with slider for fft interval

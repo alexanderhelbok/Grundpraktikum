@@ -48,9 +48,24 @@
 		f_n = (2n+1)\frac{c}{4L_{\text{eff}}}
 	\end{equation}
     beziehungsweise für aufeinanderfolgende Frequenzen
-    \begin{equation}\label{key}
+    \begin{equation}\label{eqn:fn}
     	f_{\text{n+1}} - f_{\text{n}} = \frac{c}{2L_{\text{eff}}}
     \end{equation}
+	Hier haben wir eine Beziehung zwischen den Resonanzfrequenzen, der Länge des Rohren und der Schallgeschwindigkeit. Formen wir nun \autoref{eqn:fn} auf \( c \) um, erhält man
+	\begin{equation}\label{eqn:cfn}
+		c = \left(f_{\text{n+1}} - f_{\text{n}}\right) 2L_{\text{eff}}
+	\end{equation}
+
+	Die Resonanzmaxima und die dazugehörigen Frequenzen wurden wie folgt aus den Daten extrahiert: um das oszillierende Audiosignal wurde eine einhüllende Funktion gelegt, aus welcher die lokalen Maxima bestimmt wurden. An den Extremstellen wurden Fouriertransformationen durchgeführt. Die Fehler der Maxima wurden über die Breite der Resonanzmaxima abgeschätzt, werden aber nach der Transformation so gering (im Vergleich zum Fehler der Rohrlänge), dass sie Vernachlässigbar sind. In \autoref{fig:fft}
+	
+	\begin{figure}[H]	
+		\centering
+		\includegraphics[width=\textwidth]{Versuch4_3.eps}
+		\caption{Im oberen Plot ist das Audiosignal auf die Zeit von \( t = 4 \unit{s} \) bis \( t = 16.4 \unit{s} \) aufgetragen. In Magenta ist die Einhüllende Funktion des Audiosignals aufgetragen. Die Maxima wurden mit farblich hervorgehobenen vertikalen Linien dargestellt. Im unteren Graphen sind die Fouriertransformationen für die Maxima aus dem oberen Plot auf die Frequenz aufgetragen.}
+		\label{fig:fft}
+	\end{figure}
+
+	Die Maxima der Fouriertransformationen liegen genau \( 200 \unit{Hz} \) auseinander und stimmen auf 	
 \end{mybox}
 
 \begin{mybox}{Berechnung der Schallgeschwindigkeit}
@@ -72,8 +87,8 @@
 	
 	Aus \( 	\rho c \zeta_0 \omega = p_0 \) und \( \omega = 2\pi f \) folgt für \( \zeta_0 \) und \( v_0 \)
 	\begin{align}\label{eqn:zeta}
-		\zeta_0 &= \frac{p_0}{2\pi f\rho c} = 3.8394(6) \cdot 10^{-5} \unit{m} \\
-		v_0 &= \zeta_0\omega = \frac{p_0}{2\rho c} = 0.24123(4) \unit{\v}
+		\zeta_0 &= \frac{p_0}{2\pi f\rho c} = 3.8854 \cdot 10^{-5} \unit{m} \\
+		v_0 &= \zeta_0\omega = \frac{p_0}{2\rho c} = 0.2441 \unit{\v}
 	\end{align}
 	Substituiert man in der Zustandsgleichung für ideale Gase \( V = m/\rho \) erhält man für die Dichte
 	\begin{equation}\label{eqn:density}

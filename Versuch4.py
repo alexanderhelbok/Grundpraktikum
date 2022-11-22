@@ -193,7 +193,7 @@ plt.show()
 
 # %%
 # load data
-df = pd.read_csv("data/Versuch4_2.csv")
+df = pd.read_csv("data/Versuch4_4.csv")
 # rename columns#
 df.columns = ["t", "I_sound"]
 rate = get_polling_rate(df)
@@ -205,24 +205,13 @@ for i in range(0, len(df), 750):
         maxdf = maxdf.append({"t": (df["t"][i] + df["t"][i+750])/2, "I_sound_min": df["I_sound"][i:i+750].min(), "I_sound_max": df["I_sound"][i:i+750].max()}, ignore_index=True)
     except:
         pass
-# %%
-# scipy fft on maxdf
-fft = fft(maxdf["I_sound_max"].to_numpy() - maxdf["I_sound_min"].to_numpy())
-freq = fftfreq(len(maxdf), 1/rate)
 
-fft[0] = 0
-# plot fft
-plt.plot(freq, np.abs(fft), label="FFT")
-# plt.xlim(0, 1000)
-plt.xlabel("Frequency (Hz)")
-plt.ylabel("Amplitude (a.u.)")
-plt.legend()
-plt.show()
 # %%
 # fing peaks
-peaks1, _ = find_peaks(df["I_sound"], height=4.05, distance=5500)
-peaks2, _ = find_peaks(maxdf["I_sound_max"], height=0.1)
-
+start, stop = int(4*rate), int(16.6*rate)
+peaks1, _ = find_peaks(df["I_sound"][start:stop], height=4.05, distance=5000)
+peaks2, _ = find_peaks(maxdf["I_sound_max"][start:stop], height=0.1)
+peaks1 += start
 
 def minimum(x):
     if x/rate < 19.5:
@@ -247,13 +236,17 @@ peaks1 = peaks1[peaks1 != 0]
 # plot peaks as scatter
 plt.scatter(df["t"][peaks1], df["I_sound"][peaks1], s=70, color="red")
 plt.scatter(maxdf["t"][peaks2], maxdf["I_sound_max"][peaks2], s=20, color="green")
-plt.scatter(df["t"], df["I_sound"], s=0.2, label="min")
+plt.scatter(df["t"][start:stop], df["I_sound"][start:stop], s=0.2, label="min")
 plt.plot(maxdf["t"], maxdf["I_sound_min"], color="orange")
 plt.plot(maxdf["t"], maxdf["I_sound_max"], color="magenta")
 plt.xlabel("Zeit / s")
 plt.ylabel("Intensität / a.u.")
 plt.title("Intensität des Schalls")
+plt.xlim(start/rate, stop/rate)
 plt.show()
+
+# %%
+
 # %%
 cdict = {'red':   ((0.0,  0.22, 0.0),
                    (0.5,  1.0, 1.0),
@@ -269,11 +262,11 @@ cdict = {'red':   ((0.0,  0.22, 0.0),
 
 cmap = colors.LinearSegmentedColormap('custom', cdict)
 
-fig, (ax1, ax2) = plt.subplots(2, 1)
-ax1.scatter(df["t"][peaks1], df["I_sound"][peaks1], s=70, color="red")
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 4))
+# ax1.scatter(df["t"][peaks1], df["I_sound"][peaks1], s=70, color="red")
 ax1.scatter(maxdf["t"][peaks2], maxdf["I_sound_max"][peaks2], s=20, color="green")
-ax1.scatter(df["t"], df["I_sound"], s=0.2, label="min")
-ax1.plot(maxdf["t"], maxdf["I_sound_min"], color="orange")
+ax1.scatter(df["t"][::10], df["I_sound"][::10], s=0.2, label="min")
+ax1.plot(maxdf["t"], maxdf["I_sound_min"], color="magenta", label="enveloping")
 ax1.plot(maxdf["t"], maxdf["I_sound_max"], color="magenta")
 
 freqarr = np.empty(len(peaks1))
@@ -284,7 +277,7 @@ print(f"{L:.2uS}")
 for i in range(len(peaks1)):
     loc = peaks1[i]
     # compute fft, sample rate is 2400 Hz
-    yf = ifft(df["I_sound"][loc-144:loc+144].to_numpy())
+    yf = ifft(df["I_sound"][loc-500:loc+500].to_numpy())
     # get frequencie of max value
     yf[0] = 0
     freq = fftfreq(len(yf), 1/rate)[np.argmax(np.abs(yf))]
@@ -303,26 +296,25 @@ for i in range(len(peaks1)):
         else:
             v[i] = 2*L*(freqarr[i] - freqarr[i-1])
 
-    print(f"f: {freqarr[i]:.2f} Hz, v: {v[i]:.1uS} m/s")
+    print(f"f: {freqarr[i]} Hz, v: {v[i]:.1uS} m/s")
     # remove peak at 0 Hz
     xf = fftfreq(len(yf), 1/rate)
     # plot fft, only positive frequencies on x axis
     ax2.plot(xf, np.abs(yf), c=cmap(i/len(peaks1)))
     ax1.axvline(df["t"][loc], linestyle="--", color=cmap(i/len(peaks1)))
 
-ax2.set_xlabel("Frequenz / Hz")
-ax2.set_ylabel("Amplitude / a.u.")
-# ax2.title("FFT der Intensität des Schalls")
-ax2.set_xlim(0, 2500)
-plt.show()
 
-# plot fft
-# plt.plot(xf, 2.0/N * np.abs(yf[0:N//2]))
-plt.grid()
-plt.legend()
-plt.xlabel("Frequenz / Hz")
-plt.ylabel("Amplitude / a.u.")
-plt.title("FFT des Schalls")
+ax2.set_xlim(0, 2400)
+
+ax1.set_xlim(start/rate, stop/rate)
+ax1.set_ylim(3.3, 4.7)
+ax1.set_xlabel("time (s)")
+ax1.set_ylabel(" Intensity sound (a.u.)")
+ax2.set_xlabel("Frequency (Hz)")
+ax2.set_ylabel("Amplitude (a.u.)")
+# fig.legend(borderaxespad=1)
+plt.tight_layout()
+plt.savefig("Graphics/Versuch4_3.eps", format="eps", transparent=True)
 plt.show()
 
 # %%
@@ -404,10 +396,11 @@ p0 = 100  # Pa
 f = 1000  # Hz
 rho = 1.2  # kg/m^3
 pmean = 10**5  # Pa
-T = 20  # °C
+T = 290  # 20°C
+c = np.sqrt(gamma*R*T/Mair)
 
 zeta0 = p0 / (2 * np.pi * f * rho * c)
 v0 = zeta0 * 2 * np.pi * f
 rho0 = p0 * Mair / (R * T)
-print(f"zeta0: {zeta0:.1uLS}, v0: {v0:.1uS}, rho0: {rho0}")
+print(f"zeta0: {zeta0}, v0: {v0}, rho0: {rho0}")
 

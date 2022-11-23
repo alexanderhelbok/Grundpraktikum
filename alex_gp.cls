@@ -130,6 +130,7 @@
 	{\newcommand*\Middle{2}}%
 }
 
+
 % define tcolorbox env 
 \newtcolorbox{mybox}[1]{breakable,pad at break*=1mm, colback=Background,colframe=Frame, fonttitle=\LARGE, colbacktitle=Title, bottomtitle=0.2cm, top=0.35cm, bottom=0.35cm, toptitle=0.2cm, after skip=0.25cm, segmentation style={thick, darkgray!60}, adjusted title={#1}, parbox=false, middle=\Middle mm, before upper=\renewcommand\thempfootnote{\arabic{mpfootnote}}}
 

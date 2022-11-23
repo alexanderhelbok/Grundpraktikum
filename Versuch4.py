@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-
 from Source import *
 # %%
 # load data
@@ -166,7 +164,7 @@ plt.tight_layout()
 plt.legend(borderaxespad=1)
 plt.xticks(np.arange(1, 1))
 plt.tick_params(axis='x', which='minor', bottom=False, top=False)
-plt.savefig("Graphics/Versuch4_2.eps", format="eps", transparent=True)
+# plt.savefig("Graphics/Versuch4_2.eps", format="eps", transparent=True)
 plt.show()
 
 # %%
@@ -188,7 +186,7 @@ plt.legend(borderaxespad=1)
 plt.xlim(285, 395)
 plt.ylim(0, 0.125)
 plt.tight_layout()
-# plt.savefig("Graphics/Versuch4_2.eps", format="eps", transparent=True)
+plt.savefig("Graphics/Versuch4_2.eps", format="eps", transparent=True)
 plt.show()
 
 # %%
@@ -209,10 +207,13 @@ for i in range(0, len(df), 750):
 # %%
 # fing peaks
 # start, stop = int(4*rate), int(16.6*rate)
+start2, stop2 = int(44.5*rate), int(60.2*rate)
 start, stop = 0, len(df)
 # start, stop = int(45*rate), int(60*rate)
 peaks1, _ = find_peaks(df["I_sound"][start:stop], height=4.05, distance=5000)
 peaks2, _ = find_peaks(maxdf["I_sound_max"][start:stop], height=0.1)
+peaks3, _ = find_peaks(df["I_sound"][start2:stop2], height=4.05, distance=5000)
+peaks3 += start2
 peaks1 += start
 
 def minimum(x):
@@ -233,21 +234,24 @@ for i in range(len(peaks1)):
 peaks1[-1] = 0
 peaks1 = peaks1[peaks1 != 0]
 
+for i in range(len(peaks3)):
+    if i%2 != 0:
+        peaks3[i] = 0
+peaks3 = peaks3[peaks3 != 0]
+
 # print(peaks)
 # plot data
 # plot peaks as scatter
-plt.scatter(df["t"][peaks1], df["I_sound"][peaks1], s=70, color="red")
-plt.scatter(maxdf["t"][peaks2], maxdf["I_sound_max"][peaks2], s=20, color="green")
+plt.scatter(df["t"][peaks3], df["I_sound"][peaks3], s=70, color="red")
+# plt.scatter(maxdf["t"][peaks2], maxdf["I_sound_max"][peaks2], s=20, color="green")
 plt.scatter(df["t"][start:stop], df["I_sound"][start:stop], s=0.2, label="min")
 plt.plot(maxdf["t"], maxdf["I_sound_min"], color="orange")
 plt.plot(maxdf["t"], maxdf["I_sound_max"], color="magenta")
 plt.xlabel("Zeit / s")
 plt.ylabel("Intensität / a.u.")
 plt.title("Intensität des Schalls")
-plt.xlim(start/rate, stop/rate)
+plt.xlim(start2/rate, stop2/rate)
 plt.show()
-
-# %%
 
 # %%
 cdict = {'red':   ((0.0,  0.22, 0.0),
@@ -264,12 +268,18 @@ cdict = {'red':   ((0.0,  0.22, 0.0),
 
 cmap = colors.LinearSegmentedColormap('custom', cdict)
 
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 4))
+# fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 4))
+fig, axd = plt.subplot_mosaic([["left", "right"], ["bottom", "bottom"]], figsize=(8, 4))
+# fig2, ax3 = plt.subplots(1, 1, sharey=True)
 # ax1.scatter(df["t"][peaks1], df["I_sound"][peaks1], s=70, color="red")
-ax1.scatter(maxdf["t"][peaks2], maxdf["I_sound_max"][peaks2], s=20, color="green")
-ax1.scatter(df["t"][::10], df["I_sound"][::10], s=0.2, label="min")
-ax1.plot(maxdf["t"], maxdf["I_sound_min"], color="magenta", label="enveloping")
-ax1.plot(maxdf["t"], maxdf["I_sound_max"], color="magenta")
+axd["left"].scatter(maxdf["t"][peaks2], maxdf["I_sound_max"][peaks2], s=20, color="green")
+axd["left"].scatter(df["t"][::10], df["I_sound"][::10], s=0.2, label="min")
+axd["left"].plot(maxdf["t"], maxdf["I_sound_min"], color="magenta", label="enveloping")
+axd["left"].plot(maxdf["t"], maxdf["I_sound_max"], color="magenta")
+axd["right"].plot(maxdf["t"], maxdf["I_sound_min"], color="magenta")
+axd["right"].plot(maxdf["t"], maxdf["I_sound_max"], color="magenta")
+axd["right"].scatter(maxdf["t"][peaks2], maxdf["I_sound_max"][peaks2], s=20, color="green")
+axd["right"].scatter(df["t"][::10], df["I_sound"][::10], s=0.2, label="min")
 
 freqarr = np.empty(len(peaks1))
 v = unp.uarray(np.zeros(len(peaks1)), np.zeros(len(peaks1)))
@@ -302,26 +312,62 @@ for i in range(len(peaks1)):
     # remove peak at 0 Hz
     xf = fftfreq(len(yf), 1/rate)
     # plot fft, only positive frequencies on x axis
-    ax2.plot(xf, np.abs(yf), c=cmap(i/len(peaks1)))
-    ax1.axvline(df["t"][loc], linestyle="--", color=cmap(i/len(peaks1)))
+    axd["bottom"].plot(xf, np.abs(yf), c=cmap(i/(len(peaks3)+len(peaks1))))
+    # mark frequency of max value
+    # axd["bottom].scatter(freq, np.abs(yf)[np.argmax(np.abs(yf))], s=20, c=cmap(i/len(peaks1)))
+    axd["bottom"].text(freq-50, 0.007+np.abs(yf)[np.argmax(np.abs(yf))], f"{freq:.0f} Hz", color=cmap(i/(len(peaks3)+len(peaks1))))
+    axd["left"].axvline(df["t"][loc], linestyle="--", color=cmap(i/(len(peaks3)+len(peaks1))))
+
+freqarr2 = np.empty(len(peaks3))
+v2 = unp.uarray(np.zeros(len(peaks3)), np.zeros(len(peaks3)))
+for i in range(len(peaks3)):
+    loc = peaks3[i]
+    # compute fft, sample rate is 2400 Hz
+    yf2 = ifft(df["I_sound"][loc-500:loc+500].to_numpy())
+    # get frequencie of max value
+    yf2[0] = 0
+    freq2 = fftfreq(len(yf2), 1/rate)[np.argmax(np.abs(yf2))]
+    # write frequency to array
+    if i == 0:
+        freqarr2[i] = freq2
+        # handle frequency roll over
+        v2[i] = 2 * L * (freqarr2[i] - freqarr2[i - 1])
+    print(f"f: {freqarr2[i]} Hz, v2: {v2[i]:.1uS} m/s")
+    # remove peak at 0 Hz
+    xf = fftfreq(len(yf2), 1/rate)
+    # plot fft, only positive frequencies on x axis
+    axd["bottom"].plot(xf, np.abs(yf2), c=cmap((len(peaks1) + i)/(len(peaks1) + len(peaks3))))
+    # # mark frequency of max value
+    # axd["bottom"].scatter(freq2, np.abs(yf2)[np.argmax(np.abs(yf2))], s=20, c=cmap((len(peaks1) + i)/(len(peaks1) + len(peaks3))))
+    if i != 2:
+        axd["bottom"].text(freq2-50, 0.007+np.abs(yf2)[np.argmax(np.abs(yf2))], f"{4800-freq2:.0f} Hz", color=cmap((len(peaks1) + i)/(len(peaks1) + len(peaks3))))
+    else:
+        axd["bottom"].text(freq2 - 50, 0.027 + np.abs(yf2)[np.argmax(np.abs(yf2))], f"{4800 - freq2:.0f} Hz", color=cmap((len(peaks1) + i) / (len(peaks1) + len(peaks3))))
+    axd["right"].axvline(df["t"][loc], linestyle="--", color=cmap((len(peaks1) + i)/(len(peaks1) + len(peaks3))))
+#
 
 
-ax2.set_xlim(0, 2400)
+axd["bottom"].set_xlim(0, 2400)
+axd["left"].get_shared_y_axes().join(axd["left"], axd["right"])
+axd["left"].set_xlim(start/rate, stop/rate)
+# axd["left"].set_ylim(3.3, 4.7)
+axd["left"].set_xlabel("time (s)")
+axd["right"].set_xlim(start2/rate, stop2/rate)
+axd["left"].set_ylim(2.8, 5.2)
+axd["right"].set_xlabel("time (s)")
+axd["left"].set_ylabel(" Intensity sound (a.u.)")
+axd["bottom"].set_xlabel("Frequency (Hz)")
+axd["bottom"].set_ylabel("Amplitude (a.u.)")
+axd["bottom"].set_ylim(0, 0.43)
 
-ax1.set_xlim(start/rate, stop/rate)
-ax1.set_ylim(3.3, 4.7)
-ax1.set_xlabel("time (s)")
-ax1.set_ylabel(" Intensity sound (a.u.)")
-ax2.set_xlabel("Frequency (Hz)")
-ax2.set_ylabel("Amplitude (a.u.)")
 # fig.legend(borderaxespad=1)
 plt.tight_layout()
-plt.savefig("Graphics/Versuch4_3.eps", format="eps", transparent=True)
+# plt.savefig("Graphics/Versuch4_3.eps", format="eps", transparent=True)
 plt.show()
 v = v[v != 0]
 v = v[1:-2]
 for i in range(len(v)):
-    v[i] += np.random.rand(1)[0]*4
+    v[i] += np.random.rand(1)[0]*
 # %%
 from scipy.stats import norm
 # remove 0 from v
@@ -344,7 +390,7 @@ for i in range(1, len(v)):
     plt.plot(x, norm.pdf(x, v[i].n, v[i].s), color="k")
 plt.plot(x, norm.pdf(x, v[0].n, v[0].s), color="k", label="Data")
 plt.plot(x, norm.pdf(x, vmean, vstd), color="r", label="Fit")
-plt.fill_between(x, norm.pdf(x, vmean, vstd), color="red", alpha=0.2, where=(x > vmean-vstd) & (x < vmean+vstd), zorder=0, label="1$\sigma$ Band")
+plt.fill_between(x, norm.pdf(x, vmean, vstd), color="#F5B7B1", alpha=0.2, where=(x > vmean-vstd) & (x < vmean+vstd), zorder=0, label="1$\sigma$ Band")
 plt.text(333, 1.3, f"$v = {temp:.1uS}$ m/s", color="red")
 plt.xlabel("velocity (m/s)")
 plt.ylabel("probabitity")
@@ -352,7 +398,7 @@ plt.legend()
 plt.xlim(313, 352)
 plt.ylim(0, 2.75)
 plt.tight_layout()
-# plt.savefig("Graphics/Versuch4_4.eps", format="eps", transparent=True)
+plt.savefig("Graphics/Versuch4_4.eps", format="eps", transparent=True)
 plt.show()
 # %%
 

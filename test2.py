@@ -15,7 +15,7 @@ for i in range(0, len(df), 750):
         df2 = df2.append({"t": (df["t"][i] + df["t"][i+750])/2, "I_sound_min": df["I_sound"][i:i+750].min(), "I_sound_max": df["I_sound"][i:i+750].max()}, ignore_index=True)
     except:
         pass
-# %%
+    # %%
 # fing peaks
 peaks1, _ = find_peaks(df["I_sound"], height=4.05, distance=5500)
 peaks2, _ = find_peaks(df2["I_sound_max"], height=0.1)

@@ -173,4 +173,16 @@ plt.rcParams['ytick.major.size'] = 7
 plt.rcParams['ytick.minor.size'] = 3.5
 # increase border width
 plt.rcParams['axes.linewidth'] = 1.25
+# use latex font
+plt.rcParams['text.usetex'] = True
+# dont use serif font
+plt.rcParams['font.family'] = 'sans-serif'
+# enable latex font in math mode
+# plt.rcParams['mathtext.fontset'] = 'custom'
+# plt.rcParams['mathtext.rm'] = 'sans'
+# plt.rcParams['mathtext.it'] = 'sans:italic'
+# plt.rcParams['mathtext.bf'] = 'sans:bold'
+# plt.rcParams['mathtext.sf'] = 'sans'
+# plt.rcParams['mathtext.tt'] = 'sans'
+# plt.rcParams['mathtext.cal'] = 'sans'
 

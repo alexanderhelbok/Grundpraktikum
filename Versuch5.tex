@@ -32,7 +32,7 @@
 	Da der High-Gain Sensor nicht geeicht ist und systematisch vom wahren Messwert abweicht, wurden bei jede Messung die Kabel und somit die Polarität gewechselt. Der Mittelwert der Absolutbeträge dieser beiden Messungen ist die effektive Spannung, die am Shunt-Widerstand angelegt ist. In \autoref{table:1} wurden die gemessenen Spannungen und den daraus errechneten Strom für die Widerstände \( R_1 = 4.70(5) \unit{\ko} \) und \( R_2 = 10.0(1) \unit{\ko} \) eingetragen.
 	
 	\begin{center}
-		\captionof{table}{Gemessene Spannungen \( U^+, U^- \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) für zwei verschiedene Widerstände}
+		\captionof{table}{Gemessene Spannungen \( U^+, U^- \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) für \( R_1 = 4.70(5) \unit{\ko} \) und \( R_2 = 10.0(1) \unit{\ko} \).}
 		\begin{tabular}{@{\extracolsep{5mm}} 
 				r
 				S[table-format=1.4(1)]
@@ -47,8 +47,8 @@
 			&   {\makecell[t]{\( U_{\text{eff}} \) in \( \unit{mV} \)}}
 			&   {\makecell[t]{\( I \) in \( \unit{mA} \)}}\\
 			\midrule
-			\( 4.7 \unit{\ko}\) & 0.2159(5) & -0.4230(4) & 0.3195(3) & 0.32(2) \\
-			\(10 \unit{\ko} \) & 0.5820(15) & -0.7871(6) & 0.6846(8) & 0.68(3) \\
+			\( R_1 \) & 0.2159(5) & -0.4230(4) & 0.3195(3) & 0.32(2) \\
+			\( R_2 \) & 0.5820(15) & -0.7871(6) & 0.6846(8) & 0.68(3) \\
 			\bottomrule
 		\end{tabular}
 		\label{table:1}
@@ -62,8 +62,47 @@
 \end{mybox}
 
 \begin{mybox}{Widerstandsnetzwerk mit einer Spannungsquelle}
+	\begin{wrapfigure}{r}{8cm}
+		\begin{circuitikz}[european]
+			\draw (2,0)-- (4,0)
+			to[R, l_=$1 \unit{\ohm}$, name=shunt2] (6,0)   -- (6,3)
+			to[R, l_=$4.7 \unit{\ko}$,-*, name=R1]	(4,3) -- (4,2)
+			to[R, l_=$1 \unit{\ohm}$, -, name=shunt3]	(2,2)
+			to[R, l_=$10 \unit{\ko}$, -*, name=R2]	(-2,2);
+			
+			
+			\draw (2,4)	--	(2,5)
+			to[rmeter, t=$U_3$]	(4,5) -- (4,4);
+			
+			\draw (4,0) --	(4,0.9)
+			to[rmeter, t=$U_1$]	(6,0.9);
+			
+			\draw (2,2) --(2,1.1)
+			to[rmeter, t=$U_2$] (4,1.1)	--	(4,2);
+			
+			\draw (4,3)	--	(4,4)
+			to[R, l=$1 \unit{\ohm}$, -, name=shunt1]	(2,4)
+			to[R, l=$10 \unit{\ko}$, name=R3]	(0,4)
+			to[R, l=$4.7 \unit{\ko}$, name=R4]	(-2,4);
+			
+			\draw (2,0)
+			to[battery, l=$3.29 \unit{V}$] (-2,0) -- (-2,4);
+			
+			\node  at (R1.center) {$R_1$};
+			\node  at (R2.center) {$R_2$};
+			\node  at (R3.center) {$R_3$};
+			\node  at (R4.center) {$R_4$};
+			\foreach \i in {1, 2, 3}{
+				\node  at (shunt\i.center) {shunt};}
+		\end{circuitikz}
+		\caption{Schaltkreis mit vier Widerständen. An drei Stellen wird über einen Shunt-Widerstand die Spannung gemessen.}
+		\label{fig:2}
+	\end{wrapfigure}
+	In diesem Versuch werden die Kirchoffschen Regeln auf ihre Gültigkeit überprüft, indem der fließende Strom an manchen Stellen gemessen wird. Dafür wurde ein etwas komplizierteres Netzwerk aus Widerständen aufgebaut, welches in \autoref{fig:2} dargestellt ist. Es wird an drei Stellen der Strom über einen Shunt-Widerstand bestimmt und anschließend mit dem 
+	\lipsum[2]
+
 	\begin{center}
-		\captionof{table}{Gemessene Spannungen \( U^+, U^- \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) für zwei verschiedene Widerstände}
+		\captionof{table}{Gemessene Spannungen \( U^+, U^- \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) an drei verschiedenen Stellen im Schaltkreis.}
 		\begin{tabular}{@{\extracolsep{5mm}} 
 				r
 				S[table-format=1.4(1)]
@@ -72,45 +111,45 @@
 				S[table-format=1.2(1)]
 			}
 			\toprule
-			\makecell[t]{\( R \)}
+			\makecell[t]{Sensor}
 			&   {\makecell[t]{\( U^+ \) in \( \unit{mV} \)}}
 			&   {\makecell[t]{\( U^- \) in \( \unit{mV} \)}}
 			&   {\makecell[t]{\( U_{\text{eff}} \) in \( \unit{mV} \)}}
 			&   {\makecell[t]{\( I \) in \( \unit{mA} \)}}\\
 			\midrule
-			\( 4.7 \unit{\ko}\) & 0.2159(5) & -0.4230(4) & 0.3195(3) & 0.32(2) \\
-			\(10 \unit{\ko} \) & 0.5820(15) & -0.7871(6) & 0.6846(8) & 0.68(3) \\
+			\( U_1 \) & 0.2159(5) & -0.4230(4) & 0.3195(3) & 0.32(2) \\
+			\( U_2 \) & 0.5820(15) & -0.7871(6) & 0.6846(8) & 0.68(3) \\
+			\( U_3 \) & 0.5820(15) & -0.7871(6) & 0.6846(8) & 0.68(3) \\
+			\bottomrule
+		\end{tabular}
+		\label{table:1}
+	\end{center}
+
+	\begin{center}
+		\captionof{table}{Vergleich zwischen den empirisch und rechnerisch ermittelten Werten für diverse Spannungen und Ströme.}
+		\begin{tabular}{@{\extracolsep{5mm}} 
+				r
+				S[table-format=1.4(1)]
+				S[table-format=1.4(1)]
+				r
+			}
+			\toprule
+			\makecell[t]{Messgröße}
+			&   {\makecell[t]{Gemessener Wert}}
+			&   {\makecell[t]{Berechneter Wert}}
+			&   {\makecell[t]{Einheit}}\\
+			\midrule
+			\( I_1 \) & 0.2159(5) & -0.4230(4) & \( \unit{mA} \) \\
+			\( I_2 \) & 0.5820(15) & -0.7871(6) & \( \unit{mA} \) \\
+			\( I_3 \) & 0.5820(15) & -0.7871(6) & \( \unit{mA} \) \\
+			\( U_{\text{R1}} \) & 0.5820(15) & -0.7871(6) & \( \unit{V} \) \\
+			\( U_{\text{R2}} \) & 0.5820(15) & -0.7871(6) & \( \unit{V} \) \\
+			\( U_{\text{R3}} \) & 0.5820(15) & -0.7871(6) & \( \unit{V} \) \\
+			\( U_{\text{R4}} \) & 0.5820(15) & -0.7871(6) & \( \unit{V} \) \\
 			\bottomrule
 		\end{tabular}
 		\label{table:1}
 	\end{center}
 \end{mybox}
-\begin{figure}[H]
-	\begin{circuitikz}
-		\draw (2,0)-- (4,0)
-		to[R, l_=$1 \unit{\ohm}$, *-] (6,0)   -- (6,3)
-		to[R, l_=$4.7 \unit{\ko}$,-*]	(4,3) -- (4,2)
-		to[R, l_=$1 \unit{\ohm}$, -]	(2,2)
-		to[R, l_=$10 \unit{\ko}$, -*]	(0,2);
-		
-		
-		\draw (2,4)	--	(2,5)
-		to[voltmeter, l=$U_2$]	(4,5) --	(4,4);
-		
-		\draw (4,0) --	(4,0.9)
-		to[voltmeter, l=$U_1$, -*]	(6,0.9);
-		
-		\draw (2,2) --(2,1.1)
-		to[voltmeter, l_=$U_3$] (4,1.1)	--	(4,2);
-		
-		\draw (4,3)	--	(4,4)
-		to[R, l=$1 \unit{\ohm}$, -]	(2,4)
-		to[R, l=$10 \unit{\ko}$]	(0,4)
-		to[R, l_=$4.7 \unit{\ko}$]	(0,2);
-		
-		\draw (2,0)
-		to[battery, l=$3.29 \unit{V}$] (0,0) -- (0,2);
-	\end{circuitikz}
-\end{figure}
 
 \end{document}

@@ -1,0 +1,70 @@
+% !TeX spellcheck = de_DE
+\documentclass{alex_gp}
+
+\name{Alexander Helbok}
+\course{Grundpraktikum}
+\hwnumber{5}
+\spacing{}
+%\usepackage{circuitikz}
+
+\begin{document}
+
+
+\begin{mybox}{Kalibrierung der Spannungsquellen}
+	Ziel dieses Versuches ist es, die Spannung des IOLabs und der drei in Serie geschaltenen Batterien zu bestimmen. Da der verwendete Sensor nur bis \( 3.3 \unit{V} \) geht, verwenden wir einen Spannungteiler, um die Spannung zu halbieren. Der Spannungteiler setzt sich aus zwei in Serie geschaltenen \( 10.0(1) \unit{\ko} \) Widerständen zusammen. Die Spannung wird nach einem Widerstand gemessen, wo sie zur Hälfte abgefallen ist. Das Potential der Quelle ist demnach doppelt so groß wie der gemessene Wert.
+	
+	Um den Messwert zu bestimmen, wurde über einen Zeitraum von fünf Sekunden der Mittelwert gebildet. Der Fehler der einzelnen Messwerte wurde auf \( 1/2^{11} \) gesetzt, da der Sensor eine Auflösung von 12 Bit hat, wobei der tatsächliche Wert in nur 11 enthalten ist, da ein Bit der Vorzeichen angibt. Die Unsicherheit im Mittelwert wurde auf die Standardabweichung gesetzt, damit (per Definition) zwei Drittel der Daten innerhalb des \( 1\sigma \) Intervalls liegen. Aufgrund der Toleranz der Widerstände, berechnet sich die Spannung der Quelle als
+	\begin{equation}\label{eqn:1}
+		U_{\text{source}} = \left(\tfrac{R1}{R2} + 1\right) U_{\text{measured}}
+	\end{equation}
+	Der beste Schätzwert für die Quellenspannung ist das doppelte des gemessenen Wertes, der Fehler ist aber etwas Größer, da der Fehler der Widerstände ihn vergrößert.
+	
+	Führt man nun die Messung durch erhält man 
+	\begin{equation}\label{key}
+		U_{\text{IOLab}} = 3.296(5) \unit{V} \qquad U_{\text{batt}} = 4.520(6) \unit{V} 
+	\end{equation}
+\end{mybox}
+
+\begin{mybox}{Überprüfung des Ohmschen Gesetzes}
+	Um das Ohmsche Gesetz zu überprüfen, wurde ein Widerstand an die Spannungsquelle \( U_{\text{IOLab}} \) angeschlossen. Da wir aus dem vorherigen Versuch die angelegte Spannung kennen und den Widerstandswert ablesen können, lässt sich der fließende Strom über als \( I = U/R \) berechnen.
+	
+	Um dieses Modell zu überprüfen, messen wir den Strom durch den Schaltkreis und vergleichen anschließend den gemessenen Wert mit dem Berechneten. Den Strom messen wir nicht direkt, sondern indirekt über einen sogenannten Shunt-Widerstand, welcher einen sehr geringen Widerstandswert hat (in unserem Fall ist \( R_{\text{shunt}} = 1.00(5) \unit{\ohm} \)) und daher den Schaltkreis nur gering beeinflusst. Wir können den Spannungsabfall am Shunt-Widerstand über einen präzisen Sensor messen, und über das Ohmsche Gesetz den fließenden Strom berechnen. 
+	
+	Da der High-Gain Sensor nicht geeicht ist und systematisch vom wahren Messwert abweicht, wurden bei jede Messung die Kabel und somit die Polarität gewechselt. Der Mittelwert der Absolutbeträge dieser beiden Messungen ist die effektive Spannung, die am Shunt-Widerstand angelegt ist. In \autoref{table:1} wurden die gemessenen Spannungen und den daraus errechneten Strom für die Widerstände \( R_1 = 4.70(5) \unit{\ko} \) und \( R_2 = 10.0(1) \unit{\ko} \) eingetragen.
+	
+	\begin{center}
+		\captionof{table}{Gemessene Spannungen \( U^+, U^- \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) für zwei verschiedene Widerstände}
+		\begin{tabular}{@{\extracolsep{5mm}} 
+				r
+				S[table-format=1.4(1)]
+				S[table-format=1.4(1)]
+				S[table-format=1.4(1)]
+				S[table-format=1.2(1)]
+			}
+			\toprule
+			\makecell[t]{\( R \)}
+			&   {\makecell[t]{\( U^+ \) in \( \unit{mV} \)}}
+			&   {\makecell[t]{\( U^- \) in \( \unit{mV} \)}}
+			&   {\makecell[t]{\( U_{\text{eff}} \) in \( \unit{mV} \)}}
+			&   {\makecell[t]{\( I \) in \( \unit{mA} \)}}\\
+			\midrule
+			\( 4.7 \unit{\ko}\) & 0.2159(5) & -0.4230(4) & 0.3195(3) & 0.32(2) \\
+			\(10 \unit{\ko} \) & 0.5820(15) & -0.7871(6) & 0.6846(8) & 0.68(3) \\
+			\bottomrule
+		\end{tabular}
+		\label{table:1}
+	\end{center}
+	Verwendet man nun das Ohmsche Gesetz in der Form \( I = U/R \) und setzt für die Spannung \( U_{\text{IOLab}} = 3.296(5) \unit{V} \) und für den Widerstand jeweils \( R_1 \) und \( R_2 \) ein, erhält man 
+	\begin{equation}\label{eqn:Ohm1}
+		I_1 = 0.3296(6) \unit{mA} \qquad I_2 = 0.7012(13) \unit{mA}
+	\end{equation}
+	Der Shunt-Widerstand wurde bei der Berechnung obiger Stromstärken nicht berücksichtigt, da eine Abweichung erst in der siebten Nachkommastelle festzustellen ist, die nicht mehr signifikant ist. 
+	Diese in \autoref{table:1} dargestellten Messwerte stimmen mit den Berechneten im Rahmen der Unsicherheit überein, weshalb das Ohmsche Gesetz von diesem Versuch akzeptiert wird.
+\end{mybox}
+
+\begin{mybox}{Widerstandsnetzwerk mit einer Spannungsquelle}
+	
+\end{mybox}
+
+
+\end{document}

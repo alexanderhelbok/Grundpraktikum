@@ -46,6 +46,7 @@
 \sisetup{per-mode = symbol, sticky-per}%
 \DeclareSIUnit[]\v{\m\per\s}
 \DeclareSIUnit[]\a{\m\per\square\s}
+\DeclareSIUnit[]\ko{\kilo\ohm}
 
 % define häufig used cmd
 \renewcommand*\dd{\mathop{}\!\mathrm{d}}

@@ -5,7 +5,6 @@
 \course{Grundpraktikum}
 \hwnumber{5}
 \spacing{}
-%\usepackage{circuitikz}
 
 \begin{document}
 
@@ -63,8 +62,55 @@
 \end{mybox}
 
 \begin{mybox}{Widerstandsnetzwerk mit einer Spannungsquelle}
-	
+	\begin{center}
+		\captionof{table}{Gemessene Spannungen \( U^+, U^- \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) für zwei verschiedene Widerstände}
+		\begin{tabular}{@{\extracolsep{5mm}} 
+				r
+				S[table-format=1.4(1)]
+				S[table-format=1.4(1)]
+				S[table-format=1.4(1)]
+				S[table-format=1.2(1)]
+			}
+			\toprule
+			\makecell[t]{\( R \)}
+			&   {\makecell[t]{\( U^+ \) in \( \unit{mV} \)}}
+			&   {\makecell[t]{\( U^- \) in \( \unit{mV} \)}}
+			&   {\makecell[t]{\( U_{\text{eff}} \) in \( \unit{mV} \)}}
+			&   {\makecell[t]{\( I \) in \( \unit{mA} \)}}\\
+			\midrule
+			\( 4.7 \unit{\ko}\) & 0.2159(5) & -0.4230(4) & 0.3195(3) & 0.32(2) \\
+			\(10 \unit{\ko} \) & 0.5820(15) & -0.7871(6) & 0.6846(8) & 0.68(3) \\
+			\bottomrule
+		\end{tabular}
+		\label{table:1}
+	\end{center}
 \end{mybox}
-
+\begin{figure}[H]
+	\begin{circuitikz}
+		\draw (2,0)-- (4,0)
+		to[R, l_=$1 \unit{\ohm}$, *-] (6,0)   -- (6,3)
+		to[R, l_=$4.7 \unit{\ko}$,-*]	(4,3) -- (4,2)
+		to[R, l_=$1 \unit{\ohm}$, -]	(2,2)
+		to[R, l_=$10 \unit{\ko}$, -*]	(0,2);
+		
+		
+		\draw (2,4)	--	(2,5)
+		to[voltmeter, l=$U_2$]	(4,5) --	(4,4);
+		
+		\draw (4,0) --	(4,0.9)
+		to[voltmeter, l=$U_1$, -*]	(6,0.9);
+		
+		\draw (2,2) --(2,1.1)
+		to[voltmeter, l_=$U_3$] (4,1.1)	--	(4,2);
+		
+		\draw (4,3)	--	(4,4)
+		to[R, l=$1 \unit{\ohm}$, -]	(2,4)
+		to[R, l=$10 \unit{\ko}$]	(0,4)
+		to[R, l_=$4.7 \unit{\ko}$]	(0,2);
+		
+		\draw (2,0)
+		to[battery, l=$3.29 \unit{V}$] (0,0) -- (0,2);
+	\end{circuitikz}
+\end{figure}
 
 \end{document}

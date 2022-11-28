@@ -22,7 +22,7 @@
 \RequirePackage{bookmark, makecell}
 \usepackage[font=footnotesize, bf, format=plain]{caption} 
 \RequirePackage{custom}
-\RequirePackage{tikz, pgfplots}
+\RequirePackage{tikz, pgfplots, circuitikz}
 \usetikzlibrary{arrows.meta,positioning, calc, shapes, math, decorations.pathreplacing, decorations.markings}
 \usepgfplotslibrary{fillbetween}
 \pgfplotsset{

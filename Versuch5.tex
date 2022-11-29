@@ -5,7 +5,7 @@
 \course{Grundpraktikum}
 \hwnumber{5}
 \spacing{}
-
+\usepackage{biblatex}
 \begin{document}
 
 
@@ -62,7 +62,8 @@
 \end{mybox}
 
 \begin{mybox}{Widerstandsnetzwerk mit einer Spannungsquelle}
-	\begin{wrapfigure}{r}{8cm}
+	\begin{wrapfigure}[17]{r}{8cm}
+		\vspace{-0.5cm}
 		\begin{circuitikz}[european]
 			\draw (2,0)-- (4,0)
 			to[R, l_=$1 \unit{\ohm}$, name=shunt2] (6,0)   -- (6,3)
@@ -98,8 +99,17 @@
 		\caption{Schaltkreis mit vier Widerständen. An drei Stellen wird über einen Shunt-Widerstand die Spannung gemessen.}
 		\label{fig:2}
 	\end{wrapfigure}
-	In diesem Versuch werden die Kirchoffschen Regeln auf ihre Gültigkeit überprüft, indem der fließende Strom an manchen Stellen gemessen wird. Dafür wurde ein etwas komplizierteres Netzwerk aus Widerständen aufgebaut, welches in \autoref{fig:2} dargestellt ist. Es wird an drei Stellen der Strom über einen Shunt-Widerstand bestimmt und anschließend mit dem 
-	\lipsum[2]
+	In diesem Versuch werden die Kirchoffschen Regeln auf ihre Gültigkeit überprüft, indem der fließende Strom an manchen Stellen gemessen wird. Dafür wurde ein etwas komplizierteres Netzwerk aus Widerständen aufgebaut, welches in \autoref{fig:2} dargestellt ist. Es wird an drei Stellen der Strom über einen Shunt-Widerstand bestimmt und anschließend mit dem theoretisch bestimmten Wert verglichen. 
+	
+	Für die theoretische Bestimmung der Ströme werden drei Maschen aufgestellt, wobei die Shunt-Widerstände hier wieder nicht berücksichtigt werden. \\ asdf \\ as\\
+%	\vspace{2cm}
+%	\lipsum[2]
+	\begin{align}\label{eqn:mesh1}
+		\text{\RN{1}} &: U\\
+		\text{\RN{2}} &: \\
+		\text{\RN{3}} &:
+		\end{align}
+%	\lipsum[2]
 
 	\begin{center}
 		\captionof{table}{Gemessene Spannungen \( U^+, U^- \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) an drei verschiedenen Stellen im Schaltkreis.}

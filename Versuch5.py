@@ -129,7 +129,7 @@ a = np.array([0, 5, 9.5, 14.5, 20.7, 24.4, 30.5, 35.5, 40, 45, 50, -1])
 b = np.array([0, 5, 10, 15, 18, 23, 30, 35, 41, 46, 53, -1])
 c = np.array([0, 5, 10, 15, 19, 24, 32, 37, 45, 50, 58, -1])
 # create 3x3 array
-V = unp.umatrix(np.empty((3, 3)), np.empty((3, 3)))
+V1, V2, V = unp.umatrix(np.empty((3, 3)), np.empty((3, 3))), unp.umatrix(np.empty((3, 3)), np.empty((3, 3))), unp.umatrix(np.empty((3, 3)), np.empty((3, 3)))
 for (i, j) in zip(range(1, 4), [a, b, c]):
     # load data
     df = pd.read_csv(f"data/Versuch5_{i+8}.csv")
@@ -141,10 +141,20 @@ for (i, j) in zip(range(1, 4), [a, b, c]):
         # print(index)
         mean1, meanstd1 = df["V"][int(j[index*4]*rate):int(j[index*4+1]*rate)].mean(), df["V"][int(j[index*4]*rate):int(j[index*4+1]*rate)].std()
         mean2, meandstd2 = df["V"][int(j[index*4+2]*rate):int(j[index*4+3]*rate)].mean(), df["V"][int(j[index*4+2]*rate):int(j[index*4+3]*rate)].std()
-        V1 = unc.ufloat(mean1, meanstd1, "V1")
-        V2 = unc.ufloat(mean2, meandstd2, "V2")
-        V[i-1, index] = (np.abs(V1) + np.abs(V2))/2
+        Vp = unc.ufloat(mean1, meanstd1, "V1")
+        Vm = unc.ufloat(mean2, meandstd2, "V2")
+        V1[i-1, index] = Vp
+        V2[i-1, index] = Vm
+        V[i-1, index] = (np.abs(Vp) + np.abs(Vm))/2
         # print(V[i-1, index])
+
+V11 = (V1[0, 0] + V1[0, 1] + V1[0, 2])/3
+V12 = (V1[1, 0] + V1[1, 1] + V1[1, 2])/3
+V13 = (V1[2, 0] + V1[2, 1] + V1[2, 2])/3
+
+V21 = (V2[0, 0] + V2[0, 1] + V2[0, 2])/3
+V22 = (V2[1, 0] + V2[1, 1] + V2[1, 2])/3
+V23 = (V2[2, 0] + V2[2, 1] + V2[2, 2])/3
 
 U1 = (V[0, 0] + V[0, 1] + V[0, 2])/3
 U2 = (V[1, 0] + V[1, 1] + V[1, 2])/3
@@ -153,6 +163,10 @@ print(f"U1 = {U1:.1uS} V")
 print(f"U2 = {U2:.1uS} V")
 print(f"U3 = {U3:.1uS} V")
 I1, I2, I3 = U1/Shunt, U2/Shunt, U3/Shunt
+
+print(f"U1 = {V21:.1uS} & {V11:.1uS} & {-U1:1uS} & {-I1:.2uS}")
+print(f"U2 = {V12:.1uS} & {V22:.1uS} & {U2:1uS} & {I2:.1uS}")
+print(f"U3 = {V13:.1uS} & {V23:.1uS} & {-U3:1uS} & {-I3:.2uS}")
 
 # ideal
 Iideal1 = (Violab*(R2 + R3) - R1*Vbatt)/(R1*(R2 + R3) + R2*R3)

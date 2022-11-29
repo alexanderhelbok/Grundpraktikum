@@ -6,6 +6,9 @@
 \hwnumber{5}
 \spacing{}
 \usepackage{biblatex}
+\usepackage{stackengine}
+
+
 \begin{document}
 
 
@@ -19,7 +22,7 @@
 	Der beste Schätzwert für die Quellenspannung ist das doppelte des gemessenen Wertes, der Fehler ist aber etwas Größer, da der Fehler der Widerstände ihn vergrößert.
 	
 	Führt man nun die Messung durch erhält man 
-	\begin{equation}\label{key}
+	\begin{equation}\label{eqn:2}
 		U_{\text{IOLab}} = 3.296(5) \unit{V} \qquad U_{\text{batt}} = 4.520(6) \unit{V} 
 	\end{equation}
 \end{mybox}
@@ -87,7 +90,7 @@
 			to[R, l=$4.7 \unit{\ko}$, name=R4]	(-2,4);
 			
 			\draw (2,0)
-			to[battery, l=$U_{\text{IOLab}}$] (-2,0) -- (-2,4);
+			to[battery1, a=\smash{\stackunder[6pt]{\( U_{\text{IOLab}} \)}{$_-$~~~$_+$}}] (-2,0) -- (-2,4);
 			
 			\node  at (R1.center) {$R_1$};
 			\node  at (R2.center) {$R_2$};
@@ -96,13 +99,12 @@
 			\foreach \i in {1, 2, 3}{
 				\node  at (shunt\i.center) {shunt};}
 		\end{circuitikz}
-		\caption{Schaltkreis mit vier Widerständen. An drei Stellen wird über einen Shunt-Widerstand die Spannung gemessen.}
+		\caption{Schaltkreis mit vier Widerständen  \( R_1 = R_4 = 4.70(5) \unit{\ko}, R_2 = R_3 = 10.0(1) \unit{\ko} \). An drei Stellen wird über einen Shunt-Widerstand die Spannung gemessen.}
 		\label{fig:2}
 	\end{wrapfigure}
 	In diesem Versuch werden die Kirchoffschen Regeln auf ihre Gültigkeit überprüft, indem der fließende Strom an manchen Stellen gemessen wird. Dafür wurde ein etwas komplizierteres Netzwerk aus Widerständen aufgebaut, welches in \autoref{fig:2} dargestellt ist. Es wird an drei Stellen der Strom über einen Shunt-Widerstand bestimmt und anschließend mit dem theoretisch bestimmten Wert verglichen. 
 	
 	Für die theoretische Bestimmung der Ströme werden drei Maschen aufgestellt, wobei die Shunt-Widerstände hier wieder nicht berücksichtigt werden. Zudem teilt sich der Strom nach \( R_1 \), sodass die Summe der Ströme \( I_2 \) und \( I_3 \) durch die Voltmeter \( U2 \) und \( U_3 \) dem Strom \( I_1 \) durch \( U_1 \) entspricht.
-
 	\begin{align}\label{eqn:mesh1}
 		\text{\RN{1}} &: U_{\text{IOLab}} - I_1R_1 - I_2R_2 = 0 &&\\
 		\text{\RN{2}} &: U_{\text{IOLab}} - I_1R_1 - I_3R_3 - I_3R_4 = 0&&\\
@@ -169,22 +171,23 @@
 		\label{table:3}
 	\end{center}
 
-	
+	Alle gemessen Werte in \autoref{table:3} lassen sich mit den „Idealwerten“ vereinbaren; die Kirchoffschen Regeln werden von diesem Versuch bestätigt.
 \end{mybox}
 
 \begin{mybox}{Widerstandsnetzwerk 2}
+	In diesem Versuch wird eine Schaltung mit drei Widerständen und zwei Spannungsquellen mithilfe des Ohmschen Gesetzes und der Kirchoffschen Regeln analysiert. Die Spannungen entsprechen den in \autoref{eqn:2} bestimmten Werten. In \autoref{fig:3} ist die verwendete Schaltung dargestellt.
 	\begin{figure}[H]
 		\centering
 		\begin{circuitikz}[european]
 			\draw (0,0)
 			to[R, l=$1 \unit{\ohm}$, name=shunt1] (2,0) -- (6,0)
 			to[R, l=$1 \unit{\ohm}$, name=shunt2]	(8,0)
-			to[battery, l_=$U_\text{batt}$]		(8,4)
+			to[battery1, l_=$U_\text{batt}$, invert]  (8,4)
 			to[R, l_=$10 \unit{\ko}$, name=R3]	(4,4)
 			to[R, l_=$4.7 \unit{\ko}$, name=R1]	(0,4);
 			
-			\draw (0,0)
-			to[battery, l=$U_\text{iOLab}$]	(0,4);
+			\draw (0,4)
+			to[battery1, l_=$U_\text{iOLab}$]	(0,0);
 			
 			\draw (4,0)
 			to[R, l={{{{\rotatebox[origin=c]{90}{$1 \unit{\ohm}$}}}}}, *-, name=shunt3] (4,2)
@@ -209,10 +212,52 @@
 			\foreach \i in {1, 2}{
 				\node  at (shunt\i.center) {shunt};}
 		\end{circuitikz}
-		\caption{Schaltkreis mit drei Widerständen und zwei Spannungsquellen. An drei Stellen wird über einen Shunt-Widerstand die Spannung gemessen.}
+		\caption{Schaltkreis mit drei Widerständen \( R_1 = R_2 = 4.70(5) \unit{\ko}, R_3 = 10.0(1) \unit{\ko} \) und zwei Spannungsquellen. An drei Stellen wird über einen Shunt-Widerstand die Spannung gemessen.}
 		\label{fig:3}
 	\end{figure}
-
+	
+	Bevor wir die Ströme empirisch ermitteln, wollen wir anhand des Ohmschen Gesetzes und der Kirchoffschen Regeln eine Vorhersage bezüglich Stromstärke und Stromrichtung abgeben.	Dafür analysieren wir unseren Schaltkreis mithilfe der Kirchoffschen Gesetze und stellen folgende Gleichungen für unseren Schaltkreis auf.
+	\begin{align}\label{eqn:mesh2}
+		\text{\RN{1}} &: U_{\text{IOLab}} - I_1R_1 - I_2R_2 = 0 &&\\
+		\text{\RN{2}} &: U_{\text{batt}} - I_2R_2 - I_3R_3 = 0 &&\\
+		\text{\RN{3}} &: I_2 - I_1 - I_3 = 0 &&
+	\end{align}
+	
+	Aus diesen drei Gleichungen lassen sich die drei Ströme bestimmen, da alle Spannungen und Widerstände bekannt sind. Für die Ströme gilt dann
+	\begin{equation}\label{eqn:Is2}
+		I_1 = \frac{U_{\text{IOLab}}(R_2 + R_2) - R_2U_{\text{batt}}}{R_1(R_2 + R_3) + R_2R_3} \qquad I_2 = I_1 + I_3 \qquad I_3 = \frac{U_{\text{batt}} -R_2I_1}{R_2 + R_3}
+	\end{equation}
+	
+	Für die Ströme wurden numerische Werte eingesetzt und in \autoref{table:4} eingetragen. Alle Ströme sind positiv, was auf ihre Flussrichtung schließen lässt. In \autoref{fig:3} wurde die Richtung der Ströme eingetragen. 
+	
+	Experimentell wurden die Ströme wieder über den Spannungsabfall an Shunt-Widerständen bestimmt. Diese Spannungsmessung wurde an jedem Punkt drei Mal wiederholt und daraus ein gewichteter Mittelwert gebildet, um die statistische Messunsicherheit zu reduzieren. Das Vorzeichen des Stromes, bzw. die Stromrichtung erkennt man am Vorzeichen der Spannung. Fließt der Strom über vom \(  \text{G}_+ \) zum \( \text{G}_- \) Anschluss, ist das Vorzeichen positiv. Für die erste Messreihe \( N_1 \) wurde der \( \text{G}_- \) Anschluss im Knoten zwischen den drei Shunt-Widerständen festgehalten und der \(  \text{G}_+ \) Anschluss ist die Runde gegangen, danach wurden die zwei Anschlüsse getauscht. Wenn man die Stromrichtungen in \autoref{fig:3} betrachtet, erwarten wir einen negativen Strom in \( U_1 \) und \( U_3 \) zu messen, während \( U_2 \) einen positiven messen sollte.
+	
+	\begin{center}
+		\captionof{table}{Gemessene Spannungen \( U_{N1}, U_{N2} \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) an drei verschiedenen Stellen im Schaltkreis.}
+		\begin{tabular}{@{\extracolsep{5mm}} 
+				r
+				S[table-format=1.4(1)]
+				S[table-format=1.4(1)]
+				S[table-format=1.4(1)]
+				S[table-format=1.3(1)]
+			}
+			\toprule
+			\makecell[t]{Sensor}
+			&   {\makecell[t]{\( U_{N1} \) in \( \unit{mV} \)}}
+			&   {\makecell[t]{\( U_{N2} \) in \( \unit{mV} \)}}
+			&   {\makecell[t]{\( U_{\text{eff}} \) in \( \unit{mV} \)}}
+			&   {\makecell[t]{\( I \) in \( \unit{mA} \)}}\\
+			\midrule
+			\( U_1 \) & -0.3224(5) & 0.1159(3) & -0.2192(3) & -0.219(11) \\
+			\( U_2 \) & 0.3372(3) & -0.5410(4) & 0.4391(3) & 0.44(2) \\
+			\( U_3 \) & -0.3285(4) & 0.1187(8) & -0.2236(4) & -0.224(11) \\
+			\bottomrule
+		\end{tabular}
+		\label{table:5}
+	\end{center}
+	
+	In \autoref{table:5} wurden die gemessenen Spannungen und daraus errechneten Ströme in \( U_1, U_2 \) und \( U_3 \) eingetragen. Die zwei Spannungen, aus welchen sich die effektive Spannung errechnet wurden nicht wie in \autoref{table:2} nach Vorzeichen sortiert, um die Stromrichtung zu betonen. Aus dem gleichen Grund wurde das Vorzeichen in der effektiven Spannung und im Strom beibehalten. Die gemessenen Werte stimmen also mit den theoretischen Vorhersagen überein.
+	
 	\begin{center}
 		\captionof{table}{Vergleich zwischen den empirisch und rechnerisch ermittelten Werten für diverse Ströme.}
 		\begin{tabular}{@{\extracolsep{5mm}} 
@@ -234,6 +279,10 @@
 		\end{tabular}
 		\label{table:4}
 	\end{center}
+	
+	Wenn man die Werte in \autoref{table:4} vergleicht, sieht man, dass die von der Theorie vorhergesagten Werte im \( 1\sigma \) Intervall der empirischen Werte liegen und sich daher gut vertragen. Zudem weichen letztere sowohl im Nennwert, als auch im Fehler weniger als \( 10 \% \) von den Optimalwerten abweichen. 
+	
+	Das Wiederholen der Spannungsmessungen hat den Fehler zwar verbessert, der Großteil kommt aber von der \( 5 \% \) Toleranz des Shunt-Widerstandes. Man müsste einen Widerstand mit kleiner Toleranz verwenden, um den Fehler weiter zu reduzieren.
 \end{mybox}
 
 

@@ -75,36 +75,33 @@ for i in range(1, 4):
     V1 = unc.ufloat(mean1, std1, "V1")
     V2 = unc.ufloat(mean2, std2, "V2")
     V = (np.abs(V1) + np.abs(V2))/2
+    # print(f"V+ = {V2:.1uS} & {V1:.2uS} & {V:.1uS}")
     print(f"A{i}:")
     if i == 1:
         I1 = np.abs(V / Shunt)
+        # contributions(I1)
         Iideal1 = Violab/Rges*1000
-        print(f"V1= {V + R1 * I1 / 1000:.1uS}V: Videal = {R1 * Iideal1 / 1000:.1uS} V")
         print(f"I = {I1:.1uS} mA: Iideal = {Iideal1:.1uS} mA")
     elif i == 2:
-        V2 = V
         I2 = np.abs(V / Shunt)
+        # contributions(I2)
         Iideal2 = (Violab - R1*Iideal1/1000)/R2*1000
-        print(f"V2 = {(Shunt+R2)*I2/1000:.1uS}V: Videal = {R2*Iideal2/1000:.1uS} V")
         print(f"I = {I2:.1uS} mA: Iideal = {Iideal2:.1uS} mA")
     else:
         I3 = np.abs(V / Shunt)
+        # contributions(I3)
         Iideal3 = (R2*Iideal2/1000)/R34*1000
         print(f"I = {I3:.1uS} mA: Iideal = {Iideal3:.1uS} mA")
 
-U2 = Violab-I1*R1/1000
-U1 = Violab - U2
-U3 = I3*R3/1000
-U4 = U2 - U3
+# U2 = Violab-I1*R1/1000
+# U1 = Violab - U2
+# U3 = I3*R3/1000
+# U4 = U2 - U3
 
 U2ideal = Iideal2*R2/1000
 U3ideal = Iideal3*R3/1000
 U4ideal = Iideal3*R4/1000
 U1ideal = Iideal1*R1/1000
-print(f"U1 = {U1:.1uS} V: U1ideal = {U1ideal:.1uS} V")
-print(f"U2 = {U2:.1uS} V: U2ideal = {U2ideal:.1uS} V")
-print(f"U3 = {U3:.1uS} V: U3ideal = {U3ideal:.1uS} V")
-print(f"U4 = {U4:.1uS} V: U4ideal = {U4ideal:.1uS} V")
 
 # %%
 # load data
@@ -121,12 +118,13 @@ U1 = end
 U2 = Violab - end
 U3 = mid - end
 U4 = Violab - mid
-print(f"U1 = {U1:.1uS} V")
-print(f"U2 = {U2:.1uS} V")
-print(f"U3 = {U3:.1uS} V")
-print(f"U4 = {U4:.1uS} V")
+print(f"U1 = {U1:.1uS} V: U1ideal = {U1ideal:.1uS} V")
+print(f"U2 = {U2:.1uS} V: U2ideal = {U2ideal:.1uS} V")
+print(f"U3 = {U3:.1uS} V: U3ideal = {U3ideal:.2uS} V")
+print(f"U4 = {U4:.2uS} V: U4ideal = {U4ideal:.1uS} V")
 
 # %%
+R1, R2, R3 = unc.ufloat(4700, 4.7, "R1"), unc.ufloat(4700, 4.7, "R2"), unc.ufloat(10000, 10, "R3")
 a = np.array([0, 5, 9.5, 14.5, 20.7, 24.4, 30.5, 35.5, 40, 45, 50, -1])
 b = np.array([0, 5, 10, 15, 18, 23, 30, 35, 41, 46, 53, -1])
 c = np.array([0, 5, 10, 15, 19, 24, 32, 37, 45, 50, 58, -1])
@@ -154,3 +152,13 @@ U3 = (V[2, 0] + V[2, 1] + V[2, 2])/3
 print(f"U1 = {U1:.1uS} V")
 print(f"U2 = {U2:.1uS} V")
 print(f"U3 = {U3:.1uS} V")
+I1, I2, I3 = U1/Shunt, U2/Shunt, U3/Shunt
+
+# ideal
+Iideal1 = (Violab*(R2 + R3) - R1*Vbatt)/(R1*(R2 + R3) + R2*R3)
+Iideal3 = (Vbatt - R2*Iideal1)/(R2 + R3)
+Iideal2 = Iideal1 + Iideal3
+
+print(f"I1 = {I1:.1uS} mA: Iideal1 = {Iideal1*1000:.1uS} mA")
+print(f"I2 = {I2:.1uS} mA: Iideal2 = {Iideal2*1000:.1uS} mA")
+print(f"I3 = {I3:.1uS} mA: Iideal3 = {Iideal3*1000:.1uS} mA")

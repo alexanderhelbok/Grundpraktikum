@@ -12,7 +12,7 @@
 \begin{mybox}{Kalibrierung der Spannungsquellen}
 	Ziel dieses Versuches ist es, die Spannung des IOLabs und der drei in Serie geschaltenen Batterien zu bestimmen. Da der verwendete Sensor nur bis \( 3.3 \unit{V} \) geht, verwenden wir einen Spannungteiler, um die Spannung zu halbieren. Der Spannungteiler setzt sich aus zwei in Serie geschaltenen \( 10.0(1) \unit{\ko} \) Widerständen zusammen. Die Spannung wird nach einem Widerstand gemessen, wo sie zur Hälfte abgefallen ist. Das Potential der Quelle ist demnach doppelt so groß wie der gemessene Wert.
 	
-	Um den Messwert zu bestimmen, wurde über einen Zeitraum von fünf Sekunden der Mittelwert gebildet. Der Fehler der einzelnen Messwerte wurde auf \( 1/2^{11} \) gesetzt, da der Sensor eine Auflösung von 12 Bit hat, wobei der tatsächliche Wert in nur 11 enthalten ist, da ein Bit der Vorzeichen angibt. Die Unsicherheit im Mittelwert wurde auf die Standardabweichung gesetzt, damit (per Definition) zwei Drittel der Daten innerhalb des \( 1\sigma \) Intervalls liegen. Aufgrund der Toleranz der Widerstände, berechnet sich die Spannung der Quelle als
+	Um den Messwert zu bestimmen, wurde über einen Zeitraum von fünf Sekunden der Mittelwert gebildet. Der Fehler der einzelnen Messwerte wurde auf \( 1/2^{11} \) gesetzt, da der Sensor eine Auflösung von 12 Bit hat, wobei der tatsächliche Wert in nur 11 enthalten ist, da ein Bit das Vorzeichen angibt. Die Unsicherheit im Mittelwert wurde auf die Standardabweichung gesetzt, damit (per Definition) zwei Drittel der Daten innerhalb des \( 1\sigma \) Intervalls liegen. Aufgrund der Toleranz der Widerstände, berechnet sich die Spannung der Quelle als
 	\begin{equation}\label{eqn:1}
 		U_{\text{source}} = \left(\tfrac{R1}{R2} + 1\right) U_{\text{measured}}
 	\end{equation}
@@ -87,7 +87,7 @@
 			to[R, l=$4.7 \unit{\ko}$, name=R4]	(-2,4);
 			
 			\draw (2,0)
-			to[battery, l=$3.29 \unit{V}$] (-2,0) -- (-2,4);
+			to[battery, l=$U_{\text{IOLab}}$] (-2,0) -- (-2,4);
 			
 			\node  at (R1.center) {$R_1$};
 			\node  at (R2.center) {$R_2$};
@@ -101,24 +101,30 @@
 	\end{wrapfigure}
 	In diesem Versuch werden die Kirchoffschen Regeln auf ihre Gültigkeit überprüft, indem der fließende Strom an manchen Stellen gemessen wird. Dafür wurde ein etwas komplizierteres Netzwerk aus Widerständen aufgebaut, welches in \autoref{fig:2} dargestellt ist. Es wird an drei Stellen der Strom über einen Shunt-Widerstand bestimmt und anschließend mit dem theoretisch bestimmten Wert verglichen. 
 	
-	Für die theoretische Bestimmung der Ströme werden drei Maschen aufgestellt, wobei die Shunt-Widerstände hier wieder nicht berücksichtigt werden. \\ asdf \\ as\\
-%	\vspace{2cm}
-%	\lipsum[2]
-	\begin{align}\label{eqn:mesh1}
-		\text{\RN{1}} &: U\\
-		\text{\RN{2}} &: \\
-		\text{\RN{3}} &:
-		\end{align}
-%	\lipsum[2]
+	Für die theoretische Bestimmung der Ströme werden drei Maschen aufgestellt, wobei die Shunt-Widerstände hier wieder nicht berücksichtigt werden. Zudem teilt sich der Strom nach \( R_1 \), sodass die Summe der Ströme \( I_2 \) und \( I_3 \) durch die Voltmeter \( U2 \) und \( U_3 \) dem Strom \( I_1 \) durch \( U_1 \) entspricht.
 
-	\begin{center}
+	\begin{align}\label{eqn:mesh1}
+		\text{\RN{1}} &: U_{\text{IOLab}} - I_1R_1 - I_2R_2 = 0 &&\\
+		\text{\RN{2}} &: U_{\text{IOLab}} - I_1R_1 - I_3R_3 - I_3R_4 = 0&&\\
+		\text{\RN{3}} &: I_2R_2 - I_3R_3 - I_3R_4 = 0 &&
+	\end{align}
+	
+	Mithilfe der drei Gleichungen erhält man für die Ströme
+	\begin{equation}\label{eqn:Is}
+		I_1 = \frac{U_{\text{IOLab}}}{R_{\text{ges}}} \qquad I_2 = \frac{U_{\text{IOLab}} - R_1I_1}{R_2} \qquad I_3 = \frac{R_2I_2}{R_3 + R_4}
+	\end{equation}
+	wobei \( R_{\text{ges}} \) der Gesamtwiderstand des Schaltkreises ist.
+	
+	Die Ströme \( I_1, I_2 \) und \( I_3 \) wurden empirisch über Shunt-Widerstände bestimmt. Dabei wird der Spannungsabfall an einem möglichst kleinen Widerstand gemessen und mithilfe des Ohmschen Gesetzes in Strom umgerechnet. Dies wurde an drei Stellen gemacht und die Ergebnisse sind in \autoref{table:2} dargestellt. Die Unsicherheit der Werte kommt einerseits aus der Toleranz des Widerstände und andererseits aus der statistischen Schwankung vom Messsensor. Hierbei dominiert mit die Unsicherheit des Widerstandes mit einem Beitrag von über \( 99.5 \% \) des Gesamtfehlers.
+	
+ 	\begin{center}
 		\captionof{table}{Gemessene Spannungen \( U^+, U^- \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) an drei verschiedenen Stellen im Schaltkreis.}
 		\begin{tabular}{@{\extracolsep{5mm}} 
 				r
 				S[table-format=1.4(1)]
 				S[table-format=1.4(1)]
 				S[table-format=1.4(1)]
-				S[table-format=1.2(1)]
+				S[table-format=1.3(1)]
 			}
 			\toprule
 			\makecell[t]{Sensor}
@@ -127,19 +133,21 @@
 			&   {\makecell[t]{\( U_{\text{eff}} \) in \( \unit{mV} \)}}
 			&   {\makecell[t]{\( I \) in \( \unit{mA} \)}}\\
 			\midrule
-			\( U_1 \) & 0.2159(5) & -0.4230(4) & 0.3195(3) & 0.32(2) \\
-			\( U_2 \) & 0.5820(15) & -0.7871(6) & 0.6846(8) & 0.68(3) \\
-			\( U_3 \) & 0.5820(15) & -0.7871(6) & 0.6846(8) & 0.68(3) \\
+			\( U_1 \) & 0.2066(5) & -0.4104(10) & 0.3085(6) & 0.31(2) \\
+			\( U_2 \) & 0.1562(7) & -0.1887(6) & 0.1724(5) & 0.172(9) \\
+			\( U_3 \) & 0.1001(3) & -0.1374(3) & 0.1187(2) & 0.119(6) \\
 			\bottomrule
 		\end{tabular}
-		\label{table:1}
+		\label{table:2}
 	\end{center}
+
+	Um den Spannungsabfall an den einzelnen Widerständen empirisch zu ermitteln, wurde mit dem A7 Sensor vom IOLab eine Spannungsmessung im Knoten links neben \( R_1 \) durchgeführt. Der Abfall \( U_{R1} \) und \( U_{R2} \) lassen sich damit bestimmen, da \( U_{\text{IOLab}} = U_{R1} + U_{R2} \) und die Messung gerade den Spannungsabfall nach \( R_1 \) also \( U_{R1} \) gemessen hat. Um \( U_{R3} \) und \( U_{R4} \) zu bestimmen, bedarf es an einer weiteren Messung zwischen den Widerständen \( R_3 \) und \( R_4 \). Dies in Kombination mit \( U_{R2} = U_{R3} + U_{R4} \) liefert die restlichen Spannungen. In \autoref{table:3} wurden alle sowohl empirisch, als auch rechnerisch ermittelten Werte eingetragen.
 
 	\begin{center}
 		\captionof{table}{Vergleich zwischen den empirisch und rechnerisch ermittelten Werten für diverse Spannungen und Ströme.}
 		\begin{tabular}{@{\extracolsep{5mm}} 
 				r
-				S[table-format=1.4(1)]
+				S[table-format=1.3(1)]
 				S[table-format=1.4(1)]
 				r
 			}
@@ -149,17 +157,84 @@
 			&   {\makecell[t]{Berechneter Wert}}
 			&   {\makecell[t]{Einheit}}\\
 			\midrule
-			\( I_1 \) & 0.2159(5) & -0.4230(4) & \( \unit{mA} \) \\
-			\( I_2 \) & 0.5820(15) & -0.7871(6) & \( \unit{mA} \) \\
-			\( I_3 \) & 0.5820(15) & -0.7871(6) & \( \unit{mA} \) \\
-			\( U_{\text{R1}} \) & 0.5820(15) & -0.7871(6) & \( \unit{V} \) \\
-			\( U_{\text{R2}} \) & 0.5820(15) & -0.7871(6) & \( \unit{V} \) \\
-			\( U_{\text{R3}} \) & 0.5820(15) & -0.7871(6) & \( \unit{V} \) \\
-			\( U_{\text{R4}} \) & 0.5820(15) & -0.7871(6) & \( \unit{V} \) \\
+			\( I_1 \) & 0.31(2) & 0.3094(5) & \( \unit{mA} \) \\
+			\( I_2 \) & 0.172(9) & 0.1842(3) & \( \unit{mA} \) \\
+			\( I_3 \) & 0.119(6) & 0.1253(2) & \( \unit{mA} \) \\
+			\( U_{R1} \) & 1.453(2) & 1.454(2) & \( \unit{V} \) \\
+			\( U_{R2} \) & 1.843(5) & 1.842(3) & \( \unit{V} \) \\
+			\( U_{R3} \) & 0.588(4) & 0.5888(11) & \( \unit{V} \) \\
+			\( U_{R4} \) & 1.254(6) & 1.253(2) & \( \unit{V} \) \\
 			\bottomrule
 		\end{tabular}
-		\label{table:1}
+		\label{table:3}
+	\end{center}
+
+	
+\end{mybox}
+
+\begin{mybox}{Widerstandsnetzwerk 2}
+	\begin{figure}[H]
+		\centering
+		\begin{circuitikz}[european]
+			\draw (0,0)
+			to[R, l=$1 \unit{\ohm}$, name=shunt1] (2,0) -- (6,0)
+			to[R, l=$1 \unit{\ohm}$, name=shunt2]	(8,0)
+			to[battery, l_=$U_\text{batt}$]		(8,4)
+			to[R, l_=$10 \unit{\ko}$, name=R3]	(4,4)
+			to[R, l_=$4.7 \unit{\ko}$, name=R1]	(0,4);
+			
+			\draw (0,0)
+			to[battery, l=$U_\text{iOLab}$]	(0,4);
+			
+			\draw (4,0)
+			to[R, l={{{{\rotatebox[origin=c]{90}{$1 \unit{\ohm}$}}}}}, *-, name=shunt3] (4,2)
+			to[R, l={{{{\rotatebox[origin=c]{90}{$4.7 \unit{\ko}$}}}}}, -*, name=R2] (4,4);
+			
+			\draw (5,0)
+			to[rmeter, t=$U_2$] (5,2)	--	(4,2);
+			
+			\draw (0,0)	--	(0,-1)
+			to[rmeter, t=$U_1$] (2,-1)	--	(2,0);
+			
+			\draw (6,0)	--	(6,-1)
+			to[rmeter, t=$U_3$] (8,-1)	--	(8,0);
+			
+			\draw[->,shift={(2,2)}] (120:.7cm) arc (120:-90:.7cm) node at(0,0){$I_{\text{IOLab}}$};
+			\draw[<-,shift={(6,2)}] (120:.7cm) arc (120:-90:.7cm) node at(0,0){$I_{\text{batt}}$};
+			
+			\node  at (R1.center) {$R_1$};
+			\node [rotate=90] at (R2.center) {$R_2$};
+			\node  at (R3.center) {$R_3$};
+			\node [rotate=90] at (shunt3.center) {shunt};
+			\foreach \i in {1, 2}{
+				\node  at (shunt\i.center) {shunt};}
+		\end{circuitikz}
+		\caption{Schaltkreis mit drei Widerständen und zwei Spannungsquellen. An drei Stellen wird über einen Shunt-Widerstand die Spannung gemessen.}
+		\label{fig:3}
+	\end{figure}
+
+	\begin{center}
+		\captionof{table}{Vergleich zwischen den empirisch und rechnerisch ermittelten Werten für diverse Ströme.}
+		\begin{tabular}{@{\extracolsep{5mm}} 
+				r
+				S[table-format=1.3(1)]
+				S[table-format=1.4(1)]
+				r
+			}
+			\toprule
+			\makecell[t]{Messgröße}
+			&   {\makecell[t]{Gemessener Wert}}
+			&   {\makecell[t]{Berechneter Wert}}
+			&   {\makecell[t]{Einheit}}\\
+			\midrule
+			\( I_1 \) & 0.219(11) & 0.2343(7) & \( \unit{mA} \) \\
+			\( I_2 \) & 0.44(2) & 0.4669(6) & \( \unit{mA} \) \\
+			\( I_3 \) & 0.224(11) & 0.2326(5) & \( \unit{mA} \) \\
+			\bottomrule
+		\end{tabular}
+		\label{table:4}
 	\end{center}
 \end{mybox}
+
 
 \end{document}

@@ -28,11 +28,11 @@
 \end{mybox}
 
 \begin{mybox}{Überprüfung des Ohmschen Gesetzes}
-	Um das Ohmsche Gesetz zu überprüfen, wurde ein Widerstand an die Spannungsquelle \( U_{\text{IOLab}} \) angeschlossen. Da wir aus dem vorherigen Versuch die angelegte Spannung kennen und den Widerstandswert ablesen können, lässt sich der fließende Strom über als \( I = U/R \) berechnen.
+	Um das Ohmsche Gesetz zu überprüfen, wurde ein Widerstand an die Spannungsquelle \( U_{\text{IOLab}} \) angeschlossen. Da wir aus dem vorherigen Versuch die angelegte Spannung kennen und den Widerstandswert ablesen können, lässt sich der fließende Strom über \( I = U/R \) berechnen.
 	
 	Um dieses Modell zu überprüfen, messen wir den Strom durch den Schaltkreis und vergleichen anschließend den gemessenen Wert mit dem Berechneten. Den Strom messen wir nicht direkt, sondern indirekt über einen sogenannten Shunt-Widerstand, welcher einen sehr geringen Widerstandswert hat (in unserem Fall ist \( R_{\text{shunt}} = 1.00(5) \unit{\ohm} \)) und daher den Schaltkreis nur gering beeinflusst. Wir können den Spannungsabfall am Shunt-Widerstand über einen präzisen Sensor messen, und über das Ohmsche Gesetz den fließenden Strom berechnen. 
 	
-	Da der High-Gain Sensor nicht geeicht ist und systematisch vom wahren Messwert abweicht, wurden bei jede Messung die Kabel und somit die Polarität gewechselt. Der Mittelwert der Absolutbeträge dieser beiden Messungen ist die effektive Spannung, die am Shunt-Widerstand angelegt ist. In \autoref{table:1} wurden die gemessenen Spannungen und den daraus errechneten Strom für die Widerstände \( R_1 = 4.70(5) \unit{\ko} \) und \( R_2 = 10.0(1) \unit{\ko} \) eingetragen.
+	Da der High-Gain Sensor nicht geeicht ist und systematisch vom wahren Messwert abweicht, wurden bei jeder Messung die Kabel und somit die Polarität gewechselt. Der Mittelwert der Absolutbeträge dieser beiden Messungen ist die effektive Spannung, die am Shunt-Widerstand angelegt ist. In \autoref{table:1} wurden die gemessenen Spannungen und den daraus errechneten Strom für die Widerstände \( R_1 = 4.70(5) \unit{\ko} \) und \( R_2 = 10.0(1) \unit{\ko} \) eingetragen.
 	
 	\begin{center}
 		\captionof{table}{Gemessene Spannungen \( U^+, U^- \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) für \( R_1 = 4.70(5) \unit{\ko} \) und \( R_2 = 10.0(1) \unit{\ko} \).}
@@ -117,7 +117,7 @@
 	\end{equation}
 	wobei \( R_{\text{ges}} \) der Gesamtwiderstand des Schaltkreises ist.
 	
-	Die Ströme \( I_1, I_2 \) und \( I_3 \) wurden empirisch über Shunt-Widerstände bestimmt. Dabei wird der Spannungsabfall an einem möglichst kleinen Widerstand gemessen und mithilfe des Ohmschen Gesetzes in Strom umgerechnet. Dies wurde an drei Stellen gemacht und die Ergebnisse sind in \autoref{table:2} dargestellt. Die Unsicherheit der Werte kommt einerseits aus der Toleranz des Widerstände und andererseits aus der statistischen Schwankung vom Messsensor. Hierbei dominiert mit die Unsicherheit des Widerstandes mit einem Beitrag von über \( 99.5 \% \) des Gesamtfehlers.
+	Die Ströme \( I_1, I_2 \) und \( I_3 \) wurden empirisch über Shunt-Widerstände bestimmt. Dabei wird der Spannungsabfall an einem möglichst kleinen Widerstand gemessen und mithilfe des Ohmschen Gesetzes in Strom umgerechnet. Dies wurde an drei Stellen gemacht und die Ergebnisse sind in \autoref{table:2} dargestellt. Die Unsicherheit der Werte kommt einerseits aus der Toleranz der Widerstände und andererseits aus der statistischen Schwankung vom Messsensor. Hierbei dominiert mit die Unsicherheit des Widerstandes mit einem Beitrag von über \( 99.5 \% \) des Gesamtfehlers.
 	
  	\begin{center}
 		\captionof{table}{Gemessene Spannungen \( U^+, U^- \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) an drei verschiedenen Stellen im Schaltkreis.}
@@ -212,7 +212,7 @@
 			\foreach \i in {1, 2}{
 				\node  at (shunt\i.center) {shunt};}
 		\end{circuitikz}
-		\caption{Schaltkreis mit drei Widerständen \( R_1 = R_2 = 4.70(5) \unit{\ko}, R_3 = 10.0(1) \unit{\ko} \) und zwei Spannungsquellen. An drei Stellen wird über einen Shunt-Widerstand die Spannung gemessen.}
+		\caption{Schaltkreis mit drei Widerständen \( R_1 = R_2 = 4.70(5) \unit{\ko}, R_3 = 10.0(1) \unit{\ko} \) und zwei Spannungsquellen. An drei Stellen wird über einen Shunt-Widerstand die Spannung gemessen. Die Richtung der Ströme wurde durch Pfeile gekennzeichnet.}
 		\label{fig:3}
 	\end{figure}
 	
@@ -230,7 +230,7 @@
 	
 	Für die Ströme wurden numerische Werte eingesetzt und in \autoref{table:4} eingetragen. Alle Ströme sind positiv, was auf ihre Flussrichtung schließen lässt. In \autoref{fig:3} wurde die Richtung der Ströme eingetragen. 
 	
-	Experimentell wurden die Ströme wieder über den Spannungsabfall an Shunt-Widerständen bestimmt. Diese Spannungsmessung wurde an jedem Punkt drei Mal wiederholt und daraus ein gewichteter Mittelwert gebildet, um die statistische Messunsicherheit zu reduzieren. Das Vorzeichen des Stromes, bzw. die Stromrichtung erkennt man am Vorzeichen der Spannung. Fließt der Strom über vom \(  \text{G}_+ \) zum \( \text{G}_- \) Anschluss, ist das Vorzeichen positiv. Für die erste Messreihe \( N_1 \) wurde der \( \text{G}_- \) Anschluss im Knoten zwischen den drei Shunt-Widerständen festgehalten und der \(  \text{G}_+ \) Anschluss ist die Runde gegangen, danach wurden die zwei Anschlüsse getauscht. Wenn man die Stromrichtungen in \autoref{fig:3} betrachtet, erwarten wir einen negativen Strom in \( U_1 \) und \( U_3 \) zu messen, während \( U_2 \) einen positiven messen sollte.
+	Experimentell wurden die Ströme wieder über den Spannungsabfall an Shunt-Widerständen bestimmt. Diese Spannungsmessung wurde an jedem Punkt drei Mal wiederholt und daraus ein gewichteter Mittelwert gebildet, um die statistische Messunsicherheit zu reduzieren. Das Vorzeichen des Stromes, bzw. die Stromrichtung erkennt man am Vorzeichen der Spannung. Fließt der Strom vom \(  \text{G}_+ \) zum \( \text{G}_- \) Anschluss, ist das Vorzeichen positiv. Für die erste Messreihe \( N_1 \) wurde der \( \text{G}_- \) Anschluss im Knoten zwischen den drei Shunt-Widerständen festgehalten und der \(  \text{G}_+ \) Anschluss ist die Runde gegangen, danach wurden die zwei Anschlüsse getauscht. Wenn man die Stromrichtungen in \autoref{fig:3} betrachtet, erwarten wir einen negativen Strom in \( U_1 \) und \( U_3 \) zu messen, während \( U_2 \) einen positiven messen sollte.
 	
 	\begin{center}
 		\captionof{table}{Gemessene Spannungen \( U_{N1}, U_{N2} \), effektive Spannung \( U_{\text{eff}} \) und daraus errechneter Strom \( I \) an drei verschiedenen Stellen im Schaltkreis.}
@@ -280,7 +280,7 @@
 		\label{table:4}
 	\end{center}
 	
-	Wenn man die Werte in \autoref{table:4} vergleicht, sieht man, dass die von der Theorie vorhergesagten Werte im \( 1\sigma \) Intervall der empirischen Werte liegen und sich daher gut vertragen. Zudem weichen letztere sowohl im Nennwert, als auch im Fehler weniger als \( 10 \% \) von den Optimalwerten abweichen. 
+	Wenn man die Werte in \autoref{table:4} vergleicht, sieht man, dass die von der Theorie vorhergesagten Werte im \( 1\sigma \) Intervall der empirischen Werte liegen und sich daher gut vertragen. Zudem weichen letztere sowohl im Nennwert, als auch im Fehler weniger als \( 10 \% \) von den Optimalwerten ab. 
 	
 	Das Wiederholen der Spannungsmessungen hat den Fehler zwar verbessert, der Großteil kommt aber von der \( 5 \% \) Toleranz des Shunt-Widerstandes. Man müsste einen Widerstand mit kleiner Toleranz verwenden, um den Fehler weiter zu reduzieren.
 \end{mybox}

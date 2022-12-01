@@ -108,10 +108,7 @@
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{0.05in}
 
-% define customizeable variables
-\newcommand*{\name}[1]{\def\@name{#1}}
-\newcommand*{\hwnumber}[1]{\def\@hwnumber{#1}}
-\newcommand*{\course}[1]{\def\@course{#1}}
+ 
 
 
 % create header

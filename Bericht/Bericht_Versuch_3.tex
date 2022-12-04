@@ -1,0 +1,126 @@
+% Header: Here are all packages used and some additional definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,a4paper]{scrartcl}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{graphicx} % zum Einbinden von Graphiken
+\usepackage[breaklinks=true,colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref} % f. Referenzen
+\usepackage{amsmath,amsthm,amssymb} % Mathematik Umgebung 
+\usepackage{icomma} % Intelligentes Komma, das den richtigen Abstand zwischen Dezimalzahlen als auch in Formeln wählt.
+\usepackage[ngerman]{babel} % Deutsche Bezeichnungen bei Inhaltsangabe etc
+\usepackage[T1]{fontenc}    % andere Schriftsatzkodierung für richtige Silbentrennung bei Umlauten
+\usepackage[locale = DE,space-before-unit=true,per-mode = symbol]{siunitx} % Bessere Einheiten
+\usepackage{booktabs,multirow} % Pakete zur Erstellung von Tabellen
+\usepackage{placeins} % Definiert den Befehl “\FloatBarrier”, der die Ausgabe der davor eingebundenen Bilder erzwingt, befor der Text weiter geht. (Mit vorsicht zu verwenden)
+\usepackage[natbib,abbreviate=true,doi=false,style=numeric-comp,giveninits=true,sorting=none]{biblatex} % Modernes Paket zur Erzeugung von Bibliografien (benötigt biber!)
+\usepackage{csquotes} % Fortgeschrittene Funktionen für Zitate, für die deutsche Form der Anführungszeichen bei Referenzen
+\addbibresource{MyBibliography.bib} % Ort der .bib Datei, die die Datenbank für Literatur/Referenzen enthält.
+
+\graphicspath{{Bilder/}}
+
+\DeclareSIUnit{\dBm}{dBm}
+\DeclareSIUnit[per-mode=reciprocal]\WN{\per\centi\meter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%
+\titlehead{\includegraphics[width=5cm]{logo.jpg}}
+\title{Einfacher harmonischer Oszillator}
+\author{Alexander Helbok\thanks{\href{mailto:alexander.helbok@student.uibk.ac.at}{clemens.bein@student.uibk.ac.at}}, Clemens Bein\thanks{\href{mailto:Email.Student2@uibk.ac.at}{Email.Student2@uibk.ac.at}}}
+\date{\today}
+\maketitle
+\vfill
+\section*{\abstractname}
+Das Ziel dieses Versuches ist es ein Modell, um die Federkonstante $k$ in einem System von parallelen Feder zu bestimmen, zu entwickeln. Dies geschieht in drei Versuchen . Im ersten Versuch wird die Federkonstante von einer Feder mit Hilfe drei Verschiedenen Massen bestimmt, darauf hin wird im zweiten Versuch wird nun  die Federkonstante von zwei parallelen Federn bestimmt und mit dem ersten Versuch verglichen. Aus diesem Vergleich wird nun ein Modell entwickelt, mit welchen man die Federkonstante $k$ für ein System aus $N$ parallelen Feder berechnen kann. IM letzten Versuch wird nun dieses Modell, mit Hilfe von einem System mit drei parallelen Federn, geprüft. Im gesamten wurde das Modell angenommen, dadurch folgt das die Versuchsreihe erfolgreich war.
+\thispagestyle{empty}
+%
+%
+\tableofcontents
+\thispagestyle{empty}
+\cleardoublepage
+\pagenumbering{arabic} 
+\newpage
+%
+%
+\section{Einleitung}
+\label{sec:Einleitung}
+%
+Harmonische Oszillationen sind nicht nur, wie in diesem Versuch, in der Mechanik anzutreffen, sondern erstreckt sich über alle Teilbereiche der Physik. Von der Elektro-Dynamik bis hin zur Quantenphysik. Da sich die Modelle des harmonischen Oszillator gut eignen um nicht mechanische Konzepte zu beschreiben und anzunähern, wie zum Beispiel ein Bindungsenergien von Atomen. Aber auch im Alltag begegnen uns dies oft wieder. Mit so vielen Anwendungen ist die physikalische Beschreibung des harmonischen Oszillator eine der wichtigsten Werkzeuge der Physik. Dadurch ist es lohnenswert im Grundpraktikum einer dieser Modelle mit Hilfe eines Experimentes zu überprüfen. Hier prüfen wir das Hookesche Gesetz bzw. die bestimmung einer Federkonstante $k$.\\
+Dafür werden in Kapitel \ref{sec:Grundlagen} die benötigten Grundlagen und die Vorgehensweise bei der Fehlerrechnung aufgezeigt. Darauf hin wird in Kapitel \ref{sec:ExpAufb} der einzelnen Versuche beschrieben. Das heißt es wird die Massenbestimmung , die Berechnung der Federkonstante $k$, das Aufstellen eines Modells zur bestimmung dieser für mehrere parallele Federn und anschließend die Überprüfung dieses Modells, beschrieben. In \ref{sec:Ergebnisse} werden die Ergebnisse der drei Versuche dargestellt und mit der Theorie verglichen.
+%
+\section{Grundlagen und Theorie}
+\label{sec:Grundlagen}
+%
+\textit{Was sind die wichtigen physikalischen Grundlagen?}\\
+Tabelle \ref{tab:exapltab} zeigt ein typisches Beispiel für eine Tabelle in einer Auswertung.
+\begin{table}[htbp]
+\centering
+\caption{\label{tab:exapltab}Dies hier ist eine typische Tabelle. Die Werte haben, wenn nicht anders angegeben, eine Unsicherheit von \SI{0,4}{\nano\meter}. Da die lateralen Dimensionen von Teilchen D (in einer Dimension) stark vom Mittelwert abweichen, wurde der Mittelwert zusätzlich ohne dieses Teilchen berechnet.}
+\begin{tabular}{cccccc}
+\toprule
+\multicolumn{1}{c}{Teilchen}	& \multicolumn{1}{c}{Länge / \si{\nano\meter}}		& \multicolumn{1}{c}{Breite / \si{\nano\meter}}	& \multicolumn{1}{c}{Höhe / \si{\nano\meter}} \\
+\midrule
+\multirow{1}{*}{A} & $34,5$	& $25,6$		& $4,6$		  \\
+\multirow{1}{*}{B} & $34,4$	& $28,0$		& $4,0$		  \\
+\multirow{1}{*}{C} & $31,9$	& $27,4$		& $4,6$		  \\
+\multirow{1}{*}{D} & $49,1$	& $34,0$		& $4,6$		 \\
+\multirow{1}{*}{E} & $35,2$	& $26,1$		& $4,9$		 \\
+\multirow{1}{*}{F} & $27,2$	& $23,6$		& $4,3$		\\  
+\multirow{1}{*}{G} & $27,2$	& $23,6$		& $4,3$		  \\
+\midrule
+\multirow{1}{*}{Mittelwert:} & $35\pm6$	& $28\pm3$		& $4,7\pm0,6$	\\	  
+\multirow{1}{*}{Mittelwert} & \multirow{2}{*}{$33\pm3$}	& \multirow{2}{*}{$27\pm2$}		& \multirow{2}{*}{}	\\	  
+\multirow{1}{*}{ohne Teil.\ D:} & 	& & \\	  
+\bottomrule
+\end{tabular}
+\end{table}
+%
+\section{Experiment und Aufbau}
+\label{sec:ExpAufb}
+%
+\textit{Was würde jemand brauchen, um den Versuch nachzuvollziehen und zu wiederholen?}\\
+Als Beispiel für eine Gleichung ist hier die Formel für das Verhalten eines verkippbaren Interferenz-Filters angegeben. Dabei verschiebt sich die Wellenlänge $\lambda\left(\Phi\right)$ der Filterkante bei größeren Winkeln $\Phi$, unabhängig von der Kipp"=Richtung, zu kürzeren Wellenlängen~\cite{TiltFilter}:
+\begin{equation}
+\lambda\left(\Phi\right)=\lambda\left(0\right)\sqrt{1-\frac{\sin^2\Phi}{n_\text{eff}^2}}\;.
+\label{eq:TiltWel}
+\end{equation}
+$n_\text{eff}$ ist der effektive Brechungsindex.
+%
+\section{Ergebnisse}
+\label{sec:Ergebnisse}
+%
+\textit{Was ist(sind) die gemessene Antwort(en) auf die Hauptfrage(n)?}\\
+Abbildung \ref{fig:examplfig} zeigt ein Beispiel für eine Abbildung in Haupttext.
+\begin{figure}[htb!]
+ \centering
+ \includegraphics[width=0.65\textwidth]{good_example_plot}
+ \caption{\label{fig:examplfig}Ein typischer Graph in einer Auswertung.
+ }
+\end{figure}
+%
+\section{Schlussfolgerungen}
+\label{sec:Schlussf}
+%
+\textit{Was ist die Endantwort und soll ihr vertraut werden?  Wie hätte man den Versuch anders oder besser durchführen können?}\\
+Die Referenz~\cite{GP1StromSpannung} soll ein Beispiel sein, wie man ein Praktikums"=Skript zitieren sollte. 
+%
+\input{Anhang} % Der Anhang ist in einer externen Datei "Anhang.tex" und wird hier in das Dokument eingefügt.
+
+\printbibliography[]
+\vfill
+\section*{Erklärung}
+
+Hiermit versichern wir, dass der vorliegende Bericht selbständig verfasst wurde und alle notwendigen Quellen und Referenzen angegeben sind.
+
+\begin{tabular}{@{}p{2.5in}p{2.5in}@{}}
+ \\[5\bigskipamount]
+  \dotfill & \dotfill \\
+  Student 1 & Date \\[5\bigskipamount]
+  \dotfill & \dotfill \\
+ Student 2 & Date \\
+  \centering
+  
+\end{tabular}
+
+\end{document}

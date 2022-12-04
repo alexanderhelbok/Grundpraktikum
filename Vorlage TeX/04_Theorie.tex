@@ -1,30 +1,70 @@
+% !TeX root = 00_Vorlage.tex
+% !TeX spellcheck = de_DE
 \chapter{Theorie}
-\label{sec:grundlagen}
+\label{sec:theorie}
+
+Im nachfolgenden Kapitel wird auf die theoretischen Grundlagen des Versuches eingegangen.
+
+\section{Newtons Grundsätze der Bewegungslehre}
+Um die Masse des Pendelkörpers zu bestimmen, wird Newtons 2. Axiom herangezogen. \cite{newton} Dieses besagt, dass
+
+\begin{equation}\label{eqn:newt}
+	\vec{F} = m\vec{a}
+\end{equation}
+also, dass die auf einen Körper wirkende Kraft linear mit seiner Beschleunigung skaliert, wobei seine Masse \( m \) gerade der Proportionalitätsfaktor ist. In anderen Worten ausgedrückt ist das Verhältnis zwischen Kraft \( F \) und Beschleunigung \( a \) der Skalierungsfaktor, die Masse \( m \). 
+
+Diese Tatsache wird herangezogen, um die Schwingmasse zu eruieren. Wie in \autoref{sec:aufbau} bereits beschrieben, wird das IOLab am Kraftsensor hochgezogen, sodass die einzige wirkenden Kraft die Gravitationskraft \( F_{\text{G}} = mg \) ist. Diese 
 
 
-\section{Beispielkapitel}
-\label{sec:beispiel}
-\begin{figure}[htb]
-  \centering  
-  \includegraphics[scale=0.5]{starwars.jpg}
-  \caption{Star Wars Logo}
-  \label{fig:starwars}
-\end{figure}
-Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte (siehe Abb \ref{fig:starwars}). Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik. Der große Oxmox riet ihr davon ab, da \cite{test}.
-Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte (siehe Abb \ref{fig:starwars}). Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.
+\section{Einfacher harmonischer Oszillator}
+Der einfache harmonische Oszillator ist die Lösung einer Differentialgleichung zweiter Ordnung der Form
 
-Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte (siehe Abb \ref{fig:starwars}). Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.
-Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte (siehe Abb \ref{fig:starwars}). Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.
+\begin{equation}\label{eqn:harmonic}
+	m\dv[2]{x}{t} = -kx
+\end{equation}
+wobei \( m \) die Masse des Oszillators und \( k \) vorerst eine bedeutungslose Konstante ist. **rückstellende Kraft**
+Die allgemeine Lösung dieses Differentialgleichung ist eine trigonometrische Funktion und lautet 
 
-Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte (siehe Abb \ref{fig:starwars}). Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.
-Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte (siehe Abb \ref{fig:starwars}). Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.
+\begin{equation}\label{eqn:sol}
+	x(t) = A\cos(\omega t + \varphi)
+\end{equation}
+mit der Kreisfrequenz \( \omega \), der Amplitude \( A \) und einem Phasenfaktor \( \varphi \), wobei \( A \) und \( \varphi \) sich durch Anfangswerte bestimmen lassen. Für die Kreisfrequenz gilt aber
 
-Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte (siehe Abb \ref{fig:starwars}). Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.
-Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte (siehe Abb \ref{fig:starwars}). Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.
+\begin{equation}\label{eqn:omega}
+	\omega = \sqrt{\tfrac{k}{m}} = \sqrt{k}\sqrt{\tfrac{1}{m}} = \sqrt{k}\tilde{m}
+\end{equation}
+und ist unabhängig von jeglichen Startpositionen und geschwindigkeiten, weshalb sie als eine charakteristische Eigenschaft des Systems angesehen wird. Offensichtlich besteht ein linearer Zusammenhang zwischen der Winkelfrequenz \( \omega \) und der Wurzel des Kehrwerts der Masse \( \tilde{m} := \sqrt{1/m} \) (wurde aus Bequemlichkeitsgründen mit \( \tilde{m} \) abgekürzt), wobei die Wurzel der Konstante \( k \) aus \autoref{eqn:harmonic} der Skalierungsfaktor ist. 
+
+Der Konstante \( k \) können wir erst einen Sinn geben, wenn wir die rückstellende Kraft kennen. In einem Federpendel ist das die Rückstellkraft der Feder, welche durch das Hookesche Gesetz beschrieben wird. Dieses besagt, dass die Kraft, welche eine Feder ausübt, proportional zur Auslenkung aus der Ruhelage ist und um einen Faktor \( k \) skaliert wird, der von den Materialeigenschaften der Feder abhängt. 
+
+Wir haben also eine Größe in der Rückstellkraft gefunden, die eine intrinsische Eigenschaft des Systems darstellt (und nicht durch Startwerte beeinflusst wird!). Durch Aufstellen der Bewegungsgleichgungen eines Federpendels stellt man fest, dass die Konstante \( k \) aus \autoref{eqn:harmonic} gerade die Federkonstante aus dem Hookeschen Gesetz ist.  
 
 
-\section{Beispielunterkapitel}
-\label{subsec:beispiel}
+Aus der Winkelfrequenz lassen sich auch weitere Größen ableiten, wie zum Beispiel die Schwingungsdauer \( T \), die durch
 
-Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte (siehe Abb \ref{fig:starwars}). Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.
-Weit hinten, hinter den Wortbergen, fern der Länder Vokalien und Konsonantien leben die Blindtexte (siehe Abb \ref{fig:starwars}). Abgeschieden wohnen Sie in Buchstabhausen an der Küste des Semantik, eines großen Sprachozeans. Ein kleines Bächlein namens Duden fließt durch ihren Ort und versorgt sie mit den nötigen Regelialien. Es ist ein paradiesmatisches Land, in dem einem gebratene Satzteile in den Mund fliegen. Nicht einmal von der allmächtigen Interpunktion werden die Blindtexte beherrscht – ein geradezu unorthographisches Leben. Eines Tages aber beschloß eine kleine Zeile Blindtext, ihr Name war Lorem Ipsum, hinaus zu gehen in die weite Grammatik.
+\begin{equation}\label{eqn:T}
+	T = \frac{2\pi}{\omega} = 2\pi \sqrt{\tfrac{m}{k}}
+\end{equation}
+gegeben ist.
+
+\section{Statistische Grundlagen}
+
+Hier werden kurz die Methoden erwähnt, welche für die statistische Aufbereitung der Daten essentiell sind.
+
+Das Arithmetische Mittel, oder auch Mittelwert oder Durchschnitt, ist das wohl meist verwendete Werkzeug der Statistik. Es lässt sich sowohl  für „exakte“, als auch für fehlerbehaftete Daten definieren. Im ersten Fall spricht man von einem ungewichteten Mittelwert und man schreibt 
+\begin{equation}\label{eqn:mean1}
+	\bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i
+\end{equation}
+mit $\bar{x}$ als Mittelwert von \( N \) Daten.
+
+Sind die Daten Fehlerbehaftet (mit Fehler \( \alpha_i \)) muss man diesen Berücksichtigen und erhält
+\begin{equation}\label{eqn:mean2}
+	\bar{x} = \left(\sum_{i=1}^{N} \frac{1}{\alpha_i^2}\right)^{-1} \sum_{i=1}^{N} \frac{x_i}{\alpha_i^2}
+\end{equation}
+Haben alle Daten aber den selben Fehler, kürzt sich dieser weg und man landet wieder bei \autoref{eqn:mean1}. Aus diesem Grund wird in diesem Versuch großteils der ungewichtete Mittelwert angewandt, obwohl alle Daten fehlerbehaftet sind. 
+
+Die Standardabweichung ist ein direktes Maß für die Verteilung der Daten und gibt an, wie weit die Daten im Mittel vom Durchschnitt abweichen. Sie berechnet sich wie folgt
+\begin{equation}\label{eqn:sigma}
+	\sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N}(x_i - \bar{x})^2}
+\end{equation}
+Wie dividieren hier durch \( N-1 \), da der Mittelwert, der in der Berechnung der Standardabweichung herangezogen wird, die \( N \) Freiheitsgrade der  \( N \) Daten um einen reduziert.

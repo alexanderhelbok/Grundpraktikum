@@ -116,9 +116,16 @@ afterskip=.5\baselineskip]{section}
 	linkbordercolor={0 0 1}
 }
 
+% place eqn number in brackets for autoref
+\makeatletter
+\def\tagform@#1{\maketag@@@{\ignorespaces#1\unskip\@@italiccorr}}
+\let\orgtheequation\theequation
+\def\theequation{(\orgtheequation)}
+\makeatother
 
 %\setlength{\parindent}{0.0in}
 %\setlength{\parskip}{0.5in}
+\renewcommand{\arraystretch}{1.2}		% change spacing in tabular
 
 % define customizeable variables
 %\newcommand*{\name}[1]{\def\@name{#1}}

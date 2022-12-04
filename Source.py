@@ -44,6 +44,7 @@ def chisq(obs, exp, error=1, dof=0):
     if dof == 0:
         return np.sum((obs - exp) ** 2 / (error ** 2))
     else:
+        print(exp, obs)
         return np.sum((obs - exp) ** 2 / (error ** 2)) / dof
 
 

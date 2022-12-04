@@ -111,8 +111,8 @@ for i in range(3):
     rate = get_polling_rate(df)
 
 
-    # if i == 1:
-    #     df = df[:10*rate]
+    if i == 1:
+        df = df[:10*rate]
     #     fit, fitcov = sine_fit(df["t"], df["a"], p0=[9 * rate, 10 * rate], min=4 * rate)
 
     fit, fitcov = sine_fit(df["t"], df["a"], p0=[5*rate, 6*rate], min=4*rate)
@@ -144,8 +144,8 @@ for i in range(3):
         # plt.savefig("Vorlage TeX/Graphics/Feder1.eps", format="eps", transparent=True)
         plt.show()
 
-# for i in range(3):
-    # print(f"{w[i]:.1uS}", end=" & ")
+for i in range(3):
+    print(f"{w[i]:.1uS}", end=" & ")
     # print(f"T{i+1}: {T[i]:.2uS}")
     # print(f"w{i+1}: {w[i]:.1uS}")
 
@@ -155,12 +155,12 @@ for i in range(3):
 # m[0] = unc.ufloat(0.240, 0.0001)
 # w[0] = unc.ufloat(8.8759, 0.0005)
 # T[0] = 2 * np.pi / w[0]
-print(f"T1: {T[0]:.1uS}")
+# print(f"T1: {T[0]:.1uS}")
 m2 = 1/unp.sqrt(m)
 k = w**2*m
 
-for i in range(3):
-    print(f"{m2[i]:.2uS}" , end=" & ")
+# for i in range(3):
+#     print(f"{m2[i]:.2uS}" , end=" & ")
     # contributions(k[i])
     # print(f"k{i+1} = {k[i]:.2uS} m2{i+1} = {m2[i]:.1uS}")
 # fit linear function to data
@@ -168,13 +168,13 @@ popt, pcov = curve_fit(line, unp.nominal_values(m2), unp.nominal_values(w))
 popt2, pcov2 = curve_fit(affineline, unp.nominal_values(m2), unp.nominal_values(w))
 ktemp = unc.ufloat(popt2[0], np.sqrt(pcov2[0][0]))
 kcalc = ktemp**2
-print(f"ktemp = {ktemp:.1uS}: kcalc = {kcalc:.1uS}")
+# print(f"ktemp = {ktemp:.1uS}: kcalc = {kcalc:.1uS}")
 
 fig = plt.figure(figsize=(4, 3))
 plt.errorbar(unp.nominal_values(m2), unp.nominal_values(w), yerr=unp.std_devs(w), xerr=unp.std_devs(m2), fmt=".k", capsize=3, label="Messdaten")
 # fig.plot(unp.nominal_values(m2), line(unp.nominal_values(m2), *popt), label="Fit", color="red")
 plt.plot(np.linspace(1.5, 2.3, 10), affineline(np.linspace(1.5, 2.3, 10), *popt2), label=r"Fit", color="red")
-plt.text(1.9, 6.5, f"$f(x) = {ktemp:.1uS}$" + r" (kg$^{\frac{1}{2}}$/s) \cdot \tilde{m}", color="red")
+plt.text(1.9, 6.5, f"$f(x) = {ktemp:.1uS}$" + r" (kg$^{\frac{1}{2}}$/s) $\cdot \tilde{m}$", color="red")
 plt.gcf().set_size_inches(6, 3)
 plt.xlabel(r"$\tilde{m}$ (kg$^{-\frac{1}{2}}$)")
 plt.ylabel(r"$\omega$ (s$^{-1}$)")
@@ -183,6 +183,9 @@ plt.xlim(1.52, 2.25)
 plt.tight_layout()
 # plt.savefig("Vorlage TeX/Graphics/k1.eps", format="eps", transparent=True)
 plt.show()
+
+chi = chisq(unp.nominal_values(w), line(ktemp.n, unp.nominal_values(m2), 0), error=unp.std_devs(w), dof=2)
+print(chi)
 
 # plt.errorbar([1, 2, 3], unp.nominal_values(k), yerr=unp.std_devs(k), fmt=".k", capsize=3, label="Data")
 # plt.hlines(kcalc.n, 1, 3, label=r"Fit / $f(x) = 4.005(4)$  (kg$^{\frac{1}{2}}$/s) * x", color="red")

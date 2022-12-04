@@ -76,5 +76,16 @@ Die Kombination der Unsicherheiten von fehlerbehafteten Messdaten erfolgt mittel
 \cite[S. 41]{error}
 Die Propagation von Fehlern erfolgt in diesem Versuch automatisch und wird im Hintergrund gehalten.
 
+Zuletzt wird noch das Chi-Quadrat eingeführt, welches ein Maß für die Güte einer Funktionenanpassung ist. Dafür wird 
+\begin{equation}\label{eqn:chi}
+	\chi^2 = \sum_{i=1}^{N} \left(\frac{(y_i - y(x_i))}{\alpha_i}\right)^2
+\end{equation}
+\cite[S. 65]{error}
+Generell gilt, je kleiner der Wert von \( \chi^2 \), desto besser passt das Modell, aber man erkennt, dass der Wert mit zunehmender Datenanzahl zwangsläufig auch zunehmen muss. Tatsächlich ist der Erwartungswert dieser Größe gerade die Anzahl der Freiheitsgrade. Das motiviert die Einführung des sogenannten reduzierten Chi-Quadrat 
+\begin{equation}\label{eqn:chinu}
+	\chi_{\nu}^2 = \frac{\chi^2}{\nu}
+\end{equation}
+mit \( \nu \) als Anzahl der Freiheitsgrade.\cite[S. 107]{error} Die so definierte Größe hat den Erwartungswert \( \langle \chi_{\nu}^2 \rangle = 1 \), man muss \( \nu \) also nicht mehr kennen, um die Güte einzuschätzen.
+
 Eine kurze Anmerkung zur Notation: \( \sigma \) wird in diesem Bericht für die Standardabweichung eines Datensatzes verwendet, während \( \alpha \) der Fehler einer bestimmen Größe ist. Öfters fallen diese beiden zusammen (bzw. \( \alpha \) wird auf \( \sigma \) gesetzt), was für Verwirrung sorgen kann, weshalb dies im Text immer erwähnt wird.
 Als Faustregel kann man sich merken, dass \( \sigma \) die Eigenschaft eines Datensatzes ist und \( \alpha \) sich nur auf einzelne Werte bezieht.

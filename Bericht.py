@@ -181,7 +181,7 @@ plt.ylabel(r"$\omega$ (s$^{-1}$)")
 plt.legend(loc="best", borderaxespad=1)
 plt.xlim(1.52, 2.25)
 plt.tight_layout()
-# plt.savefig("Volage TeX/Graphics/k1.eps", format="eps", transparent=True)
+# plt.savefig("Vorlage TeX/Graphics/k1.eps", format="eps", transparent=True)
 plt.show()
 
 # plt.errorbar([1, 2, 3], unp.nominal_values(k), yerr=unp.std_devs(k), fmt=".k", capsize=3, label="Data")

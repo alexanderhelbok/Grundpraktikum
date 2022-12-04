@@ -2,22 +2,28 @@ from Source import *
 
 # %%
 
-df = pd.read_csv(f"data/Bericht/A1 Gewicht 3.csv")
-# rename columns
-df.columns = ["t", "a", "F"]
-# plot data°
-plt.plot(df["t"], df["F"], label="F")
-plt.plot(df["t"], df["a"], label="a")
-plt.legend()
+fig, ax = plt.subplots(2, 1, sharex=True)
+for i in range(3):
+    df = pd.read_csv(f"data/Bericht/A1 Gewicht {i+1}.csv")
+    # rename columns
+    df.columns = ["t", "a", "F"]
+    # plot data°
+    ax[0].plot(df["t"], df["F"], label=f"F{i+1}")
+    ax[1].plot(df["t"], df["a"], label=f"a{i+1}")
+# plt.plot(df["t"], df["F"], label="F")
+# plt.plot(df["t"], df["a"], label="a")
+    plt.legend()
+
+plt.xlim(0, 10)
 plt.show()
 
 # %%
-df = pd.read_csv(f"data/Bericht/3 Federn 2.csv")
+df = pd.read_csv(f"data/Bericht/Feder 3.csv")
 # rename columns
 # df.columns = ["t", "Ax", "Ay", "Az", "F"]
 df.columns = ["t", "a", "F"]
 # plot data°
-plt.plot(df["t"], df["F"], label="F")
+# plt.plot(df["t"], df["F"], label="F")
 plt.plot(df["t"], df["a"], label="a")
 # plt.plot(df["t"], df["Ax"], label="Ax")
 # plt.plot(df["t"], df["Ay"], label="Ay")
@@ -31,7 +37,7 @@ df = pd.read_csv(f"data/Bericht/2 Feder 2.csv")
 # df.columns = ["t", "Ax", "Ay", "Az", "F"]
 df.columns = ["t", "a", "F"]
 # plot data°
-plt.plot(df["t"], df["F"], label="F")
+# plt.plot(df["t"], df["F"], label="F")
 plt.plot(df["t"], df["a"], label="a")
 # plt.plot(df["t"], df["Ax"], label="Ax")
 # plt.plot(df["t"], df["Ay"], label="Ay")
@@ -54,53 +60,41 @@ for i in range(3):
     df["Ferr"] = 0.006
     rate = get_polling_rate(df)
 
-    amean = df["a"][4*rate:int(7.5*rate)].mean()
-    astd = df["a"][4*rate:int(7.5*rate)].std()
-    fmean = df["F"][4*rate:int(7.5*rate)].mean()
-    fstd = df["F"][4*rate:int(7.5*rate)].std()
+    amean = df["a"][4*rate:-1].mean()
+    astd = df["a"][4*rate:-1].std()
+    fmean = df["F"][4*rate:-1].mean()
+    fstd = df["F"][4*rate:-1].std()
 
-    F = unc.ufloat(fmean, 2*fstd)
-    a = unc.ufloat(amean, 2*astd)
-    print(f"F: {F:.1uS}")
-    print(f"a: {a:.1uS}")
+    F = unc.ufloat(fmean, 2*fstd, "F")
+    a = unc.ufloat(amean, 2*astd, "a")
 
-    # popt, pcov = curve_fit(const, df["t"][4*rate:int(11.5*rate)], df["a"][4*rate:int(11.5*rate)], sigma=df["aerr"][4*rate:int(11.5*rate)], absolute_sigma=True)
-    popt2, pcov2 = curve_fit(const, df["t"][4*rate:int(11.5*rate)], df["F"][4*rate:int(11.5*rate)], sigma=df["Ferr"][4*rate:int(11.5*rate)], absolute_sigma=True)
+    # print(f"F: {F:.1uS}")
+    # print(f"a: {a:.1uS}")
 
-    # chi2 = chisq(const(df["t"][4*rate:int(11.5*rate)], *popt), df["a"][4*rate:int(11.5*rate)])
-    # print(chisq(const(df["t"][4*rate:int(11.5*rate)], *popt), df["F"][4*rate:int(11.5*rate)], error=df["Ferr"][4*rate:int(11.5*rate)], dof=len(df["t"][4*rate:int(11.5*rate)])-1))
-    # alpha = np.sqrt(chi2/(len(df["t"][4*rate:int(11.5*rate)])-2))
-    # print(alpha)
-    # F = unc.ufloat(popt2[0], np.sqrt(pcov2[0][0]))
-    # a = unc.ufloat(popt[0], np.sqrt(pcov[0][0]))
-    # print(f"F: {F.s:.8f}")
-
-    # F = unc.ufloat(np.round(popt2[0], 3), fstd)
-    # a = unc.ufloat(np.round(popt[0], 3), 0.02)
     m[i] = F/a
-    if i == 2:
+    if i == 0:
         # plot force, acceleration and F/a
-        fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=True)
-        ax1.scatter(df["t"], df["F"], s=0.5, color="black", label="Data")
-        ax1.hlines(fmean, 3, 12, label="Fit", color="red")
-        ax1.set_ylabel("F (N)")
+        fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
+        ax1.scatter(df["t"], df["F"], s=0.5, color="black", label="Messdaten")
+        ax1.hlines(fmean, 4, 8, label="Fit", color="red")
+        ax1.set_ylabel("$F$ (N)")
+        # add fit value as text
+        ax1.text(5, -1.5, fr"$F = {F:.1uS}$ N", color="red")
         ax1.legend(borderaxespad=1, markerscale=4)
-        ax2.scatter(df["t"], df["a"], color="black", label="Data", s=0.5)
-        ax2.hlines(amean, 3, 12, label="Fit", color="red")
-        ax2.set_ylabel(r"a (m/s$^2$)")
-        ax2.set_ylim(-11, -9)
-        ax2.legend(borderaxespad=1, markerscale=4)
-        ax3.scatter(df["t"], df["F"]/df["a"], label="Data", s=0.5, color="black")
-        ax3.hlines(m[i].n, 3, 12, label="Fit", color="red")
-        ax3.set_ylabel(r"F/a (kg)")
-        ax3.set_xlabel("t (s)")
-        ax3.legend(loc="lower right", borderaxespad=1,  markerscale=4)
-        plt.xlim(0, 12)
-        # fig.savefig("Graphics/Versuch3_1.eps", format="eps", transparent=True)
+        ax2.scatter(df["t"], df["a"], color="black", label="Messdaten", s=0.5)
+        ax2.hlines(amean, 4, 8, label="Fit", color="red")
+        ax2.set_ylabel(r"$a$ (m/s$^2$)")
+        ax2.text(5, -9.4, fr"$a = {a:.1uS}$ m/s$^2$", color="red")
+        ax2.set_ylim(-10.75, -9)
+        ax2.legend(borderaxespad=1, markerscale=4, loc="lower right")
+        plt.xlabel(r"$t$ (s)")
+        plt.xlim(0, df["t"][len(df)-1])
+        plt.tight_layout()
+        # fig.savefig("Vorlage TeX/Graphics/mass.eps", format="eps", transparent=True)
         plt.show()
-
     # print(f"a: {a:.1uS} F: {F:.1uS}")
-    print(f"m{i+1}: {m[i]:.1uS}")
+    # print(f"m{i+1}: {m[i]:.1uS}")
+    # print(f"{m[i]:.1uS} & ", end="")
 print("\n")
 
 # %%
@@ -116,36 +110,44 @@ for i in range(3):
     df["Ferr"] = fstd
     rate = get_polling_rate(df)
 
-    fit, fitcov = sine_fit(df["t"], df["a"], p0=[2*rate, 3*rate], min=2*rate)
+
+    # if i == 1:
+    #     df = df[:10*rate]
+    #     fit, fitcov = sine_fit(df["t"], df["a"], p0=[9 * rate, 10 * rate], min=4 * rate)
+
+    fit, fitcov = sine_fit(df["t"], df["a"], p0=[5*rate, 6*rate], min=4*rate)
     # print(fit[1], np.sqrt(fitcov[1][1]))
 
-    w[i] = unc.ufloat(fit[1], np.sqrt(fitcov[1][1]))
+    w[i] = unc.ufloat(fit[1], np.sqrt(fitcov[1][1]), "w")
+    # w[i] = unc.ufloat(fit[1], 0.1, "w")
     # w[i] = unc.ufloat(fit[1], 0)
     T[i] = 2 * np.pi / w[i]
     # T[i] = 2 * np.pi / unc.ufloat(np.round(fit[1], 3), 0.02)
     # w[i] = 2 * np.pi / T[i]
 
-    if i == 2:
+    if i == 1:
         # plot acceleration and fit. Flot first 6 seconds in left subplot and last 6 seconds in right subplot
         fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(8, 3))
-        ax1.scatter(df["t"], df["a"], label="Data", s=0.75, color="black")
-        ax1.plot(df["t"], sine(df["t"], *fit), label="Fit", color="red", linewidth=1)
+        ax1.scatter(df["t"], df["a"], label="Messdaten", s=0.75, color="black")
+        ax1.plot(df["t"][4*rate:], sine(df["t"][4*rate:], *fit), label="Fit", color="red", linewidth=1)
         ax1.set_xlabel("t (s)")
         ax1.set_ylabel(r"a (m/s$^2$)")
-        ax1.legend(borderaxespad=0.7, loc="upper left", markerscale=4)
-        ax1.set_xlim(0, 6)
-        ax2.scatter(df["t"], df["a"], label="Data", s=0.75, color="black")
+        ax1.legend(borderaxespad=0.7, markerscale=4)
+        ax1.set_xlim(3, 8)
+        ax2.scatter(df["t"], df["a"], label="Messdaten", s=0.75, color="black")
         ax2.plot(df["t"][0:-1], sine(df["t"][0:-1], *fit), label="Fit", color="red", linewidth=1)
         ax2.set_xlabel("t (s)")
-        ax2.legend(borderaxespad=0.7, loc="center left", markerscale=4)
-        # ax2.set_xlim(35.5, 41.5)
+        ax2.legend(borderaxespad=0.7, markerscale=4)
+        ax2.set_xlim(22.2, 27.2)
+        plt.ylim(-13, -7.8)
         fig.tight_layout()
-        # plt.savefig("Graphics/Versuch3_2.eps", format="eps", transparent=True)
+        # plt.savefig("Vorlage TeX/Graphics/Feder1.eps", format="eps", transparent=True)
         plt.show()
 
-for i in range(3):
-    print(f"T{i+1}: {T[i]:.2uS}")
-    print(f"w{i+1}: {w[i]:.1uS}")
+# for i in range(3):
+    # print(f"{w[i]:.1uS}", end=" & ")
+    # print(f"T{i+1}: {T[i]:.2uS}")
+    # print(f"w{i+1}: {w[i]:.1uS}")
 
 
 # %%
@@ -156,8 +158,11 @@ for i in range(3):
 print(f"T1: {T[0]:.1uS}")
 m2 = 1/unp.sqrt(m)
 k = w**2*m
+
 for i in range(3):
-    print(f"k{i+1} = {k[i]:.2uS} m2{i+1} = {m2[i]:.1uS}")
+    print(f"{m2[i]:.2uS}" , end=" & ")
+    # contributions(k[i])
+    # print(f"k{i+1} = {k[i]:.2uS} m2{i+1} = {m2[i]:.1uS}")
 # fit linear function to data
 popt, pcov = curve_fit(line, unp.nominal_values(m2), unp.nominal_values(w))
 popt2, pcov2 = curve_fit(affineline, unp.nominal_values(m2), unp.nominal_values(w))
@@ -165,31 +170,59 @@ ktemp = unc.ufloat(popt2[0], np.sqrt(pcov2[0][0]))
 kcalc = ktemp**2
 print(f"ktemp = {ktemp:.1uS}: kcalc = {kcalc:.1uS}")
 
-# fig = plt.figure(figsize=(4, 3))
-# plt.errorbar(unp.nominal_values(m2), unp.nominal_values(w), yerr=unp.std_devs(w), xerr=unp.std_devs(m2), fmt=".k", capsize=3, label="Data")
-# # fig.plot(unp.nominal_values(m2), line(unp.nominal_values(m2), *popt), label="Fit", color="red")
-# plt.plot(np.linspace(1.5, 2.3, 10), affineline(np.linspace(1.5, 2.3, 10), *popt2), label=r"Fit / $f(x) = 4.005(4)$  (kg$^{\frac{1}{2}}$/s)", color="red")
-# plt.gcf().set_size_inches(6, 3)
-# plt.xlabel(r"$\sqrt{1/m}$ (kg$^{-\frac{1}{2}}$)")
-# plt.ylabel(r"$\omega$ (s$^{-1}$)")
+fig = plt.figure(figsize=(4, 3))
+plt.errorbar(unp.nominal_values(m2), unp.nominal_values(w), yerr=unp.std_devs(w), xerr=unp.std_devs(m2), fmt=".k", capsize=3, label="Data")
+# fig.plot(unp.nominal_values(m2), line(unp.nominal_values(m2), *popt), label="Fit", color="red")
+plt.plot(np.linspace(1.5, 2.3, 10), affineline(np.linspace(1.5, 2.3, 10), *popt2), label=r"Fit", color="red")
+plt.text(1.9, 6.5, f"$f(x) = {ktemp:.1uS}$" + r" (kg$^{\frac{1}{2}}$/s)", color="red")
+plt.gcf().set_size_inches(6, 3)
+plt.xlabel(r"$\sqrt{1/m}$ (kg$^{-\frac{1}{2}}$)")
+plt.ylabel(r"$\omega$ (s$^{-1}$)")
+plt.legend(loc="best", borderaxespad=1)
+plt.xlim(1.52, 2.25)
+plt.tight_layout()
+# plt.savefig("Volage TeX/Graphics/k1.eps", format="eps", transparent=True)
+plt.show()
+
+# plt.errorbar([1, 2, 3], unp.nominal_values(k), yerr=unp.std_devs(k), fmt=".k", capsize=3, label="Data")
+# plt.hlines(kcalc.n, 1, 3, label=r"Fit / $f(x) = 4.005(4)$  (kg$^{\frac{1}{2}}$/s) * x", color="red")
+# # plot uncertainty band
+# plt.fill_between([1, 3], kcalc.n - kcalc.s, kcalc.n + kcalc.s, color="red", alpha=0.2)
+# plt.ylabel(r"$k$ [N/m]")
+# plt.xlabel(r"Anzahl")
 # plt.legend(loc="best", borderaxespad=1)
-# plt.xlim(1.52, 2.25)
+# plt.xticks([1, 2, 3])
+# plt.tick_params(axis='x', which='minor', bottom=False, top=False)
 # plt.tight_layout()
-# # plt.savefig("Graphics/Versuch3_3.eps", format="eps", transparent=True)
+# # plt.savefig("Graphics/Versuch3_4.eps", format="eps", transparent=True)
 # plt.show()
 
-plt.errorbar([1, 2, 3], unp.nominal_values(k), yerr=unp.std_devs(k), fmt=".k", capsize=3, label="Data")
-plt.hlines(kcalc.n, 1, 3, label=r"Fit / $f(x) = 4.005(4)$  (kg$^{\frac{1}{2}}$/s) * x", color="red")
-# plot uncertainty band
-plt.fill_between([1, 3], kcalc.n - kcalc.s, kcalc.n + kcalc.s, color="red", alpha=0.2)
-plt.ylabel(r"$k$ [N/m]")
-plt.xlabel(r"Anzahl")
+# %%
+from scipy.stats import norm, t
+# plot k as normalized t distribution
+kstudent = unc.ufloat(kcalc.n, kcalc.n-t.interval(0.68, 2, loc=kcalc.n, scale=kcalc.s)[0])
+print(f"k = {kcalc:.2uS}, kstudent = {kstudent:.2uS}")
+x = np.linspace(10, 20, 1000)
+plt.figure(figsize=(8, 3))
+for i in range(2):
+    # plt.plot(x, t.pdf(x, 2*i+1, loc=kcalc.n, scale=kcalc.s), label=f"t-Verteilung mit {2*i+1} Freiheitsgraden")
+    plt.plot(x, norm.pdf(x, k[i].n, k[i].s), color="black")
+plt.plot(x, norm.pdf(x, k[2].n, k[2].s), color="black", label="Data")
+plt.plot(x, norm.pdf(x, kcalc.n, kcalc.s), label="Fit", color="red")
+plt.plot(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s))
+plt.fill_between(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s), color="red", alpha=0.2, where=(x > kcalc.n - kstudent.s) & (x < kcalc.n + kstudent.s), label=r"$t1\sigma$ Band", zorder=0)
+plt.fill_between(x, norm.pdf(x, kcalc.n, kcalc.s), color="red", alpha=0.2, where=(x > kcalc.n - kcalc.s) & (x < kcalc.n + kcalc.s), label=r"$1\sigma$ Band", zorder=0)
+plt.vlines(kcalc.n, 0, norm.pdf(kcalc.n, kcalc.n, kcalc.s), color="red", linestyles="dashed")
+plt.text(kcalc.n-0.2, norm.pdf(kcalc.n, kcalc.n, kcalc.s)+0.2, f"$k = {kcalc:1uS}$ N/m", color="red")
+plt.xlabel(r"$k$ [N/m]")
+plt.ylabel(r"Wahrscheinlichkeitsdichte")
 plt.legend(loc="best", borderaxespad=1)
-plt.xticks([1, 2, 3])
-plt.tick_params(axis='x', which='minor', bottom=False, top=False)
+plt.ylim(0, 2.95)
+plt.xlim(12.9, 14.9)
 plt.tight_layout()
-# plt.savefig("Graphics/Versuch3_4.eps", format="eps", transparent=True)
+# plt.savefig("Graphics/Versuch3_5.eps", format="eps", transparent=True)
 plt.show()
+
 
 # %%
 # ========= 2 =========
@@ -212,6 +245,7 @@ for i in range(1, 3):
     fit, fitcov = sine_fit(df["t"], df["a"], p0=[3*rate, 3*rate+200], min=rate)
 
     w = unc.ufloat(fit[1], np.sqrt(fitcov[1][1]))
+    # w = unc.ufloat(fit[1], 0.01)
     T = 2 * np.pi / w
     kparallel[i] = w**2*mass
     print(f"w = {w:.1uS}: T = {T:.1uS}: k = {kparallel[i]:.1uS}")

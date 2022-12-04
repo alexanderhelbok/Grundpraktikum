@@ -20,7 +20,7 @@
 \RequirePackage{listings} %env ignores LATEX commands, keeping all the line breaks (for printing code)
 \RequirePackage{hyperref}
 \RequirePackage{bookmark, makecell}
-\usepackage[font=footnotesize, bf, format=plain]{caption} 
+\RequirePackage[font=footnotesize, bf, format=plain]{caption} 
 \RequirePackage{custom}
 \RequirePackage{tikz, pgfplots, circuitikz}
 \usetikzlibrary{arrows.meta,positioning, calc, shapes, math, decorations.pathreplacing, decorations.markings}
@@ -43,7 +43,7 @@
 
 \setmainfont{Times New Roman}
 
-\sisetup{per-mode = symbol, sticky-per}%
+\sisetup{per-mode = symbol, sticky-per, locale = DE}%
 \DeclareSIUnit[]\v{\m\per\s}
 \DeclareSIUnit[]\a{\m\per\square\s}
 \DeclareSIUnit[]\ko{\kilo\ohm}

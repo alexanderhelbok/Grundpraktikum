@@ -1,24 +1,26 @@
 \author{Alexander Helbok}
 \date{\today}
 \ProvidesClass{alex_bericht}[2022/10/12 Alexander Report Class]
-\LoadClass[12pt,a4paper]{scrreprt}
+\LoadClass[11pt,a4paper]{scrreprt}
 \RequirePackage{fullpage, lastpage}
-\RequirePackage[doublespacing]{setspace} 
-\RequirePackage[top=2cm, bottom=4.5cm, left=2.25cm, right=2.25cm]{geometry}
+\RequirePackage[onehalfspacing]{setspace} 
+\RequirePackage[margin=2.5cm]{geometry}
 %\RequirePackage[utf8]{inputenc} % uncomment if xelatex is not used
 \RequirePackage[T1]{fontenc}
 \RequirePackage{fontspec}
-\RequirePackage[backend=biber, style=phys]{biblatex}
+\setmainfont[Mapping=tex-text]{Times New Roman}
+\RequirePackage[backend=biber, abbreviate=true,doi=false,style=numeric-comp,giveninits=true,sorting=none]{biblatex}
 \RequirePackage[ngerman]{babel}
-\RequirePackage{xifthen}
+\RequirePackage{xifthen, xstring, csquotes}
 \RequirePackage[dvipsnames]{xcolor}
 \RequirePackage{mtpro2, lipsum}
 \pdfmapfile{=mtpro2.map}
 \RequirePackage{mathtools, amsthm, amsfonts, siunitx, physics, chemformula, empheq}
-\RequirePackage{enumitem, multicol, tcolorbox, array}
+\RequirePackage{enumitem, multicol, tcolorbox, array, booktabs, vwcol}
 \tcbuselibrary{breakable,skins}
 \RequirePackage[headsepline]{scrlayer-scrpage}
-\RequirePackage{graphicx}
+\RequirePackage{graphicx, wrapfig, float}
+\RequirePackage[font=footnotesize, bf, format=plain, font=normalsize]{caption} 
 \RequirePackage{listings} %env ignores LATEX commands, keeping all the line breaks (for printing code)
 \RequirePackage[
 	pdftitle={Bericht 1},
@@ -28,7 +30,7 @@
 	%Links nicht einrahmen
 	hidelinks
 ]{hyperref}
-\RequirePackage{bookmark}
+\RequirePackage{bookmark, makecell}
 \RequirePackage{custom}
 \RequirePackage{tikz, pgfplots}
 \usetikzlibrary{arrows.meta,positioning, calc, shapes, math, decorations.pathreplacing, decorations.markings}
@@ -45,15 +47,17 @@
 	}
 }
 
-\RedeclareSectionCommand[beforeskip = 0pt,afterindent=false, afterskip=0pt]{chapter}
-\renewcommand*{\chapterpagestyle}{headings}
+\RedeclareSectionCommand[
+beforeskip=-3sp,
+afterskip=1\baselineskip]{chapter}
+\RedeclareSectionCommand[
+beforeskip=-\baselineskip,
+afterskip=.5\baselineskip]{section}
 
 %\tikzexternalize[prefix=figures/]
 
 \graphicspath{ {./Graphics/} }
 \addbibresource{Literatur.bib}
-
-\setmainfont{Times New Roman}
 
 \sisetup{per-mode = symbol, sticky-per}%
 \DeclareSIUnit[]\v{\m\per\s}
@@ -100,19 +104,21 @@
 % redefine cmd to add spacing in math mode
 \let\oldtfrac\tfrac
 \renewcommand{\tfrac}[2]{\hspace{1pt}\oldtfrac{#1}{#2}\hspace{1pt}}
-\let\oldsi\si
-\renewcommand{\si}[1]{\hspace{4pt}\oldsi{#1}}
 \let\oldunit\unit
 \renewcommand{\unit}[1]{\hspace{4pt}\oldunit{#1}}
 
-%\hypersetup{%
-%	colorlinks=true,
-%	linkcolor=blue,
-%	linkbordercolor={0 0 1}
-%}
+\hypersetup{%
+	colorlinks=true,
+	breaklinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
+	citecolor=blue,
+	linkbordercolor={0 0 1}
+}
+
 
 %\setlength{\parindent}{0.0in}
-\setlength{\parskip}{0.5in}
+%\setlength{\parskip}{0.5in}
 
 % define customizeable variables
 %\newcommand*{\name}[1]{\def\@name{#1}}
@@ -124,7 +130,7 @@
 %\ihead{\@name}
 \chead{}
 \ohead{\pagemark}
-\headheight 35pt
+\headheight 0pt
 \headsep 2.5em
 \footheight 45pt
  

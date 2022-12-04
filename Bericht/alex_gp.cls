@@ -1,9 +1,9 @@
 \author{Alexander Helbok}
 \date{\today}
 \ProvidesClass{alex_gp}[2022/10/12 Alexander Report Class]
-\LoadClass[12pt,a4paper]{scrreprt}
+\LoadClass[11pt,a4paper]{scrreprt}
 \RequirePackage{fullpage, lastpage}
-\RequirePackage[top=2cm, bottom=4.5cm, left=2.25cm, right=2.25cm]{geometry}
+\RequirePackage[margin=2.5cm]{geometry}
 %\RequirePackage[utf8]{inputenc} % uncomment if xelatex is not used
 \RequirePackage[T1]{fontenc}
 \RequirePackage{fontspec}
@@ -49,7 +49,7 @@
 
 \setmainfont{Times New Roman}
 
-\sisetup{per-mode = symbol, sticky-per}%
+\sisetup{per-mode = symbol, sticky-per, locale = DE}%
 \DeclareSIUnit[]\v{\m\per\s}
 \DeclareSIUnit[]\a{\m\per\square\s}
 
@@ -101,7 +101,10 @@
 
 \hypersetup{%
 	colorlinks=true,
+	breaklinks=true,
 	linkcolor=blue,
+	urlcolor=blue,
+	citecolor=blue,
 	linkbordercolor={0 0 1}
 }
 

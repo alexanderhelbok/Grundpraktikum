@@ -94,7 +94,7 @@ for i in range(3):
         plt.show()
     # print(f"a: {a:.1uS} F: {F:.1uS}")
     # print(f"m{i+1}: {m[i]:.1uS}")
-    # print(f"{m[i]:.1uS} & ", end="")
+    print(f"{m[i]:.1uS} & ", end="")
 print("\n")
 
 # %%
@@ -118,7 +118,7 @@ for i in range(3):
     fit, fitcov = sine_fit(df["t"], df["a"], p0=[5*rate, 6*rate], min=4*rate)
     # print(fit[1], np.sqrt(fitcov[1][1]))
 
-    w[i] = unc.ufloat(fit[1], np.sqrt(fitcov[1][1]), "w")
+    w[i] = unc.ufloat(fit[1], 2*np.sqrt(fitcov[1][1]), "w")
     # w[i] = unc.ufloat(fit[1], 0.1, "w")
     # w[i] = unc.ufloat(fit[1], 0)
     T[i] = 2 * np.pi / w[i]
@@ -145,7 +145,7 @@ for i in range(3):
         plt.show()
 
 for i in range(3):
-    print(f"{w[i]:.1uS}", end=" & ")
+    print(f"{w[i]:.2uS}", end=" & ")
     # print(f"T{i+1}: {T[i]:.2uS}")
     # print(f"w{i+1}: {w[i]:.1uS}")
 
@@ -159,10 +159,13 @@ for i in range(3):
 m2 = 1/unp.sqrt(m)
 k = w**2*m
 
-# for i in range(3):
+for i in range(3):
+    contributions(k[i])
+    print(f"{k[i]:.1uS}", end=" & ")
+    # print(f"k{i+1}: {k[i]:.1uS}")
 #     print(f"{m2[i]:.2uS}" , end=" & ")
-    # contributions(k[i])
-    # print(f"k{i+1} = {k[i]:.2uS} m2{i+1} = {m2[i]:.1uS}")
+#     contributions(k[i])
+#     print(f"k{i+1} = {k[i]:.2uS} m2{i+1} = {m2[i]:.1uS}")
 # fit linear function to data
 popt, pcov = curve_fit(line, unp.nominal_values(m2), unp.nominal_values(w))
 popt2, pcov2 = curve_fit(affineline, unp.nominal_values(m2), unp.nominal_values(w))
@@ -184,8 +187,11 @@ plt.tight_layout()
 # plt.savefig("Vorlage TeX/Graphics/k1.eps", format="eps", transparent=True)
 plt.show()
 
-chi = chisq(unp.nominal_values(w), line(ktemp.n, unp.nominal_values(m2), 0), error=unp.std_devs(w), dof=2)
-print(chi)
+chi = chisq(unp.nominal_values(w), affineline(ktemp.n, unp.nominal_values(m2)), error=unp.std_devs(w), dof=2)
+chi2 = chisq(unp.nominal_values(w), line(popt[0], unp.nominal_values(m2), popt[1]), error=unp.std_devs(w))
+print(chi, chi2)
+
+# chi_contour([[2, chi],[1, chi2]])
 
 # plt.errorbar([1, 2, 3], unp.nominal_values(k), yerr=unp.std_devs(k), fmt=".k", capsize=3, label="Data")
 # plt.hlines(kcalc.n, 1, 3, label=r"Fit / $f(x) = 4.005(4)$  (kg$^{\frac{1}{2}}$/s) * x", color="red")
@@ -210,20 +216,21 @@ plt.figure(figsize=(8, 3))
 for i in range(2):
     # plt.plot(x, t.pdf(x, 2*i+1, loc=kcalc.n, scale=kcalc.s), label=f"t-Verteilung mit {2*i+1} Freiheitsgraden")
     plt.plot(x, norm.pdf(x, k[i].n, k[i].s), color="black")
-plt.plot(x, norm.pdf(x, k[2].n, k[2].s), color="black", label="Data")
-plt.plot(x, norm.pdf(x, kcalc.n, kcalc.s), label="Fit", color="red")
-plt.plot(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s))
-plt.fill_between(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s), color="red", alpha=0.2, where=(x > kcalc.n - kstudent.s) & (x < kcalc.n + kstudent.s), label=r"$t1\sigma$ Band", zorder=0)
-plt.fill_between(x, norm.pdf(x, kcalc.n, kcalc.s), color="red", alpha=0.2, where=(x > kcalc.n - kcalc.s) & (x < kcalc.n + kcalc.s), label=r"$1\sigma$ Band", zorder=0)
+plt.plot(x, norm.pdf(x, k[2].n, k[2].s), color="black", label="Messdaten")
+plt.plot(x, norm.pdf(x, kcalc.n, kcalc.s), label="Gauss-Mittelwert", color="red")
+plt.plot(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s), label="t-Verteilung mit 2 Freiheitsgraden")
+plt.fill_between(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s), color=mycolor1, alpha=0.2, where=(x > kcalc.n - kstudent.s) & (x < kcalc.n + kstudent.s), label=r"$t1\sigma$ Band", zorder=0)
+plt.fill_between(x, norm.pdf(x, kcalc.n, kcalc.s), color=mycolor1, alpha=0.2, where=(x > kcalc.n - kcalc.s) & (x < kcalc.n + kcalc.s), label=r"$1\sigma$ Band", zorder=0)
+plt.fill_between(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s), color=mycolor2, alpha=0.2, where=(x > kcalc.n - kcalc.s) & (x < kcalc.n + kcalc.s), zorder=0)
 plt.vlines(kcalc.n, 0, norm.pdf(kcalc.n, kcalc.n, kcalc.s), color="red", linestyles="dashed")
 plt.text(kcalc.n-0.2, norm.pdf(kcalc.n, kcalc.n, kcalc.s)+0.2, f"$k = {kcalc:1uS}$ N/m", color="red")
 plt.xlabel(r"$k$ [N/m]")
 plt.ylabel(r"Wahrscheinlichkeitsdichte")
 plt.legend(loc="best", borderaxespad=1)
 plt.ylim(0, 2.95)
-plt.xlim(12.9, 14.9)
+plt.xlim(12.4, 15.5)
 plt.tight_layout()
-# plt.savefig("Graphics/Versuch3_5.eps", format="eps", transparent=True)
+# plt.savefig("Vorlage TeX/Graphics/kFit.eps", format="eps", transparent=True)
 plt.show()
 
 
@@ -243,15 +250,18 @@ for i in range(1, 3):
     df["aerr"] = 0.001
     df["Ferr"] = 0.0025
     rate = get_polling_rate(df)
+    df = df[:10 * rate]
 
     # fit sine function to data
     fit, fitcov = sine_fit(df["t"], df["a"], p0=[3*rate, 3*rate+200], min=rate)
 
-    w = unc.ufloat(fit[1], np.sqrt(fitcov[1][1]))
+    w = unc.ufloat(fit[1], 2*np.sqrt(fitcov[1][1]), "w")
     # w = unc.ufloat(fit[1], 0.01)
     T = 2 * np.pi / w
     kparallel[i] = w**2*mass
+    contributions(kparallel[i])
     print(f"w = {w:.1uS}: T = {T:.1uS}: k = {kparallel[i]:.1uS}")
+    print(w**2*mass/(i+1))
     if i == 2:
         plt.scatter(df["t"], df["a"], label="Data", s=1)
         plt.plot(df["t"], sine(df["t"], *fit), label="Fit", color="red")
@@ -263,7 +273,7 @@ for i in range(1, 3):
 
 for i in range(3):
     ktemp2[i] = kparallel[i] / (i+1)
-    print(f"ktemp{i+1} = {ktemp2[i]:.1uS}")
+    print(f"ktemp{i+1} = {ktemp2[i]:.1uS}, kparallel{i+1} = {kparallel[i]:.1uS}")
 
 # fit line to k
 popt, pcov = curve_fit(affineline, [1, 2, 3], unp.nominal_values(kparallel), sigma=unp.std_devs(kparallel), absolute_sigma=True)
@@ -285,12 +295,12 @@ ax2.errorbar([1, 2, 3], unp.nominal_values(ktemp2), yerr=unp.std_devs(ktemp2), f
 ax2.hlines(unc.nominal_value(k[2]), 0, 4, label="Model", color="red")
 # ax2.text(2.2, 15.8, r"$f(x) = 16.10(8)$  (N/m)", color="red")
 # ax2.fill_between([0, 4], popt[0] - np.sqrt(pcov[0][0]), popt[0] + np.sqrt(pcov[0][0]), color="#F5B7B1", alpha=0.2, label=r"$1\sigma$-Band")
-ax2.fill_between([0, 4], unc.nominal_value(k[2]) - unc.std_dev(k[0]), unc.nominal_value(k[2]) + unc.std_dev(k[0]), color="#F5B7B1", alpha=0.2, label=r"$1\sigma$-Band")
+ax2.fill_between([0, 4], unc.nominal_value(k[2]) - unc.std_dev(k[2]), unc.nominal_value(k[2]) + unc.std_dev(k[2]), color="#F5B7B1", alpha=0.2, label=r"$1\sigma$-Band")
 ax2.set_ylabel(r"$k/n$ [N/m]")
 ax2.set_xlabel(r"Anzahl $n$")
 ax2.legend(loc="lower left", borderaxespad=1)
 ax2.tick_params(axis='x', which='minor', bottom=False, top=False)
-ax2.set_ylim(13.5, 14.3)
+ax2.set_ylim(13.2, 14.8)
 plt.tight_layout()
 # plt.savefig("Graphics/Versuch3_4.eps", format="eps", transparent=True)
 plt.show()

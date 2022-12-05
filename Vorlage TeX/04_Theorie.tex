@@ -11,10 +11,9 @@ Um die Masse des Pendelkörpers zu bestimmen, wird Newtons 2. Axiom herangezogen
 \begin{equation}\label{eqn:newt}
 	\vec{F} = m\vec{a}
 \end{equation}
-also, dass die auf einen Körper wirkende Kraft linear mit seiner Beschleunigung skaliert, wobei seine Masse \( m \) gerade der Proportionalitätsfaktor ist. In anderen Worten ausgedrückt ist das Verhältnis zwischen Kraft \( F \) und Beschleunigung \( a \) der Skalierungsfaktor, die Masse \( m \). 
+also, dass die auf einen Körper wirkende Kraft linear mit seiner Beschleunigung skaliert, wobei seine Masse \( m \) gerade der Proportionalitätskonstante ist. In anderen Worten ausgedrückt ist das Verhältnis zwischen Kraft \( F \) und Beschleunigung \( a \) der Skalierungsfaktor, die Masse \( m \). 
 
-Diese Tatsache wird herangezogen, um die Schwingmasse zu eruieren. Wie in \autoref{sec:aufbau} bereits beschrieben, wird das IOLab am Kraftsensor hochgezogen, sodass die einzige wirkenden Kraft die Gravitationskraft \( F_{\text{G}} = mg \) ist. Diese 
-
+Diese Tatsache wird herangezogen, um die Schwingmasse zu ermitteln. Kennt man beziehungsweise misst man nämlich alle wirkenden Kräfte und Beschleunigungen, ist die Masse der Quotient der beiden Größen. 
 
 \section{Einfacher harmonischer Oszillator}
 Der einfache harmonische Oszillator ist die Lösung einer Differentialgleichung zweiter Ordnung der Form
@@ -22,7 +21,9 @@ Der einfache harmonische Oszillator ist die Lösung einer Differentialgleichung 
 \begin{equation}\label{eqn:harmonic}
 	m\dv[2]{x}{t} = -kx
 \end{equation}
-wobei \( m \) die Masse des Oszillators und \( k \) vorerst eine bedeutungslose Konstante ist. **rückstellende Kraft**
+wobei \( m \) die Masse des Oszillators ist und \( k \) eine Konstante ist und von der Natur der Schwingung stammt. In unserem Fall wird die Oszillation von einer Feder verursacht, welche durch das Hookesche Gesetz beschrieben wird. Dieses besagt, dass die Kraft, welche eine Feder ausübt, proportional zur Auslenkung aus der Ruhelage ist und um einen Faktor \( k \) skaliert wird, der von den Materialeigenschaften der Feder abhängt. Es gilt also \( F_{\text{H}} = -k\Delta x\), wobei \( \Delta x \) der Abstand zur Ruhelage ist.
+Stellt man die Bewegungsgleichungen für ein Federpendel auf und wählt das Koordinatensystem so, dass der Ursprung in der Ruhelage des Federpendels (im Schwerefeld der Erde!) liegt, erhält man \autoref{eqn:harmonic}. Die Größe \( k \) aus der Differentialgleichung ist also die Federkonstante aus dem Hookeschen Gesetz mit der Einheit \( \unit{N/m} \).
+
 Die allgemeine Lösung dieses Differentialgleichung ist eine trigonometrische Funktion und lautet 
 
 \begin{equation}\label{eqn:sol}
@@ -33,11 +34,11 @@ mit der Kreisfrequenz \( \omega \), der Amplitude \( A \) und einem Phasenfaktor
 \begin{equation}\label{eqn:omega}
 	\omega = \sqrt{\tfrac{k}{m}} = \sqrt{k}\sqrt{\tfrac{1}{m}} = \sqrt{k}\tilde{m}
 \end{equation}
-und ist unabhängig von jeglichen Startpositionen und geschwindigkeiten, weshalb sie als eine charakteristische Eigenschaft des Systems angesehen wird. Offensichtlich besteht ein linearer Zusammenhang zwischen der Winkelfrequenz \( \omega \) und der Wurzel des Kehrwerts der Masse \( \tilde{m} := \sqrt{1/m} \) (wurde aus Bequemlichkeitsgründen mit \( \tilde{m} \) abgekürzt), wobei die Wurzel der Konstante \( k \) aus \autoref{eqn:harmonic} der Skalierungsfaktor ist. 
+und ist unabhängig von jeglichen Startpositionen und geschwindigkeiten, weshalb sie als eine charakteristische Eigenschaft des Systems angesehen wird. Offensichtlich besteht ein linearer Zusammenhang zwischen der Winkelfrequenz \( \omega \) und der Wurzel des Kehrwerts der Masse \( \tilde{m} := \sqrt{1/m} \) (wird aus Bequemlichkeitsgründen mit \( \tilde{m} \) abgekürzt), wobei die Wurzel der Konstante \( k \) der Skalierungsfaktor ist. 
 
-Der Konstante \( k \) können wir erst einen Sinn geben, wenn wir die rückstellende Kraft kennen. In einem Federpendel ist das die Rückstellkraft der Feder, welche durch das Hookesche Gesetz beschrieben wird. Dieses besagt, dass die Kraft, welche eine Feder ausübt, proportional zur Auslenkung aus der Ruhelage ist und um einen Faktor \( k \) skaliert wird, der von den Materialeigenschaften der Feder abhängt. 
+%Der Konstante \( k \) können wir erst einen Sinn geben, wenn wir die rückstellende Kraft kennen. In einem Federpendel ist das die Rückstellkraft der Feder, welche durch das Hookesche Gesetz beschrieben wird. Dieses besagt, dass die Kraft, welche eine Feder ausübt, proportional zur Auslenkung aus der Ruhelage ist und um einen Faktor \( k \) skaliert wird, der von den Materialeigenschaften der Feder abhängt. 
 
-Wir haben also eine Größe in der Rückstellkraft gefunden, die eine intrinsische Eigenschaft des Systems darstellt (und nicht durch Startwerte beeinflusst wird!). Durch Aufstellen der Bewegungsgleichgungen eines Federpendels stellt man fest, dass die Konstante \( k \) aus \autoref{eqn:harmonic} gerade die Federkonstante aus dem Hookeschen Gesetz ist.  
+%Wir haben also eine Größe in der Rückstellkraft gefunden, die eine intrinsische Eigenschaft des Systems darstellt (und nicht durch Startwerte beeinflusst wird!). Durch Aufstellen der Bewegungsgleichgungen eines Federpendels stellt man fest, dass die Konstante \( k \) aus \autoref{eqn:harmonic} gerade die Federkonstante aus dem Hookeschen Gesetz ist.  
 
 
 Aus der Winkelfrequenz lassen sich auch weitere Größen ableiten, wie zum Beispiel die Schwingungsdauer \( T \), die durch
@@ -51,7 +52,7 @@ gegeben ist.
 
 Hier werden kurz die Methoden erwähnt, welche für die statistische Aufbereitung der Daten essentiell sind.
 
-Das Arithmetische Mittel, oder auch Mittelwert oder Durchschnitt, ist das wohl meist verwendete Werkzeug der Statistik. Es lässt sich sowohl  für „exakte“, als auch für fehlerbehaftete Daten definieren. Im ersten Fall spricht man von einem ungewichteten Mittelwert und man schreibt 
+Das Arithmetische Mittel, auch Mittelwert oder Durchschnitt genannt, ist das wohl meist verwendete Werkzeug der Statistik. Es lässt sich sowohl  für „exakte“, als auch für fehlerbehaftete Daten definieren. Im ersten Fall spricht man von einem ungewichteten Mittelwert und man schreibt 
 \begin{equation}\label{eqn:mean1}
 	\bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i
 \end{equation}
@@ -61,7 +62,7 @@ Sind die Daten Fehlerbehaftet (mit Fehler \( \alpha_i \)) muss man diesen Berüc
 \begin{equation}\label{eqn:mean2}
 	\bar{x} = \left(\sum_{i=1}^{N} \frac{1}{\alpha_i^2}\right)^{-1} \sum_{i=1}^{N} \frac{x_i}{\alpha_i^2}
 \end{equation}
-Haben alle Daten aber den selben Fehler, kürzt sich dieser weg und man landet wieder bei \autoref{eqn:mean1}. Aus diesem Grund wird in diesem Versuch großteils der ungewichtete Mittelwert angewandt, obwohl alle Daten fehlerbehaftet sind. \cite[S. 50]{error}
+Haben alle Daten aber den selben Fehler, kürzt sich dieser weg und man landet wieder bei \autoref{eqn:mean1}. \cite[S. 50]{error} Aus diesem Grund wird in diesem Versuch großteils der ungewichtete Mittelwert angewandt, obwohl alle Daten fehlerbehaftet sind. 
 
 Die Standardabweichung ist ein direktes Maß für die Verteilung der Daten und gibt an, wie weit die Daten im Mittel vom Durchschnitt abweichen. Sie berechnet sich wie folgt
 \begin{equation}\label{eqn:sigma}

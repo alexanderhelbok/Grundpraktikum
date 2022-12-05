@@ -86,10 +86,54 @@ Das Modell des harmonischen Oszillators (Siehe \autoref{eqn:omega}) stellt einen
 
 Für den Fit erhält man ein Chi-Quadrat Wert von \( \chi^2 = 4.22 \), woraus sich für das reduzierte Chi-Quadrat \( \chi_{\nu}^2 = 2.11 \) ergibt. Dieser Wert weicht zwar vom Erwartungswert ab, aber nicht signifikant. Es könnte aber darauf hindeuten, dass die Fehler zu klein abgeschätzt wurden, beziehungsweise Fehlerquellen nicht berücksichtigt wurden. 
 
+Quadriert man nun den erhaltenen Fitparameter \( \sqrt{k} = 3.74(2) \unit{\sqrt{kg / s^2}} \) erhält man die Federkonstante \( k = 14.00(17) \unit{N/m} \). Wie in \autoref{sec:theorie} diskutiert ist die Federkonstante eine intrinsische Größe der Feder und hängt daher nicht von der angehängten Masse ab. Mittels \autoref{eqn:omega} kann man \( k \) für die drei Messungen mit unterschiedlichen Massen berechnen und man erwartet, dass sich die gleiche Konstante ergibt, was im Rahmen der Unsicherheit auch der Fall ist (Werte \autoref{table:2} entnehmen). 
 
+In \autoref{fig:kFit} wurden in schwarz die Federkonstanten der drei Massen als normalisierte Gaußkurven aufgetragen. In rot ist die Federkonstante dargestellt, welche aus der Anpassung der linearen Funktion hervorgegangen ist.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{kFit.eps}
-	\caption[Zusammenhang zwischen \( \omega \) und \( \tilde{m} \)]{Winkelfrequenz für drei unterschiedliche Massen. In rot wurde eine lineare Funktion durch den Ursprung angepasst. Die Fehlerbalken stellen den $1\sigma$ Fehler dar; die Unsicherheit in \( \omega \) ist so gering, dass sie kaum sichtbar ist.}
+	\includegraphics[width=\textwidth]{kFit.pdf}
+	\caption[Vergleich der Federkonstanten als normalisierte Gaußkurven]{Die berechneten Federkonstanten der drei Massen wurden als normalisierte Gaußkurven in schwarz auf die Federkonstante aufgetragen. In Rot wurde das Quadrat der Steigung aus dem linearen Fit eingezeichnet. Das \( 1\sigma \) Intervall des Mittelwerts wurde farblich hinterlegt.}
 	\label{fig:kFit}
 \end{figure}
+
+Der Fitparameter aus \autoref{fig:k1} in rot (kann man sich als Art Mittelwert der drei schwarzen Kurven vorstellen) passt gut zu den Daten, da alle Daten auf jeden Fall innerhalb des \( 3\sigma \) Intervalls liegen. Er schließt die Messungen nicht aus und bestätigt soweit die Annahme, dass es sich beim Federpendel um einen harmonischen Oszillator handelt. 
+
+
+\section{Federpendel 2}
+
+Im folgenden Versuch wurde die Masse \( m_3 = 0.400(7) \unit{kg} \) an zwei Federn gehängt. Die Schwingungsdaten wurden analog wie mit einer Feder analysiert, sprich es wurde eine Sinuskurve an die Beschleunigungsdaten angepasst, aus welcher sich die Kreisfrequenz \( \omega \) samt Fehler ablesen lässt. Mittels \autoref{eqn:omega} wurde anschließend die Gesamtfederkonstante des Systems ausgerechnet.
+In \autoref{table:3} sind die Daten dargestellt.
+
+\begin{center}
+	\captionof{table}[Messdaten zur Oszillazion bei 2 Federn]{Gemessene Schwingungsdauer, Winkelfrequenz, Federkonstante und normierte Federkonstante bei einer und zwei Federn}
+	\begin{tabular}{@{\extracolsep{5mm}} 
+			r
+			S[table-format=1.3(1)]
+			S[table-format=1.2(1)]
+			S[table-format=2.1(1)]
+			S[table-format=2.1(1)]
+		}
+		\toprule
+		\makecell[t]{}
+		&   {\makecell[t]{\( T \unit{(s)} \)}}
+		&   {\makecell[t]{\( \omega \unit{(1/s)} \)}}
+		&   {\makecell[t]{\( k \unit{(N/m)}\)}}
+		&   {\makecell[t]{\( k/n \unit{(N/m)}\)}}\\
+		\midrule
+		
+		1 Feder & 1.063(10) & 5.91(11) & 14.0(6) & 14.0(6) \\
+		2 Feder & 0.758(2) & 8.29(2) & 27.5(5) & 13.8(3) \\
+%		3 Feder & 0.6193(10) & 10.15(2) & 41.2(8) & 13.7(3) \\
+		\bottomrule
+	\end{tabular}
+	\label{table:3}
+\end{center}
+
+Wenn man die Federkonstanten der beiden Systeme vergleicht, fällt auf, dass die Konstante \( k_2 \) von zwei Federn im Rahmen der Unsicherheit doppelt so groß ist wie die einer Feder. Teilt man die Federkonstante durch die Anzahl der Federn \( k/n \) erhält man für beide Systeme den gleichen Wert (innerhalb der statistischen Abweichungen). Man könnte daher annehmen, dass die Gesamtfederkonstante eines Systems linear mit der Anzahl skaliert und sich daher ergibt
+
+\begin{equation}\label{eqn:paral2}
+	k_{\text{ges}} = \sum_{i} k_i
+\end{equation}
+
+
+

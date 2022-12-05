@@ -149,7 +149,6 @@ for i in range(3):
     # print(f"T{i+1}: {T[i]:.2uS}")
     # print(f"w{i+1}: {w[i]:.1uS}")
 
-
 # %%
 # plot m2 and w
 # m[0] = unc.ufloat(0.240, 0.0001)
@@ -171,7 +170,7 @@ popt, pcov = curve_fit(line, unp.nominal_values(m2), unp.nominal_values(w))
 popt2, pcov2 = curve_fit(affineline, unp.nominal_values(m2), unp.nominal_values(w))
 ktemp = unc.ufloat(popt2[0], np.sqrt(pcov2[0][0]))
 kcalc = ktemp**2
-# print(f"ktemp = {ktemp:.1uS}: kcalc = {kcalc:.1uS}")
+print(f"ktemp = {ktemp:.1uS}: kcalc = {kcalc:.2uS}")
 
 fig = plt.figure(figsize=(4, 3))
 plt.errorbar(unp.nominal_values(m2), unp.nominal_values(w), yerr=unp.std_devs(w), xerr=unp.std_devs(m2), fmt=".k", capsize=3, label="Messdaten")
@@ -217,20 +216,21 @@ for i in range(2):
     # plt.plot(x, t.pdf(x, 2*i+1, loc=kcalc.n, scale=kcalc.s), label=f"t-Verteilung mit {2*i+1} Freiheitsgraden")
     plt.plot(x, norm.pdf(x, k[i].n, k[i].s), color="black")
 plt.plot(x, norm.pdf(x, k[2].n, k[2].s), color="black", label="Messdaten")
-plt.plot(x, norm.pdf(x, kcalc.n, kcalc.s), label="Gauss-Mittelwert", color="red")
-plt.plot(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s), label="t-Verteilung mit 2 Freiheitsgraden")
-plt.fill_between(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s), color=mycolor1, alpha=0.2, where=(x > kcalc.n - kstudent.s) & (x < kcalc.n + kstudent.s), label=r"$t1\sigma$ Band", zorder=0)
-plt.fill_between(x, norm.pdf(x, kcalc.n, kcalc.s), color=mycolor1, alpha=0.2, where=(x > kcalc.n - kcalc.s) & (x < kcalc.n + kcalc.s), label=r"$1\sigma$ Band", zorder=0)
-plt.fill_between(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s), color=mycolor2, alpha=0.2, where=(x > kcalc.n - kcalc.s) & (x < kcalc.n + kcalc.s), zorder=0)
+plt.plot(x, norm.pdf(x, kcalc.n, kcalc.s), label="Fitwert", color="red")
+# plt.plot(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s), label="t-Mittelwert")
+# plt.fill_between(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s), alpha=0.4, where=(x > kcalc.n - kstudent.s) & (x < kcalc.n + kstudent.s), label=r"t-$1\sigma$ Band", zorder=0)
+plt.fill_between(x, norm.pdf(x, kcalc.n, kcalc.s), color="red", alpha=0.2, where=(x > kcalc.n - kcalc.s) & (x < kcalc.n + kcalc.s), label=r"$1\sigma$ Band", zorder=0)
+# plt.fill_between(x, t.pdf(x, 2, loc=kcalc.n, scale=kcalc.s), alpha=0.2, where=(x > kcalc.n - kcalc.s) & (x < kcalc.n + kcalc.s), zorder=0)
 plt.vlines(kcalc.n, 0, norm.pdf(kcalc.n, kcalc.n, kcalc.s), color="red", linestyles="dashed")
 plt.text(kcalc.n-0.2, norm.pdf(kcalc.n, kcalc.n, kcalc.s)+0.2, f"$k = {kcalc:1uS}$ N/m", color="red")
-plt.xlabel(r"$k$ [N/m]")
+# plt.text(kcalc.n-0.9, norm.pdf(kcalc.n, kcalc.n, kcalc.s)-0.4, f"$k = {kstudent:1uS}$ N/m", color="blue")
+plt.xlabel(r"$k$ (N/m)")
 plt.ylabel(r"Wahrscheinlichkeitsdichte")
-plt.legend(loc="best", borderaxespad=1)
+plt.legend(loc="best", borderaxespad=0.8)
 plt.ylim(0, 2.95)
-plt.xlim(12.4, 15.5)
+plt.xlim(12.55, 15.6)
 plt.tight_layout()
-# plt.savefig("Vorlage TeX/Graphics/kFit.eps", format="eps", transparent=True)
+plt.savefig("Vorlage TeX/Graphics/kFit.pdf", transparent=True)
 plt.show()
 
 
@@ -240,7 +240,7 @@ mass = m[2]
 kparallel = unp.uarray([0, 0, 0], [0, 0, 0])
 ktemp2 = unp.uarray([0, 0, 0], [0, 0, 0])
 kparallel[0] = k[2]
-print(f"k = {kparallel[0]:.1uS}")
+# print(f"k = {kparallel[0]:.1uS}")
 for i in range(1, 3):
     # load pendulum data
     df = pd.read_csv(f"data/Bericht/{i+1} Federn 1.csv")
@@ -259,9 +259,10 @@ for i in range(1, 3):
     # w = unc.ufloat(fit[1], 0.01)
     T = 2 * np.pi / w
     kparallel[i] = w**2*mass
-    contributions(kparallel[i])
-    print(f"w = {w:.1uS}: T = {T:.1uS}: k = {kparallel[i]:.1uS}")
-    print(w**2*mass/(i+1))
+    print(f"{kparallel[i]/(i+1):.1uS}", end=" & ")
+    # contributions(kparallel[i])
+    # print(f"w = {w:.1uS}: T = {T:.1uS}: k = {kparallel[i]:.1uS}")
+    # print(w**2*mass/(i+1))
     if i == 2:
         plt.scatter(df["t"], df["a"], label="Data", s=1)
         plt.plot(df["t"], sine(df["t"], *fit), label="Fit", color="red")

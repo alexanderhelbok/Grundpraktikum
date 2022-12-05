@@ -259,18 +259,20 @@ for i in range(1, 3):
     # w = unc.ufloat(fit[1], 0.01)
     T = 2 * np.pi / w
     kparallel[i] = w**2*mass
-    print(f"{kparallel[i]/(i+1):.1uS}", end=" & ")
+    print(f"khat{i+1} = {kcalc*(i+1):.1uS}")
+    print(kcalc*(i+1) - kparallel[i])
+    # print(f"{kparallel[i]/(i+1):.1uS}", end=" & ")
     # contributions(kparallel[i])
     # print(f"w = {w:.1uS}: T = {T:.1uS}: k = {kparallel[i]:.1uS}")
     # print(w**2*mass/(i+1))
-    if i == 2:
-        plt.scatter(df["t"], df["a"], label="Data", s=1)
-        plt.plot(df["t"], sine(df["t"], *fit), label="Fit", color="red")
-        plt.xlabel("Zeit [s]")
-        plt.ylabel("Winkel [rad]")
-        plt.legend()
-        # plt.savefig("build/pendulum.pdf")
-        plt.show()
+    # if i == 2:
+    #     plt.scatter(df["t"], df["a"], label="Data", s=1)
+    #     plt.plot(df["t"], sine(df["t"], *fit), label="Fit", color="red")
+    #     plt.xlabel("Zeit [s]")
+    #     plt.ylabel("Winkel [rad]")
+    #     plt.legend()
+    #     # plt.savefig("build/pendulum.pdf")
+    #     plt.show()
 
 for i in range(3):
     ktemp2[i] = kparallel[i] / (i+1)

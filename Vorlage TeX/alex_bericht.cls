@@ -4,7 +4,7 @@
 \LoadClass[11pt,a4paper]{scrreprt}
 \RequirePackage{fullpage, lastpage}
 \RequirePackage[onehalfspacing]{setspace} 
-\RequirePackage[margin=2.5cm]{geometry}
+\RequirePackage[left=2.5cm, right=2.5cm, bottom=2.5cm, top=2cm]{geometry}
 %\RequirePackage[utf8]{inputenc} % uncomment if xelatex is not used
 \RequirePackage[T1]{fontenc}
 \RequirePackage{fontspec}
@@ -137,7 +137,7 @@ afterskip=.5\baselineskip]{section}
 %\ihead{\@name}
 \chead{}
 \ohead{\pagemark}
-\headheight 0pt
+\headheight \baselineskip
 \headsep 2.5em
 \footheight 45pt
  

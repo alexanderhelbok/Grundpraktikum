@@ -108,7 +108,7 @@ afterskip=.5\baselineskip]{section}
 \renewcommand{\unit}[1]{\hspace{4pt}\oldunit{#1}}
 
 \hypersetup{%
-	colorlinks=true,
+%	colorlinks=true,
 	breaklinks=true,
 	linkcolor=blue,
 	urlcolor=blue,

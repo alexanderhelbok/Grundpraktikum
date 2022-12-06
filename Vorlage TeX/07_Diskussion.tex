@@ -3,23 +3,40 @@
 \chapter{Diskussion und Schlussfolgerung}
 \label{chap:schlussfolgerung}
 
-In diesem Kapitel werden die Beobachtungen und Berechnungen der Versuche diskutiert, insbesondere  die Korrektheit, des von uns, Aufgestellten Modells. Da dies das Kernthema dieses Berichtes ist.\\
-Vergleicht man nun  die aus vorigen Kapiteln berechneten Werte für $k_i$, in Tabelle ~\autoref{table:Zusammenfassung} dargestellt, erkennt man, dass die Experimentell bestimmten Werte für $k_i$ mit denen von uns entwickelten Modell:
-\begin{align}
-	k=\sum_{i=1}^{N} k_i &&\text{bzw. bei identischen Federn} && k=N*k
-\end{align} 
-übereinstimmen.\\
-\begin{table}[htbp]
-	\centering
-	\caption{\label{table:Zusammenfassung}Die experimentell bestimmten und theoretisch berechneten Werte für $k_i$}
-	\begin{tabular}[h]{cccc}
-		\hline
-		& $k_1$ in $N/m$ & $k_2$ in $N/m$ & $k_3$ in $N/m$\\
-		\hline
+In diesem Kapitel werden die Beobachtungen und Berechnungen der Versuche diskutiert, insbesondere  die Korrektheit, des von uns aufgestellten Modells. Da dies das Kernthema dieses Berichtes ist.
+
+In \autoref{table:Zusammenfassung} wurden die gemessenen und theoretisch bestimmten Werte eingetragen.  Da das Modell auf dem experimentell bestimmten Wert für \( k_1 \) basiert wird kein experimentell bestimmter Wert angegeben, da das ein Zirkelschluss wäre, jedoch den Anschein hätte, es würde unser Modell unterstützen.
+
+\begin{center}
+	\captionof{table}[Zusammenfassung des Versuchs]{Gegenüberstellung der experimentell bestimmten und theoretisch berechneten Werte für $k_i$}
+	\begin{tabular}{@{\extracolsep{5mm}} 
+			r
+			S[table-format=2.2(2)]
+			S[table-format=2.1(1)]
+			S[table-format=2.1(1)]
+		}
+		\toprule
+		\makecell[t]{}
+		&   {\makecell[t]{\( k_1 \unit{(N/m)} \)}}
+		&   {\makecell[t]{\( k_2 \unit{(N/m)}\)}}
+		&   {\makecell[t]{\( k_3 \unit{(N/m)}\)}}\\
+		\midrule
 		Experimenteller Wert & 14.00(17) &  27.5(5)  & 41.2(8)\\
 		Theoretischer Wert & & 28.0(2) & 42.0(5)\\
-		\hline
+		\bottomrule
 	\end{tabular}
-\end{table}
-Die Korrektheit unseres Modell wird ebenfalls dadurch bestätigt, dass es mit dem Literatur Modell übereinstimmt.
-%Vlt noch gründe finden um Fehler zuverringern wie ein Messgerät mit höhere Auflösung?
+	\label{table:Zusammenfassung}
+\end{center}
+
+Vergleicht man nun die aus vorigen Kapiteln berechneten Werte für $k_i$, erkennt man, dass die experimentell bestimmten Werte für $k_i$ mit denen von uns entwickelten Modell:
+\begin{align}
+	k_{\text{ges}} = \sum_{i=1}^{N} k_i &&\text{bzw. bei identischen Federn} && k_{\text{ges}} = N*k
+\end{align} 
+im Rahmen der Unsicherheit übereinstimmen.
+
+%Die Korrektheit unseres Modell wird ebenfalls dadurch bestätigt, dass es mit dem Literatur Modell übereinstimmt.
+Die hier präsentierten Resultate sind konsistent und unterstützen das Modell, die Fehler jedoch sind recht groß 
+
+Obwohl hier ein allgemein gültiges Modell für die Kombination von parallelen Federn präsentiert wurde, haben wir es nur auf einen Spezialfall geprüft, nämlich der, wo alle Federn gleich sind. Man müsste weitere Versuche mit Federn mit unterschiedlichen Federkonstanten oder sogar Federn unterschiedlicher Natur (Metallfeder, Dämpfer), um die Gültigkeit dieses Modells auszuweiten. 
+
+

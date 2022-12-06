@@ -1,6 +1,6 @@
 %Dokumentklasse
 \documentclass{alex_bericht}
-
+%\renewcommand*\chapterpagestyle{scrheadings}
 
 \begin{document}
 %Seiten ohne Kopf- und Fußzeile sowie Seitenzahl
@@ -10,13 +10,14 @@
 \include{02_Kurzfassung}
 
 %Inhaltsverzeichnis
+{\hypersetup{linkcolor=black}
 \tableofcontents
 
 %Verzeichnis aller Bilder
 \listoffigures
 
 %Verzeichnis aller Tabellen
-\listoftables
+\listoftables}
 \cleardoubleoddpage
 
 \pagenumbering{arabic}

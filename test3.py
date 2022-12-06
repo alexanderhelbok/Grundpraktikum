@@ -23,3 +23,13 @@ w, psi = autokorrelation(df3["t"].to_numpy(), df3["I_sound_max"].to_numpy())
 
 plt.plot(w, psi)
 plt.show()
+
+# %%
+# print cantor grid from -4 to 3 in latex format
+for i in range(1, 5):
+    for j in range(-4, 4):
+        if j < 0:
+            print(f"-\\frac{{{-j}}}{{{i}}} & ", end="")
+        else:
+            print(f"\\frac{{{j}}}{{{i}}} & ", end="")
+    print("\n")

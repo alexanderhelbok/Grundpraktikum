@@ -176,6 +176,8 @@ plt.rcParams['ytick.major.size'] = 7
 plt.rcParams['ytick.minor.size'] = 3.5
 # increase border width
 plt.rcParams['axes.linewidth'] = 1.25
+# increase legend axespad
+plt.rcParams['legend.borderaxespad'] = 1
 # use latex font
 # plt.rcParams['text.usetex'] = True
 # dont use serif font

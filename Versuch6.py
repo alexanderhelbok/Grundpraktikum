@@ -40,8 +40,6 @@ df.columns = ["t", "Bx", "By", "Bz"]
 rate = get_polling_rate(df)
 
 
-
-
 # find peaks in B
 peaksy, _ = find_peaks(df["By"], height=-44, distance=300)
 peaksz, _ = find_peaks(df["Bz"], height=-53, distance=300)
@@ -66,36 +64,40 @@ plt.xlabel("$t$ (s)")
 plt.ylabel("$B$ ($\mu$T)")
 plt.xlim(0, df["t"].max())
 plt.legend(markerscale=10)
-# plt.tight_layout()
+plt.tight_layout()
 # # plt.savefig("Graphics/Versuch6_3.pdf", transparent=True)
 # plt.show()
 
 
-By, Bz = unp.uarray(np.empty(11), np.empty(11)), unp.uarray(np.empty(11), np.empty(11))
+Bx, By, Bz = unp.uarray(np.empty(11), np.empty(11)), unp.uarray(np.empty(11), np.empty(11)), unp.uarray(np.empty(11), np.empty(11))
+start, mid, end, floor = unp.uarray(np.empty(3), np.empty(3)), unp.uarray(np.empty(3), np.empty(3)), unp.uarray(np.empty(3), np.empty(3)), unp.uarray(np.empty(3), np.empty(3))
 startyarr, startzarr = np.empty(11), np.empty(11)
 for i in range(0, len(midpeaksy)-1):
     tempdf = df.iloc[midpeaksy[i]:midpeaksy[i+1]]
     tempdf = tempdf.reset_index(drop=True)
 
-    starty = unc.ufloat(tempdf["By"][0:int(1.3*rate)].mean(), tempdf["By"][0:int(1.3*rate)].std(), "starty")
-    endy = unc.ufloat(tempdf["By"].tail(int(1.3*rate)).mean(), tempdf["By"].tail(int(1.3*rate)).std(), "endy")
-    floory=(starty+endy)/2
+    for k, field  in zip(range(3), ["Bx", "By", "Bz"]):
+        start[k] = unc.ufloat(tempdf[field][0:int(1.3*rate)].mean(), tempdf[field][0:int(1.3*rate)].std(), f"start {field}")
+        end[k] = unc.ufloat(tempdf[field].tail(int(1.3*rate)).mean(), tempdf[field].tail(int(1.3*rate)).std(), f"end {field}")
+        floor[k] = (start[k] + end[k])/2
 
-    startz = unc.ufloat(tempdf["Bz"][0:int(1.3*rate)].mean(), tempdf["Bz"][0:int(1.3*rate)].std(), "startz")
-    endz = unc.ufloat(tempdf["Bz"].tail(int(1.3*rate)).mean(), tempdf["Bz"].tail(int(1.3*rate)).std(), "endz")
-    floorz=(startz+endz)/2
-
-    print(f"{floory:.1uS}, {floorz:.1uS}")
+    # print(f"{floor[1]:.1uS}, {floor[2]:.1uS}")
     for j in range(int(1.3*rate), len(tempdf)):
-        if tempdf["By"][j] > starty.n+4*starty.s:
+        if tempdf["By"][j] > start[1].n+4*start[1].s:
             startyarr[i] = j+5
             plt.scatter(tempdf["t"][j+5+int(0.85*rate)], tempdf["By"][j+5+int(0.85*rate)], color="orange")
             break
     for j in range(int(1.3*rate), len(tempdf)):
-        if tempdf["Bz"][j] > startz.n+4*startz.s:
+        if tempdf["Bz"][j] > start[2].n+4*start[2].s:
             startzarr[i] = j+5
             plt.scatter(tempdf["t"][j+5+int(0.85*rate)], tempdf["Bz"][j+5+int(0.85*rate)], color="orange")
             break
+
+
+    for k, field in zip(range(3), ["Bx", "By", "Bz"]):
+        mid[k] = unc.ufloat(tempdf[field][int(startyarr[i]):int(startyarr[i] + 0.85 * rate)].mean(),
+                          tempdf[field][int(startyarr[i]):int(startyarr[i] + 0.85 * rate)].std(), f"mid {field}")
+        plt.hlines(mid[k].n, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i] + int(0.85 * rate)], color="orange")
 
 
     midy = unc.ufloat(tempdf["By"][int(startyarr[i]):int(startyarr[i]+0.85*rate)].mean(), tempdf["By"][int(startyarr[i]):int(startyarr[i]+0.85*rate)].std(), "midy")
@@ -103,39 +105,50 @@ for i in range(0, len(midpeaksy)-1):
 
     midz = unc.ufloat(tempdf["Bz"][int(startzarr[i]):int(startzarr[i]+0.85*rate)].mean(), tempdf["Bz"][int(startzarr[i]):int(startzarr[i]+0.85*rate)].std(), "midz")
     plt.hlines(midz.n, tempdf["t"][startzarr[i]], tempdf["t"][startzarr[i]+int(0.85*rate)], color="orange")
-    # print(f"{starty-endy:.1uS}")
+    # print(f"{starty-end[1]:.1uS}")
 
-    By[i] = (midy-floory)
-    Bz[i] = (midz-floorz)
+    Bx[i] = (mid[0]-floor[0])
+    By[i] = (mid[1]-floor[1])
+    Bz[i] = (mid[2]-floor[2])
 
-    plt.hlines(starty.n, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta")
-    plt.hlines(starty.n+3*starty.s, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta", linestyle="dashed")
-    plt.hlines(starty.n-3*starty.s, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta", linestyle="dashed")
+    for k in range(1, 3):
+        plt.hlines(start[k].n, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta")
+        plt.hlines(start[k].n+3*start[k].s, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta", linestyle="dashed")
+        plt.hlines(start[k].n-3*start[k].s, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta", linestyle="dashed")
 
-    plt.hlines(endy.n, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta")
-    plt.hlines(endy.n+3*endy.s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
-    plt.hlines(endy.n-3*endy.s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
+        plt.hlines(end[k].n, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta")
+        plt.hlines(end[k].n+3*end[k].s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
+        plt.hlines(end[k].n-3*end[k].s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
 
-    plt.hlines(startz.n, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta")
-    plt.hlines(startz.n+3*startz.s, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta", linestyle="dashed")
-    plt.hlines(startz.n-3*startz.s, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta", linestyle="dashed")
-
-    plt.hlines(endz.n, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta")
-    plt.hlines(endz.n+3*endz.s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
-    plt.hlines(endz.n-3*endz.s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
 
 plt.show()
 
 L1 = unc.ufloat(0.9,0.1)**2 + unc.ufloat(2.0,0.1)**2
 mu0 = 4*np.pi*10**(-7)
-B = unp.sqrt(By**2+Bz**2)
-print(B)
-d = unp.uarray(np.empty(len(B)), np.empty(len(B)))
+B = unp.sqrt(Bx**2+By**2+Bz**2)
+# print(B)
+temp = unp.uarray(np.zeros(len(B)), np.zeros(len(B)))
 for i in range(len(B)):
-    d[i] = unp.sqrt(L1 + unc.ufloat(i, 0.1)**2)
+    temp[i] = unp.sqrt(L1 + unc.ufloat(i, 0.1)**2)
 
+d = temp*1
 I = d*B*mu0/(2*np.pi)*10**5
-print(I)
+# print(I)
+print(d)
+# %%
+# fit line to data
+popt, pcov = curve_fit(line, unp.nominal_values(1/d), unp.nominal_values(B), sigma=unp.std_devs(B), absolute_sigma=True)
+print(popt)
+# plot B against 1/d
+plt.errorbar(unp.nominal_values(1/d), unp.nominal_values(B), xerr=unp.std_devs(1/d), yerr=unp.std_devs(B), fmt=".k", capsize=3, label="Messwerte")
+plt.plot(unp.nominal_values(1/d), line(unp.nominal_values(1/d), *popt), color="red", label="fit")
+plt.xlabel("$1/d$ (m$^{-1}$)")
+plt.ylabel("$B$ ($\mu$T)")
+plt.tight_layout()
+plt.show()
+
+
+
 # %%
 
 

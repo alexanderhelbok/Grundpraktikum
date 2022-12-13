@@ -1,5 +1,12 @@
 from Source import *
+import matplotlib
+from matplotlib import cm
 
+# %%
+cmap = cm.tab20c
+for i in range(cmap.N):
+   rgba = cmap(i)
+   print("Hexadecimal representation of rgba:{} is {}".format(rgba, matplotlib.colors.rgb2hex(rgba)))
 # %%
 # load data
 df = pd.read_csv("data/Versuch6_1.csv")
@@ -10,21 +17,32 @@ Bx = unc.ufloat(df["Bx"].mean(), df["Bx"].std(), "Bx")
 By = unc.ufloat(df["By"].mean(), df["By"].std(), "By")
 Bz = unc.ufloat(df["Bz"].mean(), df["Bz"].std(), "Bz")
 
-print(f"Bx = {Bx:.1uS} mT: By = {By:.1uS} mT: Bz = {Bz:.1uS} mT")
+print(f"Bx = {Bx:.1uS} mT: By = {By:.1uS} mT: Bz = {Bz:.2uS} mT")
 # plot data in one plot
-plt.scatter(df["t"], df["Bx"], label="$B_x$", s=0.1)
-plt.scatter(df["t"], df["By"], label="$B_y$", s=0.1)
-plt.scatter(df["t"], df["Bz"], label="$B_z$", s=0.1)
-plt.text(0.4, 0.85, f"$B_x$ = {Bx:.1uS} $\mu$T", transform=plt.gca().transAxes, color="blue")
-plt.text(0.4, 0.45, f"$B_y$ = {By:.1uS} $\mu$T", transform=plt.gca().transAxes, color="orange")
-plt.text(0.4, 0.15, f"$B_z$ = {Bz:.1uS} $\mu$T", transform=plt.gca().transAxes, color="green")
-plt.xlabel("$t$ (s)")
-plt.ylabel("$B$ ($\mu$T)")
-plt.xlim(0, df["t"].max())
-plt.legend(markerscale=10, loc='upper right', bbox_to_anchor=(1, 0.925))
+fig, ax = plt.subplots(figsize=(8, 4))
+ax2 = ax.twinx()
+ax.scatter(df["t"], df["Bx"], label="$B_x$", s=0.1, alpha=0.4)
+ax.scatter(df["t"], df["By"], label="$B_y$", s=0.1, alpha=0.4)
+ax.scatter(df["t"], df["Bz"], label="$B_z$", s=0.1, alpha=0.4)
+ax.hlines(Bx.n, 0, 100, color="C0")
+ax.hlines(By.n, 0, 100, color="#e6550d")
+ax.hlines(Bz.n, 0, 100, color="C2")
+ax2.hlines(Bx.n, np.NaN, np.NaN, color="C0", label="$B_x$ mean")
+ax2.hlines(By.n, np.NaN, np.NaN, color="#e6550d", label="$B_y$ mean")
+ax2.hlines(Bz.n, np.NaN, np.NaN, color="C2", label="$B_z$ mean")
+ax2.set_yticklabels([])
+ax.text(0.4, 0.85, f"$B_x$ = {Bx:.1uS} $\mu$T", transform=plt.gca().transAxes, color="blue")
+ax.text(0.4, 0.45, f"$B_y$ = {By:.1uS} $\mu$T", transform=plt.gca().transAxes, color="#e6550d")
+ax.text(0.4, 0.15, f"$B_z$ = {Bz:.2uS} $\mu$T", transform=plt.gca().transAxes, color="green")
+ax.set_xlabel("$t$ (s)")
+ax.set_ylabel("$B$ ($\mu$T)")
+ax.set_xlim(0, df["t"].max())
+ax.legend(markerscale=10, loc='upper right', bbox_to_anchor=(1, 0.96))
+ax2.legend(markerscale=10, loc='upper right', bbox_to_anchor=(1, 0.55), labels=["$B_x$ mean", "$B_y$ mean", "$B_z$ mean"])
 plt.tight_layout()
 # plt.savefig("Graphics/Versuch6_1.pdf", transparent=True)
 plt.show()
+
 
 Bearth = unp.sqrt(Bx**2 + By**2 + Bz**2)
 theta1 = np.abs(unp.arctan(Bz/Bx)*180/np.pi)
@@ -130,6 +148,7 @@ B = unp.sqrt(Bx**2+By**2+Bz**2)
 temp = unp.uarray(np.zeros(len(B)), np.zeros(len(B)))
 for i in range(len(B)):
     temp[i] = unp.sqrt(L1 + unc.ufloat(i, 0.1)**2)
+    print(f"{temp[i]:.1uS} cm")
 
 d = temp*1
 I = d*B*mu0/(2*np.pi)*10**5

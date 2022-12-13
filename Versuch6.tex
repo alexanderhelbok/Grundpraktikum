@@ -1,5 +1,6 @@
 % !TeX spellcheck = de_DE
 \documentclass{alex_gp}
+\usepackage[export]{adjustbox}
 
 \name{Alexander Helbok}
 \course{Grundpraktikum}
@@ -52,7 +53,59 @@
 \end{mybox}
 
 \begin{mybox}{Elektromotor}
+	In diesem Versuch wird mithilfe der Lorentz Kraft die Polung eines Permanentmagneten bestimmen. Der Versuchsaufbau sah wie folgt aus: Auf den Magneten wurde eine leitende Schraube gestellt, dessen Spitze als Drehachse fungiert. Auf die Schraubenspitze balancieren wir eine Batterie. Das andere Ende der Batterie verbinden wir mit einem Kabel mit dem Magneten. Hierbei ist wichtig, das Kabel am äußeren Rand des Magneten anzuschließen, da es sonst zu keiner Rotation der Batterie kommt.
 	
+	Die Lorentz Kraft ist so definiert 
+	\begin{equation}\label{eqn:Fl}
+		\vec{F} = q \vec{v} \times \vec{B}
+	\end{equation}
+	mit der Ladung \( q \), der Geschwindigkeit der Ladungen \( \vec{v} \) und dem Magnetfeld \( \vec{B} \). Das Magnetfeld in einem Permanentmagneten verläuft annähernd geradlinig vom Südpol zum Nordpol. Das Kreuzprodukt wird maximal, wenn die beiden Vektoren normal aufeinander stehen, also wenn der Strom seitlich in (oder aus) den Magneten fließt, weshalb das Kabel auch an der Seite angebracht wurde. 
+	
+	Je nach Ausrichtung des Magneten geht das Magnetfeld in die positive oder negative z-Richtung und je nach Ausrichtung der Batterie fließt der Strom von der Batterie über das Kabel in den Magneten oder umgekehrt. Wir haben also vier verschiedene Konfigurationsmöglichkeiten mit zwei unterschiedliche Beobachtungen, eine Drehung in und gegen den Uhrzeigersinn. In \autoref{fig:Motor} ist der Versuchsaufbau (links), sowie die möglichen Konfigurationsarten (rechts) dargestellt.
+	
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, right]{Motor}
+		\caption[]{Links: Versuchsaufbau des Batteriemotors. Auf einen Permanentmagneten wird über eine Schraube eine Batterie gestellt, welche über ein Kabel wieder mit dem Magneten in der Basis verbunden ist. Rechts: möglichen Konfigurationsarten des Versuchs mit eingezeichnetem Strom und Magnetfeld. Graphik entnommen aus \footnotemark[2] }
+		\label{fig:Motor}
+	\end{figure}
+
+	\begin{minipage}{\textwidth}
+		\vspace{-13cm}
+		\begin{tikzpicture}[scale=3]
+			\draw[-Stealth] (0,0) -- (0,1) node [above] {\large \( z \)};
+			\draw[-Stealth] (0,0) -- (1,0) node [right] {\large \( x \)};
+			\draw[-Stealth] (0,0) -- (0.6,0.4) node [right] {\large \( y \)};
+			
+			\node at (3.2,1.8) {\large \( 1 \)};
+			\node at (4,1.8) {\large \( 2 \)};
+			\node at (3.2,0.9) {\large \( 3 \)};
+			\node at (4,0.9) {\large \( 4 \)};
+		\end{tikzpicture}
+	\end{minipage}
+	
+	\begin{center}
+		\captionof{table}{Stromrichtung, Drehrichtung und daraus erschlossene Magnetfeldrichtung für die vier Konfigurationen.}
+		\begin{tabular}{@{\extracolsep{5mm}} 
+				r
+				c
+				c
+				c
+			}
+			\toprule
+			\makecell[t]{Konfiguration}
+			&   {\makecell[t]{Stromrichtung}}
+			&   {\makecell[t]{Drehrichtung}}
+			&   {\makecell[t]{Magnetfeldrichtung}}\\
+			\midrule
+			1 & \( -\hat{x} \) & \( \circlearrowright \) & \( -\hat{z} \) \\
+			2 & \( \hat{x} \) & \( \circlearrowleft \) & \( -\hat{z} \) \\
+			3 & \( -\hat{x} \) & \( \circlearrowleft \) & \( \hat{z} \) \\
+			4 & \( \hat{x} \) & \( \circlearrowright \) & \( \hat{z} \) \\
+			\bottomrule
+		\end{tabular}
+		\label{table:1}
+	\end{center}
+	\footnotetext[2]{Angabe}
 \end{mybox}
 
 \begin{mybox}{Strom durch Leiter}

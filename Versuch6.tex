@@ -61,14 +61,14 @@
 	\end{equation}
 	mit der Ladung \( q \), der Geschwindigkeit der Ladungen \( \vec{v} \) und dem Magnetfeld \( \vec{B} \). Das Magnetfeld in einem Permanentmagneten verläuft annähernd geradlinig vom Südpol zum Nordpol. Das Kreuzprodukt wird maximal, wenn die beiden Vektoren normal aufeinander stehen, also wenn der Strom seitlich in (oder aus) den Magneten fließt, weshalb das Kabel auch an der Seite angebracht wurde. 
 	
-	Je nach Ausrichtung des Magneten geht das Magnetfeld in die positive oder negative z-Richtung und je nach Ausrichtung der Batterie fließt der Strom von der Batterie über das Kabel in den Magneten oder umgekehrt. Wir haben also vier verschiedene Konfigurationsmöglichkeiten mit zwei unterschiedliche Beobachtungen, eine Drehung in und gegen den Uhrzeigersinn. In \autoref{fig:Motor} ist der Versuchsaufbau (links), sowie die möglichen Konfigurationsarten (rechts) dargestellt.
+	Je nach Ausrichtung des Magneten geht das Magnetfeld in die positive oder negative z-Richtung und je nach Ausrichtung der Batterie fließt der Strom von der Batterie über das Kabel in den Magneten oder umgekehrt (das Koordinatensystem wurde so gelegt, dass der Strom in der xz-Ebene fließt). Wir haben also vier verschiedene Konfigurationsmöglichkeiten mit zwei unterschiedliche Beobachtungen, eine Drehung in und gegen den Uhrzeigersinn. In \autoref{fig:Motor} ist der Versuchsaufbau (links), sowie die möglichen Konfigurationsarten (rechts) dargestellt.
 	
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, right]{Motor}
 		\caption[]{Links: Versuchsaufbau des Batteriemotors. Auf einen Permanentmagneten wird über eine Schraube eine Batterie gestellt, welche über ein Kabel wieder mit dem Magneten in der Basis verbunden ist. Rechts: möglichen Konfigurationsarten des Versuchs mit eingezeichnetem Strom und Magnetfeld. Graphik entnommen aus \footnotemark[2] }
 		\label{fig:Motor}
 	\end{figure}
-
+	
 	\begin{minipage}{\textwidth}
 		\vspace{-13cm}
 		\begin{tikzpicture}[scale=3]
@@ -82,6 +82,8 @@
 			\node at (4,0.9) {\large \( 4 \)};
 		\end{tikzpicture}
 	\end{minipage}
+	
+	Anhand der Stromrichtung und der Drehung kann man auf die Richtung des Magnetfeldes schließen, da auf die bewegten Ladungsträger (der Strom) dir Lorentz Kraft wirkt und die Batterie zum Drehen bringt. Das Vorzeichen der Ladungsträger spielt keine Rolle, da sich dann neben dem Vorzeichen von \( q \) auch die Flussrichtung ändern würde, was sich wegkürzt. Man kann mit diesem Experiment also nicht herausfinden, welches Vorzeichen die Ladungsträger des elektrischen Stromes haben. Der Versuch wurde also viermal durchgeführt und die Ergebnisse wurden in \autopageref{table:1} eingetragen. Die Strom- und Drehrichtung wurden beobachtet, woraus sich die Magnetfeldrichtung erschließt. Die Konfigurationen wurden dann mit \autoref{fig:Motor} verglichen und gematched. 
 	
 	\begin{center}
 		\captionof{table}{Stromrichtung, Drehrichtung und daraus erschlossene Magnetfeldrichtung für die vier Konfigurationen.}
@@ -98,9 +100,9 @@
 			&   {\makecell[t]{Magnetfeldrichtung}}\\
 			\midrule
 			1 & \( -\hat{x} \) & \( \circlearrowright \) & \( -\hat{z} \) \\
-			2 & \( \hat{x} \) & \( \circlearrowleft \) & \( -\hat{z} \) \\
-			3 & \( -\hat{x} \) & \( \circlearrowleft \) & \( \hat{z} \) \\
-			4 & \( \hat{x} \) & \( \circlearrowright \) & \( \hat{z} \) \\
+			2 & \( \phantom{-}\hat{x} \) & \( \circlearrowleft \) & \( -\hat{z} \) \\
+			3 & \( -\hat{x} \) & \( \circlearrowleft \) & \( \phantom{-}\hat{z} \) \\
+			4 & \( \phantom{-}\hat{x} \) & \( \circlearrowright \) & \( \phantom{-}\hat{z} \) \\
 			\bottomrule
 		\end{tabular}
 		\label{table:1}
@@ -109,7 +111,38 @@
 \end{mybox}
 
 \begin{mybox}{Strom durch Leiter}
+	Ziel dieses Versuches ist es, den Strom in einem Leiter anhand vom erzeugten Magnetfeld zu bestimmen. Dafür wurde eine frische Batterie über ein Kabel der Länge \( d = 2.97(1) \unit{m} \) kurzschlossen und das erzeugte Magnetfeld mit dem Magnetfeldsensor vom IOLab aufgezeichnet. Diese Messung wurde 11 Mal durchgeführt, wobei nach jedem Durchgang das IOLab um \( 1 \unit{cm} \) vom Leiter wegbewegt wurde. 
+	
+	In \autoref{fig:Bcable} sind die aufgezeichneten Daten für die drei Raumkomponenten zu sehen. In x-Richtung sind keine Ausschläge zu sehen, da diese Achse parallel zum Leiter war und das Magnetfeld radial um den Leiter geht und keine parallele Komponente besitzt. In den anderen 2 Raumrichtungen sieht man 11 Ausschläge, die mit der Zeit an Magnitude abnehmen, da das IOLab ja immer weiter wegbewegt wurde und das gemessene Magnetfeld vom Leiter daher auch weniger stark war.
+	
+	\begin{figure}[H]	
+		\centering
+		\includegraphics[width=\textwidth]{Versuch6_3}
+		\caption{Das gemessene Magnetfeld in die drei kartesischen Raumrichtungen farblich unterscheidbar auf die Zeit aufgetragen. Der Mittelwert der Daten wird als durchgezogene Linie dargestellt.}
+		\label{fig:Bcable}
+	\end{figure}
+	
+	Die Analyse der Daten ging wie folgt: 
+	Von den Maxima muss noch der Untergrund abgezogen werden, um die vom Strom verursacht Änderung vom Magnetfeld zu bestimmen. Dafür wurde 2 Sekunden vor und nach dem Ausschlag die Daten gemittelt und aus diesen beiden Werten wieder der Mittelwert gebildet. Jetzt kann man die relative Änderung und daraus über die Wurzel der Quadratsummen (Siehe \autoref{eqn:mag1}) die Stärke des Magnetfeldes bestimmen. 
+	
+	Der Absolutbetrag des Magnetfeldes ist gegeben durch 
+	\begin{equation}\label{eqn:last}
+		|\vec{B}(r)| = \frac{\mu_0 I}{2\pi}\frac{1}{r} = k\tilde{r}
+	\end{equation}
+	wobei der konstante Vorfaktor durch \( k := \tfrac{\mu_0 I}{2\pi} \) ersetzt wurde. Da man aus Geraden leichter Werte, wie die Steigung ablesen kann, wurde \( \tilde{r} := 1/r \) eingeführt. Wir erwarten uns also, dass die Magnetfeldstärke proportional zum Kehrwert des Abstandes ist und aus der Konstante lässt sich dann der Strom ermitteln. In \autoref{fig:BFit} die Änderung der Magnetfeldes \( \Delta B \) auf den Kehrwert des Abstands \( \tilde{r} \) aufgetragen und es ist eine Gerade in rot angepasst. Die Gerade geht gezielt durch den Ursprung, da wir bei einem Abstand von \( \infty \) (und daher einem Kehrwert von 0) kein Magnetfeld zu spüren. Des weiteren erhöht das die Anzahl der Freiheitsgrade von 9 auf 10, was bei dem Fit nicht von großer Bedeutung ist, da die Daten nicht wirklich zum Fit passen. 
+	
+	\begin{figure}[H]	
+		\centering
+		\includegraphics[width=\textwidth]{Versuch6_4}
+		\caption{Die gemessene Magnetfeldänderung für verschiedene Abstände. Eine Gerade wurde in rot an die Daten angepasst.}
+		\label{fig:BFit}
+	\end{figure}
 
+	Für die Steigung der Gerade erhält man einen Wert von \( k = 153.3(1.3) \unit{\micro\tesla\cm} \), woraus sich mit \autoref{eqn:last} ein Strom von \( I = 7.67(7) \unit{A} \) ergibt.
+	
+	Nimmt man für die Batterie eine Spannung von \( U = 1.5(1) \unit{V} \) und einen Innenwiderstand von \( R = 0.15 \unit{\ohm} \) und für das Kabel einen Leitwiderstand von \( R = 40.1 \unit{\ohm/km} \) an, kann man sich mithilfe des Ohmschen Gesetzes \( I = U/R \) den fließenden Strom berechnen. Setzt man hier Werte ein erhält man \( I_{\text{calc}} = 5.6(4) \unit{A} \).
+	
+	Unser Wert weicht also deutlich vom theoretischen Wert ab, was an mehreren Sachen liegen kann.
 \end{mybox}
 
 

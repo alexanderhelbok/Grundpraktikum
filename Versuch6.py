@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 from Source import *
 import matplotlib
 from matplotlib import cm
@@ -71,19 +73,19 @@ midpeaksy = np.sort(np.append(midpeaksy, [0, len(df)-1]))
 midpeaksz = np.sort(np.append(midpeaksz, [0, len(df)-1]))
 
 # plot data in one plot
+fig = plt.figure(figsize=(8, 4))
 plt.scatter(df["t"], df["Bx"], label="$B_x$", s=0.1)
 plt.scatter(df["t"], df["By"], label="$B_y$", s=0.1)
 plt.scatter(df["t"], df["Bz"], label="$B_z$", s=0.1)
-plt.scatter(df["t"][peaksy], df["By"][peaksy], color="red")
-plt.scatter(df["t"][peaksz], df["Bz"][peaksz], color="red")
-plt.scatter(df["t"][midpeaksy], df["By"][midpeaksy], color="green")
-plt.scatter(df["t"][midpeaksz], df["Bz"][midpeaksz], color="green")
+# plt.scatter(df["t"][peaksy], df["By"][peaksy], color="red")
+# plt.scatter(df["t"][peaksz], df["Bz"][peaksz], color="red")
+# plt.scatter(df["t"][midpeaksy], df["By"][midpeaksy], color="green")
+# plt.scatter(df["t"][midpeaksz], df["Bz"][midpeaksz], color="green")
 plt.xlabel("$t$ (s)")
 plt.ylabel("$B$ ($\mu$T)")
 plt.xlim(0, df["t"].max())
-plt.legend(markerscale=10)
 plt.tight_layout()
-# # plt.savefig("Graphics/Versuch6_3.pdf", transparent=True)
+# plt.savefig("Graphics/Versuch6_3.pdf", transparent=True)
 # plt.show()
 
 
@@ -103,71 +105,84 @@ for i in range(0, len(midpeaksy)-1):
     for j in range(int(1.3*rate), len(tempdf)):
         if tempdf["By"][j] > start[1].n+4*start[1].s:
             startyarr[i] = j+5
-            plt.scatter(tempdf["t"][j+5+int(0.85*rate)], tempdf["By"][j+5+int(0.85*rate)], color="orange")
+            # plt.scatter(tempdf["t"][j+5+int(0.85*rate)], tempdf["By"][j+5+int(0.85*rate)], color="orange")
             break
     for j in range(int(1.3*rate), len(tempdf)):
         if tempdf["Bz"][j] > start[2].n+4*start[2].s:
             startzarr[i] = j+5
-            plt.scatter(tempdf["t"][j+5+int(0.85*rate)], tempdf["Bz"][j+5+int(0.85*rate)], color="orange")
+            # plt.scatter(tempdf["t"][j+5+int(0.85*rate)], tempdf["Bz"][j+5+int(0.85*rate)], color="orange")
             break
 
 
     for k, field in zip(range(3), ["Bx", "By", "Bz"]):
         mid[k] = unc.ufloat(tempdf[field][int(startyarr[i]):int(startyarr[i] + 0.85 * rate)].mean(),
                           tempdf[field][int(startyarr[i]):int(startyarr[i] + 0.85 * rate)].std(), f"mid {field}")
-        plt.hlines(mid[k].n, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i] + int(0.85 * rate)], color="orange")
+        plt.hlines(mid[k].n, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i] + int(0.85 * rate)], color="red")
+        plt.hlines(mid[k].n + mid[k].s, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i] + int(0.85 * rate)], color="red", linestyle="dashed")
+        plt.hlines(mid[k].n - mid[k].s, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i] + int(0.85 * rate)], color="red", linestyle="dashed")
+
 
 
     midy = unc.ufloat(tempdf["By"][int(startyarr[i]):int(startyarr[i]+0.85*rate)].mean(), tempdf["By"][int(startyarr[i]):int(startyarr[i]+0.85*rate)].std(), "midy")
-    plt.hlines(midy.n, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i]+int(0.85*rate)], color="orange")
+    # plt.hlines(midy.n, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i]+int(0.85*rate)], color="orange")
 
     midz = unc.ufloat(tempdf["Bz"][int(startzarr[i]):int(startzarr[i]+0.85*rate)].mean(), tempdf["Bz"][int(startzarr[i]):int(startzarr[i]+0.85*rate)].std(), "midz")
-    plt.hlines(midz.n, tempdf["t"][startzarr[i]], tempdf["t"][startzarr[i]+int(0.85*rate)], color="orange")
+    # plt.hlines(midz.n, tempdf["t"][startzarr[i]], tempdf["t"][startzarr[i]+int(0.85*rate)], color="orange")
     # print(f"{starty-end[1]:.1uS}")
 
     Bx[i] = (mid[0]-floor[0])
     By[i] = (mid[1]-floor[1])
     Bz[i] = (mid[2]-floor[2])
 
-    for k in range(1, 3):
-        plt.hlines(start[k].n, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta")
-        plt.hlines(start[k].n+3*start[k].s, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta", linestyle="dashed")
-        plt.hlines(start[k].n-3*start[k].s, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta", linestyle="dashed")
+    # for k in range(1, 3):
+        # plt.hlines(start[k].n, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta")
+        # plt.hlines(start[k].n+3*start[k].s, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta", linestyle="dashed")
+        # plt.hlines(start[k].n-3*start[k].s, tempdf["t"][0], tempdf["t"][int(1.3*rate)], color="magenta", linestyle="dashed")
+        #
+        # plt.hlines(end[k].n, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta")
+        # plt.hlines(end[k].n+3*end[k].s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
+        # plt.hlines(end[k].n-3*end[k].s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
 
-        plt.hlines(end[k].n, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta")
-        plt.hlines(end[k].n+3*end[k].s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
-        plt.hlines(end[k].n-3*end[k].s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
-
-
+plt.xlim(38.1, 54)
+plt.ylim(-62, -10)
+plt.legend(markerscale=10, labels=["$B_x$", "$B_y$", "$B_z$", "Mittelwert", "$1\sigma$ Interval"], loc="upper right")
+# plt.savefig("Graphics/Versuch6_4.pdf", transparent=True)
 plt.show()
 
-L1 = unc.ufloat(0.9,0.1)**2 + unc.ufloat(2.0,0.1)**2
+L1 = unc.ufloat(0.9, 0.1, "d1")**2 + unc.ufloat(2.0, 0.1, "d2")**2
 mu0 = 4*np.pi*10**(-7)
 B = unp.sqrt(Bx**2+By**2+Bz**2)
 # print(B)
 temp = unp.uarray(np.zeros(len(B)), np.zeros(len(B)))
 for i in range(len(B)):
-    temp[i] = unp.sqrt(L1 + unc.ufloat(i, 0.1)**2)
+    temp[i] = unp.sqrt(L1 + unc.ufloat(i, 0.2, "d3")**2)
     print(f"{temp[i]:.1uS} cm")
 
 d = temp*1
-I = d*B*mu0/(2*np.pi)*10**5
+# contributions(d)
+I = d*B*mu0/(2*np.pi)*10**4
 # print(I)
-print(d)
+for i in I:
+    contributions(i)
 # %%
 # fit line to data
-popt, pcov = curve_fit(line, unp.nominal_values(1/d), unp.nominal_values(B), sigma=unp.std_devs(B), absolute_sigma=True)
+popt, pcov = curve_fit(affineline, unp.nominal_values(1/d), unp.nominal_values(B), sigma=unp.std_devs(B), absolute_sigma=True)
+k = unc.ufloat(popt[0], np.sqrt(pcov[0][0]), "k")
 print(popt)
 # plot B against 1/d
+fig = plt.figure(figsize=(8, 3))
 plt.errorbar(unp.nominal_values(1/d), unp.nominal_values(B), xerr=unp.std_devs(1/d), yerr=unp.std_devs(B), fmt=".k", capsize=3, label="Messwerte")
-plt.plot(unp.nominal_values(1/d), line(unp.nominal_values(1/d), *popt), color="red", label="fit")
-plt.xlabel("$1/d$ (m$^{-1}$)")
-plt.ylabel("$B$ ($\mu$T)")
+plt.plot(unp.nominal_values(1/d), affineline(unp.nominal_values(1/d), *popt), color="red", label="Fit")
+plt.text(0.5, 0.2, f"$f(x) = {k:.2uS}\, \mu$Tcm $\cdot\, \\tilde{{r}}$", transform=plt.gca().transAxes, color="red")
+plt.xlabel(r"$\tilde{r}$ (cm$^{-1}$)")
+plt.ylabel("$\Delta B$ ($\mu$T)")
+plt.legend()
 plt.tight_layout()
+plt.savefig("Graphics/Versuch6_4.pdf", transparent=True)
 plt.show()
 
-
-
+I = k*2*np.pi/mu0/10**8
+print(f"{I:.1uS} A")
 # %%
 
 

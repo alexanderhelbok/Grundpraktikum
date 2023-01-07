@@ -5,35 +5,35 @@
 \begin{document}
 %Seiten ohne Kopf- und Fußzeile sowie Seitenzahl
 \pagenumbering{Roman}
-\include{01_titel}
+\input{01_titel}
 
-\include{02_Kurzfassung}
+\input{02_Kurzfassung}
 
 %Inhaltsverzeichnis
 {\hypersetup{linkcolor=black}
 \tableofcontents
 
 %Verzeichnis aller Bilder
-\listoffigures
+%\listoffigures
 
 %Verzeichnis aller Tabellen
-\listoftables}
+%\listoftables}
 \cleardoubleoddpage
 
 \pagenumbering{arabic}
-\include{03_Einleitung}
+\input{03_Einleitung}
 
-\include{04_Theorie}
+\input{04_Theorie}
 
-\include{05_Aufbau}
+\input{05_Aufbau}
 
-\include{06_Ergebnisse}
+\input{06_Ergebnisse}
 
-\include{07_Diskussion}
+\input{07_Diskussion}
 
 %Literaturverzeichnis
 \printbibliography
 
-\include{08_Unterschriften}
+\input{08_Unterschriften}
 
 \end{document}

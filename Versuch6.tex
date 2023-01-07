@@ -13,9 +13,9 @@
 
 
 \begin{mybox}{Stärke und Inklination des Erdmagnetfeldes}
-	Ziel dieses Versuches ist es, sowohl den Betrag, als auch die Ausrichtung des Erdmagnetfeldes in Innsbruck zu bestimmen. Dafür wird der Magnetsensor  des IOLab verwendet. Diese muss zuerst kalibriert werden. 
+	Ziel dieses Versuches ist es, sowohl den Betrag, als auch die Ausrichtung des Erdmagnetfeldes in Innsbruck zu bestimmen. Dafür wird der Magnetsensor des IOLab verwendet, welcher zuerst kalibriert werden muss. 
 	
-	Der Magnetsensor misst das Magnetfeld ich die drei (kartesischen) Raumrichtungen. Um die Berechnung des Magnitude und Inklination des Magnetfeldes zu vereinfachen, drehen wir unser Koordinatensystem (das IOLab) so, dass der Sensor im Rahmen der Unsicherheit einen Wert von 0 in eine Raumrichtung ausgibt. In unserem Fall war das die y-Komponente, welche minimiert wurde. Dann ergibt sich nämlich für den Gesamtbetrag des Erdmagnetfeldes 
+	Der Magnetsensor misst das Magnetfeld ich die drei (kartesischen) Raumrichtungen. Um die Berechnung der Magnitude und Inklination des Magnetfeldes zu vereinfachen, drehen wir unser Koordinatensystem (das IOLab) so, dass der Sensor im Rahmen der Unsicherheit einen Wert von 0 in eine Raumrichtung ausgibt. In unserem Fall war das die y-Komponente, welche minimiert wurde. Dann ergibt sich nämlich für den Gesamtbetrag des Erdmagnetfeldes 
 	\begin{equation}\label{eqn:mag1}
 		|\vec{B}| = \sqrt{B_x^2 + B_z^2}
 	\end{equation}
@@ -24,7 +24,7 @@
 		\theta = \arctan(\tfrac{B_z}{B_x})
 	\end{equation}
 	
-	Die Messung wurde am Boden durchgeführt durchgeführt und lief etwas über \( 30 \unit{s} \). Die gewonnen Daten sind in \autoref{fig:Bmean} dargestellt. Es wurde für jede Komponente der Mittelwert gebildet und der Fehler auf die Standardabweichung gesetzt, da dann (per Definition) zwei drittel der Daten innerhalb des \( 1\sigma \) Intervalls liegen. 
+	Die Messung wurde am Boden durchgeführt und lief etwas über \( 30 \unit{s} \). Die gewonnen Daten sind in \autoref{fig:Bmean} dargestellt. Es wurde für jede Komponente der Mittelwert gebildet und der Fehler auf die Standardabweichung gesetzt, da dann (per Definition) zwei drittel der Daten innerhalb des \( 1\sigma \) Intervalls liegen. 
 	
 	\begin{figure}[H]	
 		\centering
@@ -82,8 +82,8 @@
 			\node at (4,0.9) {\large \( 4 \)};
 		\end{tikzpicture}
 	\end{minipage}
-	
-	Anhand der Stromrichtung und der Drehung kann man auf die Richtung des Magnetfeldes schließen, da auf die bewegten Ladungsträger (der Strom) dir Lorentz Kraft wirkt und die Batterie zum Drehen bringt. Das Vorzeichen der Ladungsträger spielt keine Rolle, da sich dann neben dem Vorzeichen von \( q \) auch die Flussrichtung ändern würde, was sich wegkürzt. Man kann mit diesem Experiment also nicht herausfinden, welches Vorzeichen die Ladungsträger des elektrischen Stromes haben. Der Versuch wurde also viermal durchgeführt und die Ergebnisse wurden in \autopageref{table:1} eingetragen. Die Strom- und Drehrichtung wurden beobachtet, woraus sich die Magnetfeldrichtung erschließt. Die Konfigurationen wurden dann mit \autoref{fig:Motor} verglichen und gematched. 
+
+	Anhand der Stromrichtung und der Drehung kann man auf die Richtung des Magnetfeldes schließen, da auf die bewegten Ladungsträger (der Strom) dir Lorentz Kraft wirkt und die Batterie zum Drehen bringt. Das Vorzeichen der Ladungsträger spielt keine Rolle, da sich dann neben dem Vorzeichen von \( q \) auch die Flussrichtung ändern würde, was sich wegkürzt. Man kann mit diesem Experiment also nicht herausfinden, welches Vorzeichen die Ladungsträger des elektrischen Stromes haben. Der Versuch wurde viermal durchgeführt und die Ergebnisse sind in \autoref{table:1} eingetragen. Die Strom- und Drehrichtung wurden beobachtet, woraus sich die Magnetfeldrichtung erschließt. Die Konfigurationen wurden dann mit \autoref{fig:Motor} verglichen und gematched. 
 	
 	\begin{center}
 		\captionof{table}{Stromrichtung, Drehrichtung und daraus erschlossene Magnetfeldrichtung für die vier Konfigurationen.}
@@ -111,7 +111,13 @@
 \end{mybox}
 
 \begin{mybox}{Strom durch Leiter}
-	Ziel dieses Versuches ist es, den Strom in einem Leiter anhand vom erzeugten Magnetfeld zu bestimmen. Dafür wurde eine frische Batterie über ein Kabel der Länge \( d = 2.97(1) \unit{m} \) kurzschlossen und das erzeugte Magnetfeld mit dem Magnetfeldsensor vom IOLab aufgezeichnet. Diese Messung wurde 11 Mal durchgeführt, wobei nach jedem Durchgang das IOLab um \( 1 \unit{cm} \) vom Leiter wegbewegt wurde. 
+	Ziel dieses Versuches ist es, den Strom in einem Leiter anhand vom erzeugten Magnetfeld zu bestimmen. Dafür wurde eine frische Batterie über ein Kabel der Länge \( d = 2.97(1) \unit{m} \) kurzschlossen und das erzeugte Magnetfeld mit dem Magnetfeldsensor vom IOLab aufgezeichnet. Diese Messung wurde 11 Mal durchgeführt, wobei nach jedem Durchgang das IOLab um \( 1.0 (1) \unit{cm} \) vom Leiter wegbewegt wurde. 
+	
+	Der Magnetsensor im IOLab ist in einer Höhe von \( H = 2.0(1) \unit{cm} \) und einer Tiefe von \( T = 0.9(1) \unit{cm} \) verbaut. Der effektive Abstand vom Leiter ergibt sich dann aus 
+	\begin{equation}\label{eqn:r}
+		r = \sqrt{H^2+T^2+R^2}
+	\end{equation}
+	wobei \( R \) nach jedem Durchgang um \( 1.0(1) \unit{cm} \) erhöht wird.
 	
 	In \autoref{fig:Bcable} sind die aufgezeichneten Daten für die drei Raumkomponenten zu sehen. In x-Richtung sind keine Ausschläge zu sehen, da diese Achse parallel zum Leiter war und das Magnetfeld radial um den Leiter geht und keine parallele Komponente besitzt. In den anderen 2 Raumrichtungen sieht man 11 Ausschläge, die mit der Zeit an Magnitude abnehmen, da das IOLab ja immer weiter wegbewegt wurde und das gemessene Magnetfeld vom Leiter daher auch weniger stark war.
 	
@@ -122,8 +128,7 @@
 		\label{fig:Bcable}
 	\end{figure}
 	
-	Die Analyse der Daten ging wie folgt: 
-	Von den Maxima muss noch der Untergrund abgezogen werden, um die vom Strom verursacht Änderung vom Magnetfeld zu bestimmen. Dafür wurde 2 Sekunden vor und nach dem Ausschlag die Daten gemittelt und aus diesen beiden Werten wieder der Mittelwert gebildet. Jetzt kann man die relative Änderung und daraus über die Wurzel der Quadratsummen (Siehe \autoref{eqn:mag1}) die Stärke des Magnetfeldes bestimmen. 
+	Die Analyse der Daten ging wie folgt: Die Ausschläge wurden ermittelt und in diese wurde eine Konstante gelegt.	Von den Maxima muss noch der Untergrund abgezogen werden, um die vom Strom verursacht Änderung vom Magnetfeld zu bestimmen. Dafür wurde 2 Sekunden vor und nach dem Ausschlag die Daten gemittelt und aus diesen beiden Werten wieder der Mittelwert gebildet. Jetzt kann man die relative Änderung und daraus über die Wurzel der Quadratsummen (Siehe \autoref{eqn:mag1}) die Stärke des Magnetfeldes bestimmen. 
 	
 	Der Absolutbetrag des Magnetfeldes ist gegeben durch 
 	\begin{equation}\label{eqn:last}
@@ -140,9 +145,11 @@
 
 	Für die Steigung der Gerade erhält man einen Wert von \( k = 153.3(1.3) \unit{\micro\tesla\cm} \), woraus sich mit \autoref{eqn:last} ein Strom von \( I = 7.67(7) \unit{A} \) ergibt.
 	
-	Nimmt man für die Batterie eine Spannung von \( U = 1.5(1) \unit{V} \) und einen Innenwiderstand von \( R = 0.15 \unit{\ohm} \) und für das Kabel einen Leitwiderstand von \( R = 40.1 \unit{\ohm/km} \) an, kann man sich mithilfe des Ohmschen Gesetzes \( I = U/R \) den fließenden Strom berechnen. Setzt man hier Werte ein erhält man \( I_{\text{calc}} = 5.6(4) \unit{A} \).
+	Nimmt man für die Batterie eine Spannung von \( U = 1.5(1) \unit{V} \) und einen Innenwiderstand von \( R_{\text{Batt}} = 0.15 \unit{\ohm} \) und für das Kabel einen Leitwiderstand von \( R_{\text{lw}} = 40.1 \unit{\ohm/km} \) an, kann man sich mithilfe des Ohmschen Gesetzes \( I = U/R \) den fließenden Strom berechnen. Setzt man hier Werte ein erhält man \( I_{\text{calc}} = 5.6(4) \unit{A} \).
 	
-	Unser Wert weicht also deutlich vom theoretischen Wert ab, was an mehreren Sachen liegen kann.
+	Unser Wert weicht also deutlich vom theoretischen Wert ab, was an mehreren Sachen liegen kann. Einerseits entlädt sich die Batterie bei einem Kurzschluss rapide, wodurch sich die Spannung und damit der fließende Strom reduziert. Um den Strom zeitlich konstant zu halten, müsse man eine andere Spannungsquelle verwenden, die direkt am Stromnetz hängt und sich daher nicht entlädt. Zweitens wurde der Versuch in einem Gebäude voller metallischer Gegenstände durchgeführt, welche das vom Leiter erzeugt Magnetfeld verzerren. Um dieses Problem zu beheben, müsste man den Versuch an einem Ort durchführen, der möglichst Metallfrei ist. 
+	
+	In der Berechnung vom Strom ist die größte Fehlerquelle die Messung des Magnetfeldes, da die Ausschläge nur sehr kurz sind und die Werte im Peak streuen. Das Problem könnte man mit einer kontinuierlichen und vor allem konstanten Stromquelle beheben, dann müsste man den Stromfluss gar nicht mehr unterbrechen, sonder könnte bei fließendem Strom den Abstand des IOLabs erhöhen.
 \end{mybox}
 
 

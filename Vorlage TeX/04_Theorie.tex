@@ -6,12 +6,12 @@
 Im nachfolgenden Kapitel wird auf die theoretischen Grundlagen des Versuches eingegangen.
 
 \section{Newtons Grundsätze der Bewegungslehre}
-Um die Masse des Pendelkörpers zu bestimmen, wird Newtons 2. Axiom herangezogen. \cite{newton} Dieses besagt, dass
+Um die Masse des Pendelkörpers zu bestimmen, wird Newtons 2. Axiom herangezogen \cite{newton}. Dieses besagt, dass
 
 \begin{equation}\label{eqn:newt}
 	\vec{F} = m\vec{a}
 \end{equation}
-also, dass die auf einen Körper wirkende Kraft linear mit seiner Beschleunigung skaliert, wobei seine Masse \( m \) gerade der Proportionalitätskonstante ist. In anderen Worten ausgedrückt ist das Verhältnis zwischen Kraft \( F \) und Beschleunigung \( a \) der Skalierungsfaktor, die Masse \( m \). 
+also, dass die auf einen Körper wirkende Kraft \( F \) linear mit seiner Beschleunigung \( a \) skaliert, wobei seine Masse \( m \) gerade der Proportionalitätskonstante ist. In anderen Worten ausgedrückt ist das Verhältnis zwischen Kraft und Beschleunigung der Skalierungsfaktor, die Masse \( m \). 
 
 Diese Tatsache wird herangezogen, um die Schwingmasse zu ermitteln. Kennt man beziehungsweise misst man nämlich alle wirkenden Kräfte und Beschleunigungen, ist die Masse der Quotient der beiden Größen. 
 
@@ -34,7 +34,7 @@ mit der Kreisfrequenz \( \omega \), der Amplitude \( A \) und einem Phasenfaktor
 \begin{equation}\label{eqn:omega}
 	\omega = \sqrt{\tfrac{k}{m}} = \sqrt{k}\sqrt{\tfrac{1}{m}} = \sqrt{k}\tilde{m}
 \end{equation}
-und ist unabhängig von jeglichen Startpositionen und geschwindigkeiten, weshalb sie als eine charakteristische Eigenschaft des Systems angesehen wird. Offensichtlich besteht ein linearer Zusammenhang zwischen der Winkelfrequenz \( \omega \) und der Wurzel des Kehrwerts der Masse \( \tilde{m} := \sqrt{1/m} \) (wird aus Bequemlichkeitsgründen mit \( \tilde{m} \) abgekürzt), wobei die Wurzel der Konstante \( k \) der Skalierungsfaktor ist. 
+und ist unabhängig von jeglichen Startpositionen und Geschwindigkeiten, weshalb sie als eine charakteristische Eigenschaft des Systems angesehen wird. Offensichtlich besteht ein linearer Zusammenhang zwischen der Winkelfrequenz \( \omega \) und der Wurzel des Kehrwerts der Masse \( \tilde{m} := \sqrt{1/m} \) (wird aus Bequemlichkeitsgründen mit \( \tilde{m} \) abgekürzt), wobei die Wurzel der Konstante \( k \) der Skalierungsfaktor ist. 
 
 %Der Konstante \( k \) können wir erst einen Sinn geben, wenn wir die rückstellende Kraft kennen. In einem Federpendel ist das die Rückstellkraft der Feder, welche durch das Hookesche Gesetz beschrieben wird. Dieses besagt, dass die Kraft, welche eine Feder ausübt, proportional zur Auslenkung aus der Ruhelage ist und um einen Faktor \( k \) skaliert wird, der von den Materialeigenschaften der Feder abhängt. 
 
@@ -46,7 +46,7 @@ Aus der Winkelfrequenz lassen sich auch weitere Größen ableiten, wie zum Beisp
 \begin{equation}\label{eqn:T}
 	T = \frac{2\pi}{\omega} = 2\pi \sqrt{\tfrac{m}{k}}
 \end{equation}
-gegeben ist. \cite[S. 336ff.]{demtröder}
+gegeben ist. Diese Beziehungen lassen sich auf Seite 336 im Demtröder nachschlagen \cite{demtröder}.
 
 \section{Statistische Grundlagen}
 
@@ -56,7 +56,7 @@ Das Arithmetische Mittel, auch Mittelwert oder Durchschnitt genannt, ist das woh
 \begin{equation}\label{eqn:mean1}
 	\bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i
 \end{equation}
-mit $\bar{x}$ als Mittelwert von \( N \) Daten. \cite[S. 10]{error}
+mit $\bar{x}$ als Mittelwert von \( N \) Daten \cite{error}.
 
 Sind die Daten Fehlerbehaftet (mit Fehler \( \alpha_i \)) muss man diesen Berücksichtigen und erhält
 \begin{equation}\label{eqn:mean2}
@@ -68,13 +68,13 @@ Die Standardabweichung ist ein direktes Maß für die Verteilung der Daten und g
 \begin{equation}\label{eqn:sigma}
 	\sigma = \SQRT{\frac{1}{N-1} \sum_{i=1}^{N}(x_i - \bar{x})^2}
 \end{equation}
-Wir dividieren hier durch \( N-1 \), da der Mittelwert, der in der Berechnung der Standardabweichung herangezogen wird, die \( N \) Freiheitsgrade der  \( N \) Daten um einen reduziert. \cite[S. 12]{error}
+Wir dividieren hier durch \( N-1 \), da der Mittelwert, der in der Berechnung der Standardabweichung herangezogen wird, die \( N \) Freiheitsgrade der  \( N \) Daten um einen reduziert \cite{error}.
 
 Die Kombination der Unsicherheiten von fehlerbehafteten Messdaten erfolgt mittels der Gaußschen Fehlerpropagation. Diese stellt einen Zusammenhang zwischen dem Fehler der Größe \( Z(x_i) \), welche von \( x_i \) Variablen abhängt, und den partiellen Ableitungen nach \( x_i \) her. In allgemeiner Form sieht die Formel wie folgt aus
 \begin{equation}\label{eqn:propagation}
 	\alpha_Z = \SQRT{\sum_{i=1}^{N}\left( \pdv{Z}{x_i} \alpha_{x_i}\right)^2}
 \end{equation}
-mit \( \alpha_{x_i} \) als Fehler der einzelnen Größen, von denen \( Z \) abhängt.\cite[S. 41]{error}
+mit \( \alpha_{x_i} \) als Fehler der einzelnen Größen, von denen \( Z \) abhängt \cite{error}.
 Die Propagation von Fehlern erfolgt in diesem Versuch automatisch und wird im Hintergrund gehalten.
 
 Zuletzt wird noch das Chi-Quadrat eingeführt, welches ein Maß für die Güte einer Funktionsanpassung ist. Dafür wird die Quadratsumme der fehlernormierten Abweichungen gebildet und schaut in Summenschreibweise so aus
@@ -87,7 +87,7 @@ Generell gilt, je kleiner der Wert von \( \chi^2 \), desto besser passt das Mode
 \begin{equation}\label{eqn:chinu}
 	\chi_{\nu}^2 = \frac{\chi^2}{\nu}
 \end{equation}
-mit \( \nu \) als Anzahl der Freiheitsgrade.\cite[S. 107]{error} Die so definierte Größe hat den Erwartungswert \( \langle \chi_{\nu}^2 \rangle = 1 \), man muss \( \nu \) also nicht mehr kennen, um die Güte einzuschätzen. \\
+mit \( \nu \) als Anzahl der Freiheitsgrade \cite{error}. Die so definierte Größe hat den Erwartungswert \( \langle \chi_{\nu}^2 \rangle = 1 \), man muss \( \nu \) also nicht mehr kennen, um die Güte einzuschätzen. \\
 
 Eine kurze Anmerkung zur Notation: \( \sigma \) wird in diesem Bericht für die Standardabweichung eines Datensatzes verwendet, während \( \alpha \) der Fehler einer bestimmen Größe ist. Öfters fallen diese beiden zusammen (bzw. \( \alpha \) wird auf \( \sigma \) gesetzt), was für Verwirrung sorgen kann, weshalb dies im Text immer erwähnt wird.
 Als Faustregel kann man sich merken, dass \( \sigma \) die Eigenschaft eines Datensatzes ist und \( \alpha \) sich nur auf einzelne Werte bezieht.

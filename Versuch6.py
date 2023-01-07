@@ -73,7 +73,7 @@ midpeaksy = np.sort(np.append(midpeaksy, [0, len(df)-1]))
 midpeaksz = np.sort(np.append(midpeaksz, [0, len(df)-1]))
 
 # plot data in one plot
-fig = plt.figure(figsize=(8, 4))
+fig = plt.figure(figsize=(8, 3))
 plt.scatter(df["t"], df["Bx"], label="$B_x$", s=0.1)
 plt.scatter(df["t"], df["By"], label="$B_y$", s=0.1)
 plt.scatter(df["t"], df["Bz"], label="$B_z$", s=0.1)
@@ -84,9 +84,10 @@ plt.scatter(df["t"], df["Bz"], label="$B_z$", s=0.1)
 plt.xlabel("$t$ (s)")
 plt.ylabel("$B$ ($\mu$T)")
 plt.xlim(0, df["t"].max())
+plt.legend(markerscale=10)
 plt.tight_layout()
-# plt.savefig("Graphics/Versuch6_3.pdf", transparent=True)
-# plt.show()
+plt.savefig("Graphics/Versuch6_3.pdf", transparent=True)
+plt.show()
 
 
 Bx, By, Bz = unp.uarray(np.empty(11), np.empty(11)), unp.uarray(np.empty(11), np.empty(11)), unp.uarray(np.empty(11), np.empty(11))
@@ -117,9 +118,9 @@ for i in range(0, len(midpeaksy)-1):
     for k, field in zip(range(3), ["Bx", "By", "Bz"]):
         mid[k] = unc.ufloat(tempdf[field][int(startyarr[i]):int(startyarr[i] + 0.85 * rate)].mean(),
                           tempdf[field][int(startyarr[i]):int(startyarr[i] + 0.85 * rate)].std(), f"mid {field}")
-        plt.hlines(mid[k].n, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i] + int(0.85 * rate)], color="red")
-        plt.hlines(mid[k].n + mid[k].s, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i] + int(0.85 * rate)], color="red", linestyle="dashed")
-        plt.hlines(mid[k].n - mid[k].s, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i] + int(0.85 * rate)], color="red", linestyle="dashed")
+        # plt.hlines(mid[k].n, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i] + int(0.85 * rate)], color="red")
+        # plt.hlines(mid[k].n + mid[k].s, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i] + int(0.85 * rate)], color="red", linestyle="dashed")
+        # plt.hlines(mid[k].n - mid[k].s, tempdf["t"][startyarr[i]], tempdf["t"][startyarr[i] + int(0.85 * rate)], color="red", linestyle="dashed")
 
 
 
@@ -143,11 +144,11 @@ for i in range(0, len(midpeaksy)-1):
         # plt.hlines(end[k].n+3*end[k].s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
         # plt.hlines(end[k].n-3*end[k].s, tempdf["t"].tail(int(1.3*rate)).iloc[0], tempdf["t"].tail(int(1.3*rate)).iloc[-1], color="magenta", linestyle="dashed")
 
-plt.xlim(38.1, 54)
-plt.ylim(-62, -10)
-plt.legend(markerscale=10, labels=["$B_x$", "$B_y$", "$B_z$", "Mittelwert", "$1\sigma$ Interval"], loc="upper right")
+# plt.xlim(38.1, 54)
+# plt.ylim(-62, -10)
+# plt.legend(markerscale=10, labels=["$B_x$", "$B_y$", "$B_z$", "Mittelwert", "$1\sigma$ Interval"], loc="upper right")
 # plt.savefig("Graphics/Versuch6_4.pdf", transparent=True)
-plt.show()
+# plt.show()
 
 L1 = unc.ufloat(0.9, 0.1, "d1")**2 + unc.ufloat(2.0, 0.1, "d2")**2
 mu0 = 4*np.pi*10**(-7)

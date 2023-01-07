@@ -11,7 +11,7 @@
 \setmainfont[Mapping=tex-text]{Times New Roman}
 \RequirePackage[backend=biber, abbreviate=true,doi=false,style=numeric-comp,giveninits=true,sorting=none]{biblatex}
 \RequirePackage[ngerman]{babel}
-\RequirePackage{xifthen, xstring, csquotes}
+\RequirePackage{xifthen, xstring, csquotes, etoolbox}
 \RequirePackage[dvipsnames]{xcolor}
 \RequirePackage{mtpro2, lipsum}
 \pdfmapfile{=mtpro2.map}
@@ -48,11 +48,14 @@
 }
 
 \RedeclareSectionCommand[
-beforeskip=-3sp,
+beforeskip=3\baselineskip,
 afterskip=1\baselineskip]{chapter}
 \RedeclareSectionCommand[
 beforeskip=-\baselineskip,
 afterskip=.5\baselineskip]{section}
+\makeatletter
+\patchcmd{\scr@startchapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
 
 %\tikzexternalize[prefix=figures/]
 

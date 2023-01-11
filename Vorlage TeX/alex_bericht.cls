@@ -1,7 +1,7 @@
 \author{Alexander Helbok}
 \date{\today}
 \ProvidesClass{alex_bericht}[2022/10/12 Alexander Report Class]
-\LoadClass[11pt,a4paper]{scrreprt}
+\LoadClass[11pt,a4paper]{scrartcl}
 \RequirePackage{fullpage, lastpage}
 \RequirePackage[onehalfspacing]{setspace} 
 \RequirePackage[left=2.5cm, right=2.5cm, bottom=2.5cm, top=1cm]{geometry}
@@ -20,8 +20,7 @@
 \tcbuselibrary{breakable,skins}
 \RequirePackage[headsepline]{scrlayer-scrpage}
 \RequirePackage{graphicx, wrapfig, float}
-\RequirePackage[font=footnotesize, bf, format=plain, font=normalsize]{caption} 
-\RequirePackage{listings} %env ignores LATEX commands, keeping all the line breaks (for printing code)
+\RequirePackage[font=footnotesize, bf, format=plain, font=normalsize]{caption}
 \RequirePackage[
 	pdftitle={Bericht 1},
 	pdfsubject={},
@@ -47,9 +46,6 @@
 	}
 }
 
-\RedeclareSectionCommand[
-beforeskip=3\baselineskip,
-afterskip=1\baselineskip]{chapter}
 \RedeclareSectionCommand[
 beforeskip=-\baselineskip,
 afterskip=.5\baselineskip]{section}

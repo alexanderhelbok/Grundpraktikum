@@ -1,11 +1,11 @@
 % !TeX root = 00_Vorlage.tex
 % !TeX spellcheck = de_DE
-\chapter{Ergebnisse}
+\section{Ergebnisse}
 \label{sec:ergebnisse}
 
 Im folgenden Abschnitt werden die Ergebnisse der Massenbestimmungen und der anschließenden Versuchen mit einer und mehrerer Federn. Alle Fehlerangaben beziehen sich auf statistische Fehler; Systematische werden gegebenenfalls separat diskutiert. 
 
-\section{Massenbestimmung}
+\subsection{Massenbestimmung}
 Die Masse des Pendelkörpers wurde über eine simultane Kraft- und Beschleunigungsmessung und Newtons Axiom \autoref{eqn:newt} bestimmt. In \autoref{fig:mass} sind die Messdaten auf die Zeit aufgetragen. In der ersten halben Sekunde befindet sich das Gerät am Tisch in Ruhe und ab \( t = 4 \unit{s} \) ist das IOLab komplett in der Luft. Ab diesem Zeitpunkt wird eine Konstante an die Messdaten angepasst. 
 
 \begin{figure}[H]
@@ -40,7 +40,7 @@ Der bestimmte Wert mit Fehler ist sowohl in der Abbildung, als auch in \autoref{
 	\label{table:1}
 \end{center}
 
-\section{Federpendel mit einer Feder}
+\subsection{Federpendel mit einer Feder}
 \label{sec:Feder 1}
 Für die Analyse der Oszillation wurde der Beschleunigungssensor verwendet, da dieser eine höhere Auflösung als der Kraftsensor besitzt. In \autoref{fig:sine} sind die Schwingungsdaten der zweiten Masse \( m_2 \) dargestellt. Links sind die ersten fünf Sekunden, in welchen „schöne” Schwingungen auftreten, zu sehen, während rechts die letzten Sekunden der Messung aufgetragen sind. In rot wurde eine Sinuskurve der Form \( f(x) = A\sin(\omega x + \phi) + d \) an die gesamten Messdaten von \( t = 4 \unit{s} \) bis \( t = 27 \unit{s} \) angepasst. 
 	
@@ -101,7 +101,7 @@ In \autoref{fig:kFit} wurden in schwarz die Federkonstanten der drei Massen als 
 Der Fitparameter aus \autoref{fig:k1} in rot (kann man sich als Art Mittelwert der drei schwarzen Kurven vorstellen) passt gut zu den Daten, da alle Daten auf jeden Fall innerhalb des \( 2\sigma \) Intervalls liegen. Er schließt die Messungen nicht aus und bestätigt soweit die Annahme, dass es sich beim Federpendel um einen harmonischen Oszillator handelt. 
 
 
-\section{Federpendel mit zwei Federn}
+\subsection{Federpendel mit zwei Federn}
 
 Im folgenden Versuch wurde die Masse \( m_3 = 0.400(7) \unit{kg} \) an zwei Federn gehängt. Die Schwingungsdaten wurden analog wie mit einer Feder analysiert, sprich es wurde eine Sinuskurve an die Beschleunigungsdaten angepasst, aus welcher sich die Kreisfrequenz \( \omega \) samt Fehler ablesen lässt. Mittels \autoref{eqn:omega} wurde anschließend die Gesamtfederkonstante des Systems ausgerechnet.
 In \autoref{table:3} sind die Daten dargestellt.
@@ -141,7 +141,7 @@ In diesem Versuch wird angenommen, dass alle Federn die gleichen Materialeigensc
 \end{equation}
 vereinfacht, wobei \( k = 14.00(17) \unit{N/m} \) die in \autoref{sec:Feder 1} ermittelte Federkonstante ist. In einem System mit identen Federn skaliert also die Gesamtfederkonstante linear mit der Anzahl \( N \) der Federn.
 
-\section{Testen des Modells}
+\subsection{Testen des Modells}
 Der letzte Versuch hat darauf abgezielt, das erstellte Modell mit einem System von drei Federn zu testen. Es wurde die gleiche Masse \( m_3 = 0.400(7) \unit{kg} \) wie mit zwei Federn verwendet und die Analyse der Schwingungen verlief analog. Es wurde eine Winkelfrequenz von \( \omega = 0.6193(10) \unit{1/s} \) ermittelt.
 
 Bei \( N = 3 \) Federn sagt das Modell einen Wert von \( \hat{k}_3 = 42.0(1.8) \unit{N/m} \) vor, wobei empirisch ein Wert von \( k_3 = 41.2(8) \unit{N/m} \) ermittelt wurde. Sieht man sich die Differenz dieser beiden Größen an findet man, dass

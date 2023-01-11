@@ -1,11 +1,11 @@
 % !TeX root = 00_Vorlage.tex
 % !TeX spellcheck = de_DE
-\chapter{Theorie}
+\section{Theorie}
 \label{sec:theorie}
 
 Im nachfolgenden Kapitel wird auf die theoretischen Grundlagen des Versuches eingegangen.
 
-\section{Newtons Grundsätze der Bewegungslehre}
+\subsection{Newtons Grundsätze der Bewegungslehre}
 Um die Masse des Pendelkörpers zu bestimmen, wird Newtons 2. Axiom herangezogen \cite{newton}. Dieses besagt, dass
 
 \begin{equation}\label{eqn:newt}
@@ -15,17 +15,17 @@ also, dass die auf einen Körper wirkende Kraft \( F \) linear mit seiner Beschl
 
 Diese Tatsache wird herangezogen, um die Schwingmasse zu ermitteln. Kennt man beziehungsweise misst man nämlich alle wirkenden Kräfte und Beschleunigungen, ist die Masse der Quotient der beiden Größen. 
 
-\section{Einfacher harmonischer Oszillator}
+\subsubsection{Einfacher harmonischer Oszillator}
 Der einfache harmonische Oszillator ist die Lösung einer Differentialgleichung zweiter Ordnung der Form
 
 \begin{equation}\label{eqn:harmonic}
 	m\dv[2]{x}{t} = -kx
 \end{equation}
-wobei \( m \) die Masse des Oszillators ist und \( k \) eine Konstante ist und von der Natur der Schwingung stammt. In unserem Fall wird die Oszillation von einer Feder verursacht, welche durch das Hookesche Gesetz beschrieben wird. Dieses besagt, dass die Kraft, welche eine Feder ausübt, proportional zur Auslenkung aus der Ruhelage ist und um einen Faktor \( k \) skaliert wird, der von den Materialeigenschaften der Feder abhängt. Es gilt also \( F_{\text{H}} = -k\Delta x\), wobei \( \Delta x \) der Abstand zur Ruhelage ist.
+wobei \( m \) die Masse des Oszillators, \( x \) die Position des Pendelkörpers und \( k \) eine Konstante ist und von der Natur der Schwingung stammt. In unserem Fall wird die Oszillation von einer Feder verursacht, welche durch das Hookesche Gesetz beschrieben wird. Dieses besagt, dass die Kraft, welche eine Feder ausübt, proportional zur Auslenkung aus der Ruhelage ist und um einen Faktor \( k \) skaliert wird, der von den Materialeigenschaften der Feder abhängt. Es gilt also \( F_{\text{H}} = -k\Delta x\), wobei \( \Delta x \) der Abstand zur Ruhelage ist.
 Stellt man die Bewegungsgleichungen für ein Federpendel auf und wählt das Koordinatensystem so, dass der Ursprung in der Ruhelage des Federpendels (im Schwerefeld der Erde!) liegt, erhält man \autoref{eqn:harmonic}. Die Größe \( k \) aus der Differentialgleichung ist also die Federkonstante aus dem Hookeschen Gesetz mit der Einheit \( \unit{N/m} \).
 
 Die allgemeine Lösung dieses Differentialgleichung ist eine trigonometrische Funktion und lautet 
-
+z
 \begin{equation}\label{eqn:sol}
 	x(t) = A\cos(\omega t + \varphi)
 \end{equation}
@@ -48,7 +48,7 @@ Aus der Winkelfrequenz lassen sich auch weitere Größen ableiten, wie zum Beisp
 \end{equation}
 gegeben ist. Diese Beziehungen lassen sich auf Seite 336 im Demtröder nachschlagen \cite{demtröder}.
 
-\section{Statistische Grundlagen}
+\subsection{Statistische Grundlagen}
 
 Hier werden kurz die Methoden erwähnt, welche für die statistische Aufbereitung der Daten essentiell sind.
 
@@ -74,7 +74,7 @@ Die Kombination der Unsicherheiten von fehlerbehafteten Messdaten erfolgt mittel
 \begin{equation}\label{eqn:propagation}
 	\alpha_Z = \SQRT{\sum_{i=1}^{N}\left( \pdv{Z}{x_i} \alpha_{x_i}\right)^2}
 \end{equation}
-mit \( \alpha_{x_i} \) als Fehler der einzelnen Größen, von denen \( Z \) abhängt \cite{error}.
+mit \( \alpha_{x_i} \) als Fehler der einzelnen Größen, von denen \( Z \) abhängt \cite{error}. Oft wird für \( \alpha_{x_i} \) die Standardabweichung aus \autoref{eqn:sigma} verwendet, das muss aber nicht der Fall sein.
 Die Propagation von Fehlern erfolgt in diesem Versuch automatisch und wird im Hintergrund gehalten.
 
 Zuletzt wird noch das Chi-Quadrat eingeführt, welches ein Maß für die Güte einer Funktionsanpassung ist. Dafür wird die Quadratsumme der fehlernormierten Abweichungen gebildet und schaut in Summenschreibweise so aus

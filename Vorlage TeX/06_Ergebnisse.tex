@@ -46,12 +46,12 @@ Für die Analyse der Oszillation wurde der Beschleunigungssensor verwendet, da d
 	
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{Feder1.eps}
+	\includegraphics[width=\textwidth]{Feder1.pdf}
 	\caption[Oszillation mit einer Feder]{Die Beschleunigung wurde auf die Zeit aufgetragen und eine durchgehende Sinuskurve in rot wurde an die Daten ab \( t = 4 \unit{s} \) (bis \( t = 27 \unit{s} \)) angepasst. Dargestellt werden aber nur ersten 5 Sekunden (links) beziehungsweise letzten 5 Sekunden (rechts). Die Fehlerbalken der Daten sind zu klein, um sie auszumachen und werden daher nicht eingetragen.}
 	\label{fig:sine}
 \end{figure}
 	
-Aus dem Fit lässt sich direkt die Winkelfrequenz \( \omega \) mitsamt Fehler herauslesen. Aus dieser kann man wiederum mit \autoref{eqn:T} die Schwingungsdauer berechnen. In \autoref{table:2} sind charakteristische Eigenschaften der Schwingung, wie die Kreisfrequenz oder die Masse, eingetragen. 
+Aus dem Fit lässt sich direkt die Winkelfrequenz \( \omega \) mitsamt Fehler herauslesen. Der statistische Fehler der Winkelfrequenz wird hier vom Fitprogramm berechnet. Aus dieser kann man wiederum mit \autoref{eqn:T} die Schwingungsdauer berechnen. In \autoref{table:2} sind charakteristische Eigenschaften der Schwingung, wie die Kreisfrequenz oder die Masse, eingetragen. 
 	
 \begin{center}
 	\captionaboveof{table}[Messdaten zur Oszillation einer Feder]{Gemessene Masse, Schwingungsdauer, Winkelfrequenz und Federkonstante der drei Versuche.}
@@ -86,7 +86,7 @@ Das Modell des harmonischen Oszillators (Siehe \autoref{eqn:omega}) stellt einen
 	\label{fig:k1}
 \end{figure}
 
-Für den Fit erhält man einen Chi-Quadrat Wert von \( \chi^2 = 4.22 \), woraus sich für das reduzierte Chi-Quadrat \( \chi_{\nu}^2 = 2.11 \) ergibt. Dieser Wert weicht zwar vom Erwartungswert ab, aber nicht signifikant. Es könnte aber darauf hindeuten, dass die Fehler zu klein abgeschätzt wurden, beziehungsweise Fehlerquellen nicht berücksichtigt wurden. 
+Für den Fit wurden die Fehler in \( \omega \) berücksichtigt und man erhält einen Chi-Quadrat Wert von \( \chi^2 = 4.22 \), woraus sich für das reduzierte Chi-Quadrat \( \chi_{\nu}^2 = 2.11 \) ergibt. Dieser Wert weicht zwar vom Erwartungswert ab, was aber rein statistischer Natur sein kann.
 
 Quadriert man nun den erhaltenen Fitparameter \( \sqrt{k} = 3.74(2) \unit{\sqrt{kg / s^2}} \) erhält man die Federkonstante \( k = 14.00(17) \unit{N/m} \). Wie in \autoref{sec:theorie} diskutiert ist die Federkonstante eine intrinsische Größe der Feder und hängt daher nicht von der angehängten Masse ab. Mittels \autoref{eqn:omega} kann man \( k \) für die drei Messungen mit unterschiedlichen Massen berechnen und man erwartet, dass sich die gleiche Konstante ergibt, was im Rahmen der Unsicherheit auch der Fall ist (Werte \autoref{table:2} entnehmen). 
 
@@ -100,6 +100,7 @@ In \autoref{fig:kFit} wurden in schwarz die Federkonstanten der drei Massen als 
 
 Der Fitparameter aus \autoref{fig:k1} in rot (kann man sich als Art Mittelwert der drei schwarzen Kurven vorstellen) passt gut zu den Daten, da alle Daten auf jeden Fall innerhalb des \( 2\sigma \) Intervalls liegen. Er schließt die Messungen nicht aus und bestätigt soweit die Annahme, dass es sich beim Federpendel um einen harmonischen Oszillator handelt. 
 
+Eine Federkonstante von \( k_1 = 8(1) \unit{N/m} \), welche ein anderer Kursteilnehmer gemessen hat, ist nicht mit den hier präsentierten Ergebnissen vereinbar. Die beiden Werte liegen mehrere Standardabweichungen voneinander entfernt und können daher nicht durch statistische Schwankungen erklärt werden. Eine mögliche Erklärung für diese Situation ist, dass die Annahme, das alle Federn im Labor gleich sind, falsch ist, da zum Beispiel durch Überdehnung einer Feder dessen Federkonstante permanent reduziert wird. Der andere Kursteilnehmer könnte eine solche Feder für seinen Versuch verwendet haben.
 
 \subsection{Federpendel mit zwei Federn}
 
@@ -123,7 +124,7 @@ In \autoref{table:3} sind die Daten dargestellt.
 		&   {\makecell[t]{\( k/N \unit{(N/m)}\)}}\\
 		\midrule
 		
-		1 Feder & 1.063(10) & 5.91(11) & 14.0(6) & 14.0(6) \\
+		1 Feder & 1.063(10) & 5.91(11) & 14.00(17) & 14.00(17) \\
 		2 Feder & 0.758(2) & 8.29(2) & 27.5(5) & 13.8(3) \\
 %		3 Feder & 0.6193(10) & 10.15(2) & 41.2(8) & 13.7(3) \\
 		\bottomrule
@@ -144,7 +145,7 @@ vereinfacht, wobei \( k = 14.00(17) \unit{N/m} \) die in \autoref{sec:Feder 1} e
 \subsection{Testen des Modells}
 Der letzte Versuch hat darauf abgezielt, das erstellte Modell mit einem System von drei Federn zu testen. Es wurde die gleiche Masse \( m_3 = 0.400(7) \unit{kg} \) wie mit zwei Federn verwendet und die Analyse der Schwingungen verlief analog. Es wurde eine Winkelfrequenz von \( \omega = 0.6193(10) \unit{1/s} \) ermittelt.
 
-Bei \( N = 3 \) Federn sagt das Modell einen Wert von \( \hat{k}_3 = 42.0(1.8) \unit{N/m} \) vor, wobei empirisch ein Wert von \( k_3 = 41.2(8) \unit{N/m} \) ermittelt wurde. Sieht man sich die Differenz dieser beiden Größen an findet man, dass
+Bei \( N = 3 \) Federn sagt das Modell einen Wert von \( \hat{k}_3 = 42.0(5) \unit{N/m} \) vor, wobei empirisch ein Wert von \( k_3 = 41.2(8) \unit{N/m} \) ermittelt wurde. Sieht man sich die Differenz dieser beiden Größen an findet man, dass
 \begin{equation}\label{eqn:diff}
 	\hat{k}_3 - k_3 = 0.8(9) \unit{N/m}
 \end{equation}

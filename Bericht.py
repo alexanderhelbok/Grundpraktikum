@@ -18,7 +18,7 @@ plt.xlim(0, 10)
 plt.show()
 
 # %%
-df = pd.read_csv(f"data/Bericht/Feder 3.csv")
+df = pd.read_csv(f"data/Bericht/Feder 2.csv")
 # rename columns
 # df.columns = ["t", "Ax", "Ay", "Az", "F"]
 df.columns = ["t", "a", "F"]
@@ -111,8 +111,8 @@ for i in range(3):
     rate = get_polling_rate(df)
 
 
-    if i == 1:
-        df = df[:10*rate]
+    # if i == 1:
+    #     df = df[:10*rate]
     #     fit, fitcov = sine_fit(df["t"], df["a"], p0=[9 * rate, 10 * rate], min=4 * rate)
 
     fit, fitcov = sine_fit(df["t"], df["a"], p0=[5*rate, 6*rate], min=4*rate)
@@ -130,6 +130,7 @@ for i in range(3):
         fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=(8, 3))
         ax1.scatter(df["t"], df["a"], label="Messdaten", s=0.75, color="black")
         ax1.plot(df["t"][4*rate:], sine(df["t"][4*rate:], *fit), label="Fit", color="red", linewidth=1)
+        ax1.text(3.2, -12.4, fr"$\omega = {w[i]:.1uS} 1/$s", color="red")
         ax1.set_xlabel("t (s)")
         ax1.set_ylabel(r"a (m/s$^2$)")
         ax1.legend(borderaxespad=0.7, markerscale=4)
@@ -141,7 +142,7 @@ for i in range(3):
         ax2.set_xlim(22.2, 27.2)
         plt.ylim(-13, -7.8)
         fig.tight_layout()
-        # plt.savefig("Vorlage TeX/Graphics/Feder1.eps", format="eps", transparent=True)
+        # plt.savefig("Vorlage TeX/Graphics/Feder1.pdf", transparent=True)
         plt.show()
 
 for i in range(3):
@@ -283,28 +284,28 @@ popt, pcov = curve_fit(affineline, [1, 2, 3], unp.nominal_values(kparallel), sig
 print(f"k = {unc.ufloat(popt[0], np.sqrt(pcov[0][0])):.1uS}")
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 4), sharex=True)
-ax1.errorbar([1, 2, 3], unp.nominal_values(kparallel), yerr=unp.std_devs(kparallel), fmt=".k", capsize=3, label="Data")
+ax1.errorbar([1, 2, 3], unp.nominal_values(kparallel), yerr=unp.std_devs(kparallel), fmt=".k", capsize=3, label="Messdaten")
 # ax1.plot(np.linspace(0.9, 3.1, 3), affineline(np.linspace(0.9, 3.1, 3), *popt), label="Fit", color="red")
 ax1.plot(np.linspace(0.9, 3.1, 3), affineline(np.linspace(0.9, 3.1, 3), unc.nominal_value(k[2])), label="Model", color="red")
 # ax1.fill_between(np.linspace(0.9, 3.1, 3), affineline(np.linspace(0.9, 3.1, 3), unc.nominal_value(k[2]) - unc.std_dev(k[0])), affineline(np.linspace(0.9, 3.1, 3), unc.nominal_value(k[2]) + unc.std_dev(k[0])), color="#F5B7B1", alpha=0.2, label=r"$1\sigma$-Band")
 ax1.set_ylabel(r"$k$ [N/m]")
-ax1.text(2.2, 28, r"$f(x) = 16.10(8)$  (N/m) * n", color="red")
+# ax1.text(2.2, 28, r"$f(x) = 16.10(8)$  (N/m) * n", color="red")
 ax1.legend(loc="best", borderaxespad=1)
 ax1.set_xticks([1, 2, 3])
 ax1.set_xlim(0.9, 3.1)
 ax1.tick_params(axis='x', which='minor', bottom=False, top=False)
-ax2.errorbar([1, 2, 3], unp.nominal_values(ktemp2), yerr=unp.std_devs(ktemp2), fmt=".k", capsize=3, label="Data")
+ax2.errorbar([1, 2, 3], unp.nominal_values(ktemp2), yerr=unp.std_devs(ktemp2), fmt=".k", capsize=3, label="Messdaten")
 # ax2.hlines(popt[0], 0, 4, label=r"Fit", color="red")
 ax2.hlines(unc.nominal_value(k[2]), 0, 4, label="Model", color="red")
 # ax2.text(2.2, 15.8, r"$f(x) = 16.10(8)$  (N/m)", color="red")
 # ax2.fill_between([0, 4], popt[0] - np.sqrt(pcov[0][0]), popt[0] + np.sqrt(pcov[0][0]), color="#F5B7B1", alpha=0.2, label=r"$1\sigma$-Band")
 ax2.fill_between([0, 4], unc.nominal_value(k[2]) - unc.std_dev(k[2]), unc.nominal_value(k[2]) + unc.std_dev(k[2]), color="#F5B7B1", alpha=0.2, label=r"$1\sigma$-Band")
-ax2.set_ylabel(r"$k/n$ [N/m]")
-ax2.set_xlabel(r"Anzahl $n$")
-ax2.legend(loc="lower left", borderaxespad=1)
+ax2.set_ylabel(r"$k/N$ [N/m]")
+ax2.set_xlabel(r"Anzahl $N$")
+ax2.legend(loc="lower center", borderaxespad=1, ncol=3)
 ax2.tick_params(axis='x', which='minor', bottom=False, top=False)
-ax2.set_ylim(13.2, 14.8)
+ax2.set_ylim(12.3, 14.8)
 plt.tight_layout()
-# plt.savefig("Graphics/Versuch3_4.eps", format="eps", transparent=True)
+plt.savefig("Vorlage TeX/Graphics/Diskussion.pdf", transparent=True)
 plt.show()
 

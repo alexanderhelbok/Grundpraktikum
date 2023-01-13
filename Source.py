@@ -35,8 +35,8 @@ def line(x, a, b):
     return a*x + b
 
 
-def exponential(x, a, b, c, d):
-    return a*np.exp(b * (x-d)) + d
+def exponential(x, a, b, c):
+    return a*np.exp(b * x) + c
 
 
 def sine(x, a, b, c, d):
@@ -103,6 +103,8 @@ def sine_fit(x, y, err=None, min=0, p0=None, verbose=False):
     if p0 is None:
         p0 = [1000, 1100]
     start, end = p0[0], p0[1]
+    print(y)
+    print(y[1000])
     popt, pcov = curve_fit(sine, x[start:end], y[start:end], sigma=err[start:end], absolute_sigma=True, p0=[1, 5, 1, 1])
     chi = chisq(sine(x[start:end], *popt), y[start:end], dof=len(x[start:end]) - 4)
     if verbose:

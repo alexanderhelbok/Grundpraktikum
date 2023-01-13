@@ -35,8 +35,8 @@ def line(x, a, b):
     return a*x + b
 
 
-def exponential(x, a, b, c):
-    return a*np.exp(b*x) + c
+def exponential(x, a, b, c, d):
+    return a*np.exp(b * (x-d)) + d
 
 
 def sine(x, a, b, c, d):

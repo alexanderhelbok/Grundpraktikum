@@ -1,0 +1,66 @@
+% !TeX spellcheck = de_DE
+\documentclass{alex_gp}
+
+\name{Alexander Helbok}
+\course{Grundpraktikum}
+\hwnumber{7}
+\spacing{}
+\usepackage{biblatex}
+\usepackage{stackengine}
+
+\begin{document}
+\renewcommand{\labelenumi}{\alph{enumi})}
+
+
+\begin{mybox}{RC Entladung}
+	\begin{wrapfigure}[17]{r}{4.25cm}
+		\vspace{-0.5cm}
+		\begin{circuitikz}[european]
+			\draw (0,0)-- (0,4)
+			to[R, l_=$10 \unit{\ko}$, name=R] (4,4)   -- (4,2.5)
+			to[rmeter, t=$U_1$] (4,1.5)	--	(4,0)
+			to[opening switch, mirror] (2,0) -- (2,0)
+			to[thick, battery1, a=\smash{\stackunder[6pt]{\( 3.3 \unit{V} \)}{$_-$~~~$_+$}}](0, 0);
+%			
+			\draw (0,0)	--	(0,2)
+			to[thick, C, l=$C$] (3.6, 2);
+
+			\node  at (R.center) {$R$};
+		\end{circuitikz}
+		\caption{RC Schaltkreis mit einem Widerstand  \(  R = 10.0(1) \unit{\ko} \) und einem Kondensator \( C = 2.2 \unit{\micro\farad} \). An einer Stelle wird mit einem analogen Port die Spannung gemessen.}
+		\label{fig:1}
+	\end{wrapfigure}
+	\noindent
+	Kondensatoren sind elektronische Bauteile, die bei vorhandener Spannung sich aufladen und Ladungen speichern. Unterbricht man dann den Stromfluss, entlädt sich der Kondensator. Um dieses Verhalten zu untersuchen, wurde ein Schaltkreis gebaut (Siehe \autoref{fig:1}) mit einem Widerstand \( R = 10.0(1) \unit{\ko} \) und Kondensator \( C = 2.2 \unit{\micro\farad} \). Der Kondensator wird als ideal angenommen, da die Toleranz nicht angegeben war. 
+	
+	Um die Unsicherheit der Spannungsmessung abzuschätzen, wurde mit zwei Widerständen ein einfacher Spannungsteiler gebaut und für \( 5 \unit{s} \) die Spannung gemessen. Der Fehler der analogen Sensoren wird in den folgenden Versuchen auf die Standardabweichung \( \sigma = 1.85 \unit{mV} \) dieser Messung gesetzt. 
+	
+	Die Spannung am Kondensator wird laut Skript durch 
+	\begin{equation}\label{eqn:tau}
+		V(t) = V(0)\expo[-][t/RC] = V(0)\expo[-][t/\tau]
+	\end{equation}
+	beschrieben, wobei \( \tau = RC \) gesetzt wurde. Die Spannung wird also durch eine exponentielle Zerfallskurve beschrieben mit Zerfallsparameter \(  \tau \). 
+	
+	In \autoref{fig:ExpFit} ist die Spannung während der Entladung des Kondensators auf die Zeit aufgetragen. Die Fehlerbalken wurden nicht eingezeichnet, da man sie nicht ausmachen könnte. Die Spannung zu Beginn der Entladung beträgt \(  3 \unit{V} \) (Sättigungsgrenze des ADC) und pendelt sich gegen Ende bei \( 0.00073 \unit{V} \) ein. Da wir diese beiden Randbedingungen kennen, wurde eine Funktion der Form \( f(x) = 3\expo[-][x/b] + 0.00073 \) an die Daten angepasst. Dadurch haben wir die drei Freiheitsgrade eines allgemeinen exponentiellen Fits auf einen reduziert. Für den Fit wurden 10 ungefähr gleichmäßig verteilten Datenpunkte herangezogen. Die Fitfunktion, der Fitparameter b und die ausgewählten Messpunkte sind auch in \autoref{fig:ExpFit} in rot dargestellt.
+ 	
+	\begin{figure}[H]	
+		\centering
+		\includegraphics[width=\textwidth]{Versuch7_1}
+		\caption{Zeitliche Spannungsdaten während der Kondensatorentladung. In rot wurde die exponentielle Fitfunktion aufgetragen. Die für den Fit herangezogenen Datenpunkte sind ebenfalls rot hervorgehoben. Der Fehler der Spannungsdaten wird nicht dargestellt, dar dieser zu klein.}
+		\label{fig:ExpFit}
+	\end{figure}
+
+	Die Fitfunktion wurde so gewählt, dass \( \tau_{\text{exp}} = b = 0.0234(2) \unit{1/s} \) gilt und daher Wert und Unsicherheit von Tau direkt vom Fitprogramm berechnet wird. Verwendet man \( \tau = RC \) und die Werte für 
+	erhält man \( \tau_{\text{theo}} = 0.0220(2) \unit{1/s} \). Die Unsicherheit hier kommt nur aus dem Widerstand, da der Kondensator als ideal angenommen wird. Letzteres ist aber normalerweise nicht der Fall, wodurch wahrscheinlich die Diskrepanz zwischen experimentell und theoretisch bestimmten Wert für die Zeitkonstante \( \tau \) rührt.
+\end{mybox}
+
+\begin{mybox}{RC Frequenzanalyse}
+	Legt man Wechselstrom an einem Kondensator an, werden Phase und Amplitude der Schwingung verändert. 
+\end{mybox}
+
+\begin{mybox}{RLC Schwingkreis}
+
+\end{mybox}
+
+
+\end{document}

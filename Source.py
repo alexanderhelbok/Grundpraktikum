@@ -103,10 +103,8 @@ def sine_fit(x, y, err=None, min=0, p0=None, verbose=False):
     if p0 is None:
         p0 = [1000, 1100]
     start, end = p0[0], p0[1]
-    print(y)
-    print(y[1000])
-    popt, pcov = curve_fit(sine, x[start:end], y[start:end], sigma=err[start:end], absolute_sigma=True, p0=[1, 5, 1, 1])
-    chi = chisq(sine(x[start:end], *popt), y[start:end], dof=len(x[start:end]) - 4)
+    popt, pcov = curve_fit(sine, x.iloc[start:end], y.iloc[start:end], sigma=err.iloc[start:end], absolute_sigma=True, p0=[1, 5, 1, 1])
+    chi = chisq(sine(x.iloc[start:end], *popt), y.iloc[start:end], dof=len(x.iloc[start:end]) - 4)
     if verbose:
         print(f"start: {start}, end: {end}, chi: {chi}")
     # increase start and end by 100 as long as chi is smaller than 1
@@ -115,7 +113,7 @@ def sine_fit(x, y, err=None, min=0, p0=None, verbose=False):
         if start > min:
             start -= 100
         try:
-            popt, pcov = curve_fit(sine, x[start:end], y[start:end], sigma=err[start:end], absolute_sigma=True, p0=[popt[0], popt[1], popt[2], popt[3]])
+            popt, pcov = curve_fit(sine, x.iloc[start:end], y.iloc[start:end], sigma=err.iloc[start:end], absolute_sigma=True, p0=[popt[0], popt[1], popt[2], popt[3]])
         except RuntimeError:
             print("RuntimeError")
             break
@@ -123,12 +121,12 @@ def sine_fit(x, y, err=None, min=0, p0=None, verbose=False):
             if verbose:
                 print("end too large")
             break
-        chi = chisq(sine(x[start:end], *popt), y[start:end], dof=len(x[start:end]) - 4)
+        chi = chisq(sine(x.iloc[start:end], *popt), y.iloc[start:end], dof=len(x.iloc[start:end]) - 4)
         if verbose:
             print(f"start: {start}, end: {end}, chi: {chi}")
     end -= len(x)//30
     start += 100
-    popt, pcov = curve_fit(sine, x[start:end], y[start:end], sigma=err[start:end], absolute_sigma=True, p0=[popt[0], popt[1], popt[2], popt[3]])
+    popt, pcov = curve_fit(sine, x.iloc[start:end], y.iloc[start:end], sigma=err.iloc[start:end], absolute_sigma=True, p0=[popt[0], popt[1], popt[2], popt[3]])
     return popt, pcov
 
 

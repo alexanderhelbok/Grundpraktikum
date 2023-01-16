@@ -202,32 +202,46 @@ for (i, start, freq, shift) in zip([0, 1, 2, 3, 4], [0, 5.5, 11.5, 17.5, 23.5], 
         x1 = np.linspace((-popt1[2]-np.arcsin(0.05/popt1[0]))/popt1[1], (np.pi-popt1[2]+np.arcsin(0.05/popt1[0]))/popt1[1], 100)
         x2 = np.linspace((-popt2[2]-np.arcsin(0.05/popt2[0]))/popt2[1], (np.pi-popt2[2]+np.arcsin(0.05/popt2[0]))/popt2[1], 100)
         fig = plt.figure(figsize=(8, 3))
-        plt.scatter(df2.phase, df2.V2, s=3, label="Messdaten A1")
-        plt.scatter(df2.phase, df2.V1, s=3, label="Messdaten A2")
+        plt.scatter(df2.phase, df2.V2, s=3, label="Messdaten U1", alpha=0.5, zorder=0)
+        plt.scatter(df2.phase, df2.V1, s=3, label="Messdaten U2", alpha=0.5, zorder=0)
         plt.hlines(A1.n, 0, 1, color="black", linestyle="dashed", zorder=1)
         plt.hlines(A2.n, 0, 1, color="black", linestyle="dashed", zorder=1)
         # place text between the two lines
-        plt.text(0.15, (A1.n + A2.n)/2, fr"$\Delta A = {dA:.1uS}$", horizontalalignment="center", verticalalignment="center")
+        plt.text(0.15, (A1.n + A2.n)/2, fr"$A1/A2 = {dA:.1uS}$", horizontalalignment="center", verticalalignment="center")
         plt.vlines(max1.n, 0, 0.2, color="black", linestyle="dashed", zorder=1)
         plt.vlines(max2.n, 0, 0.2, color="black", linestyle="dashed", zorder=1)
         # place text between the two lines
-        plt.text((max1.n + max2.n)/2, -0.03, fr"$\Delta \phi = {dPhi:.1uS}$", horizontalalignment="center", verticalalignment="center")
+        plt.text((max1.n + max2.n)/2, -0.05, fr"$\Delta \phi = {dPhi:.1uS}$", horizontalalignment="center", verticalalignment="center")
         # plt.scatter(df2["phase"][df2["V1"] > 0.1], df2["V1"][df2["V1"] > 0.1], c="r")
-        plt.plot(x2, sine(x2, *popt2), label="Fit A1")
-        plt.plot(x1, sine(x1, *popt1), label="Fit A2")
-        plt.xlabel("Phase")
+        plt.plot(x2, sine(x2, *popt2), label="Fit U1", zorder=0)
+        plt.plot(x1, sine(x1, *popt1), label="Fit U2", zorder=0)
+        plt.xlabel("Phase (f = 7 Hz)")
         plt.ylabel("Spannung [V]")
-        plt.ylim(-0.18, 0.21)
+        plt.ylim(-0.18, 0.2)
+        plt.xlim(0, 1)
         plt.legend(ncol=4, loc="lower center", handlelength=1, markerscale=3)
         plt.tight_layout()
-        # plt.savefig("Graphs/Versuch7_2.pdf", transparent=True)
+        # plt.savefig("Graphics/Versuch7_2.pdf", transparent=True)
         plt.show()
 
+for i in range(4):
+    print(f"{dAmp[i]:.1uS}", end=" & ")
+print(f"{dAmp[4]:.2uS} \\\\")
+for i in range(4):
+    print(f"{dphase[i]:.2uS}", end=" & ")
+print(f"{dphase[4]:.1uS} \\\\")
 # %%
 freq = np.array([1, 3, 7, 10, 20])
 wfreq = 2*np.pi*freq
 dAmp = unp.sqrt(dAmp**2-1)/wfreq
 dphase = unp.tan(dphase)/wfreq
+
+for i in range(4):
+    print(f"{dAmp[i]:.2uS}", end=" & ")
+print(f"{dAmp[4]:.2uS} \\\\")
+for i in range(4):
+    print(f"{dphase[i]:.2uS}", end=" & ")
+print(f"{dphase[4]:.1uS} \\\\")
 # %%
 # fit const to data
 popt1, pcov1 = curve_fit(const, freq, unp.nominal_values(dAmp), sigma=unp.std_devs(dAmp), absolute_sigma=False)
@@ -251,7 +265,6 @@ plt.tight_layout()
 plt.show()
 
 # %%
-from scipy.stats import norm, t
 newtau = (exptau + tau1 + tau2)/3
 
 # plot all values for tau as gaussian

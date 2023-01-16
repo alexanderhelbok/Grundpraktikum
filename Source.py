@@ -14,6 +14,7 @@ import uncertainties as unc
 import uncertainties.unumpy as unp
 import seaborn as sns
 import mpl_interactions.ipyplot as iplt
+from scipy.stats import norm, t
 
 
 mycolor1 = "#F5B7B1"

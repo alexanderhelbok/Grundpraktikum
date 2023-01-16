@@ -57,7 +57,24 @@
 \end{mybox}
 
 \begin{mybox}{RC Frequenzanalyse}
-	Legt man Wechselstrom an einem Kondensator an, werden Phase und Amplitude der Schwingung verändert. 
+	\begin{wrapfigure}[16]{r}{4.25cm}
+		\vspace{-0.5cm}
+		\begin{circuitikz}[european]
+			\draw (0,0)
+			to[R, l_=$10 \unit{\ko}$, name=R] (0,4)
+			to[rmeter, t=$U_2$] (4,4)
+			to[thick, C, l_=$C$] (4,0)
+			to[sV] (2, 0)
+			to[line width=0.3pt, rmeter, t=$U_1$] (0,0);
+			
+			\node  at (R.center) {$R$};
+		\end{circuitikz}
+		\caption{RC Schaltkreis mit einem Widerstand  \(  R = 10.0(1) \unit{\ko} \) und einem Kondensator \( C = 2.2 \unit{\micro\farad} \) der an einer Wechselstromspannungsquelle angeschlossen ist. An zwei Stellen wird über einen analogen Port die Spannung aufgezeichnet.}
+		\label{fig:2}
+	\end{wrapfigure}
+	Legt man Wechselstrom an einem Kondensator an, werden Phase und Amplitude der Schwingung verändert, wobei das von der Frequenz der Spannung und den Eigenschaften der elektronischen Komponenten abhängt. Um dieses Verhalten zu untersuchen, wurde ein Schaltkreis mit einem Widerstand  \(  R = 10.0(1) \unit{\ko} \) und einem Kondensator \( C = 2.2 \unit{\micro\farad} \) aufgebaut (Siehe \autoref{fig:2}). Als Wechselstromspannungsquelle wurde über ein AUX-Kabel ein 
+	\lipsum[2]
+	\lipsum[2]
 \end{mybox}
 
 \begin{mybox}{RLC Schwingkreis}

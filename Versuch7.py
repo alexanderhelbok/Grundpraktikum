@@ -1,6 +1,3 @@
-import matplotlib.pyplot as plt
-import numpy as np
-
 from Source import *
 
 # load data
@@ -102,29 +99,9 @@ rate = get_polling_rate(df)
 # plot data
 # plt.plot(df.t, df.V1, label="V1")
 # plt.plot(df.t, df.V2, label="V2")
-# plt.scatter(df.t[start:end], df.V1[start:end], color="red", label="Ausgewählte Messwerte")
-# plt.xlabel("t / s")
-# plt.ylabel("V / V")
-# # plt.ylim(-0.1, 3.1)
-# plt.legend()
-# plt.tight_layout()
+# plt.ylim(-0.1, 3.1)
 # plt.show()
 # %%
-def shortest_string(df, col):
-    """
-    Calculate the string length and return the value.
-    """
-    # sort the data by phase
-    tempdf = df[['phase', col]].sort_values(by='phase')
-    # reset the index
-    tempdf = tempdf.reset_index(drop=True)
-    # diff
-    difftemp = tempdf.diff()
-    # sum over all the strings
-    string = np.sum(np.sqrt(difftemp.flux**2 + difftemp.phase**2))
-    # Return the shortest string of consecutive data points
-    return string
-
 def fold_data(df, period):
     """
     Fold the data at a given period and normalize the time to [0, 1].
@@ -222,24 +199,28 @@ for (i, start, freq, shift) in zip([0, 1, 2, 3, 4], [0, 5.5, 11.5, 17.5, 23.5], 
     print(f"dAmplitude: {dA:.2uS}, dPhase: {dPhi:.2uS}")
 
     if i == 2:
-        plt.scatter(df2.phase, df2.V1, s=3, label="Messdaten A2")
+        x1 = np.linspace((-popt1[2]-np.arcsin(0.05/popt1[0]))/popt1[1], (np.pi-popt1[2]+np.arcsin(0.05/popt1[0]))/popt1[1], 100)
+        x2 = np.linspace((-popt2[2]-np.arcsin(0.05/popt2[0]))/popt2[1], (np.pi-popt2[2]+np.arcsin(0.05/popt2[0]))/popt2[1], 100)
+        fig = plt.figure(figsize=(8, 3))
         plt.scatter(df2.phase, df2.V2, s=3, label="Messdaten A1")
-        plt.hlines(A1.n, 0, 1, color="black", linestyle="dashed")
-        plt.hlines(A2.n, 0, 1, color="black", linestyle="dashed")
+        plt.scatter(df2.phase, df2.V1, s=3, label="Messdaten A2")
+        plt.hlines(A1.n, 0, 1, color="black", linestyle="dashed", zorder=1)
+        plt.hlines(A2.n, 0, 1, color="black", linestyle="dashed", zorder=1)
         # place text between the two lines
         plt.text(0.15, (A1.n + A2.n)/2, fr"$\Delta A = {dA:.1uS}$", horizontalalignment="center", verticalalignment="center")
-        plt.vlines(max1.n, 0, 0.2, color="black", linestyle="dashed")
-        plt.vlines(max2.n, 0, 0.2, color="black", linestyle="dashed")
+        plt.vlines(max1.n, 0, 0.2, color="black", linestyle="dashed", zorder=1)
+        plt.vlines(max2.n, 0, 0.2, color="black", linestyle="dashed", zorder=1)
         # place text between the two lines
-        plt.text((max1.n + max2.n)/2, -0.02, fr"$\Delta \phi = {dPhi:.1uS}$", horizontalalignment="center", verticalalignment="center")
+        plt.text((max1.n + max2.n)/2, -0.03, fr"$\Delta \phi = {dPhi:.1uS}$", horizontalalignment="center", verticalalignment="center")
         # plt.scatter(df2["phase"][df2["V1"] > 0.1], df2["V1"][df2["V1"] > 0.1], c="r")
-        plt.plot(df2.phase, sine(df2.phase, *popt1), label="Fit A2")
-        plt.plot(df2.phase, sine(df2.phase, *popt2), label="Fit A1")
+        plt.plot(x2, sine(x2, *popt2), label="Fit A1")
+        plt.plot(x1, sine(x1, *popt1), label="Fit A2")
         plt.xlabel("Phase")
         plt.ylabel("Spannung [V]")
-        plt.legend()
+        plt.ylim(-0.18, 0.21)
+        plt.legend(ncol=4, loc="lower center", handlelength=1, markerscale=3)
         plt.tight_layout()
-        # plt.savefig()
+        # plt.savefig("Graphs/Versuch7_2.pdf", transparent=True)
         plt.show()
 
 # %%
@@ -365,7 +346,7 @@ def lorentzian(x, A, x0, gamma):
 #     return A * np.exp(-(x - x0)**2 / (2 * sigma**2))
 
 # fit lorentzian to data
-popt, pcov = curve_fit(lorentzian, freqarr, unp.nominal_values(maxdf.V[rand]), p0=[0.1, 0, 1])
+popt, pcov = curve_fit(lorentzian, freqarr, unp.nominal_values(maxdf.V[rand]), sigma=np.array([0.005]), p0=[0.1, 0, 1])
 perr = np.sqrt(np.diag(pcov))
 # popt2, pcov2 = curve_fit(gauss, freqarr, unp.nominal_values(maxdf.V[rand]), p0=[1, 300, 10])
 

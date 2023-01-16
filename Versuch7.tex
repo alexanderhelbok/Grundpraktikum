@@ -13,7 +13,7 @@
 
 
 \begin{mybox}{RC Entladung}
-	\begin{wrapfigure}[17]{r}{4.25cm}
+	\begin{wrapfigure}[16]{r}{4.25cm}
 		\vspace{-0.5cm}
 		\begin{circuitikz}[european]
 			\draw (0,0)-- (0,4)
@@ -33,6 +33,8 @@
 	\noindent
 	Kondensatoren sind elektronische Bauteile, die bei vorhandener Spannung sich aufladen und Ladungen speichern. Unterbricht man dann den Stromfluss, entlädt sich der Kondensator. Um dieses Verhalten zu untersuchen, wurde ein Schaltkreis gebaut (Siehe \autoref{fig:1}) mit einem Widerstand \( R = 10.0(1) \unit{\ko} \) und Kondensator \( C = 2.2 \unit{\micro\farad} \). Der Kondensator wird als ideal angenommen, da die Toleranz nicht angegeben war. 
 	
+	Der Versuch wird mit geschlossenem Schalter gestartet und es wird ein paar Sekunden gewartet bis sich der Kondensator zur Gänze aufgeladen hat. Dann wird der Schalter geöffnet (in diesem Fall wurde ein Kabel ein- und ausgesteckt), wodurch sich der Kondensator entlädt. Während des ganzen Vorganges wird an \( U_1 \) die Spannung gemessen. 
+	
 	Um die Unsicherheit der Spannungsmessung abzuschätzen, wurde mit zwei Widerständen ein einfacher Spannungsteiler gebaut und für \( 5 \unit{s} \) die Spannung gemessen. Der Fehler der analogen Sensoren wird in den folgenden Versuchen auf die Standardabweichung \( \sigma = 1.85 \unit{mV} \) dieser Messung gesetzt. 
 	
 	Die Spannung am Kondensator wird laut Skript durch 
@@ -41,7 +43,7 @@
 	\end{equation}
 	beschrieben, wobei \( \tau = RC \) gesetzt wurde. Die Spannung wird also durch eine exponentielle Zerfallskurve beschrieben mit Zerfallsparameter \(  \tau \). 
 	
-	In \autoref{fig:ExpFit} ist die Spannung während der Entladung des Kondensators auf die Zeit aufgetragen. Die Fehlerbalken wurden nicht eingezeichnet, da man sie nicht ausmachen könnte. Die Spannung zu Beginn der Entladung beträgt \(  3 \unit{V} \) (Sättigungsgrenze des ADC) und pendelt sich gegen Ende bei \( 0.00073 \unit{V} \) ein. Da wir diese beiden Randbedingungen kennen, wurde eine Funktion der Form \( f(x) = 3\expo[-][x/b] + 0.00073 \) an die Daten angepasst. Dadurch haben wir die drei Freiheitsgrade eines allgemeinen exponentiellen Fits auf einen reduziert. Für den Fit wurden 10 ungefähr gleichmäßig verteilten Datenpunkte herangezogen. Die Fitfunktion, der Fitparameter b und die ausgewählten Messpunkte sind auch in \autoref{fig:ExpFit} in rot dargestellt.
+	In \autoref{fig:ExpFit} ist die Spannung während der Entladung des Kondensators auf die Zeit aufgetragen. Die Fehlerbalken wurden nicht eingezeichnet, da man sie nicht ausmachen könnte. Die Spannung zu Beginn der Entladung beträgt \(  3 \unit{V} \) (Sättigungsgrenze des ADC) und pendelt sich gegen Ende bei \( 0.00073 \unit{V} \) ein. Da wir diese beiden Randbedingungen kennen, wurde eine Funktion der Form \( f(x) = 3\expo[-][x/b] + 0.00073 \) an die Daten angepasst. Dadurch haben wir die drei Freiheitsgrade eines allgemeinen exponentiellen Fits auf einen reduziert. Für den Fit wurden 10 ungefähr gleichmäßig verteilten Datenpunkte herangezogen. Die Fitfunktion, der Fitparameter b und die ausgewählten Messpunkte sind in \autoref{fig:ExpFit} in rot dargestellt.
  	
 	\begin{figure}[H]	
 		\centering
@@ -59,7 +61,7 @@
 \end{mybox}
 
 \begin{mybox}{RLC Schwingkreis}
-
+	So wie Kondensatoren, verändern Induktoren die Phase und Amplitude der Schwingung. Der U
 \end{mybox}
 
 

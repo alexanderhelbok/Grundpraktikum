@@ -8,7 +8,6 @@
 \usepackage{biblatex}
 \usepackage{stackengine}
 
-
 \begin{document}
 \renewcommand{\labelenumi}{\alph{enumi})}
 
@@ -80,7 +79,7 @@
 	
 	An \( U_1 \) wird die eingespielte Spannung als Referenzmessung aufgezeichnet, während an \( U_2 \) die veränderte Spannung Spannung gemessen wird. Es wurde für Frequenzen \( f = 1, 3, 7, 10, 20 \unit{Hz} \) für 5 Sekunden Daten aufgezeichnet. Unter der Annahme, dass die Frequenz perfekt ist, kennt man auch die Periode \( T = 1/f \) genau und man kann die Schwingungsdaten falten (da das Signal periodisch ist). Sprich man wendet den modulo Operator auf die Daten an und legt \( T-\)sekunden lange Zeitintervalle übereinander (und normiert diese neue Einheitslose Zeitachse von 0 bis 1).
 	
-	Ob die Faltung erfolgreich war erkennt man daran, dass die Daten bis auf wenige Ausreißer eine schöne Kurve beschreiben. In \autoref{fig:SineFit} sieht man die gefalteten Daten für \( f = 7 \unit{Hz} \) und ohne die Güte zu quantifizieren (zb. mittels shortest string) würde ich behaupten, dass die Faltung passt. Diese Darstellung hat viele Vorteile, in unserem Fall ermöglicht sie den Fit einer Sinusfunktion der Form \( f(x) = A*\sin(\omega x + \phi) \) auf ein langes Zeitintervall, auch wenn die Daten nur Stückweise eine Sinusfunktion beschreiben (da negative Spannungen nicht aufgezeichnet werden). 
+	Ob die Faltung erfolgreich war erkennt man daran, dass die Daten bis auf wenige Ausreißer eine schöne Kurve beschreiben. In \autoref{fig:SineFit} sieht man die gefalteten Daten für \( f = 7 \unit{Hz} \) und ohne die Güte zu quantifizieren (zb. mittels shortest string) würde ich behaupten, dass die Faltung passt. Diese Darstellung hat viele Vorteile, in unserem Fall ermöglicht sie den Fit einer Sinusfunktion der Form \( f(x) = A\sin(\omega x + \phi) \) auf ein langes Zeitintervall, auch wenn die Daten nur Stückweise eine Sinusfunktion beschreiben (da negative Spannungen nicht aufgezeichnet werden). 
 	
 	\begin{figure}[H]	
 		\centering
@@ -88,6 +87,15 @@
 		\caption{Zeitliche Spannungsdaten während der Kondensatorentladung. In rot wurde die exponentielle Fitfunktion aufgetragen. Die für den Fit herangezogenen Datenpunkte sind ebenfalls rot hervorgehoben. Der Fehler der Spannungsdaten wird nicht dargestellt, dar dieser zu klein.}
 		\label{fig:SineFit}
 	\end{figure}
+	
+	Aus dem Fit (und alternativ aus \autoref{fig:SineFit}) lässt sich das Verhältnis zwischen den Amplituden \( A_1/A_2 \) und die Phasenverschiebung \( \Delta\phi = \phi_1 - \phi_2 \) berechnen. Die Fehler ergeben sich aus der Fehlerpropagation der Fehler der Fitparameter. 
+	
+	Aus dem Skript wissen wir, dass das Amplitudenverhältnis und die Phasenverschiebung mit der Zeitkonstante \( \tau \) wie folgt zusammenhängt
+	\begin{align}\label{eqn:tau2}
+		\abs{\frac{A_1}{A_2}}^2 = 1 + (\omega\tau_A)^2 &\quad \Longleftrightarrow\quad \tau_A = \frac{\SQRT{\abs{\tfrac{A_1}{A_2}}^2 - 1}}{2\pi f}\\
+		\tan(\Delta\phi) = -\omega\tau_{\phi} &\quad \Longleftrightarrow\quad \tau_{\phi} = -\frac{\tan(\Delta\phi)}{2\pi f}
+	\end{align} 
+	Wiederholt man die Phasenfaltung und Ermittlung von \( A_1/A_2 \) und \( \Delta\phi \) für \( f = 1, 3, 7, 10, 20 \unit{Hz} \) kann man mittels Gleichungen (2) und (3)
 	
 	
 	\begin{center}
@@ -116,12 +124,6 @@
 		\end{tabular}
 		\label{table:1}
 	\end{center}
-
-
-	\begin{align}\label{eqn:tauq}
-		\abs{\frac{A_1}{A_2}}^2 = 1 + (\omega\tau_A)^2 &\quad \Longleftrightarrow\quad \tau_A = \frac{\SQRT{\abs{\tfrac{A_1}{A_2}}^2 - 1}}{2\pi f}\\
-		\tan(\Delta\phi) = -\omega\tau_{\phi} &\quad \Longleftrightarrow\quad \tau_{\phi} = -\frac{\tan(\Delta\phi)}{2\pi f}
-	\end{align}
 \end{mybox}
 
 \begin{mybox}{RLC Schwingkreis}

@@ -109,8 +109,6 @@ def fold_data(df, period):
     tempdf = df.copy()
     tempdf["phase"] = np.fmod(tempdf["t"], period) / period
     return tempdf
-
-
 def shift_phase(df, shift=None, col=None, mode="min"):
     """
     Shift the phase by a given amount.
@@ -138,10 +136,8 @@ def shift_phase(df, shift=None, col=None, mode="min"):
     else:
         tempdf["phase"] = np.fmod(tempdf["phase"] + shift, 1)
     return tempdf
-
 def sine(x, a, b, c):
     return a * np.sin(b * x + c)
-
 def sine_fit(x, y, err=None, min=0, p0=None, verbose=False):
     if err is None:
         err = pd.Series(np.ones(len(x)))
@@ -297,18 +293,6 @@ df.columns = ["t", "V"]
 df["Verr"] = std
 rate = get_polling_rate(df)
 
-cdict = {'red':   ((0.0,  0.22, 0.0),
-                   (0.5,  1.0, 1.0),
-                   (1.0,  0.89, 1.0)),
-
-         'green': ((0.0,  0.49, 0.0),
-                   (0.5,  1.0, 1.0),
-                   (1.0,  0.12, 1.0)),
-
-         'blue':  ((0.0,  0.72, 0.0),
-                   (0.5,  0.0, 0.0),
-                   (1.0,  0.11, 1.0))}
-
 # cmap = colors.LinearSegmentedColormap('custom', cdict)
 cmap = sns.color_palette("rocket", as_cmap=True)
 
@@ -359,7 +343,7 @@ def lorentzian(x, A, x0, gamma):
 #     return A * np.exp(-(x - x0)**2 / (2 * sigma**2))
 
 # fit lorentzian to data
-popt, pcov = curve_fit(lorentzian, freqarr, unp.nominal_values(maxdf.V[rand]), sigma=np.array([0.005]), p0=[0.1, 0, 1])
+popt, pcov = curve_fit(lorentzian, freqarr, unp.nominal_values(maxdf.V[rand]), p0=[0.1, 0, 1])
 perr = np.sqrt(np.diag(pcov))
 # popt2, pcov2 = curve_fit(gauss, freqarr, unp.nominal_values(maxdf.V[rand]), p0=[1, 300, 10])
 

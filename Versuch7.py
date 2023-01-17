@@ -211,7 +211,7 @@ for (i, start, freq, shift) in zip([0, 1, 2, 3, 4], [0, 5.5, 11.5, 17.5, 23.5], 
         plt.vlines(max1.n, 0, 0.2, color="black", linestyle="dashed", zorder=1)
         plt.vlines(max2.n, 0, 0.2, color="black", linestyle="dashed", zorder=1)
         # place text between the two lines
-        plt.text((max1.n + max2.n)/2, -0.05, fr"$\Delta \phi = {dPhi:.1uS}$", horizontalalignment="center", verticalalignment="center")
+        plt.text((max1.n + max2.n)/2, -0.05, fr"$\Delta \phi = {dPhi/(2*np.pi):.1uS}\cdot 2\pi = {dPhi:.1uS}$", horizontalalignment="center", verticalalignment="center")
         # plt.scatter(df2["phase"][df2["V1"] > 0.1], df2["V1"][df2["V1"] > 0.1], c="r")
         plt.plot(x2, sine(x2, *popt2), label="Fit U1", zorder=0)
         plt.plot(x1, sine(x1, *popt1), label="Fit U2", zorder=0)

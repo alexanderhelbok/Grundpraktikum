@@ -11,7 +11,6 @@
 \begin{document}
 \renewcommand{\labelenumi}{\alph{enumi})}
 
-
 \begin{mybox}{RC Entladung}
 	\begin{wrapfigure}[16]{r}{4.25cm}
 		\vspace{-0.5cm}
@@ -35,15 +34,13 @@
 	
 	Der Versuch wird mit geschlossenem Schalter gestartet und es wird ein paar Sekunden gewartet bis sich der Kondensator zur Gänze aufgeladen hat. Dann wird der Schalter geöffnet (in diesem Fall wurde ein Kabel ein- und ausgesteckt), wodurch sich der Kondensator entlädt. Während des ganzen Vorganges wird an \( U_1 \) die Spannung gemessen. 
 	
-	Um die Unsicherheit der Spannungsmessung abzuschätzen, wurde mit zwei Widerständen ein einfacher Spannungsteiler gebaut und für \( 5 \unit{s} \) die Spannung gemessen. Der Fehler der analogen Sensoren wird in den folgenden Versuchen auf die Standardabweichung \( \sigma = 1.85 \unit{mV} \) dieser Messung gesetzt. 
-	
-	Die Spannung am Kondensator wird laut Skript durch 
+	Um die Unsicherheit der Spannungsmessung abzuschätzen, wurde mit zwei Widerständen ein einfacher Spannungsteiler gebaut und für \( 5 \unit{s} \) die Spannung gemessen. Der Fehler der analogen Sensoren wird in den folgenden Versuchen auf die Standardabweichung \( \sigma = 1.85 \unit{mV} \) dieser Messung gesetzt. Die Spannung am Kondensator wird laut Skript durch 
 	\begin{equation}\label{eqn:tau}
 		V(t) = V(0)\expo[-][t/RC] = V(0)\expo[-][t/\tau]
 	\end{equation}
 	beschrieben, wobei \( \tau = RC \) gesetzt wurde. Die Spannung wird also durch eine exponentielle Zerfallskurve beschrieben mit Zerfallsparameter \(  \tau \). 
 	
-	In \autoref{fig:ExpFit} ist die Spannung während der Entladung des Kondensators auf die Zeit aufgetragen. Die Fehlerbalken wurden nicht eingezeichnet, da man sie nicht ausmachen könnte. Die Spannung zu Beginn der Entladung beträgt \(  3 \unit{V} \) (Sättigungsgrenze des ADC) und pendelt sich gegen Ende bei \( 0.00073 \unit{V} \) ein. Da wir diese beiden Randbedingungen kennen, wurde eine Funktion der Form \( f(x) = 3\expo[-][x/b] + 0.00073 \) an die Daten angepasst. Dadurch haben wir die drei Freiheitsgrade eines allgemeinen exponentiellen Fits auf einen reduziert. Für den Fit wurden 10 ungefähr gleichmäßig verteilten Datenpunkte herangezogen. Die Fitfunktion, der Fitparameter b und die ausgewählten Messpunkte sind in \autoref{fig:ExpFit} in rot dargestellt.
+	In \autoref{fig:ExpFit} ist die Spannung während der Entladung des Kondensators auf die Zeit aufgetragen. Die Fehlerbalken wurden nicht eingezeichnet, da man sie nicht ausmachen könnte. Die Spannung zu Beginn der Entladung beträgt \(  3 \unit{V} \) (Sättigungsgrenze des ADC) und pendelt sich gegen Ende bei \( 0.00073 \unit{V} \) ein. Da wir diese beiden Randbedingungen kennen, wurde eine Funktion der Form \( f(x) = 3\expo[-][x/b] + 0.00073 \) an die Daten angepasst. Dadurch haben wir die drei Freiheitsgrade eines allgemeinen exponentiellen Fits auf einen reduziert. Für den Fit wurden 10 ungefähr gleichmäßig verteilte Datenpunkte herangezogen. Die Fitfunktion, der Fitparameter b und die ausgewählten Messpunkte sind in \autoref{fig:ExpFit} in rot dargestellt.
  	
 	\begin{figure}[H]	
 		\centering
@@ -52,8 +49,7 @@
 		\label{fig:ExpFit}
 	\end{figure}
 
-	Die Fitfunktion wurde so gewählt, dass \( \tau_{\text{exp}} = b = 0.0234(2) \unit{1/s} \) gilt und daher Wert und Unsicherheit von Tau direkt vom Fitprogramm berechnet wird. Verwendet man \( \tau = RC \) und die Werte für 
-	erhält man \( \tau_{\text{theo}} = 0.0220(2) \unit{1/s} \). Die Unsicherheit hier kommt nur aus dem Widerstand, da der Kondensator als ideal angenommen wird. Letzteres ist aber normalerweise nicht der Fall, wodurch wahrscheinlich die Diskrepanz zwischen experimentell und theoretisch bestimmten Wert für die Zeitkonstante \( \tau \) rührt.
+	Die Fitfunktion wurde so gewählt, dass \( \tau_{\text{cap}} = b = 0.0234(2) \unit{1/s} \) gilt und daher Wert und Unsicherheit von Tau direkt vom Fitprogramm berechnet wird. Verwendet man \( \tau = RC \) und setzt Werte für \( R \) und \( C \) ein, erhält man \( \tau_{\text{theo}} = 0.0220(2) \unit{1/s} \). Die Unsicherheit hier kommt nur aus dem Widerstand, da der Kondensator als ideal angenommen wird. Letzteres ist aber normalerweise nicht der Fall, wodurch wahrscheinlich die Diskrepanz zwischen experimentell und theoretisch bestimmten Wert für die Zeitkonstante \( \tau \) rührt.
 \end{mybox}
 
 \begin{mybox}{RC Frequenzanalyse}
@@ -79,24 +75,23 @@
 	
 	An \( U_1 \) wird die eingespielte Spannung als Referenzmessung aufgezeichnet, während an \( U_2 \) die veränderte Spannung Spannung gemessen wird. Es wurde für Frequenzen \( f = 1, 3, 7, 10, 20 \unit{Hz} \) für 5 Sekunden Daten aufgezeichnet. Unter der Annahme, dass die Frequenz perfekt ist, kennt man auch die Periode \( T = 1/f \) genau und man kann die Schwingungsdaten falten (da das Signal periodisch ist). Sprich man wendet den modulo Operator auf die Daten an und legt \( T-\)sekunden lange Zeitintervalle übereinander (und normiert diese neue Einheitslose Zeitachse von 0 bis 1).
 	
-	Ob die Faltung erfolgreich war erkennt man daran, dass die Daten bis auf wenige Ausreißer eine schöne Kurve beschreiben. In \autoref{fig:SineFit} sieht man die gefalteten Daten für \( f = 7 \unit{Hz} \) und ohne die Güte zu quantifizieren (zb. mittels shortest string) würde ich behaupten, dass die Faltung passt. Diese Darstellung hat viele Vorteile, in unserem Fall ermöglicht sie den Fit einer Sinusfunktion der Form \( f(x) = A\sin(\omega x + \phi) \) auf ein langes Zeitintervall, auch wenn die Daten nur Stückweise eine Sinusfunktion beschreiben (da negative Spannungen nicht aufgezeichnet werden). 
+	Ob die Faltung erfolgreich war erkennt man daran, dass die Daten bis auf wenige Ausreißer eine schöne Kurve beschreiben. In \autoref{fig:SineFit} sieht man die gefalteten Daten für \( f = 7 \unit{Hz} \) und ohne die Güte zu quantifizieren (z.B. mittels shortest string) würde ich behaupten, dass die Faltung passt. Diese Darstellung hat viele Vorteile, in unserem Fall ermöglicht sie den Fit einer Sinusfunktion der Form \( f(x) = A\sin(\omega x + \phi) \) auf ein langes Zeitintervall, auch wenn die Daten nur Stückweise eine Sinusfunktion beschreiben (da negative Spannungen nicht aufgezeichnet werden). 
 	
 	\begin{figure}[H]	
 		\centering
 		\includegraphics[width=\textwidth]{Versuch7_2}
-		\caption{Zeitliche Spannungsdaten während der Kondensatorentladung. In rot wurde die exponentielle Fitfunktion aufgetragen. Die für den Fit herangezogenen Datenpunkte sind ebenfalls rot hervorgehoben. Der Fehler der Spannungsdaten wird nicht dargestellt, dar dieser zu klein.}
+		\caption{Gefaltete Spannungsdaten für e. In orange sind die Daten der Eingangsspannung und in blau die der Ausgangsspannung aufgetragen. }
 		\label{fig:SineFit}
 	\end{figure}
 	
 	Aus dem Fit (und alternativ aus \autoref{fig:SineFit}) lässt sich das Verhältnis zwischen den Amplituden \( A_1/A_2 \) und die Phasenverschiebung \( \Delta\phi = \phi_1 - \phi_2 \) berechnen. Die Fehler ergeben sich aus der Fehlerpropagation der Fehler der Fitparameter. 
 	
-	Aus dem Skript wissen wir, dass das Amplitudenverhältnis und die Phasenverschiebung mit der Zeitkonstante \( \tau \) wie folgt zusammenhängt
+	Aus dem Skript wissen wir, dass das Amplitudenverhältnis und die Phasenverschiebung mit der Zeitkonstante \( \tau \) wie folgt zusammenhängen:
 	\begin{align}\label{eqn:tau2}
 		\abs{\frac{A_1}{A_2}}^2 = 1 + (\omega\tau_A)^2 &\quad \Longleftrightarrow\quad \tau_A = \frac{\SQRT{\abs{\tfrac{A_1}{A_2}}^2 - 1}}{2\pi f}\\
 		\tan(\Delta\phi) = -\omega\tau_{\phi} &\quad \Longleftrightarrow\quad \tau_{\phi} = -\frac{\tan(\Delta\phi)}{2\pi f}
 	\end{align} 
-	Wiederholt man die Phasenfaltung und Ermittlung von \( A_1/A_2 \) und \( \Delta\phi \) für \( f = 1, 3, 7, 10, 20 \unit{Hz} \) kann man mittels Gleichungen (2) und (3)
-	
+	Wiederholt man die Phasenfaltung und Ermittlung von \( A_1/A_2 \) und \( \Delta\phi \) für \( f = 1, 3, 7, 10, 20 \unit{Hz} \) kann man mittels Gleichungen (2) und (3) einen Wert für die Zeitkonstante \( \tau \) erhalten. In \autoref{table:1} wurden für die 5 Frequenzen die gemessenen Größen und die daraus errechneten Schätzwerte für Tau eingetragen, wobei zwischen 
 	
 	\begin{center}
 		\captionof{table}{Gemessenes Amplitudenverhältnis \( A_1/A_2 \) und Phasenverschiebung \( \Delta\phi \) für verschiedene Frequenzen. Dazu die draus errechneten Werte für \( \tau \).}
@@ -124,10 +119,44 @@
 		\end{tabular}
 		\label{table:1}
 	\end{center}
+
+	Nun kann man die verschiedenen Messungen für Tau mit einem gewichteten Mittelwert kombinieren und erhält dann \( \tau_{A} = 0.0237(2) \unit{1/s}, \tau_{\phi} = 0.0239(5) \unit{1/s} \). Die Messung der Kondensatorentladung hat einen Wert für die Zeitkonstante von \( \tau_{\text{cap}} = 0.0234(2) \unit{1/s} \) geliefert. Alle drei Methoden zur Abschätzung von Tau sind konsistent miteinander und die Fehler liegen in der gleichen Größenordnung, also können wir die Werte unkompliziert miteinander kombinieren und erhalten somit für die Zeitkonstante \( \tau_{\text{exp}} = 0.0237(2) \unit{1/s} \). Dieser Wert kann nun herangezogen werden, um eine Schätzung für die Kapazität des Kondensators abzugeben, da ja \( \tau = RC \) ist. Setzt man Werte ein erhält man \( C = 2.37(3) \unit{\micro\farad} \).
 \end{mybox}
 
 \begin{mybox}{RLC Schwingkreis}
-	So wie Kondensatoren, verändern Induktoren die Phase und Amplitude der Schwingung. Der U
+	So wie Kondensatoren, verändern Induktoren die Phase und Amplitude der Schwingung. Um dieses Verhalten zu analysieren, wurde eine Spule mit Induktivität \( L = 100 \unit{mH} \) hinzugefügt. Der Kondensator bleibt unverändert, der Widerstand wurde durch einen mit \( R = 10.0(5) \unit{\ohm} \) ersetzt. Da die zu untersuchenden Frequenzen bei mehreren hundert Hertz liegen, werden am IOLab die \( G_+ \) und \( G_- \) Ports verwendet, da diese eine höhere Abtastrate als die Analogen haben. 
+	
+	Um das Resonanzverhalten des Schaltkreises zu studieren, wurden wieder über ein AUX-Kabel Sinusförmige Signale eingespielt. Konkret wurden über einen Zeitraum von \( t = 10 \unit{s} \) Sinuswellen zwischen \( 0 \unit{Hz} \) und \( 600 \unit{Hz} \) generiert, wobei die Frequenz linear mit der Zeit zunimmt. Die Idee dahinter war, ein Kontinuierliches Fre
+	entweder die Frequenzen über eine Fourier Transformation zu erhalten, oder die Zeitachse durch Frequenzen zu substituieren, da wir die jeweiligen Start- und Endwerte, sowie die Art der Transformation (linear) kennen. Da wir in diesem Versuch für die Analyse nur 10 Datenpunkte hernehmen sollen, wird hier ersteres verwendet. 
+	
+	In der oberen Grafik in \autoref{fig:Fft} sind die aufgenommenen Spannungsdaten auf die Zeit aufgetragen. Die Schwingungen selbst sind nicht zu erkennen, da die Frequenz zu groß ist. In Orange wurde eine Einhüllende der Daten aufgetragen, aus welcher die Maxima der Schwingungen abgelesen werden können. Es wurden in regelmäßigen Abständen Punkte in der Einhüllenden markiert und an diesen eine Fouriertransformation durchgeführt, welche im unteren Bild dargestellt ist. 
+	\begin{figure}[H]	
+		\centering
+		\includegraphics[width=\textwidth]{Versuch7_3}
+		\caption{Spannungsdaten für RLC-Schwingkreis bei gleichmäßig zunehmenden Frequenzen von \( 0 \unit{Hz} \) bis \( 600 \unit{Hz} \). In orange ist eine Einhüllende der Daten aufgetragen und in rot wurden Datenpunkte für die weitere Analyse markiert. An den rot markierten Punkten wurde eine Fourier Transformation durchgeführt, welche darunter dargestellt ist.}
+		\label{fig:Fft}
+	\end{figure}
+
+	Ein Nachteil dieser Vorgehensweise, welcher erst im Nachhinein Auffiel, ist, dass die Abschätzung der Unsicherheit der Maxima nicht trivial ist. Der Fehler der Maxima wurde daher auf den Fehler der Spannungsmessung gesetzt, da sie auf jeden Fall so groß sein müssen, potentiell aber größer sind. Zudem hätte die Fft sehr von einer Messung über ein längeres Zeitintervall profitiert, da die gleiche Frequenz dann für längere Zeit gehalten wird, was zu definierteren Peaks führt. 
+	
+	Als nächstes wurden die Amplitude der ausgewählten Punkte auf ihre Frequenz aufgetragen. Da es sich hier um Resonanzverhalten handelt, werden die Daten von einer Lorentzfunktion beschrieben, welcher in der Form \( f(x) = \tfrac{A}{\pi} \tfrac{\gamma}{(x-x_0)^2 + \gamma^2} \) an die Daten angepasst wurde. In \autoref{fig:Lorentz} sind 
+	
+	\begin{figure}[H]	
+		\centering
+		\includegraphics[width=\textwidth]{Versuch7_4}
+		\caption{Die am Widerstand umgesetzte Leistung ist für verschiedene Frequenzen dargestellt. In rot wurde eine Lorentzfunktion an die Daten angepasst. Die Resonanzfrequenz \( x_0 \) und die }
+		\label{fig:Lorentz}
+	\end{figure}
+
+	Aus dem Lorentz Fit lässt sich direkt die Resonanzfrequenz \( f_{\text{res}} = x_0 = 301(3) \unit{Hz} \) und die Bandbreite \( \Delta f = 2\gamma = 227(9) \unit{Hz} \) herauslesen. Die Resonanzfrequenz lässt sich auch theoretisch bestimmen und ist gegeben durch 
+	\begin{equation}\label{eqn:fres}
+		f_{\text{res}} = \frac{1}{2\pi\sqrt{LC}}
+	\end{equation}
+	. Setzt man nun \( C = 2.37(3) \unit{\micro\farad} \) und \( L = 100 \unit{mH} \) in \autoref{eqn:fres} ein, erhält man \( f_{\text{res}} = 327(2) \unit{Hz} \). Dieser Wert ist zwar so nicht mit dem experimentell bestimmten vereinbar, die Größenordnung ist aber die gleiche und wie weiter oben angemerkt sind die Fehler für die Spannungswerte zu klein abgeschätzt. Die Bandbreite brauchen wir, um die Güte \( Q \) des Schwingkreises zu bestimmen. Diese ergibt aus 
+	\begin{equation}\label{eqn:Q}
+		Q = \frac{1}{R}\SQRT{\frac{L}{C}} = \frac{f_{\text{res}}}{\Delta f}
+	\end{equation}
+	. Wieder setzen wir Werte für \( R, C \) und \( L \) ein und erhalten als einen Theoriewert zum Vergleichen \( Q = 20.6(1.0) \). Teilen wir aber die experimentell bestimmte Resonanzfrequenz durch die Bandbreite erhalten wir \( Q = 1.33(5) \). Diese Abweichung ist hochsignifikant und lasst sich nicht durch zu klein abgeschätzte Fehler erklären. 
 \end{mybox}
 
 

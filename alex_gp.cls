@@ -3,7 +3,7 @@
 \ProvidesClass{alex_gp}[2021/04/10 Alexander HÜ Class]
 \LoadClass[12pt,a4paper]{scrartcl}
 \RequirePackage{fullpage, lastpage, lipsum}
-\RequirePackage[top=2cm, bottom=3.5cm, left=2.25cm, right=2.25cm]{geometry}
+\RequirePackage[top=1cm, bottom=2.5cm, left=1.75cm, right=1.75cm]{geometry}
 %\RequirePackage[utf8]{inputenc} % uncomment if xelatex is not used
 \RequirePackage[T1]{fontenc}
 \RequirePackage{fontspec}

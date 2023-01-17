@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 from Source import *
 
 # load data
@@ -59,7 +61,7 @@ print(f"tau = {tau:.1uS} s: exptau = {exptau:.1uS} s")
 
 # %%
 # plot data
-fig = plt.figure(figsize=(8, 3))
+fig = plt.figure(figsize=(8, 2.5))
 plt.scatter(df.t, df.V, s=5, c="k", label="Messwerte")
 plt.plot(df.t, exp(df.t-df["t"][start], *popt), "r-", label="Fit")
 plt.scatter(df.t[points], df["V"][points], color="red", label="Ausgewählte Messwerte")
@@ -70,7 +72,7 @@ plt.xlim(1.3, 1.8)
 plt.ylim(-0.1, 3.1)
 plt.legend()
 plt.tight_layout()
-# plt.savefig("Graphics/Versuch7_1.pdf", transparent=True)
+plt.savefig("Graphics/Versuch7_1.pdf", transparent=True)
 plt.show()
 
 # %%
@@ -244,6 +246,7 @@ popt1, pcov1 = curve_fit(const, freq, unp.nominal_values(dAmp), sigma=unp.std_de
 popt2, pcov2 = curve_fit(const, freq, unp.nominal_values(dphase), sigma=unp.std_devs(dphase), absolute_sigma=True)
 perr1, perr2 = np.sqrt(np.diag(pcov1)), np.sqrt(np.diag(pcov2))
 tau1, tau2 = unc.ufloat(popt1[0], perr1[0]), unc.ufloat(popt2[0], perr2[0])
+print(f"tau1: {tau1:.1uS}, tau2: {tau2:.1uS}")
 
 # plot dAmp and dphase vs frequency
 plt.errorbar(freq, unp.nominal_values(dAmp), yerr=unp.std_devs(dAmp), fmt=".", label="Amplitude")
@@ -282,9 +285,9 @@ plt.tight_layout()
 plt.show()
 
 
-print(f"tau1: {tau1:.2uS}, tau2: {tau2:.2uS}, exptau: {exptau:.2uS}, newtau: {newtau:.2uS}")
+print(f"tau1: {tau1:.2uS}, tau2: {tau2:.1uS}, exptau: {exptau:.1uS}, newtau: {newtau:.1uS}")
 C = newtau/R
-print(f"C: {C:.2uS} ")
+print(f"C: {C:.1uS} ")
 # %%
 # load data
 df = pd.read_csv("data/Versuch7_3.csv")
@@ -302,6 +305,7 @@ for i in range(0, len(df), 250):
     maxdf = maxdf.append(df.iloc[i:i+250].max(), ignore_index=True)
 
 rand = np.linspace(2.25*rate/250, 9*rate/250, 10, dtype=int)
+# rand = np.linspace(2.25*rate/250, 9*rate/250, 10, dtype=int)
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 4))
 
@@ -323,18 +327,21 @@ for i, r in enumerate(rand*250):
 
 ax2.set_ylim(0, 0.35)
 ax2.set_xlabel("Frequenz [Hz]")
+ax2.set_ylabel("Amplitude [V]")
 # plot data
-ax1.scatter(df.t, df.V, s=3)
+ax1.scatter(df.t[::5], df.V[::5], s=3)
 ax1.scatter(maxdf.t, maxdf.V, s=3)
 ax1.scatter(maxdf.t[rand], maxdf.V[rand], s=15, c="r")
 ax1.set_xlabel("Zeit [s]")
 ax1.set_ylabel("Spannung [V]")
+ax1.set_xlim(0.5, 11)
 ax2.set_xlim(50, 550)
 plt.tight_layout()
-# plt.savefig()
+# plt.savefig("Graphics/Versuch7_3.pdf", transparent=True)
 plt.show()
 
 # %%
+R2 = unc.ufloat(10, 0.5)
 # lorentzian fit
 def lorentzian(x, A, x0, gamma):
     return A / np.pi * gamma / ((x - x0)**2 + gamma**2)
@@ -343,35 +350,60 @@ def lorentzian(x, A, x0, gamma):
 #     return A * np.exp(-(x - x0)**2 / (2 * sigma**2))
 
 # fit lorentzian to data
-popt, pcov = curve_fit(lorentzian, freqarr, unp.nominal_values(maxdf.V[rand]), p0=[0.1, 0, 1])
+popt, pcov = curve_fit(lorentzian, freqarr, unp.nominal_values(maxdf.V[rand])**2/(2*R2.n), p0=[0.1, 300, 1])
 perr = np.sqrt(np.diag(pcov))
 # popt2, pcov2 = curve_fit(gauss, freqarr, unp.nominal_values(maxdf.V[rand]), p0=[1, 300, 10])
 
 # plot amplitude vs frequency
-plt.errorbar(freqarr, unp.nominal_values(maxdf.V[rand]), yerr=unp.std_devs(maxdf.V[rand]), fmt=".", label="Amplitude")
-plt.plot(np.linspace(0, 500, 100), lorentzian(np.linspace(0, 500, 100), *popt), label="Fit")
+fig = plt.figure(figsize=(8, 3))
+plt.errorbar(freqarr, unp.nominal_values(maxdf.V[rand])**2/(2*R2.n), yerr=unp.std_devs(maxdf.V[rand])**2/(2*R2.n), fmt=".k", label="Messdaten")
+plt.plot(np.linspace(0, 600, 100), lorentzian(np.linspace(0, 600, 100), *popt), label="Fit", c="r")
+# plot peak and fhwd as points
+# plt.scatter(popt[1], lorentzian(popt[1], *popt), label="Peak")
+# plt.scatter(popt[1] + popt[2], lorentzian(popt[1] + popt[2], *popt), label="FHWD")
 # plt.plot(np.linspace(0, 500, 100), gauss(np.linspace(0, 500, 100), *popt2), label="Fit")
+plt.text(0.1, 0.8, fr"$x_{{0}} = {unc.ufloat(popt[1], perr[1]):.1uS}$ Hz", transform=plt.gca().transAxes)
+plt.text(0.8, 0.8, fr"$\gamma = {unc.ufloat(popt[2], perr[2]):.1uS}$ Hz", transform=plt.gca().transAxes)
 plt.xlabel("Frequenz [Hz]")
+plt.ylabel("Leistung [W]")
+plt.xlim(0, 600)
+plt.legend(loc="lower center")
+plt.tight_layout()
+# plt.savefig("Graphics/Versuch7_4.pdf", transparent=True)
+plt.show()
+# %%
+def oscillator(f, X0, f0, gamma):
+    return X0 / (np.sqrt((1 - (f / f0)**2)**2 + gamma**2 * (f / f0)**2))
+
+# plot lorentzian with w/w_0 as x axis and amplitude/popt[0] as y axis
+popt1, pcov1 = curve_fit(oscillator, freqarr/popt[1], unp.nominal_values(maxdf.V[rand]), p0=[1, 1, 1])
+perr1 = np.sqrt(np.diag(pcov1))
+
+fig = plt.figure(figsize=(8, 3))
+plt.errorbar(freqarr / popt[1], unp.nominal_values(maxdf.V[rand])/popt1[0], yerr=unp.std_devs(maxdf.V[rand])/popt1[0], fmt=".", label="Amplitude")
+plt.plot(np.linspace(0, 2, 100), oscillator(np.linspace(0, 2, 100), *popt1)/popt1[0], label="Fit")
+plt.xlabel("Frequenz / Resonanzfrequenz")
 plt.ylabel("Spannung [V]")
 plt.legend()
 plt.tight_layout()
-# plt.savefig()
+# plt.savefig("Graphics/Versuch7_5.pdf", transparent=True)
 plt.show()
+
 # %%
 L = 100e-3
-R = unc.ufloat(10, 0.5)
+R2 = unc.ufloat(10, 0.5)
 # C = 2.2e-6
 
 fres = 1 / (2 * np.pi * unp.sqrt(L * C))
-Q = 1/R * unp.sqrt(L/C)
+Q = 1/R2 * unp.sqrt(L/C)
 print("expected:")
-print(f"fres: {fres:.2uS} Hz, Q: {Q:.2uS}")
+print(f"fres: {fres:.1uS} Hz, Q: {Q:.2uS}")
 peak = unc.ufloat(popt[1], perr[1])
 fhwd = 2*unc.ufloat(popt[2], perr[2])
-Ppeak = lorentzian(peak, *popt)**2/(2*R)
-Pfhwd = lorentzian(peak+fhwd, *popt)**2/(2*R)
+# Ppeak = lorentzian(peak, *popt)**2/(2*R2)
+# Pfhwd = lorentzian(peak+fhwd, *popt)**2/(2*R2)
 print("measured:")
-print(f"fres: {peak:.2uS} Hz, Q: {Ppeak/Pfhwd:.2uS}")
+print(f"fres: {peak:.1uS} Hz, Q: {peak/fhwd:.1uS}")
 
 Lexp = 1 / ((2 * np.pi * peak)**2 * C)
 print(f"L: {Lexp:.2uS}")

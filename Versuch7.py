@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-
 from Source import *
 
 # load data
@@ -61,7 +59,7 @@ print(f"tau = {tau:.1uS} s: exptau = {exptau:.1uS} s")
 
 # %%
 # plot data
-fig = plt.figure(figsize=(8, 2.5))
+fig = plt.figure(figsize=(8, 3))
 plt.scatter(df.t, df.V, s=5, c="k", label="Messwerte")
 plt.plot(df.t, exp(df.t-df["t"][start], *popt), "r-", label="Fit")
 plt.scatter(df.t[points], df["V"][points], color="red", label="Ausgewählte Messwerte")
@@ -72,7 +70,7 @@ plt.xlim(1.3, 1.8)
 plt.ylim(-0.1, 3.1)
 plt.legend()
 plt.tight_layout()
-plt.savefig("Graphics/Versuch7_1.pdf", transparent=True)
+# plt.savefig("Graphics/Versuch7_1.pdf", transparent=True)
 plt.show()
 
 # %%
@@ -199,7 +197,7 @@ for (i, start, freq, shift) in zip([0, 1, 2, 3, 4], [0, 5.5, 11.5, 17.5, 23.5], 
     if i == 2:
         x1 = np.linspace((-popt1[2]-np.arcsin(0.05/popt1[0]))/popt1[1], (np.pi-popt1[2]+np.arcsin(0.05/popt1[0]))/popt1[1], 100)
         x2 = np.linspace((-popt2[2]-np.arcsin(0.05/popt2[0]))/popt2[1], (np.pi-popt2[2]+np.arcsin(0.05/popt2[0]))/popt2[1], 100)
-        fig = plt.figure(figsize=(8, 3))
+        fig = plt.figure(figsize=(8, 2.88))
         plt.scatter(df2.phase, df2.V2, s=3, label="Messdaten U1", alpha=0.5, zorder=0)
         plt.scatter(df2.phase, df2.V1, s=3, label="Messdaten U2", alpha=0.5, zorder=0)
         plt.hlines(A1.n, 0, 1, color="black", linestyle="dashed", zorder=1)
@@ -215,11 +213,11 @@ for (i, start, freq, shift) in zip([0, 1, 2, 3, 4], [0, 5.5, 11.5, 17.5, 23.5], 
         plt.plot(x1, sine(x1, *popt1), label="Fit U2", zorder=0)
         plt.xlabel("Phase (f = 7 Hz)")
         plt.ylabel("Spannung [V]")
-        plt.ylim(-0.18, 0.2)
+        plt.ylim(-0.18, 0.18)
         plt.xlim(0, 1)
-        plt.legend(ncol=4, loc="lower center", handlelength=1, markerscale=3)
+        plt.legend(ncol=4, loc="lower center", handlelength=1, markerscale=3, borderaxespad=0.4)
         plt.tight_layout()
-        # plt.savefig("Graphics/Versuch7_2.pdf", transparent=True)
+        plt.savefig("Graphics/Versuch7_2.pdf", transparent=True)
         plt.show()
 
 for i in range(4):
@@ -268,24 +266,29 @@ newtau = (exptau + tau1 + tau2)/3
 
 # plot all values for tau as gaussian
 x = np.linspace(0.02, 0.03, 1000)
-plt.figure(figsize=(8, 3))
+plt.figure(figsize=(8, 2.5))
 
 plt.plot(x, norm.pdf(x, tau1.n, tau1.s), color="black", label="Messdaten")
 plt.plot(x, norm.pdf(x, tau2.n, tau2.s), color="black")
 plt.plot(x, norm.pdf(x, exptau.n, exptau.s), color="black")
 plt.plot(x, norm.pdf(x, newtau.n, newtau.s), color="red", label="Fitwert")
 plt.fill_between(x, norm.pdf(x, newtau.n, newtau.s), color="red", alpha=0.2, where=(x > newtau.n - newtau.s) & (x < newtau.n + newtau.s), label=r"$1\sigma$ Band")
+plt.vlines(newtau.n, 0, norm.pdf(newtau.n, newtau.n, newtau.s), color="red", linestyle="dashed")
+# label the gaussian
+plt.text(0.54, 0.85, fr"$\tau_A$", transform=plt.gca().transAxes)
+plt.text(0.75, 0.25, fr"$\tau_{{\phi}}$", transform=plt.gca().transAxes)
+plt.text(0.22, 0.25, fr"$\tau_{{cap}}$", transform=plt.gca().transAxes)
 
-plt.xlabel(r"$\tau$ [s]")
+plt.xlabel(r"$\tau$ [1/s]")
 plt.ylabel(r"Wahrscheinlichkeitsdichte")
 plt.xlim(0.022, 0.0255)
 plt.legend()
 plt.tight_layout()
-# plt.savefig()
+plt.savefig("Graphics/Versuch7_6.pdf", transparent=True)
 plt.show()
 
 
-print(f"tau1: {tau1:.2uS}, tau2: {tau2:.1uS}, exptau: {exptau:.1uS}, newtau: {newtau:.1uS}")
+print(f"tau1: {tau1:.1uS}, tau2: {tau2:.1uS}, exptau: {exptau:.1uS}, newtau: {newtau:.1uS}")
 C = newtau/R
 print(f"C: {C:.1uS} ")
 # %%
@@ -402,8 +405,12 @@ peak = unc.ufloat(popt[1], perr[1])
 fhwd = 2*unc.ufloat(popt[2], perr[2])
 # Ppeak = lorentzian(peak, *popt)**2/(2*R2)
 # Pfhwd = lorentzian(peak+fhwd, *popt)**2/(2*R2)
+Q = peak / fhwd
 print("measured:")
-print(f"fres: {peak:.1uS} Hz, Q: {peak/fhwd:.1uS}")
+print(f"fres: {peak:.1uS} Hz, Q: {Q:.1uS}")
 
 Lexp = 1 / ((2 * np.pi * peak)**2 * C)
 print(f"L: {Lexp:.2uS}")
+
+Rexp = 1/Q * unp.sqrt(L/C)
+print(f"R: {Rexp:.1uS}, Rmissing: {Rexp-R2:.1uS}")

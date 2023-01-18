@@ -80,7 +80,7 @@
 	\begin{figure}[H]	
 		\centering
 		\includegraphics[width=\textwidth]{Versuch7_2}
-		\caption{Gefaltete Spannungsdaten für e. In orange sind die Daten der Eingangsspannung und in blau die der Ausgangsspannung aufgetragen. }
+		\caption{Gefaltete Spannungsdaten für eine Periode von \( T = 1/7 \unit{s} \). In orange sind die Daten der Eingangsspannung und in blau die der Ausgangsspannung aufgetragen. An beide Datensätze wurde eine Sinusfunktion gefittet, aus welchen sich das Amplitudenverhältnis, sowie die Phasenverschiebung bestimmen lässt.}
 		\label{fig:SineFit}
 	\end{figure}
 	
@@ -120,7 +120,15 @@
 		\label{table:1}
 	\end{center}
 
-	Nun kann man die verschiedenen Messungen für Tau mit einem gewichteten Mittelwert kombinieren und erhält dann \( \tau_{A} = 0.0237(2) \unit{1/s}, \tau_{\phi} = 0.0239(5) \unit{1/s} \). Die Messung der Kondensatorentladung hat einen Wert für die Zeitkonstante von \( \tau_{\text{cap}} = 0.0234(2) \unit{1/s} \) geliefert. Alle drei Methoden zur Abschätzung von Tau sind konsistent miteinander und die Fehler liegen in der gleichen Größenordnung, also können wir die Werte unkompliziert miteinander kombinieren und erhalten somit für die Zeitkonstante \( \tau_{\text{exp}} = 0.0237(2) \unit{1/s} \). Dieser Wert kann nun herangezogen werden, um eine Schätzung für die Kapazität des Kondensators abzugeben, da ja \( \tau = RC \) ist. Setzt man Werte ein erhält man \( C = 2.37(3) \unit{\micro\farad} \).
+	Nun kann man die verschiedenen Messungen für Tau mit einem gewichteten Mittelwert kombinieren und erhält dann \( \tau_{A} = 0.0237(2) \unit{1/s}, \tau_{\phi} = 0.0239(5) \unit{1/s} \). Die Messung der Kondensatorentladung hat einen Wert für die Zeitkonstante von \( \tau_{\text{cap}} = 0.0234(2) \unit{1/s} \) geliefert. Alle drei Methoden zur Abschätzung von Tau sind konsistent miteinander und die Fehler liegen in der gleichen Größenordnung, also können wir die Werte unkompliziert miteinander kombinieren zum Beispiel indem wir die Gaußkurven überlagern (Siehe \autoref{fig:Gauss}).
+	
+	\begin{figure}[H]	
+		\centering
+		\includegraphics[width=\textwidth]{Versuch7_6}
+		\caption{Die drei Messungen für \( \tau \) wurden als normalisierte Gaußkurven in schwarz auf die reziproke Zeit aufgetragen. In Rot der gewichtete Mittelwert, der sich als Überlagerung (und anschließende Normalisierung) der schwarzen Kurven ergibt. Das \( 1\sigma \) Intervall des Mittelwerts wurde farblich hinterlegt.}
+		\label{fig:Gauss}
+	\end{figure}
+	 Der so erhaltene kombinierte beste Schätzwert für die Zeitkonstante ist somit \( \tau_{\text{exp}} = 0.0237(2) \unit{1/s} \). Dieser Wert kann nun herangezogen werden, um eine Schätzung für die Kapazität des Kondensators abzugeben, da ja \( \tau = RC \) ist. Setzt man Werte ein erhält man \( C = 2.37(3) \unit{\micro\farad} \). Dieser Wert passt, wenn man bedenkt, dass gängige Toleranzen von Kondensatoren bei \( 20 \% \) liegen. 
 \end{mybox}
 
 \begin{mybox}{RLC Schwingkreis}
@@ -137,14 +145,13 @@
 		\label{fig:Fft}
 	\end{figure}
 
-	Ein Nachteil dieser Vorgehensweise, welcher erst im Nachhinein Auffiel, ist, dass die Abschätzung der Unsicherheit der Maxima nicht trivial ist. Der Fehler der Maxima wurde daher auf den Fehler der Spannungsmessung gesetzt, da sie auf jeden Fall so groß sein müssen, potentiell aber größer sind. Zudem hätte die Fft sehr von einer Messung über ein längeres Zeitintervall profitiert, da die gleiche Frequenz dann für längere Zeit gehalten wird, was zu definierteren Peaks führt. 
+	Ein Nachteil dieser Vorgehensweise, welcher erst im Nachhinein auffiel, ist, dass die Abschätzung der Unsicherheit der Maxima nicht trivial ist. Der Fehler der Maxima wurde daher auf den Fehler der Spannungsmessung gesetzt, da sie auf jeden Fall so groß sein müssen, potentiell aber größer sind. Zudem hätte die Fft sehr von einer Messung über ein längeres Zeitintervall profitiert, da die gleiche Frequenz dann für längere Zeit gehalten wird, was zu definierteren Peaks führt. 
 	
-	Als nächstes wurden die Amplitude der ausgewählten Punkte auf ihre Frequenz aufgetragen. Da es sich hier um Resonanzverhalten handelt, werden die Daten von einer Lorentzfunktion beschrieben, welcher in der Form \( f(x) = \tfrac{A}{\pi} \tfrac{\gamma}{(x-x_0)^2 + \gamma^2} \) an die Daten angepasst wurde. In \autoref{fig:Lorentz} sind 
-	
+	Am Widerstand wird eine Leistung von \( P = V^2/2R \) umgesetzt. Da uns für die weitere Analyse die Leistung interessiert, wurde die Leistung an den ausgewählten Punkten auf ihre Frequenz aufgetragen (Siehe \autoref{fig:Lorentz}). Da es sich hier um Resonanzverhalten handelt, werden die Daten von einer Lorentzfunktion beschrieben, welcher in der Form \( f(x) = \tfrac{A}{\pi} \tfrac{\gamma}{(x-x_0)^2 + \gamma^2} \) an die Daten angepasst wurde. 	
 	\begin{figure}[H]	
 		\centering
 		\includegraphics[width=\textwidth]{Versuch7_4}
-		\caption{Die am Widerstand umgesetzte Leistung ist für verschiedene Frequenzen dargestellt. In rot wurde eine Lorentzfunktion an die Daten angepasst. Die Resonanzfrequenz \( x_0 \) und die }
+		\caption{Die am Widerstand umgesetzte Leistung ist für verschiedene Frequenzen dargestellt. In rot wurde eine Lorentzfunktion an die Daten angepasst. Die Werte von relevanten Fitparametern wurden auch dargestellt}
 		\label{fig:Lorentz}
 	\end{figure}
 
@@ -157,6 +164,8 @@
 		Q = \frac{1}{R}\SQRT{\frac{L}{C}} = \frac{f_{\text{res}}}{\Delta f}
 	\end{equation}
 	. Wieder setzen wir Werte für \( R, C \) und \( L \) ein und erhalten als einen Theoriewert zum Vergleichen \( Q = 20.6(1.0) \). Teilen wir aber die experimentell bestimmte Resonanzfrequenz durch die Bandbreite erhalten wir \( Q = 1.33(5) \). Diese Abweichung ist hochsignifikant und lasst sich nicht durch zu klein abgeschätzte Fehler erklären. 
+	
+	Da die Resonanzfrequenzen annähernd übereinstimmen, die Güte aber nicht und nur der Widerstandswert \( R \) in der Formel der Güte aber nicht in der der Resonanzfrequenz vorkommt, liegt die Vermutung nahe, dass weitere Widerstände im Schwingkreis nicht berücksichtigt wurden. Zum Beispiel haben die Kabel, die Spule und der Kondensator alle einen Innenwiderstand, welcher vernachlässigt wurde. Formt man \autoref{eqn:Q} nach \( R \) um und setzt \( L = 100 \unit{mH}, C = 2.37(3) \unit{\micro\farad} \) und \( Q = 1.33(5) \) erhält man \( R = 155(6) \unit{\ohm} \). Es fehlen also neben dem \( 10.0(5) \unit{\ohm} \) Widerstand weitere \( 145(6) \unit{\ohm} \).
 \end{mybox}
 
 

@@ -34,7 +34,9 @@
 	
 	Der Versuch wird mit geschlossenem Schalter gestartet und es wird ein paar Sekunden gewartet bis sich der Kondensator zur Gänze aufgeladen hat. Dann wird der Schalter geöffnet (in diesem Fall wurde ein Kabel ein- und ausgesteckt), wodurch sich der Kondensator entlädt. Während des ganzen Vorganges wird an \( U_1 \) die Spannung gemessen. 
 	
-	Um die Unsicherheit der Spannungsmessung abzuschätzen, wurde mit zwei Widerständen ein einfacher Spannungsteiler gebaut und für \( 5 \unit{s} \) die Spannung gemessen. Der Fehler der analogen Sensoren wird in den folgenden Versuchen auf die Standardabweichung \( \sigma = 1.85 \unit{mV} \) dieser Messung gesetzt. Die Spannung am Kondensator wird laut Skript durch 
+	Um die Unsicherheit der Spannungsmessung abzuschätzen, wurde mit zwei Widerständen ein einfacher Spannungsteiler gebaut und für \( 5 \unit{s} \) die Spannung gemessen. Der Fehler der analogen Sensoren wird in den folgenden Versuchen auf die Standardabweichung \( \sigma = 1.85 \unit{mV} \) dieser Messung gesetzt. 
+	
+	Die Spannung am Kondensator wird laut Skript durch 
 	\begin{equation}\label{eqn:tau}
 		V(t) = V(0)\expo[-][t/RC] = V(0)\expo[-][t/\tau]
 	\end{equation}
@@ -134,8 +136,8 @@
 \begin{mybox}{RLC Schwingkreis}
 	So wie Kondensatoren, verändern Induktoren die Phase und Amplitude der Schwingung. Um dieses Verhalten zu analysieren, wurde eine Spule mit Induktivität \( L = 100 \unit{mH} \) hinzugefügt. Der Kondensator bleibt unverändert, der Widerstand wurde durch einen mit \( R = 10.0(5) \unit{\ohm} \) ersetzt. Da die zu untersuchenden Frequenzen bei mehreren hundert Hertz liegen, werden am IOLab die \( G_+ \) und \( G_- \) Ports verwendet, da diese eine höhere Abtastrate als die Analogen haben. 
 	
-	Um das Resonanzverhalten des Schaltkreises zu studieren, wurden wieder über ein AUX-Kabel Sinusförmige Signale eingespielt. Konkret wurden über einen Zeitraum von \( t = 10 \unit{s} \) Sinuswellen zwischen \( 0 \unit{Hz} \) und \( 600 \unit{Hz} \) generiert, wobei die Frequenz linear mit der Zeit zunimmt. Die Idee dahinter war, ein Kontinuierliches Fre
-	entweder die Frequenzen über eine Fourier Transformation zu erhalten, oder die Zeitachse durch Frequenzen zu substituieren, da wir die jeweiligen Start- und Endwerte, sowie die Art der Transformation (linear) kennen. Da wir in diesem Versuch für die Analyse nur 10 Datenpunkte hernehmen sollen, wird hier ersteres verwendet. 
+	Um das Resonanzverhalten des Schaltkreises zu studieren, wurden wieder über ein AUX-Kabel Sinusförmige Signale eingespielt. Konkret wurden über einen Zeitraum von \( t = 10 \unit{s} \) Sinuswellen zwischen \( 0 \unit{Hz} \) und \( 600 \unit{Hz} \) generiert, wobei die Frequenz linear mit der Zeit zunimmt. Die Idee dahinter war, eine kontinuierliche Verteilung der Frequenzen und Amplituden zu erhalten. 
+	Die Frequenz zu einer gegebenen Amplitude kann dann entweder über eine Fourier Transformation erhalten werden, oder die Zeitachse wird durch Frequenzen substituiert, da wir die jeweiligen Start- und Endwerte, sowie die Art der Transformation (linear) kennen. Da wir in diesem Versuch für die Analyse nur 10 Datenpunkte hernehmen sollen, wird hier ersteres verwendet. 
 	
 	In der oberen Grafik in \autoref{fig:Fft} sind die aufgenommenen Spannungsdaten auf die Zeit aufgetragen. Die Schwingungen selbst sind nicht zu erkennen, da die Frequenz zu groß ist. In Orange wurde eine Einhüllende der Daten aufgetragen, aus welcher die Maxima der Schwingungen abgelesen werden können. Es wurden in regelmäßigen Abständen Punkte in der Einhüllenden markiert und an diesen eine Fouriertransformation durchgeführt, welche im unteren Bild dargestellt ist. 
 	\begin{figure}[H]	

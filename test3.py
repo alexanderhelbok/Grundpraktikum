@@ -1,35 +1,10 @@
 from Source import *
-
-# load data
-df = pd.read_csv("data/Versuch4_2.csv")
-# rename columns
-df.columns = ["t", "I_sound"]
-rate = get_polling_rate(df)
-
-# go through 50 data points at a time and write min and max to new dataframe
-df2 = pd.DataFrame(columns=["t", "I_sound_min", "I_sound_max"])
-for i in range(0, len(df), 750):
-    try:
-        df2 = df2.append({"t": (df["t"][i] + df["t"][i+750])/2, "I_sound_min": df["I_sound"][i:i+750].min(), "I_sound_max": df["I_sound"][i:i+750].max()}, ignore_index=True)
-    except:
-        pass
-
-
-# df3 = df2 from 4 seconds to 64 seconds
-df3 = df2[8:398]
-
-# autokorrelation from 4 seconds to 64 seconds
-w, psi = autokorrelation(df3["t"].to_numpy(), df3["I_sound_max"].to_numpy())
-
-plt.plot(w, psi)
-plt.show()
-
 # %%
-# print cantor grid from -4 to 3 in latex format
-for i in range(1, 5):
-    for j in range(-4, 4):
-        if j < 0:
-            print(f"-\\frac{{{-j}}}{{{i}}} & ", end="")
-        else:
-            print(f"\\frac{{{j}}}{{{i}}} & ", end="")
-    print("\n")
+# load data
+df = pd.read_csv("data/Versuch8_1.csv", skiprows=15)
+# rename columns
+
+#
+# plot data
+df.plot(x="TIME", y="CH1", title="Versuch8_1", xlabel="t [s]", ylabel="V [V]")
+

@@ -71,40 +71,38 @@ def new_read_oscilloscope_csv_data(filename, channels=1, fft=False):
             data = np.loadtxt(filename, delimiter=',', skiprows=16, usecols=(0, 1, 2), unpack=True)
             return data[0], data[1], data[2]
         else:
-            data = np.loadtxt(filename, delimiter=',', skiprows=16, usecols=(0, 1, 3, 6, 7), unpack=True)
-            return data[0], data[1], data[2], data[3], data[4]
+            data = np.loadtxt(filename, delimiter=',', skiprows=16, usecols=(0, 1, 3), unpack=True)
+            data2 = np.loadtxt(filename, delimiter=',', skiprows=16, usecols=(6, 7), unpack=True, max_rows=5000)
+            return data[0], data[1], data[2], data2[0], data2[1]
 
 
-t1, CH1, CH2 = read_oscilloscope_csv_data('data/SignalSpeed_NotTerminated.csv')
-t, Ch1 = new_read_oscilloscope_csv_data("data/Versuch8_1.csv", channels=1)
-
-# get error of voltage by using resolution of oscilloscope
-std = np.unique(Ch1)[-1] - np.unique(Ch1)[-2]
-
-# get indices where the signal is larger than max-std
-indmax = np.where(Ch1 >= np.max(Ch1) - std)
-indmin = np.where(Ch1 <= np.min(Ch1) + std)
-# Amplitude of the signal
-vmax, vmin = Ch1[indmax].mean(), Ch1[indmin].mean()
-vmaxstd, vminstd = Ch1[indmax].std(), Ch1[indmin].std()
-Amplitude, Aerr = vmax - vmin, np.sqrt(vmaxstd**2 + vminstd**2)
-
-# calculate the frequency of the signal
-diff = np.diff(indmax).T
-indices = np.where(diff > diff.mean()+5)
-print(diff[indices])
-# print(indmax[indices[0]])
-print(indmax[0][indices[0]])
-
-Period = np.diff(t[indmax[0][indices[0]]]).mean()
-freq = 1 / Period
-print(freq)
-
-plt.plot(t, Ch1, c='k')
-plt.scatter(t[indmax[0][indices[0]]], Ch1[indmax[0][indices[0]]], c='r')
-# plt.scatter(t[indmax[0][1+indices[0]]], Ch1[indmax[0][1+indices[0]]], c='b')
-# plt.plot(t, Ch2, 'r')
-plt.show()
+# t1, CH1, CH2 = read_oscilloscope_csv_data('data/SignalSpeed_NotTerminated.csv')
+# t, Ch1 = new_read_oscilloscope_csv_data("data/Versuch8_1.csv", channels=1)
+#
+# # get error of voltage by using resolution of oscilloscope
+# std = np.unique(Ch1)[-1] - np.unique(Ch1)[-2]
+#
+# # get indices where the signal is larger than max-std
+# indmax = np.where(Ch1 >= np.max(Ch1) - std)
+# indmin = np.where(Ch1 <= np.min(Ch1) + std)
+# # Amplitude of the signal
+# vmax, vmin = Ch1[indmax].mean(), Ch1[indmin].mean()
+# vmaxstd, vminstd = Ch1[indmax].std(), Ch1[indmin].std()
+# Amplitude, Aerr = vmax - vmin, np.sqrt(vmaxstd**2 + vminstd**2)
+#
+# # calculate the frequency of the signal
+# diff = np.diff(indmax).T
+# indices = np.where(diff > diff.mean()+5)
+#
+# Period, Perr = np.diff(t[indmax[0][indices[0]]]).mean(), np.diff(t[indmax[0][indices[0]]]).std()
+# freq, freqerr = 1 / Period, Perr / Period**2
+# print(f"Amplitude: {Amplitude} +- {Aerr} V: frequency: {freq} +- {freqerr} Hz")
+#
+# plt.plot(t, Ch1, c='k')
+# plt.scatter(t[indmax[0][indices[0]]], Ch1[indmax[0][indices[0]]], c='r')
+# # plt.scatter(t[indmax[0][1+indices[0]]], Ch1[indmax[0][1+indices[0]]], c='b')
+# # plt.plot(t, Ch2, 'r')
+# plt.show()
 
 # %%
 
@@ -133,7 +131,7 @@ def resizeplot_addlabels_save(title_label, x_label, y_label, filename, fig, ax):
     return
 
 
-def plot_one_trace(x, y, figure_number, title_label, x_label, y_label, filename_out):
+def plot_one_trace(x, y, figure_number, title_label, x_label, y_label, filename_out, s=4):
     # This function can be used to plot experimental data
     # function's inputs
     # - x -> values on the x axis
@@ -144,13 +142,13 @@ def plot_one_trace(x, y, figure_number, title_label, x_label, y_label, filename_
     # function's outputs
     # none
     fig, ax = plt.subplots()
-    ax.plot(x, y, 'sk', markersize=4, markerfacecolor='k')
+    ax.plot(x, y, 'sk', markersize=s, markerfacecolor='k')
     resizeplot_addlabels_save(title_label, x_label, y_label, filename_out, fig, ax);
     return
 
 
 def plot_two_traces(x1, y1, x2, y2, figure_number, \
-                    title_label, x_label, y_label, filename_out):
+                    title_label, x_label, y_label, filename_out, s=4):
     # This function can be used to plot experimental data
     # function's inputs
     # - x1 -> values on the x axis corresponding to y1
@@ -163,8 +161,8 @@ def plot_two_traces(x1, y1, x2, y2, figure_number, \
     # function's outputs
     # none
     fig, ax = plt.subplots()
-    ax.plot(x1, y1, 'sk', markersize=4, markerfacecolor='k', label='ch1')
-    ax.plot(x2, y2, 'or', markersize=4, markerfacecolor='r', label='ch2')
+    ax.plot(x1, y1, 'sk', markersize=s, markerfacecolor='k', label='ch1')
+    ax.plot(x2, y2, 'or', markersize=s, markerfacecolor='r', label='ch2')
     ax.legend()
     resizeplot_addlabels_save(title_label, x_label, y_label, filename_out, fig, ax)
     return
@@ -224,7 +222,7 @@ def exercise_example():
     ch1 = ch1_raw  # V-> V
     ch2 = ch2_raw  # V-> V
     # show data
-    plot_two_traces(t, ch1, t, ch2, 1, 'test', 'time (ns)', 'voltage (V)', 'test.pdf')
+    plot_two_traces(t, ch1, t, ch2, 1, 'test', 'time (ns)', 'voltage (V)', 'Versuch8/test.pdf')
     # -------------
     # EX.1 - vmax
     # time at which the signal has reached vmax
@@ -276,9 +274,9 @@ def exercise_example():
     # line for the plot
     t_fit_plot = coeff[0] * v_fit + coeff[1];
     plot_one_trace_and_one_fitline(t, ch1, t_fit_plot, v_fit, \
-                                   100, 'example', x_label, y_label, 'exercise_example_plot.pdf')
+                                   100, 'example', x_label, y_label, 'Versuch8/exercise_example_plot.pdf')
     # Writing output to file
-    fid = open('exercise_example_results.txt', 'w')
+    fid = open('Versuch8/exercise_example_results.txt', 'w')
     fid.write('vmax = %f %s\n' % (vmax, vmax_unit))
     fid.write('vmax_uncertainty = %f %s\n' % (vmax_uncertainty, vmax_unit))
     fid.write('vmin = %f %s\n' % (vmin, vmin_unit))
@@ -303,26 +301,42 @@ def exercise_A():
 
     # --------------------------------
     # raw data files and, if necessary, other relevant experimental parameters
-
+    t, Ch1 = new_read_oscilloscope_csv_data("data/Versuch8_1.csv", channels=1)
     # ---------------------------------
     # load data
     # variables to be modified for the analysis
-    t_raw = np.linspace(0, 100, 100);
-    t = t_raw;
-    ch1_raw = t;
-    ch2_raw = t;
-    ch1 = t * 1;
-    ch2 = ch1;
+    # t_raw = np.linspace(0, 100, 100);
+    # t = t_raw;
+    # ch1_raw = t;
+    # ch2_raw = t;
+    # ch1 = t * 1;
+    # ch2 = ch1;
     # ---------------------------------
     # data analysis
 
+    # get error of voltage by using resolution of oscilloscope
+    std = np.unique(Ch1)[-1] - np.unique(Ch1)[-2]
+
+    # get indices where the signal is larger than max-std
+    indmax = np.where(Ch1 >= np.max(Ch1) - std)
+    indmin = np.where(Ch1 <= np.min(Ch1) + std)
+    # Amplitude of the signal
+    vmax, vmin = Ch1[indmax].mean(), Ch1[indmin].mean()
+    vmaxstd, vminstd = Ch1[indmax].std(), Ch1[indmin].std()
+
+    # calculate the frequency of the signal
+    diff = np.diff(indmax).T
+    indices = np.where(diff > diff.mean() + 5)
+
+    Period, Perr = np.diff(t[indmax[0][indices[0]]]).mean(), np.diff(t[indmax[0][indices[0]]]).std()
+
     # variables to be calculated in the analysis
-    amplitude = 42;  # V
-    amplitude_uncertainty = 42;  # V
-    amplitude_unit = 'V';
-    frequency = 420;  # Hz
-    frequency_uncertainty = 4200;  # Hz
-    frequency_unit = 'Hz';
+    amplitude = vmax - vmin  # V
+    amplitude_uncertainty = np.sqrt(vmaxstd ** 2 + vminstd ** 2)  # V
+    amplitude_unit = 'V'
+    frequency = 1/Period  # Hz
+    frequency_uncertainty = Perr / Period ** 2  # Hz
+    frequency_unit = 'Hz'
 
     # ----------------------
 
@@ -338,17 +352,17 @@ def exercise_A():
     # Writing output to file
     # WARNING: do not modify the lines inside "+" lines because they will
     # be used in the evaluation process. They must work properly.
-    fid = open('exercise_A_results.txt', 'w')
+    fid = open('Versuch8/exercise_A_results.txt', 'w')
     fid.write('amplitude = %f %s\n' % (amplitude, amplitude_unit))
     fid.write('amplitude_uncertainty = %f %s\n' % (amplitude_uncertainty, amplitude_unit))
     fid.write('frequency = %f %s\n' % (frequency, frequency_unit))
     fid.write('frequency_uncertainty = %f %s\n' % (frequency_uncertainty, frequency_unit))
     fid.close()
-    plot_one_trace(t, ch1, 101, 'Exercise A.2', x_label, y_label, 'exerciseA2_plot.pdf')
+    plot_one_trace(t, Ch1, 101, 'Exercise A.2', x_label, y_label, 'Versuch8/exerciseA2_plot.pdf')
     # +++++++++++++++++++++++++++++++++++++++++++++
     # overwrite here the file './exerciseA2_plot.pdf' if needed
 
-    return t_raw, ch1_raw, ch2_raw
+    return t, Ch1
 
 
 def exercise_B():
@@ -361,42 +375,70 @@ def exercise_B():
     # ch2_raw -> vector of voltage values recorded at ch2 (will be used for the evaluation)
     # --------------------------------
     # raw data files and, if necessary, other relevant experimental parameters
-    length_cable_ch1 = 42;  # m
-    length_cable_ch1_uncertainty = 4.2;  # m
-    length_cable_ch2 = 4200;  # m
-    length_cable_ch2_uncertainty = 420;  # m
-    length_cable_unit = 'm';
+    length_cable_ch1 = 105.5  # cm
+    length_cable_ch1_uncertainty = 0.2  # cm
+    length_cable_ch2 = 294.6  # cm
+    length_cable_ch2_uncertainty = 0.2  # cm
+    length_cable_unit = 'cm'
+    deltalen = length_cable_ch2 - length_cable_ch1
+    deltalen_uncertainty = np.sqrt(length_cable_ch1_uncertainty ** 2 + length_cable_ch2_uncertainty ** 2)
 
-    # variables to be modified for the analysis
-    t_raw = np.linspace(0, 100, 100);
-    t = t_raw;
-    ch1_raw = t;
-    ch2_raw = t;
-    ch1 = t * 1;
-    ch2 = ch1;
+    t, ch1, ch2 = new_read_oscilloscope_csv_data("data/Versuch8_2.csv", channels=2)
+
+    # convert time to mus
+    t *= 1e9
+    interval = 50
+    ind = np.where(np.logical_and(t >= -interval, t <= interval))
+
+    fitind1, fitind2 = np.where(np.logical_and(t >= -11, t <= 9)), np.where(np.logical_and(t >= -20, t <= 0))
+    # fit line to ch1 and ch2
+    popt1, pcov1 = curve_fit(linfunc, t[fitind1], ch1[fitind1])
+    popt2, pcov2 = curve_fit(linfunc, t[fitind2], ch2[fitind2])
+    perr1, perr2 = np.sqrt(np.diag(pcov1)), np.sqrt(np.diag(pcov2))
+
+    # plot_one_trace_and_one_fitline(t[ind], ch1[ind], t[fitind1], linfunc(t[fitind1], *popt1), 102, 'Exercise B.1', 't [ns]', 'V [V]', 'Versuch8/exerciseB1_plot.pdf')
+    # plot_one_trace_and_one_fitline(t[ind], ch2[ind], t[fitind2], linfunc(t[fitind2], *popt2), 103, 'Exercise B.2', 't [ns]', 'V [V]', 'Versuch8/exerciseB2_plot.pdf')
+    print(popt1, popt2)
+
+    # calculate x offset of the two signals by taking the difference of the intercepts at 0V
+    t1 = -popt1[1] / popt1[0]
+    t2 = -popt2[1] / popt2[0]
+    t1err = np.sqrt((perr1[1] / popt1[0]) ** 2 + (popt1[1] * perr1[0] / popt1[0] ** 2) ** 2)
+    t2err = np.sqrt((perr2[1] / popt2[0]) ** 2 + (popt2[1] * perr2[0] / popt2[0] ** 2) ** 2)
+    t_offset = t1 - t2
+    t_offset_uncertainty = np.sqrt(t1err ** 2 + t2err ** 2)  # ns
+    print(t_offset, t_offset_uncertainty)
+
+    # calculate the velocity of the signal (convert units)
+    velocity = deltalen / t_offset  # cm/ns
+    velocity_uncertainty = np.sqrt((deltalen_uncertainty / t_offset) ** 2 + (deltalen * t_offset_uncertainty / t_offset ** 2) ** 2)  # cm/ns
+    # convert to m/s
+    velocity *= 1e7
+    velocity_uncertainty *= 1e7
+    print(velocity, velocity_uncertainty)
 
     # variables to be calculated in the analysis
     # time distance between the two channels and uncertainty of the
     # measurement
-    delta_t = 4200;  # s
-    delta_t_uncertainty = 4200;  # s
-    signal_speed = 42;  # m/ns
-    signal_speed_uncertainty = 4.2;  # m/s
+    delta_t = t_offset*1e9  # s
+    delta_t_uncertainty = t_offset_uncertainty*1e9  # s
+    signal_speed = velocity  # m/s
+    signal_speed_uncertainty = velocity_uncertainty  # m/s
 
     # ------------------------------------------
     # ------------------------------------------
     # output
     # titles, labels and units for the output. Modify as necessary.
-    x_label = '';
-    y_label = '';
-    delta_t_unit = 'ns';
-    speed_unit = 'm/ns';
+    x_label = 'time (ns)'
+    y_label = 'voltag (V)'
+    delta_t_unit = 's'
+    speed_unit = 'm/s'
 
     # +++++++++++++++++++++++++++++++++++++++++++++
     # Writing output to file
     # WARNING: do not modify the lines inside "+" lines because they will
     # be used in the evaluation process. They must work properly.
-    fid = open('exercise_B_results.txt', 'w')
+    fid = open('Versuch8/exercise_B_results.txt', 'w')
     fid.write('lenght_cable_ch1 = %f %s\n' % (length_cable_ch1, length_cable_unit))
     fid.write('lenght_cable_ch1_uncertainty = %f %s\n' % (length_cable_ch1_uncertainty, length_cable_unit))
     fid.write('lenght_cable_ch2 = %f %s\n' % (length_cable_ch2, length_cable_unit))
@@ -406,10 +448,10 @@ def exercise_B():
     fid.write('signal_speed = %f %s\n' % (signal_speed, speed_unit))
     fid.write('signal_speed_uncertainty = %f %s\n' % (signal_speed_uncertainty, speed_unit))
     fid.close()
-    plot_two_traces(t, ch1, t, ch2, 102, 'Exercise B.2', x_label, y_label, 'exerciseB2_plot.pdf')
+    plot_two_traces(t[ind], ch1[ind], t[ind], ch2[ind], 102, 'Exercise B.2', x_label, y_label, 'exerciseB2_plot.pdf')
     # +++++++++++++++++++++++++++++++++++++++++++++
     # overwrite here the file './exerciseB2_plot.pdf' if needed
-    return t_raw, ch1_raw, ch2_raw
+    # return t_raw, ch1_raw, ch2_raw
 
 
 def exercise_C():
@@ -422,15 +464,17 @@ def exercise_C():
 
     # --------------------------------
     # raw data files and, if necessary, other relevant experimental parameters
+    t, ch1, ch2, t2, fft = new_read_oscilloscope_csv_data("data/Versuch8_3.csv", channels=2, fft=True)
 
     # variables to be modified for the analysis
-    t_raw = np.linspace(0, 100, 1000)
-    t = t_raw.copy()
-    ch1_raw = np.multiply(np.sin(2 * np.pi * 1 * t), np.exp(-t / 10))
-    ch1 = ch1_raw.copy()
-    ch2_raw = ch1.copy()
-    ch2 = ch1.copy()
-    plot_one_trace(t, ch1, 3, 'signal', 'time (s)', 'voltage (V)', 'test.pdf')
+    # t_raw = np.linspace(0, 100, 1000)
+    # t = t_raw.copy()
+    # ch1_raw = np.multiply(np.sin(2 * np.pi * 1 * t), np.exp(-t / 10))
+    # ch1 = ch1_raw.copy()
+    # ch2_raw = ch1.copy()
+    # ch2 = ch1.copy()
+    # plot_one_trace(t, ch1, 3, 'Frequency response', 'time (s)', 'voltage (V)', 'Versuch8/test.pdf', s=2)
+    plot_two_traces(t, ch1, t, ch2, 103, 'Exercise C.1', 'time (s)', 'voltage (V)', 'exerciseC1_plot.pdf', s=2)
     # ----------------------------------------------
     # Code tip: normalized FFT and frequency range. Usage highly reccomended.
     dim = t.shape[0]
@@ -475,12 +519,12 @@ def exercise_C():
     # prepare appropriate output figures and save them to file. The name of the
     # files should be 'exercise_C<NUMBER>_plot.pdf' as in the previous exercises.
     # examples:
-    plot_one_trace(t, ch1, 104, 'signal', 'time (s)', 'voltage (V)', 'exerciseC2_plot.pdf')
-    plot_one_trace_and_one_fitline(f, ch1f, f, ch1f / 4, 105, 'FFT', \
-                                   'frequency (Hz)', 'amplitude (arb. units)', 'exerciseC3_plot.pdf')
-    plot_one_trace(t, ch1, 104, 'signal', 'time (s)', 'voltage (V)', 'exerciseC5_plot.pdf')
+    # plot_one_trace(t, ch1, 104, 'signal', 'time (s)', 'voltage (V)', 'Versuch8/exerciseC2_plot.pdf')
+    # plot_one_trace_and_one_fitline(f, ch1f, f, ch1f / 4, 105, 'FFT', \
+    #                                'frequency (Hz)', 'amplitude (arb. units)', 'exerciseC3_plot.pdf')
+    # plot_one_trace(t, ch1, 104, 'signal', 'time (s)', 'voltage (V)', 'exerciseC5_plot.pdf')
 
-    return t_raw, ch1_raw, ch2_raw
+    # return t_raw, ch1_raw, ch2_raw
 
 
 def data_analysis_check(t_A, ch1_A, ch2_A, t_B, ch1_B, ch2_B, t_C, ch1_C, ch2_C):
@@ -501,13 +545,13 @@ if __name__ == "__main__":
 
     # ----------------------------------------------
     # Do not modify code here, modify the code inside the indicated functions
-    [t_ex, ch1_ex, ch2_ex] = exercise_example();
+    # [t_ex, ch1_ex, ch2_ex] = exercise_example()
     # modify this function
-    [t_A, ch1_A, ch2_A] = exercise_A();
+    # [t_A, ch1_A] = exercise_A()
     # modify this function
-    [t_B, ch1_B, ch2_B] = exercise_B();
+    # exercise_B()
     # modify this function
-    [t_C, ch1_C, ch2_C] = exercise_C();
+    exercise_C()
     # -------
     # Do not modify code here
     # This function will be called to benchmark the data analysis against

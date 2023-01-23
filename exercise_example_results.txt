@@ -1,6 +1,0 @@
-vmax = 2.516000 V
-vmax_uncertainty = 0.032000 V
-vmin = -2.541333 V
-vmin_uncertainty = 0.033440 V
-t_crossing = 14.445514 ns
-t_crossing_uncertainty = 0.411697 ns

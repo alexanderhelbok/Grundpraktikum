@@ -1,1 +1,0 @@
-res_frequency = 4200.000000 kHzres_frequency_uncertainty = 42.000000 kHzq_factor = 42.000000q_factor_uncertainty = 4.200000

@@ -317,7 +317,7 @@ def exercise_A():
     # get error of voltage by using resolution of oscilloscope
     std = np.unique(Ch1)[-1] - np.unique(Ch1)[-2]
 
-    # get indices where the signal is larger than max-std
+    # get indices where the signal is larger/smaller than max-/+std
     indmax = np.where(Ch1 >= np.max(Ch1) - std)
     indmin = np.where(Ch1 <= np.min(Ch1) + std)
     # Amplitude of the signal
@@ -325,9 +325,12 @@ def exercise_A():
     vmaxstd, vminstd = Ch1[indmax].std(), Ch1[indmin].std()
 
     # calculate the frequency of the signal
+    # get the difference between the indices of the maxima
     diff = np.diff(indmax).T
+    # find indices where the difference is larger than the mean + 5 (this is where the 5V signal goes down to 0V)
     indices = np.where(diff > diff.mean() + 5)
 
+    # calculate the period and the error of the period using the mean and the standard deviation of the differences
     Period, Perr = np.diff(t[indmax[0][indices[0]]]).mean(), np.diff(t[indmax[0][indices[0]]]).std()
 
     # variables to be calculated in the analysis
@@ -341,12 +344,11 @@ def exercise_A():
     # ----------------------
 
     # ------------------------------------------
-    # ------------------------------------------
     # output
 
     # titles and lables for the plot. Modify as necessary.
-    x_label = '';
-    y_label = '';
+    x_label = 'time (ms)'
+    y_label = 'voltage (V)'
 
     # +++++++++++++++++++++++++++++++++++++++++++++
     # Writing output to file
@@ -358,7 +360,10 @@ def exercise_A():
     fid.write('frequency = %f %s\n' % (frequency, frequency_unit))
     fid.write('frequency_uncertainty = %f %s\n' % (frequency_uncertainty, frequency_unit))
     fid.close()
-    plot_one_trace(t, Ch1, 101, 'Exercise A.2', x_label, y_label, 'Versuch8/exerciseA2_plot.pdf')
+    # plot vertical lines at indices
+    plt.scatter((t-t[0])*10e2, Ch1, s=1)
+    plt.vlines((t[indmax[0][indices[0]]]-t[0])*10e2, ymin=np.min(Ch1), ymax=np.max(Ch1), color='r')
+    plot_one_trace((t-t[0])*10e2, Ch1, 101, 'Exercise A.2', x_label, y_label, 'Versuch8/exerciseA2_plot.pdf', s=1)
     # +++++++++++++++++++++++++++++++++++++++++++++
     # overwrite here the file './exerciseA2_plot.pdf' if needed
 
@@ -478,7 +483,7 @@ def exercise_C():
     # ch2_raw = ch1.copy()
     # ch2 = ch1.copy()
 
-    # plot_two_traces(t, ch1, t, ch2, 103, 'Frequency response', 'time (s)', 'voltage (V)', 'Versuch8/exerciseC2_plot.pdf', s=2)
+    plot_two_traces(t[::5], ch1[::5], t[::5], ch2[::5], 103, 'Frequency response', 'time (s)', 'voltage (V)', 'Versuch8/exerciseC2_plot.pdf', s=2)
     # ----------------------------------------------
     # Code tip: normalized FFT and frequency range. Usage highly reccomended.
     dim = t.shape[0]
@@ -489,9 +494,10 @@ def exercise_C():
     ind = np.int32(np.linspace(0, np.int32(np.round(dim / 2) - 1), np.int32(np.round(dim / 2))))
     f = f[ind]
     ch1f = ch1f[ind]
+
     # ----------------------------------------------
     # frequency axis is scales
-    plot_one_trace(2*f[10:50]*10e6,ch1f[10:50], 2,'FFT','frequency (kHz)','amplitude (arb. units)', 'Versuch8/exerciseC3_plot.pdf')
+    plot_one_trace(2*f[10:50]*10e6, ch1f[10:50], 2, 'FFT', 'frequency (kHz)', 'amplitude (arb. units)', 'Versuch8/exerciseC3_plot.pdf')
 
     # variables to be calculated in the analysis
     # resonance frequency
@@ -550,13 +556,13 @@ if __name__ == "__main__":
 
     # ----------------------------------------------
     # Do not modify code here, modify the code inside the indicated functions
-    # [t_ex, ch1_ex, ch2_ex] = exercise_example()
+    [t_ex, ch1_ex, ch2_ex] = exercise_example()
     # modify this function
     # [t_A, ch1_A, ch2_A] = exercise_A()
     # modify this function
     # [t_B, ch1_B, ch2_B] = exercise_B()
     # modify this function
-    [t_C, ch1_C, ch2_C] = exercise_C()
+    # [t_C, ch1_C, ch2_C] = exercise_C()
     # -------
     # Do not modify code here
     # This function will be called to benchmark the data analysis against
@@ -570,11 +576,18 @@ if __name__ == "__main__":
     print('%s (n:%s) -> %s' % (name, immatriculation_number, note))
 
 # %%
-import numpy as np
-# import matplotlib.pyplot as plt
+freqs = [9, 12, 21]
+A = np.zeros(len(freqs))
+for i, freq in enumerate(freqs):
+    t, ch1, ch2 = new_read_oscilloscope_csv_data(f'data/Versuch8_{freq}kHz.csv', channels=2)
+    ch1max = np.max(ch1)
+    ch2max = np.max(ch2)
 
-t, ch1, ch2, t2, fft = new_read_oscilloscope_csv_data("data/Versuch8_3.csv", channels=2, fft=True)
+    A[i] = ch1max - ch2max
 
-plt.plot(t2[10:90], fft[10:90])
-plt.savefig("Versuch8/fft.pdf")
+    # plt.plot(t, ch1)
+    # plt.plot(t, ch2)
+    # plt.show()
+
+plt.scatter(freqs, A)
 plt.show()

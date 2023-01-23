@@ -362,7 +362,7 @@ def exercise_A():
     # +++++++++++++++++++++++++++++++++++++++++++++
     # overwrite here the file './exerciseA2_plot.pdf' if needed
 
-    return t, Ch1
+    return t, Ch1, np.zeros(len(t))
 
 
 def exercise_B():
@@ -448,10 +448,10 @@ def exercise_B():
     fid.write('signal_speed = %f %s\n' % (signal_speed, speed_unit))
     fid.write('signal_speed_uncertainty = %f %s\n' % (signal_speed_uncertainty, speed_unit))
     fid.close()
-    plot_two_traces(t[ind], ch1[ind], t[ind], ch2[ind], 102, 'Exercise B.2', x_label, y_label, 'exerciseB2_plot.pdf')
+    plot_two_traces(t[ind], ch1[ind], t[ind], ch2[ind], 102, 'Exercise B.2', x_label, y_label, 'Versuch8/exerciseB2_plot.pdf')
     # +++++++++++++++++++++++++++++++++++++++++++++
     # overwrite here the file './exerciseB2_plot.pdf' if needed
-    # return t_raw, ch1_raw, ch2_raw
+    return t, ch1, ch2
 
 
 def exercise_C():
@@ -466,6 +466,10 @@ def exercise_C():
     # raw data files and, if necessary, other relevant experimental parameters
     t, ch1, ch2, t2, fft = new_read_oscilloscope_csv_data("data/Versuch8_3.csv", channels=2, fft=True)
 
+    # plt.plot(t2[10:50], fft[10:50])
+    # plt.savefig("Versuch8/fft.pdf")
+    # plt.show()
+
     # variables to be modified for the analysis
     # t_raw = np.linspace(0, 100, 1000)
     # t = t_raw.copy()
@@ -473,8 +477,8 @@ def exercise_C():
     # ch1 = ch1_raw.copy()
     # ch2_raw = ch1.copy()
     # ch2 = ch1.copy()
-    # plot_one_trace(t, ch1, 3, 'Frequency response', 'time (s)', 'voltage (V)', 'Versuch8/test.pdf', s=2)
-    plot_two_traces(t, ch1, t, ch2, 103, 'Exercise C.1', 'time (s)', 'voltage (V)', 'exerciseC1_plot.pdf', s=2)
+
+    # plot_two_traces(t, ch1, t, ch2, 103, 'Frequency response', 'time (s)', 'voltage (V)', 'Versuch8/exerciseC2_plot.pdf', s=2)
     # ----------------------------------------------
     # Code tip: normalized FFT and frequency range. Usage highly reccomended.
     dim = t.shape[0]
@@ -486,7 +490,8 @@ def exercise_C():
     f = f[ind]
     ch1f = ch1f[ind]
     # ----------------------------------------------
-    # plot_one_trace(f,ch1f, 2,'FFT','frequency (Hz)','amplitude (arb. units)', 'test.pdf')
+    # frequency axis is scales
+    plot_one_trace(2*f[10:50]*10e6,ch1f[10:50], 2,'FFT','frequency (kHz)','amplitude (arb. units)', 'Versuch8/exerciseC3_plot.pdf')
 
     # variables to be calculated in the analysis
     # resonance frequency
@@ -524,7 +529,7 @@ def exercise_C():
     #                                'frequency (Hz)', 'amplitude (arb. units)', 'exerciseC3_plot.pdf')
     # plot_one_trace(t, ch1, 104, 'signal', 'time (s)', 'voltage (V)', 'exerciseC5_plot.pdf')
 
-    # return t_raw, ch1_raw, ch2_raw
+    return t, ch1, ch2
 
 
 def data_analysis_check(t_A, ch1_A, ch2_A, t_B, ch1_B, ch2_B, t_C, ch1_C, ch2_C):
@@ -547,11 +552,11 @@ if __name__ == "__main__":
     # Do not modify code here, modify the code inside the indicated functions
     # [t_ex, ch1_ex, ch2_ex] = exercise_example()
     # modify this function
-    # [t_A, ch1_A] = exercise_A()
+    # [t_A, ch1_A, ch2_A] = exercise_A()
     # modify this function
-    # exercise_B()
+    # [t_B, ch1_B, ch2_B] = exercise_B()
     # modify this function
-    exercise_C()
+    [t_C, ch1_C, ch2_C] = exercise_C()
     # -------
     # Do not modify code here
     # This function will be called to benchmark the data analysis against
@@ -563,3 +568,13 @@ if __name__ == "__main__":
     #  note = data_analysis_check(t_A, ch1_A, ch2_A, t_B, ch1_B, ch2_B, t_C, ch1_C, ch2_C);
     note = '?'
     print('%s (n:%s) -> %s' % (name, immatriculation_number, note))
+
+# %%
+import numpy as np
+# import matplotlib.pyplot as plt
+
+t, ch1, ch2, t2, fft = new_read_oscilloscope_csv_data("data/Versuch8_3.csv", channels=2, fft=True)
+
+plt.plot(t2[10:90], fft[10:90])
+plt.savefig("Versuch8/fft.pdf")
+plt.show()

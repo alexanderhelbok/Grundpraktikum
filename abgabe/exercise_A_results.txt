@@ -1,4 +1,0 @@
-amplitude = 4.998040 V
-amplitude_uncertainty = 0.045659 V
-frequency = 1029.993408 Hz
-frequency_uncertainty = 0.069297 Hz

@@ -1,0 +1,93 @@
+% !TeX root = 00_Vorlage.tex
+% !TeX spellcheck = de_DE
+\section{Theorie}
+\label{sec:theorie}
+
+Im nachfolgenden Kapitel wird auf die theoretischen Grundlagen des Versuches eingegangen.
+
+\subsection{Newtons Grundsätze der Bewegungslehre}
+Um die Masse des Pendelkörpers zu bestimmen, wird Newtons 2. Axiom herangezogen \cite{newton}. Dieses besagt, dass
+
+\begin{equation}\label{eqn:newt}
+	\vec{F} = m\vec{a}
+\end{equation}
+also, dass die auf einen Körper wirkende Kraft \( F \) linear mit seiner Beschleunigung \( a \) skaliert, wobei seine Masse \( m \) gerade der Proportionalitätskonstante ist. In anderen Worten ausgedrückt ist das Verhältnis zwischen Kraft und Beschleunigung der Skalierungsfaktor, die Masse \( m \). 
+
+Diese Tatsache wird herangezogen, um die Schwingmasse zu ermitteln. Kennt man beziehungsweise misst man nämlich alle wirkenden Kräfte und Beschleunigungen, ist die Masse der Quotient der beiden Größen. 
+
+\subsubsection{Einfacher harmonischer Oszillator}
+Der einfache harmonische Oszillator ist die Lösung einer Differentialgleichung zweiter Ordnung der Form
+
+\begin{equation}\label{eqn:harmonic}
+	m\dv[2]{x}{t} = -kx
+\end{equation}
+wobei \( m \) die Masse des Oszillators, \( x \) die Position des Pendelkörpers und \( k \) eine Konstante ist und von der Natur der Schwingung stammt. In unserem Fall wird die Oszillation von einer Feder verursacht, welche durch das Hookesche Gesetz beschrieben wird. Dieses besagt, dass die Kraft, welche eine Feder ausübt, proportional zur Auslenkung aus der Ruhelage ist und um einen Faktor \( k \) skaliert wird, der von den Materialeigenschaften der Feder abhängt. Es gilt also \( F_{\text{H}} = -k\Delta x\), wobei \( \Delta x \) der Abstand zur Ruhelage ist.
+Stellt man die Bewegungsgleichungen für ein Federpendel auf und wählt das Koordinatensystem so, dass der Ursprung in der Ruhelage des Federpendels (im Schwerefeld der Erde!) liegt, erhält man \autoref{eqn:harmonic}. Die Größe \( k \) aus der Differentialgleichung ist also die Federkonstante aus dem Hookeschen Gesetz mit der Einheit \( \unit{N/m} \).
+
+Die allgemeine Lösung dieses Differentialgleichung ist eine trigonometrische Funktion und lautet 
+z
+\begin{equation}\label{eqn:sol}
+	x(t) = A\cos(\omega t + \varphi)
+\end{equation}
+mit der Kreisfrequenz \( \omega \), der Amplitude \( A \) und einem Phasenfaktor \( \varphi \), wobei \( A \) und \( \varphi \) sich durch Anfangswerte bestimmen lassen. Für die Kreisfrequenz gilt aber
+
+\begin{equation}\label{eqn:omega}
+	\omega = \sqrt{\tfrac{k}{m}} = \sqrt{k}\sqrt{\tfrac{1}{m}} = \sqrt{k}\tilde{m}
+\end{equation}
+und ist unabhängig von jeglichen Startpositionen und Geschwindigkeiten, weshalb sie als eine charakteristische Eigenschaft des Systems angesehen wird. Offensichtlich besteht ein linearer Zusammenhang zwischen der Winkelfrequenz \( \omega \) und der Wurzel des Kehrwerts der Masse \( \tilde{m} := \sqrt{1/m} \) (wird aus Bequemlichkeitsgründen mit \( \tilde{m} \) abgekürzt), wobei die Wurzel der Konstante \( k \) der Skalierungsfaktor ist. 
+
+%Der Konstante \( k \) können wir erst einen Sinn geben, wenn wir die rückstellende Kraft kennen. In einem Federpendel ist das die Rückstellkraft der Feder, welche durch das Hookesche Gesetz beschrieben wird. Dieses besagt, dass die Kraft, welche eine Feder ausübt, proportional zur Auslenkung aus der Ruhelage ist und um einen Faktor \( k \) skaliert wird, der von den Materialeigenschaften der Feder abhängt. 
+
+%Wir haben also eine Größe in der Rückstellkraft gefunden, die eine intrinsische Eigenschaft des Systems darstellt (und nicht durch Startwerte beeinflusst wird!). Durch Aufstellen der Bewegungsgleichgungen eines Federpendels stellt man fest, dass die Konstante \( k \) aus \autoref{eqn:harmonic} gerade die Federkonstante aus dem Hookeschen Gesetz ist.  
+
+
+Aus der Winkelfrequenz lassen sich auch weitere Größen ableiten, wie zum Beispiel die Schwingungsdauer \( T \), die durch
+
+\begin{equation}\label{eqn:T}
+	T = \frac{2\pi}{\omega} = 2\pi \sqrt{\tfrac{m}{k}}
+\end{equation}
+gegeben ist. Diese Beziehungen lassen sich auf Seite 336 im Demtröder nachschlagen \cite{demtröder}.
+
+\subsection{Statistische Grundlagen}
+
+Hier werden kurz die Methoden erwähnt, welche für die statistische Aufbereitung der Daten essentiell sind.
+
+Das Arithmetische Mittel, auch Mittelwert oder Durchschnitt genannt, ist das wohl meist verwendete Werkzeug der Statistik. Es lässt sich sowohl  für „exakte“, als auch für fehlerbehaftete Daten definieren. Im ersten Fall spricht man von einem ungewichteten Mittelwert und man schreibt 
+\begin{equation}\label{eqn:mean1}
+	\bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i
+\end{equation}
+mit $\bar{x}$ als Mittelwert von \( N \) Daten \cite{error}.
+
+Sind die Daten Fehlerbehaftet (mit Fehler \( \alpha_i \)) muss man diesen Berücksichtigen und erhält
+\begin{equation}\label{eqn:mean2}
+	\bar{x} = \left(\sum_{i=1}^{N} \frac{1}{\alpha_i^2}\right)^{-1} \sum_{i=1}^{N} \frac{x_i}{\alpha_i^2}
+\end{equation}
+Haben alle Daten aber den selben Fehler, kürzt sich dieser weg und man landet wieder bei \autoref{eqn:mean1}. \cite[S. 50]{error} Aus diesem Grund wird in diesem Versuch großteils der ungewichtete Mittelwert angewandt, obwohl alle Daten fehlerbehaftet sind. 
+
+Die Standardabweichung ist ein direktes Maß für die Verteilung der Daten und gibt an, wie weit die Daten im Mittel vom Durchschnitt abweichen. Sie berechnet sich wie folgt
+\begin{equation}\label{eqn:sigma}
+	\sigma = \SQRT{\frac{1}{N-1} \sum_{i=1}^{N}(x_i - \bar{x})^2}
+\end{equation}
+Wir dividieren hier durch \( N-1 \), da der Mittelwert, der in der Berechnung der Standardabweichung herangezogen wird, die \( N \) Freiheitsgrade der  \( N \) Daten um einen reduziert \cite{error}.
+
+Die Kombination der Unsicherheiten von fehlerbehafteten Messdaten erfolgt mittels der Gaußschen Fehlerpropagation. Diese stellt einen Zusammenhang zwischen dem Fehler der Größe \( Z(x_i) \), welche von \( x_i \) Variablen abhängt, und den partiellen Ableitungen nach \( x_i \) her. In allgemeiner Form sieht die Formel wie folgt aus
+\begin{equation}\label{eqn:propagation}
+	\alpha_Z = \SQRT{\sum_{i=1}^{N}\left( \pdv{Z}{x_i} \alpha_{x_i}\right)^2}
+\end{equation}
+mit \( \alpha_{x_i} \) als Fehler der einzelnen Größen, von denen \( Z \) abhängt \cite{error}. Oft wird für \( \alpha_{x_i} \) die Standardabweichung aus \autoref{eqn:sigma} verwendet, das muss aber nicht der Fall sein.
+Die Propagation von Fehlern erfolgt in diesem Versuch automatisch und wird im Hintergrund gehalten.
+
+Zuletzt wird noch das Chi-Quadrat eingeführt, welches ein Maß für die Güte einer Funktionsanpassung ist. Dafür wird die Quadratsumme der fehlernormierten Abweichungen gebildet und schaut in Summenschreibweise so aus
+\begin{equation}\label{eqn:chi}
+	\chi^2 = \sum_{i=1}^{N} \left(\frac{(y_i - y(x_i))}{\alpha_i}\right)^2
+\end{equation}
+\( y_i \) sind dabei die gemessenen Werte, während \( y(x_i) \) die Funktionswerte an den Stellen \( x_i \) sind. \cite[S. 65]{error}
+
+Generell gilt, je kleiner der Wert von \( \chi^2 \), desto besser passt das Modell, aber man erkennt, dass der Wert mit zunehmender Datenanzahl zwangsläufig auch zunehmen muss. Tatsächlich ist der Erwartungswert dieser Größe gerade die Anzahl der Freiheitsgrade. Das motiviert die Einführung des sogenannten reduzierten Chi-Quadrat 
+\begin{equation}\label{eqn:chinu}
+	\chi_{\nu}^2 = \frac{\chi^2}{\nu}
+\end{equation}
+mit \( \nu \) als Anzahl der Freiheitsgrade \cite{error}. Die so definierte Größe hat den Erwartungswert \( \langle \chi_{\nu}^2 \rangle = 1 \), man muss \( \nu \) also nicht mehr kennen, um die Güte einzuschätzen. \\
+
+Eine kurze Anmerkung zur Notation: \( \sigma \) wird in diesem Bericht für die Standardabweichung eines Datensatzes verwendet, während \( \alpha \) der Fehler einer bestimmen Größe ist. Öfters fallen diese beiden zusammen (bzw. \( \alpha \) wird auf \( \sigma \) gesetzt), was für Verwirrung sorgen kann, weshalb dies im Text immer erwähnt wird.
+Als Faustregel kann man sich merken, dass \( \sigma \) die Eigenschaft eines Datensatzes ist und \( \alpha \) sich nur auf einzelne Werte bezieht.

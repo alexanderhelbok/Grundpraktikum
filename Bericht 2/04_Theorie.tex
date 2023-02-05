@@ -2,54 +2,36 @@
 % !TeX spellcheck = de_DE
 \section{Theorie}
 \label{sec:theorie}
-
 Im nachfolgenden Kapitel wird auf die theoretischen Grundlagen des Versuches eingegangen.
 
-\subsection{Newtons Grundsätze der Bewegungslehre}
-Um die Masse des Pendelkörpers zu bestimmen, wird Newtons 2. Axiom herangezogen \cite{newton}. Dieses besagt, dass
-
-\begin{equation}\label{eqn:newt}
-	\vec{F} = m\vec{a}
+\subsection{Einführung in die Elektrodynamik}
+Alle in diesem Abschnitt beschriebenen Konzepte lassen sich im Kapitel 3 vom Demtröder nachlesen \cite{demtröder}.
+Ein großer Teilbereich der Physik stellt die Elektrodynamik dar, welche sich mit der Studie von Ladungen in elektrischen und magnetischen Feldern beschäftigt. Von zentraler Bedeutung ist hierbei die Lorentzkraft 
+\begin{equation}\label{eqn:FL}
+	\vec{F}_{\text{L}} = q\left(\vec{E} + \vec{v} \times \vec{B}\right)
 \end{equation}
-also, dass die auf einen Körper wirkende Kraft \( F \) linear mit seiner Beschleunigung \( a \) skaliert, wobei seine Masse \( m \) gerade der Proportionalitätskonstante ist. In anderen Worten ausgedrückt ist das Verhältnis zwischen Kraft und Beschleunigung der Skalierungsfaktor, die Masse \( m \). 
+, die eine bewegte Ladung \( q \) mit Geschwindigkeit \( \vec{v} \) in einem elektrischen Feld \( \vec{E} \), sowie magnetischen Feld \( \vec{B} \) verspürt. To note! ist hier, dass der Betrag von E-Feld immer parallel zu den Feldlinien verläuft, während das B-Feld eine Kraft erzeugt, welche normal auf die Feldlinien (und die Geschwindigkeit der Ladung) steht. Die tatsächliche Richtung der Lorentzkraft kann man sich dann mit der Rechten-Hand-Regel herleiten, wobei der Daumen \( \vec{v} \), der Zeigefingern \( \vec{B} \) und der Mittelfinger \( \vec{F}_{\text{L}} \) repräsentiert. 
 
-Diese Tatsache wird herangezogen, um die Schwingmasse zu ermitteln. Kennt man beziehungsweise misst man nämlich alle wirkenden Kräfte und Beschleunigungen, ist die Masse der Quotient der beiden Größen. 
+Das Vorzeichen der Kraft wird (mitunter) durch die Ladung bestimmt, was in Stromkreisen zu Verwirrung führen kann. In diesem Bericht wird die technische Stromrichtung gewählt, sodass die Ladungsträger in einem Kabel positiv sind und der Strom somit vom Pluspol zum Minuspol fließt. 
 
-\subsubsection{Einfacher harmonischer Oszillator}
-Der einfache harmonische Oszillator ist die Lösung einer Differentialgleichung zweiter Ordnung der Form
-
-\begin{equation}\label{eqn:harmonic}
-	m\dv[2]{x}{t} = -kx
+Betrachtet man einen elektrischen Strom in einem Leiter und setzt man \( q\vec{v} = I\vec{l} \) erhält man für den zweiten Teil der Lorentzkraft
+\begin{equation}\label{eqn:FL2}
+	\vec{F}_{\text{L}} = I(\vec{l} \times \vec{B})
 \end{equation}
-wobei \( m \) die Masse des Oszillators, \( x \) die Position des Pendelkörpers und \( k \) eine Konstante ist und von der Natur der Schwingung stammt. In unserem Fall wird die Oszillation von einer Feder verursacht, welche durch das Hookesche Gesetz beschrieben wird. Dieses besagt, dass die Kraft, welche eine Feder ausübt, proportional zur Auslenkung aus der Ruhelage ist und um einen Faktor \( k \) skaliert wird, der von den Materialeigenschaften der Feder abhängt. Es gilt also \( F_{\text{H}} = -k\Delta x\), wobei \( \Delta x \) der Abstand zur Ruhelage ist.
-Stellt man die Bewegungsgleichungen für ein Federpendel auf und wählt das Koordinatensystem so, dass der Ursprung in der Ruhelage des Federpendels (im Schwerefeld der Erde!) liegt, erhält man \autoref{eqn:harmonic}. Die Größe \( k \) aus der Differentialgleichung ist also die Federkonstante aus dem Hookeschen Gesetz mit der Einheit \( \unit{N/m} \).
+. Hierbei ist \( I \) die Durchflussrate der Ladungen und \( \vec{l} \) der Längenvektor des Leiters. 
 
-Die allgemeine Lösung dieses Differentialgleichung ist eine trigonometrische Funktion und lautet 
-z
-\begin{equation}\label{eqn:sol}
-	x(t) = A\cos(\omega t + \varphi)
+
+
+\begin{equation}\label{eqn:biot}
+	\vec{B}(r) = \frac{\mu_0}{4\pi} \uint[C]{\frac{I}{|\vec{r}|^3}}{\vec{l} \times \vec{r}}
 \end{equation}
-mit der Kreisfrequenz \( \omega \), der Amplitude \( A \) und einem Phasenfaktor \( \varphi \), wobei \( A \) und \( \varphi \) sich durch Anfangswerte bestimmen lassen. Für die Kreisfrequenz gilt aber
-
-\begin{equation}\label{eqn:omega}
-	\omega = \sqrt{\tfrac{k}{m}} = \sqrt{k}\sqrt{\tfrac{1}{m}} = \sqrt{k}\tilde{m}
+. Hier ist das  wird das Magnetfeld eines stromdurchflossenen Leiters im Abstand \( r \) durch das geschlossene Kurvenintegral (welches de Leiter umschließt) ausgedrückt. Wählt man für die Kurve \( C \) einen Kreis und schaut man sich nur den Absolutbetrag des Magnetfeldes an, vereinfacht sich das Integral zu 
+\begin{equation}\label{eqn:biot2}
+	\abs{\vec{B}(r)} = \frac{\mu_0I}{2\pi r}
 \end{equation}
-und ist unabhängig von jeglichen Startpositionen und Geschwindigkeiten, weshalb sie als eine charakteristische Eigenschaft des Systems angesehen wird. Offensichtlich besteht ein linearer Zusammenhang zwischen der Winkelfrequenz \( \omega \) und der Wurzel des Kehrwerts der Masse \( \tilde{m} := \sqrt{1/m} \) (wird aus Bequemlichkeitsgründen mit \( \tilde{m} \) abgekürzt), wobei die Wurzel der Konstante \( k \) der Skalierungsfaktor ist. 
 
-%Der Konstante \( k \) können wir erst einen Sinn geben, wenn wir die rückstellende Kraft kennen. In einem Federpendel ist das die Rückstellkraft der Feder, welche durch das Hookesche Gesetz beschrieben wird. Dieses besagt, dass die Kraft, welche eine Feder ausübt, proportional zur Auslenkung aus der Ruhelage ist und um einen Faktor \( k \) skaliert wird, der von den Materialeigenschaften der Feder abhängt. 
-
-%Wir haben also eine Größe in der Rückstellkraft gefunden, die eine intrinsische Eigenschaft des Systems darstellt (und nicht durch Startwerte beeinflusst wird!). Durch Aufstellen der Bewegungsgleichgungen eines Federpendels stellt man fest, dass die Konstante \( k \) aus \autoref{eqn:harmonic} gerade die Federkonstante aus dem Hookeschen Gesetz ist.  
-
-
-Aus der Winkelfrequenz lassen sich auch weitere Größen ableiten, wie zum Beispiel die Schwingungsdauer \( T \), die durch
-
-\begin{equation}\label{eqn:T}
-	T = \frac{2\pi}{\omega} = 2\pi \sqrt{\tfrac{m}{k}}
-\end{equation}
-gegeben ist. Diese Beziehungen lassen sich auf Seite 336 im Demtröder nachschlagen \cite{demtröder}.
 
 \subsection{Statistische Grundlagen}
-
 Hier werden kurz die Methoden erwähnt, welche für die statistische Aufbereitung der Daten essentiell sind.
 
 Das Arithmetische Mittel, auch Mittelwert oder Durchschnitt genannt, ist das wohl meist verwendete Werkzeug der Statistik. Es lässt sich sowohl  für „exakte“, als auch für fehlerbehaftete Daten definieren. Im ersten Fall spricht man von einem ungewichteten Mittelwert und man schreibt 
@@ -77,17 +59,17 @@ Die Kombination der Unsicherheiten von fehlerbehafteten Messdaten erfolgt mittel
 mit \( \alpha_{x_i} \) als Fehler der einzelnen Größen, von denen \( Z \) abhängt \cite{error}. Oft wird für \( \alpha_{x_i} \) die Standardabweichung aus \autoref{eqn:sigma} verwendet, das muss aber nicht der Fall sein.
 Die Propagation von Fehlern erfolgt in diesem Versuch automatisch und wird im Hintergrund gehalten.
 
-Zuletzt wird noch das Chi-Quadrat eingeführt, welches ein Maß für die Güte einer Funktionsanpassung ist. Dafür wird die Quadratsumme der fehlernormierten Abweichungen gebildet und schaut in Summenschreibweise so aus
-\begin{equation}\label{eqn:chi}
-	\chi^2 = \sum_{i=1}^{N} \left(\frac{(y_i - y(x_i))}{\alpha_i}\right)^2
-\end{equation}
-\( y_i \) sind dabei die gemessenen Werte, während \( y(x_i) \) die Funktionswerte an den Stellen \( x_i \) sind. \cite[S. 65]{error}
-
-Generell gilt, je kleiner der Wert von \( \chi^2 \), desto besser passt das Modell, aber man erkennt, dass der Wert mit zunehmender Datenanzahl zwangsläufig auch zunehmen muss. Tatsächlich ist der Erwartungswert dieser Größe gerade die Anzahl der Freiheitsgrade. Das motiviert die Einführung des sogenannten reduzierten Chi-Quadrat 
-\begin{equation}\label{eqn:chinu}
-	\chi_{\nu}^2 = \frac{\chi^2}{\nu}
-\end{equation}
-mit \( \nu \) als Anzahl der Freiheitsgrade \cite{error}. Die so definierte Größe hat den Erwartungswert \( \langle \chi_{\nu}^2 \rangle = 1 \), man muss \( \nu \) also nicht mehr kennen, um die Güte einzuschätzen. \\
+%Zuletzt wird noch das Chi-Quadrat eingeführt, welches ein Maß für die Güte einer Funktionsanpassung ist. Dafür wird die Quadratsumme der fehlernormierten Abweichungen gebildet und schaut in Summenschreibweise so aus
+%\begin{equation}\label{eqn:chi}
+%	\chi^2 = \sum_{i=1}^{N} \left(\frac{(y_i - y(x_i))}{\alpha_i}\right)^2
+%\end{equation}
+%\( y_i \) sind dabei die gemessenen Werte, während \( y(x_i) \) die Funktionswerte an den Stellen \( x_i \) sind. \cite[S. 65]{error}
+%
+%Generell gilt, je kleiner der Wert von \( \chi^2 \), desto besser passt das Modell, aber man erkennt, dass der Wert mit zunehmender Datenanzahl zwangsläufig auch zunehmen muss. Tatsächlich ist der Erwartungswert dieser Größe gerade die Anzahl der Freiheitsgrade. Das motiviert die Einführung des sogenannten reduzierten Chi-Quadrat 
+%\begin{equation}\label{eqn:chinu}
+%	\chi_{\nu}^2 = \frac{\chi^2}{\nu}
+%\end{equation}
+%mit \( \nu \) als Anzahl der Freiheitsgrade \cite{error}. Die so definierte Größe hat den Erwartungswert \( \langle \chi_{\nu}^2 \rangle = 1 \), man muss \( \nu \) also nicht mehr kennen, um die Güte einzuschätzen. \\
 
 Eine kurze Anmerkung zur Notation: \( \sigma \) wird in diesem Bericht für die Standardabweichung eines Datensatzes verwendet, während \( \alpha \) der Fehler einer bestimmen Größe ist. Öfters fallen diese beiden zusammen (bzw. \( \alpha \) wird auf \( \sigma \) gesetzt), was für Verwirrung sorgen kann, weshalb dies im Text immer erwähnt wird.
 Als Faustregel kann man sich merken, dass \( \sigma \) die Eigenschaft eines Datensatzes ist und \( \alpha \) sich nur auf einzelne Werte bezieht.

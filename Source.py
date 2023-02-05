@@ -44,11 +44,17 @@ def sine(x, a, b, c, d):
     return a*np.sin(b*x + c) + d
 
 
-def chisq(obs, exp, error=1, dof=0):
-    if dof == 0:
-        return np.sum((obs - exp) ** 2 / (error ** 2))
+def chisq(obs, exp, sigma=None, dof=0):
+    exp = np.asarray(exp)
+    obs = np.asarray(obs)
+    if sigma is None:
+        sigma = np.ones_like(exp)
     else:
-        return np.sum((obs - exp) ** 2 / (error ** 2)) / dof
+        sigma = np.asarray(sigma)
+    if dof == 0:
+        return np.sum(((obs - exp) / sigma)**2)
+    else:
+        return np.sum(((obs - exp) / sigma)**2) / dof
 
 
 def bisec(start, end, func, precision=0.001):
@@ -129,6 +135,49 @@ def sine_fit(x, y, err=None, min=0, p0=None, verbose=False):
     start += 100
     popt, pcov = curve_fit(sine, x.iloc[start:end], y.iloc[start:end], sigma=err.iloc[start:end], absolute_sigma=True, p0=[popt[0], popt[1], popt[2], popt[3]])
     return popt, pcov
+
+
+def de(fit, xdata, ydata, bounds, mut=0.8, crossp=0.7, popsize=20, its=1000, fobj=chisq, seed=None):
+    # set seed for reproducibility
+    if seed is not None:
+        np.random.seed(seed)
+    dimensions = len(bounds)
+    # create population with random parameters (between 0 and 1)
+    pop = np.random.rand(popsize, dimensions)
+    # scale parameters to the given bounds
+    min_b, max_b = np.asarray(bounds).T
+    diff = np.fabs(min_b - max_b)
+    pop_denorm = min_b + pop * diff
+    # calculate fitness (higher is worse)
+    fitness = np.asarray([fobj(ydata, fit(xdata, ind)) for ind in pop_denorm])
+    # sort by fitness and get best (lowest) one
+    best_idx = np.argmin(fitness)
+    best = pop_denorm[best_idx]
+    # start evolution
+    for i in range(its):
+        for j in range(popsize):
+            # select three random vector index positions (not equal to j)
+            idxs = [idx for idx in range(popsize) if idx != j]
+            a, b, c = pop[np.random.choice(idxs, 3, replace=False)]
+            # create a mutant by adding random scaled difference vectors
+            mutant = np.clip(a + mut * (b - c), 0, 1)
+            # randomly create a crossover mask
+            cross_points = np.random.rand(dimensions) < crossp
+            if not np.any(cross_points):
+                cross_points[np.random.randint(0, dimensions)] = True
+            # construct trial vector by mixing the mutant and the current vector
+            trial = np.where(cross_points, mutant, pop[j])
+            trial_denorm = min_b + trial * diff
+            # calculate fitness
+            f = fobj(ydata, fit(xdata, trial_denorm))
+            # replace the current vector if the trial vector is better
+            if f < fitness[j]:
+                fitness[j] = f
+                pop[j] = trial
+                if f < fitness[best_idx]:
+                    best_idx = j
+                    best = trial_denorm
+        yield best, fitness[best_idx]
 
 
 def contributions(var, rel=True, precision=2):

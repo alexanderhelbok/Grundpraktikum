@@ -4,7 +4,7 @@ from Source import *
 
 fig, ax = plt.subplots(2, 1, sharex=True)
 for i in range(3):
-    df = pd.read_csv(f"data/Bericht/A1 Gewicht {i+1}.csv")
+    df = pd.read_csv(f"data/Bericht1/A1 Gewicht {i+1}.csv")
     # rename columns
     df.columns = ["t", "a", "F"]
     # plot data°
@@ -18,7 +18,7 @@ plt.xlim(0, 10)
 plt.show()
 
 # %%
-df = pd.read_csv(f"data/Bericht/Feder 2.csv")
+df = pd.read_csv(f"data/Bericht1/Feder 2.csv")
 # rename columns
 # df.columns = ["t", "Ax", "Ay", "Az", "F"]
 df.columns = ["t", "a", "F"]
@@ -32,7 +32,7 @@ plt.legend()
 plt.show()
 
 # %%
-df = pd.read_csv(f"data/Bericht/2 Feder 2.csv")
+df = pd.read_csv(f"data/Bericht1/2 Feder 2.csv")
 # rename columns
 # df.columns = ["t", "Ax", "Ay", "Az", "F"]
 df.columns = ["t", "a", "F"]
@@ -51,7 +51,7 @@ m = unp.uarray([0, 0, 0], [0, 0, 0])
 # m2 = unp.uarray([0, 0, 0], [0, 0, 0])
 for i in range(3):
     # load data
-    df = pd.read_csv(f"data/Bericht/A1 Gewicht {i+1}.csv")
+    df = pd.read_csv(f"data/Bericht1/A1 Gewicht {i+1}.csv")
     # rename columns
     df.columns = ["t", "a", "F"]
 
@@ -102,7 +102,7 @@ w = unp.uarray([0, 0, 0], [0, 0, 0])
 T = unp.uarray([0, 0, 0], [0, 0, 0])
 for i in range(3):
     # load pendulum data
-    df = pd.read_csv(f"data/Bericht/Feder {i+1}.csv")
+    df = pd.read_csv(f"data/Bericht1/Feder {i+1}.csv")
     # write data to pandas dataframe
     df.columns = ["t", "a", "F"]
     # fill aerr and Ferr with 0.001
@@ -244,7 +244,7 @@ kparallel[0] = k[2]
 # print(f"k = {kparallel[0]:.1uS}")
 for i in range(1, 3):
     # load pendulum data
-    df = pd.read_csv(f"data/Bericht/{i+1} Federn 1.csv")
+    df = pd.read_csv(f"data/Bericht1/{i+1} Federn 1.csv")
     # change column names
     df.columns = ["t", "a", "F"]
     # fill aerr and Ferr with 0.001

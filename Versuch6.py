@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-
 from Source import *
 import matplotlib
 from matplotlib import cm

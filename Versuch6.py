@@ -148,13 +148,13 @@ for i in range(0, len(midpeaksy)-1):
 # plt.savefig("Graphics/Versuch6_4.pdf", transparent=True)
 # plt.show()
 
-L1 = unc.ufloat(0.9, 0.1, "d1")**2 + unc.ufloat(2.0, 0.1, "d2")**2
+L1 = unc.ufloat(2.0, 0.1, "d2")**2
 mu0 = 4*np.pi*10**(-7)
 B = unp.sqrt(Bx**2+By**2+Bz**2)
 # print(B)
 temp = unp.uarray(np.zeros(len(B)), np.zeros(len(B)))
 for i in range(len(B)):
-    temp[i] = unp.sqrt(L1 + unc.ufloat(i, 0.2, "d3")**2)
+    temp[i] = unp.sqrt(L1 + (unc.ufloat(0.9, 0.1, "d1") + unc.ufloat(i, 0.2, "d3"))**2)
     print(f"{temp[i]:.1uS} cm")
 
 d = temp*1
@@ -177,7 +177,7 @@ plt.xlabel(r"$\tilde{r}$ (cm$^{-1}$)")
 plt.ylabel("$\Delta B$ ($\mu$T)")
 plt.legend()
 plt.tight_layout()
-plt.savefig("Graphics/Versuch6_4.pdf", transparent=True)
+plt.savefig("Bericht 2/Graphics/Versuch6_4.pdf", transparent=True)
 plt.show()
 
 I = k*2*np.pi/mu0/10**8

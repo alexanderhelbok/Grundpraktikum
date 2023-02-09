@@ -33,16 +33,15 @@ Betrachtet man einen elektrischen Strom in einem Leiter und setzt man \( q\vec{v
 \end{equation}
 . Hierbei ist \( I \) die Durchflussrate der Ladungen und \( \vec{l} \) der Längenvektor des Leiters. 
 
-
-
+Mit dem Biot-Savart Gesetz lässt sich das von einem Strom erzeugte Magnetfeld über ein Kurvenintegral ausdrücken und sieht folgendermaßen aus
 \begin{equation}\label{eqn:biot}
 	\vec{B}(r) = \frac{\mu_0}{4\pi} \uint[C]{\frac{I}{|\vec{r}|^3}}{\vec{l} \times \vec{r}}
 \end{equation}
-. Hier ist das  wird das Magnetfeld eines stromdurchflossenen Leiters im Abstand \( r \) durch das geschlossene Kurvenintegral (welches de Leiter umschließt) ausgedrückt. Wählt man für die Kurve \( C \) einen Kreis und schaut man sich nur den Absolutbetrag des Magnetfeldes an, vereinfacht sich das Integral zu 
-\begin{equation}\label{eqn:biot2}
-	\abs{\vec{B}(r)} = \frac{\mu_0I}{2\pi r}
+, mit dem differentiellen Längenelement \( \dd{\vec{l}} \), dem Ortsvektor \( \vec{r} \) und der magnetischen Feldkonstante \( \mu_0 \). Wählt man für die Kurve \( C \) einen Kreis und schaut man sich nur den Absolutbetrag des Magnetfeldes an, vereinfacht sich das Integral zu 
+\begin{equation}\label{eqn:last}
+	|\vec{B}(r)| = \frac{\mu_0 I}{2\pi}\frac{1}{r} = k\tilde{r}
 \end{equation}
-
+wobei der konstante Vorfaktor durch \( k := \tfrac{\mu_0 I}{2\pi} \) ersetzt wurde. Da man aus Geraden leichter Werte, wie die Steigung ablesen kann, wurde \( \tilde{r} := 1/r \) eingeführt.
 
 \subsection{Statistische Grundlagen}
 Hier werden kurz die Methoden erwähnt, welche für die statistische Aufbereitung der Daten essentiell sind.
@@ -72,17 +71,5 @@ Die Kombination der Unsicherheiten von fehlerbehafteten Messdaten erfolgt mittel
 mit \( \alpha_{x_i} \) als Fehler der einzelnen Größen, von denen \( Z \) abhängt \cite{error}. Oft wird für \( \alpha_{x_i} \) die Standardabweichung aus \autoref{eqn:sigma} verwendet, das muss aber nicht der Fall sein.
 Die Propagation von Fehlern erfolgt in diesem Versuch automatisch und wird im Hintergrund gehalten.
 
-%Zuletzt wird noch das Chi-Quadrat eingeführt, welches ein Maß für die Güte einer Funktionsanpassung ist. Dafür wird die Quadratsumme der fehlernormierten Abweichungen gebildet und schaut in Summenschreibweise so aus
-%\begin{equation}\label{eqn:chi}
-%	\chi^2 = \sum_{i=1}^{N} \left(\frac{(y_i - y(x_i))}{\alpha_i}\right)^2
-%\end{equation}
-%\( y_i \) sind dabei die gemessenen Werte, während \( y(x_i) \) die Funktionswerte an den Stellen \( x_i \) sind. \cite[S. 65]{error}
-%
-%Generell gilt, je kleiner der Wert von \( \chi^2 \), desto besser passt das Modell, aber man erkennt, dass der Wert mit zunehmender Datenanzahl zwangsläufig auch zunehmen muss. Tatsächlich ist der Erwartungswert dieser Größe gerade die Anzahl der Freiheitsgrade. Das motiviert die Einführung des sogenannten reduzierten Chi-Quadrat 
-%\begin{equation}\label{eqn:chinu}
-%	\chi_{\nu}^2 = \frac{\chi^2}{\nu}
-%\end{equation}
-%mit \( \nu \) als Anzahl der Freiheitsgrade \cite{error}. Die so definierte Größe hat den Erwartungswert \( \langle \chi_{\nu}^2 \rangle = 1 \), man muss \( \nu \) also nicht mehr kennen, um die Güte einzuschätzen. \\
-
-Eine kurze Anmerkung zur Notation: \( \sigma \) wird in diesem Bericht für die Standardabweichung eines Datensatzes verwendet, während \( \alpha \) der Fehler einer bestimmen Größe ist. Öfters fallen diese beiden zusammen (bzw. \( \alpha \) wird auf \( \sigma \) gesetzt), was für Verwirrung sorgen kann, weshalb dies im Text immer erwähnt wird.
-Als Faustregel kann man sich merken, dass \( \sigma \) die Eigenschaft eines Datensatzes ist und \( \alpha \) sich nur auf einzelne Werte bezieht.
+%Eine kurze Anmerkung zur Notation: \( \sigma \) wird in diesem Bericht für die Standardabweichung eines Datensatzes verwendet, während \( \alpha \) der Fehler einer bestimmen Größe ist. Öfters fallen diese beiden zusammen (bzw. \( \alpha \) wird auf \( \sigma \) gesetzt), was für Verwirrung sorgen kann, weshalb dies im Text immer erwähnt wird.
+%Als Faustregel kann man sich merken, dass \( \sigma \) die Eigenschaft eines Datensatzes ist und \( \alpha \) sich nur auf einzelne Werte bezieht.

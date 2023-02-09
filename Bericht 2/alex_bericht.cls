@@ -13,6 +13,7 @@
 \RequirePackage[ngerman]{babel}
 \RequirePackage{xifthen, xstring, csquotes, etoolbox}
 \RequirePackage[dvipsnames]{xcolor}
+\RequirePackage[export]{adjustbox}
 \RequirePackage{mtpro2, lipsum}
 \pdfmapfile{=mtpro2.map}
 \RequirePackage{mathtools, amsthm, amsfonts, siunitx, physics, chemformula, empheq}

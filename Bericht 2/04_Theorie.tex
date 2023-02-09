@@ -4,6 +4,19 @@
 \label{sec:theorie}
 Im nachfolgenden Kapitel wird auf die theoretischen Grundlagen des Versuches eingegangen.
 
+\subsection{Trigonometrische Überlegungen}
+Der Betrag eines Vektorfeldes in kartesischen Koordinaten lässt sich mit dem Satz vom Pythagoras als Wurzel der Quadratsummen anschreiben und schaut wie folgt aus
+\begin{equation}\label{eqn:Babs}
+	|\vec{B}| = \sqrt{B_x^2 + B_y^2 + B_z^2}
+\end{equation}
+, wobei \( B_i \) die kartesischen Komponenten des Vektorfeldes darstellen.
+
+Betrachtet man den Winkel zwischen einer Ebene und einem Vektorfeld, lässt sich das über das Skalarprodukt zwischen dem Vektorfeld und dessen Projektion auf die Ebene bewerkstelligen. Dieser Ausdruck lässt sich vereinfachen, wenn man das Koordinatensystem so dreht, dass eine Komponente des Vektorfelds 0 wird. Setzt man zum Beispiel die y-Komponente auf 0, erhält man für den Winkel 
+\begin{equation}\label{eqn:theta}
+	\theta = \arctan(\frac{B_z}{B_x})
+\end{equation}
+.
+
 \subsection{Einführung in die Elektrodynamik}
 Alle in diesem Abschnitt beschriebenen Konzepte lassen sich im Kapitel 3 vom Demtröder nachlesen \cite{demtröder}.
 Ein großer Teilbereich der Physik stellt die Elektrodynamik dar, welche sich mit der Studie von Ladungen in elektrischen und magnetischen Feldern beschäftigt. Von zentraler Bedeutung ist hierbei die Lorentzkraft 
@@ -14,7 +27,7 @@ Ein großer Teilbereich der Physik stellt die Elektrodynamik dar, welche sich mi
 
 Das Vorzeichen der Kraft wird (mitunter) durch die Ladung bestimmt, was in Stromkreisen zu Verwirrung führen kann. In diesem Bericht wird die technische Stromrichtung gewählt, sodass die Ladungsträger in einem Kabel positiv sind und der Strom somit vom Pluspol zum Minuspol fließt. 
 
-Betrachtet man einen elektrischen Strom in einem Leiter und setzt man \( q\vec{v} = I\vec{l} \) erhält man für den zweiten Teil der Lorentzkraft
+Betrachtet man einen elektrischen Strom in einem Leiter und setzt man \( q\vec{v} = I\vec{l} \) man erhält für den zweiten Teil der Lorentzkraft
 \begin{equation}\label{eqn:FL2}
 	\vec{F}_{\text{L}} = I(\vec{l} \times \vec{B})
 \end{equation}

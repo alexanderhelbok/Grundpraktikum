@@ -32,9 +32,7 @@ Man erhält für die drei kartesischen Komponenten des Erdmagnetfeldes
 erkennt man, dass unsere gemessenen Werte signifikant abweichen. Das liegt wahrscheinlich daran, dass am Versuchsort eine Vielzahl an metallische Objekte vorhanden waren, die Magnetfelder beeinflussen oder sogar selber erzeugen. Der Versuch wurde nämlich in einem Gebäude aus Stahlbeton durchgeführt, in einem Raum voller Elektronik und oberhalb Labore, in welchen Experimente mit elektrischen und Magnetische Felder durchgeführt werden. Es kommt daher zu systematischen Abweichungen, die verringert werden können, indem man die Messung fern von metallischen Objekten wiederholt.
 
 \subsection{Elektromotor}
-In diesem Versuch wurde 
-
-Anhand der Stromrichtung und der Drehung kann man auf die Richtung des Magnetfeldes schließen, da auf die bewegten Ladungsträger (der Strom) die Lorentz Kraft wirkt und die Batterie zum Drehen bringt. Das Vorzeichen der Ladungsträger spielt keine Rolle, da sich dann neben dem Vorzeichen von \( q \) auch die Flussrichtung ändern würde, was sich wegkürzt. Man kann mit diesem Experiment also nicht herausfinden, welches Vorzeichen die Ladungsträger des elektrischen Stromes haben. Der Versuch wurde viermal durchgeführt und die Ergebnisse sind in \autoref{table:1} eingetragen. Die Strom- und Drehrichtung wurden beobachtet, woraus sich die Magnetfeldrichtung erschließt. Die Konfigurationen wurden dann mit \autoref{fig:Motor} verglichen und gematched. 
+Anhand der Stromrichtung und der Drehrichtung eines Elektromotors kann man auf die Ausrichtung des Magnetfeldes schließen, da auf die bewegten Ladungsträger (der Strom) die Lorentzkraft wirkt und die Batterie zum Drehen bringt. Das Vorzeichen der Ladungsträger spielt keine Rolle, da sich dann neben dem Vorzeichen von \( q \) auch die Flussrichtung ändern würde, was sich wegkürzt. Man kann mit diesem Experiment also nicht herausfinden, welches Vorzeichen die Ladungsträger des elektrischen Stromes haben. Der Versuch wurde viermal durchgeführt und die Ergebnisse sind in \autoref{table:1} eingetragen. Die Strom- und Drehrichtung wurden beobachtet, woraus sich die Magnetfeldrichtung erschließt. Die Konfigurationen wurden dann mit \autoref{fig:Motor} verglichen und gematched. 
 
 \begin{center}
 	\captionof{table}{Stromrichtung, Drehrichtung und daraus erschlossene Magnetfeldrichtung für die vier Konfigurationen.}
@@ -82,10 +80,8 @@ Aus \autoref{eqn:last} erwarten uns, dass die Magnetfeldstärke proportional zum
 	\label{fig:BFit}
 \end{figure}
 
-Für die Steigung der Gerade erhält man einen Wert von \( k = 173.3(1.5) \unit{\micro\tesla\cm} \), woraus sich mit \autoref{eqn:last} ein Strom von \( I = 8.67(7) \unit{A} \) ergibt.
+Für die Steigung der Gerade erhält man einen Wert von \( k = 173.3(1.5) \unit{\micro\tesla\cm} \), woraus sich mit \autoref{eqn:last} ein Strom von \( I = 8.65(7) \unit{A} \) ergibt.
 
 Nimmt man für die Batterie eine Spannung von \( U = 1.5(1) \unit{V} \) und einen Innenwiderstand von \( R_{\text{Batt}} = 0.15 \unit{\ohm} \) und für das Kabel einen Leitwiderstand von \( R_{\text{lw}} = 40.1 \unit{\ohm/km} \) an, kann man sich mithilfe des Ohmschen Gesetzes \( I = U/R \) den fließenden Strom berechnen. Setzt man hier Werte ein erhält man \( I_{\text{calc}} = 5.6(4) \unit{A} \).
 
-Unser Wert weicht also deutlich vom theoretischen Wert ab, was an mehreren Sachen liegen kann. Einerseits entlädt sich die Batterie bei einem Kurzschluss rapide, wodurch sich die Spannung und damit der fließende Strom reduziert. Um den Strom zeitlich konstant zu halten, müsse man eine andere Spannungsquelle verwenden, die direkt am Stromnetz hängt und sich daher nicht entlädt. Zweitens wurde der Versuch in einem Gebäude voller metallischer Gegenstände durchgeführt, welche das vom Leiter erzeugt Magnetfeld verzerren. Um dieses Problem zu beheben, müsste man den Versuch an einem Ort durchführen, der möglichst Metallfrei ist. 
-
-In der Berechnung vom Strom ist die größte Fehlerquelle die Messung des Magnetfeldes, da die Ausschläge nur sehr kurz sind und die Werte im Peak streuen. Das Problem könnte man mit einer kontinuierlichen und vor allem konstanten Stromquelle beheben, dann müsste man den Stromfluss gar nicht mehr unterbrechen, sonder könnte bei fließendem Strom den Abstand des IOLabs erhöhen.
+In der Berechnung vom Strom ist die größte Fehlerquelle die Messung des Magnetfeldes, da die Ausschläge nur sehr kurz sind und die Werte im Peak streuen. Die Unsicherheit kann man reduzieren, indem man Strom für einen längeren Zeitraum fließen lässt. Weitere systematische Fehler kommen wieder aus der nicht optimalen Umgebung, welche das erzeugte Magnetfeld von Kabel stört. 
